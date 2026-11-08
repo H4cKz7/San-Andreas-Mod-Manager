@@ -23,6 +23,7 @@ window.__idb=async(m,key,v)=>{const k='samm-h-'+key;
 window.__native={
  userData:ipcRenderer.sendSync('user-data'),
  win:c=>ipcRenderer.send('win',c),
+ setTheme:t=>ipcRenderer.send('theme',t),
  isMax:()=>ipcRenderer.invoke('win-ismax'),
  onWinState:cb=>ipcRenderer.on('win-state',(e,m)=>cb(m)),
  saveFile:(name,data)=>ipcRenderer.invoke('save-file',name,data),

@@ -5,6 +5,8 @@ ipcMain.on('user-data',e=>{e.returnValue=app.getPath('userData')});
 ipcMain.on('win',(e,c)=>{const w=BrowserWindow.fromWebContents(e.sender);if(!w)return;if(c==='min')w.minimize();else if(c==='max')w.isMaximized()?w.unmaximize():w.maximize();else if(c==='close')w.close()});
 ipcMain.handle('win-ismax',e=>{const w=BrowserWindow.fromWebContents(e.sender);return !!w&&w.isMaximized()});
 
+ipcMain.on('theme',(e,t)=>{const w=BrowserWindow.fromWebContents(e.sender);if(w)w.setBackgroundColor(t==='light'?'#eef0ec':'#101311')});
+
 ipcMain.handle('pick-folder',async()=>{
   const r=await dialog.showOpenDialog({title:'Select your GTA San Andreas folder',properties:['openDirectory']});
   return r.canceled?null:r.filePaths[0];
@@ -28,7 +30,7 @@ ipcMain.handle('save-shortcut',async(e,name,opts)=>{
 app.whenReady().then(()=>{
   Menu.setApplicationMenu(null);
   const win=new BrowserWindow({width:1320,height:860,minWidth:760,minHeight:520,title:'SA Mod Manager',
-    icon:path.join(__dirname,'build','icon.png'),backgroundColor:'#181c19',frame:false,show:false,
+    icon:path.join(__dirname,'build','icon.png'),backgroundColor:'#101311',frame:false,show:false,
     webPreferences:{nodeIntegration:true,contextIsolation:false,spellcheck:false}});
   win.once('ready-to-show',()=>win.show());
   win.on('maximize',()=>win.webContents.send('win-state',true));
