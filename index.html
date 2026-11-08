@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SA Mod Manager</title>
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAKy0lEQVR42uWb229cVxWHv7X2OXP1fZw4TlO3TduYq+iFOxSaQgEhtVRFgHgBxF8Afe0zEk8IqU9IvFRIiAdU0T4gbiophYoKAUWIIjfUbdTEudnxbWzPnMtePJwzk7FjOzPT2KRmS+dlbI/P79trrb3W2nsL2w8BFEgBho8O32PePQo8CDYNcggIublGDHYZZAY4JZo+tzy3/Er+Mwd4wLYTunVo/ssMT9QeMrUnMD4rIkUAM+NmHiKZJDNrIvxOvPxg+eLC81u17QTAAenw8PCIVYIfCnwTAfNGbg3S8dyMwzoeJypgYPC0rCffWV5eXmpp3A6AA9LBo7VpMf+MiL7HvLXMxvHOHCkgoqJm/lUTfXx1bmGmE4J0msbg0fETYv6UiEyat/gm9PO+44OohGZ23kQfXJ2bf62luW3So6Ojg2mJl0V02swSIOBgjUREAjM/4xp8ZHFxcRUwbZFIS/KUqJs2sxgk2OzuB+IJzCwWddNpSZ7Kg6EKwMDk+ANO+MMBnfltLSE1PlU/P/+iAjizJ0UwATlw837tIyKYM3sSQEaPjb7fe/1rPvPC/8cwIFH196t5eVxEwq0JwgEfXkRC8/K4eji5S1Z4UIeQzfhJFZjO09t9ByAqiP5PuIuZITAdgNb21QIkE26pEddjMAiqIeIkS7lt/ywApBYg+5fticuFrzZx5ZBjj5xAnHD+N7PEK02CgQISZL+zTyOU4VvGbb+EJ2sRQSXk8Kdu49bH3sXQdA0QVk8v8NYvZrj4wpsk9SgD4fYHhIzsIYDthB977F0MTY/j45R0I8mqsHKAhq4N4tILb2Z/U917EHsCoCvheSxo9xj8ZhBn98kiZOTYjQMgmgWypB4RVEMOP7C78Guyk+1APNsBomUR3m4kgEO2JzP+pemuhUselC1fAnYGceaGu8bbArBZeIHDD0xx7LHNwkVBRHdtYTXTCBUhlIDUe/KuFpb3dvYSRF8A2qbemvEHbsuF1/Cxv2bGY5+0Z/ealo15pipHaPqYy/EilWK53Xf0Udq9RWh/rtE7AIF0I0ELLl/OdhbeGuPFUZzoJgSKsJE2eHjiE3z91i/SSCO+/8qP+MPsy1TCMiZG6XD1ujHirWdnuHTqTdJmiisHPSdSMnJr9wBEhDRKGfvQJHd9614G7xwjjRLSjRhkc1rrRFmJ13jk6Em+c/c3WPMb6JZkU0QoS4kkTQmc46UXXuITn/80Q8NDNFcavPu7H+P2r72XeLmJONkCwnClAFcKqc8u8p+n/87Cy3O40PXUuQ56y38NMaN63xhRKWH90grFgTIaOizdXEx6M0INmF17i19f/COp+WvExz7ho2MfYKKYZeNz4TxHPnecoeoQSRQzdKKWuYFem8dK4CCF9YurNAsx1fvHuPLnuewde7GA0R4sAAGLPBPfnqY4NQCxMXBoiKHDIxTKRcwsA5FHMUGIfETk4zwQ2qbIH/mYuwZu46vHvkA9Wedn535JXEhx4jDJYoBvplerFDNEFVEh2ohYvbREfX4ZCyA6t8GFH/8bCbUnN5DRWw/3DGDkM7cw+ulJcEKyHqOqVGuDW0BYFg+Q9mbFdstf0zdppBEAFVdCTbL3NxAlg7lV+OUl6vMreO8JKiHmjeUXL7D427N9AJg63HPotMhTmKww9PEJBt43hhSVZCNGRamODe5oETtB0Pzn3mzzarGd8Cu58HKIRZ61fy2y/NIFonPrSEF7XwX6AYAIFqVYahSnBhj68CEqd48gRcWnHg2U6mhvILaE++2FJynqHNb0rP9nmdW/XKJxpp71FQouTxz2A0ArCfJGshzjSo7al6cYvO8Q1sxqeu/7ALGjcI+qZi5VFOr/mGf+52dI11OC4bDdX+hLR18u4A1reNxgwMAHawx98hDBaAFL8oZGIuAVvHUH4nrCVUA9BHlcCYRkKWblT5ep/2WBZCVGS9pXd6l3AAZaclTvHWXwo+MUJstY7LHYrkZryVus1wORZ25dCe9cRCyDIAUlvthg9c/z1P92Bb+R9tzXkrHbJnpeBQYfnmDkoUmcE3zkwVtrj+XaBXtXEKOIwMqlLoVvTjRABS0o3htLpy6w8qsLWSDsYUp73gUSFZIoZemvlwmHCpQnKwQDYbYNndrmGbAcQsHAp5AI6h14Y/XSEutL9aweiBLUOTRwuXB/Vbhda4HiJFuC12Lqb6wTL0ckzXRTtrhnALAsi9OKI1psEi01KY6VKE2UewOhQTtwaRh0L1wgWYtpXNigeaWRVYsDQRZO+oiDvblA60UqjsLdA4S3V7Klr5FVbdcFsZ1rwO6m3im8HtO4tEG00MAMtJwtifGZdaLTdWxtr2NA6+XTLNPT4fAqiEDwTY+oUBgtdgfieqC3Cr/SzP5vSbPu8puZcL8Ut92i52pw7PaJPrKHFogsKErFUbpnhHCqjOVw+gaxk3CffacEQnx2g8bfl7C1NAt6bge36S4G9LkfkhqWGDoYEE5VcKOF9gtIkM1Ec6FBtNjsDsRuwp20vxMDN1KgcEeV+Mw6fi3NWmp97jDJ2O1HeueWGFJSwuNVCndW0cEgS4I6sjGzXGQueEeLYHfhre/YVFDlQHw9JXq9Tjy7hm34nov7bG+oFwAClhjBVJnyPSPoQJCVq6ntOAPXBUEPwrfmAU7QosOvJWy8skRyZuOqpXTtAtJ7HuArQmOpQRiFBNUQgp37ce1ze9gW12hQGCuBSBbVt5i6ILt6pwRZwhNfaRKvx/hqR0dK9jIPyHP3pB6TLEUEAyHhSJGgErTrhK5BzDfaLtC18Fxkup4QLTVJ12LMCWLWVzjrD8BSipQdFJRkPSZZiwmqPYKQHEQrAPYjXEAKisQGi2l/QbB2Rx9BMAUKgoyHMB5CKFji21vd3YDoxeW2FR4oxAYLMTYfQ9P6Os4ptTsm+8sDfB6IioqMB1C7sSC6E55A0+fFU5+pcO345NvYVukAUVAYD5C3CeJ6wm0hhoW3L/zGANgBRD8W0dWM30Dh7f87fiMA7GIR1wPRDiu7CGcPhO8NgF5AVEIKY0UAosX9F94JINrTc0KW1Q0UFWqbQbS3xc2yfn5scCWGVnBzsrdHt4w4MGFBRI7kDXnZE2sIBRLgfD6rtRCpBdnngMTAxc4ZB3rc4OhZuiCGLQSYzIjIEcua6rJnViD5TmQCnI8yEx8Ps887l7OOqm8v514QMWNGRfl9+4DGXo+tIOYiOBdlph9cLYD2YVi2jc/vNfX6TH47RNmv0Qlif4W3hpq3OPX6jC7Onv2nCc+LUxDSfT27vrXDtD9PKk4x4fnF2bP/1KxAse8JJgL2f3BfwAQTEfsegPIV3Pzp8y96bz9RpwFGzEEdRqxOA+/tJ/Onz7/IV3BXL00dPz4YaPNlUZ221CfIAbs6YyTiNDDvZxJf/Mji7OwqucWTB0A/fsfRExLI1WtzckCuzVnHtbnEHpx/Y659ba4V+T3g5t+Ye82rnTTsVQ20dYskfQdLTwGvgYaGverVTubiW3eJN7UQDHAbC6uXw4Gxn4pLJ1XlXhHV/OBBuiVu35xznT3ZlThVFUG82dNxM/jq4utnz7HL1Vk63QGgduKWhxR5AuyzIlqkdYTlZr0/La3WmmDmmyC/89gPFl471/Xl6c7P29fnD9199B4RfdQsvz5vHLrp4oMRI1wGmRHhlJl/7vLpuVdaOwnscH3+vwqv9E2qav7LAAAAAElFTkSuQmCC">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef0ec;--panel:#fff;--panel2:#f5f6f3;--line:#dcdfd8;--tx:#1b1f1a;--mut:#6b7268;--acc:#2f9e44;--accbg:#e1f3e4;--warn:#d9822b;--bad:#c94a3d;--ink:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101311;--panel:#181c19;--panel2:#1e231f;--line:#2a312b;--tx:#e6eae4;--mut:#8b948a;--acc:#4cc468;--accbg:#18301e;--warn:#e8963f;--bad:#e5695c;--ink:#07120a}}
+:root[data-theme="dark"]{--bg:#101311;--panel:#181c19;--panel2:#1e231f;--line:#2a312b;--tx:#e6eae4;--mut:#8b948a;--acc:#4cc468;--accbg:#18301e;--warn:#e8963f;--bad:#e5695c;--ink:#07120a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 Archivo,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,select{font:inherit;color:inherit}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;padding:10px 22px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:calc(40px + env(safe-area-inset-top,0px));z-index:5}
+.hl,.hr{display:flex;align-items:center;gap:10px;min-width:0}
+.hr{gap:8px}
+header .btn{height:34px;padding:0 13px;white-space:nowrap}
+header .btn.icon{width:34px;padding:0}
+.vsep{width:1px;height:20px;background:var(--line);margin:0 4px}
+@media(max-width:1560px){header{flex-wrap:wrap}.hl,.hr{flex-wrap:wrap}}
+.ddm.right{left:auto;right:0;min-width:210px}
+.ddi.danger{color:var(--bad)}
+.titlebar{position:sticky;top:0;z-index:30;height:40px;display:flex;align-items:center;gap:9px;padding:0 0 0 14px;background:var(--panel);border-bottom:1px solid var(--line);-webkit-app-region:drag;user-select:none;font-size:13px}
+.tb-ic{width:20px;height:20px;border-radius:5px}.tb-t{font-weight:700}.tb-s{color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-s:not(:empty)::before{content:"·";margin-right:9px}
+.logo{font-weight:700;font-size:18px;letter-spacing:-.01em;white-space:nowrap}
+.logo span{color:var(--acc)}
+.btn{border:1px solid var(--line);background:var(--panel2);padding:7px 13px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.btn:disabled{opacity:.45;cursor:default;pointer-events:none}
+.btn.pri.del{background:var(--bad);border-color:var(--bad);color:#fff}
+.btn:hover{border-color:var(--acc)}
+.btn.pri{background:var(--acc);color:var(--ink);border-color:var(--acc);font-weight:600}
+.btn.sm{padding:3px 9px;font-size:12px}
+.btn.del:hover{border-color:var(--bad);color:var(--bad)}
+select,input[type=text],input[type=search]{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 10px;outline:none}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+main{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;padding:20px 22px;max-width:1400px;margin:0 auto}
+@media(max-width:960px){main{grid-template-columns:1fr}}
+.bar{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.bar input{flex:1;min-width:160px}
+.stats{color:var(--mut);font-size:13px}
+.mod{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;overflow:hidden}
+.mod.off{opacity:.55}
+.row{display:grid;grid-template-columns:auto minmax(0,1fr) 170px auto;gap:14px;align-items:center;padding:11px 14px}
+@media(max-width:620px){.row{grid-template-columns:auto 1fr auto}.row .pr{grid-column:1/-1;order:5}}
+.name{font-weight:600;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{color:var(--mut);font-size:12px;display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+.tag{padding:0 7px;border-radius:99px;background:var(--panel2);border:1px solid var(--line)}
+.tag.st{background:var(--accbg);border-color:transparent;color:var(--acc)}
+.tag.warn{color:var(--warn)}.tag.bad{color:var(--bad)}
+.sw{width:38px;height:22px;border-radius:99px;background:var(--line);position:relative;cursor:pointer;border:0;padding:0;flex:none;transition:background .15s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .15s}
+.sw.on{background:var(--acc)}.sw.on::after{transform:translateX(16px)}
+.pr{display:flex;gap:8px;align-items:center}
+.pr input[type=range]{-webkit-appearance:none;appearance:none;flex:1;min-width:0;height:22px;background:transparent;cursor:pointer;--p:0%;outline:none}
+.pr input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:99px;background:linear-gradient(to right,var(--acc) var(--p),var(--line) var(--p))}
+.pr input[type=range]::-moz-range-track{height:6px;border-radius:99px;background:var(--line)}
+.pr input[type=range]::-moz-range-progress{height:6px;border-radius:99px;background:var(--acc)}
+.pr input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;margin-top:-5px;border-radius:50%;background:var(--panel);border:2px solid var(--acc);box-shadow:0 1px 4px rgba(0,0,0,.3);transition:transform .12s,box-shadow .12s}
+.pr input[type=range]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--panel);border:2px solid var(--acc);box-shadow:0 1px 4px rgba(0,0,0,.3);transition:transform .12s}
+.pr input[type=range]:hover::-webkit-slider-thumb{transform:scale(1.15)}.pr input[type=range]:active::-webkit-slider-thumb{transform:scale(1.28)}
+.pr input[type=range]:hover::-moz-range-thumb{transform:scale(1.15)}.pr input[type=range]:active::-moz-range-thumb{transform:scale(1.28)}
+.pr input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 30%,transparent)}
+.pr input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 30%,transparent)}
+.pr output{width:26px;text-align:right;font-variant-numeric:tabular-nums;color:var(--mut)}
+.star{background:none;border:1px solid var(--line);border-radius:8px;width:32px;height:30px;cursor:pointer;color:var(--mut);font-size:15px}
+.star.on{color:var(--warn);border-color:var(--warn);background:var(--panel2)}
+.files{display:grid;grid-template-rows:0fr;background:var(--panel2);border-top:1px solid transparent}
+.files>.fi{overflow:hidden;min-height:0;padding:0 14px}
+.mod.open .files{grid-template-rows:1fr;border-top-color:var(--line)}
+.mod.open .files>.fi{padding:8px 14px 10px}
+.f{display:flex;align-items:center;gap:10px;padding:3px 0;font:12px "JetBrains Mono",ui-monospace,monospace}
+.f.ign span{text-decoration:line-through;color:var(--mut)}
+.f span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.f button{border:1px solid var(--line);background:var(--panel);border-radius:6px;font-size:11px;padding:1px 8px;cursor:pointer}
+.side{display:flex;flex-direction:column;gap:16px;align-self:start;position:sticky;top:76px;max-height:calc(100vh - 92px);overflow-y:auto;overscroll-behavior:contain;padding-right:4px;scrollbar-gutter:stable}
+@media(max-width:960px){.side{position:static;max-height:none;overflow:visible;padding-right:0}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+.card h3{margin:0 0 4px;font-size:15px}
+.card p{margin:0 0 10px;color:var(--mut);font-size:12.5px}
+pre{margin:0;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px;font:12px/1.5 "JetBrains Mono",ui-monospace,monospace;max-height:340px;overflow:auto;white-space:pre}
+.add{display:flex;gap:6px;margin-bottom:8px}.add input{flex:1;min-width:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;gap:6px;align-items:center;font:12px "JetBrains Mono",monospace;background:var(--panel2);border:1px solid var(--line);padding:1px 4px 1px 8px;border-radius:99px}
+.chip button{border:0;background:none;cursor:pointer;color:var(--mut)}
+.empty{text-align:center;color:var(--mut);padding:40px 10px;border:1px dashed var(--line);border-radius:12px}
+dialog{background:var(--panel);color:var(--tx);border:1px solid var(--line);border-radius:14px;padding:20px;width:min(520px,92vw)}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+dialog h2{margin:0 0 12px;font-size:17px}
+.drop{border:1.5px dashed var(--line);border-radius:12px;padding:26px 12px;text-align:center;color:var(--mut);transition:.15s}
+.drop.hov{border-color:var(--acc);background:var(--accbg);color:var(--acc)}
+.drop .btn{margin:8px 4px 0}
+.plist{max-height:150px;overflow:auto;margin:10px 0;font:12px "JetBrains Mono",monospace;color:var(--mut)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:8px 16px;border-radius:99px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+.toast.show{opacity:1}
+.pf{display:flex;align-items:center;gap:8px;color:var(--mut);font-size:13px}
+*{scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--mut) 50%,transparent) transparent}
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track,::-webkit-scrollbar-corner{background:transparent}
+::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--mut) 45%,transparent);border-radius:99px;border:3px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:var(--acc);background-clip:padding-box}
+.dd{position:relative}
+.ddb{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:190px;padding:7px 12px 7px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);font-weight:600;cursor:pointer}
+.ddb:hover,.ddb[aria-expanded=true]{border-color:var(--acc)}
+.ddb svg{color:var(--mut);transition:transform .15s}
+.ddb[aria-expanded=true] svg{transform:rotate(180deg)}
+.ddm{position:absolute;top:calc(100% + 8px);left:0;min-width:100%;width:max-content;max-width:min(340px,86vw);max-height:320px;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 18px 44px rgba(0,0,0,.28);z-index:30}
+.ddm[hidden]{display:none}
+.ddg{padding:8px 10px 4px;font-size:12px;color:var(--mut)}
+.ddi{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;cursor:pointer}
+.ddi:hover,.ddi.hl{background:var(--panel2)}
+.ddi.sel{color:var(--acc);font-weight:600}
+.ddi .ck{flex:none;visibility:hidden}.ddi.sel .ck{visibility:visible}
+.ddi small{margin-left:auto;padding-left:14px;color:var(--mut);font-weight:400;font-size:12px;white-space:nowrap}
+.curp{min-width:112px;text-align:center;overflow:hidden;text-overflow:ellipsis;font:12px "JetBrains Mono",ui-monospace,monospace;padding:3px 10px;border-radius:99px;background:var(--accbg);color:var(--acc);white-space:nowrap}
+dialog.wide{width:min(1000px,96vw);height:min(760px,86vh);padding:16px}
+dialog.wide[open]{display:flex;flex-direction:column;gap:10px}
+.lh{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.lh h2{margin:0}
+.ltool{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.ltool input{flex:1;min-width:140px}
+.seg{display:flex;gap:4px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:3px}
+.seg button{border:0;background:none;padding:4px 10px;border-radius:7px;cursor:pointer;color:var(--mut)}
+.seg button.on{background:var(--panel);color:var(--tx);box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.lbody{flex:1;overflow:auto;border:1px solid var(--line);border-radius:10px;background:var(--panel2);font:12.5px/1.5 "JetBrains Mono",ui-monospace,monospace}
+.lr{display:grid;grid-template-columns:70px 52px 1fr;gap:10px;padding:5px 12px;border-bottom:1px solid var(--line);border-left:3px solid transparent}
+.lr.error{border-left-color:var(--bad);background:color-mix(in srgb,var(--bad) 8%,transparent)}
+.lr.warn{border-left-color:var(--warn);background:color-mix(in srgb,var(--warn) 8%,transparent)}
+.lr .lt{color:var(--mut)}.lv{font-weight:600;font-size:11.5px}
+.error .lv{color:var(--bad)}.warn .lv{color:var(--warn)}.info .lv{color:var(--acc)}.debug .lv{color:var(--mut)}
+.lm{min-width:0;overflow-wrap:anywhere}.lx{color:var(--mut);white-space:pre-wrap;margin-top:2px}
+.lf{color:var(--acc)}.lq{color:var(--warn)}.lh2{color:var(--mut)}
+.lmod{border:0;background:var(--accbg);color:var(--acc);border-radius:5px;padding:0 5px;cursor:pointer;font:inherit}
+.fh{display:flex;gap:6px;margin-bottom:6px}
+.tr{display:flex;align-items:center;gap:7px;padding:3px 6px 3px calc(6px + var(--d)*18px);font:12px "JetBrains Mono",ui-monospace,monospace;border-radius:6px;background:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 18px) 14px 0/calc(var(--d)*18px) 100% no-repeat}
+.tr:hover{background-color:var(--panel)}
+.tr.dir{cursor:pointer;font-weight:500}
+.tr svg{flex:none;width:14px;height:14px}
+.tr svg.fo{color:var(--warn)}.tr svg.fi{color:var(--mut)}
+.tr svg.cv{width:10px;height:10px;fill:none;stroke:var(--mut);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .18s ease}
+.tr.dir.open svg.cv{transform:rotate(90deg)}
+.tr .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tr small{color:var(--mut);font-weight:400}
+.tr.ign .nm{text-decoration:line-through;color:var(--mut)}
+.tr button{border:1px solid var(--line);background:var(--panel);border-radius:6px;font:11px inherit;padding:1px 8px;cursor:pointer}
+.tr.root{font-weight:600}
+#exsel[hidden],#exnote[hidden]{display:none}
+input[type=checkbox]{appearance:none;-webkit-appearance:none;position:relative;flex:none;width:18px;height:18px;margin:0;border:1.5px solid var(--line);border-radius:6px;background:var(--panel2);cursor:pointer;transition:background .12s,border-color .12s}
+input[type=checkbox]:hover{border-color:var(--acc)}
+input[type=checkbox]:checked{border-color:var(--acc);background:var(--acc) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.5 5 9l4.5-5' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/13px no-repeat}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) input[type=checkbox]:checked{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.5 5 9l4.5-5' fill='none' stroke='%23061008' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}}
+:root[data-theme="dark"] input[type=checkbox]:checked{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.5 5 9l4.5-5' fill='none' stroke='%23061008' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+#plim{flex:1;min-width:0;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 10px;outline:none}
+.cb{font-size:11px;font-weight:600;padding:0 7px;border-radius:99px;background:var(--accbg);color:var(--acc)}
+.lr.sec{background:var(--panel);border-top:1px solid var(--line);font-weight:600}
+.hc{background:var(--accbg);color:var(--acc);border-radius:99px;padding:0 8px;font-size:11.5px;margin-left:8px;white-space:nowrap}
+.pr output{min-width:30px;width:auto;cursor:text}.pr output:hover{color:var(--acc)}
+.pedit{width:64px;padding:2px 6px;border:1px solid var(--acc);border-radius:6px;background:var(--panel2);outline:none;text-align:right}
+input[type=number]{-moz-appearance:textfield;appearance:textfield}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.step{display:flex;flex:1;min-width:0;border:1px solid var(--line);border-radius:8px;background:var(--panel2);overflow:hidden}
+.step button{border:0;background:none;width:30px;cursor:pointer;color:var(--mut);font-size:16px;line-height:1}
+.step button:hover{color:var(--acc);background:var(--panel)}
+.step #plim{flex:1;min-width:0;border:0;border-radius:0;background:none;text-align:center;padding:6px 4px}
+.cutlist{max-height:170px;overflow:auto;border:1px solid var(--line);border-radius:10px;background:var(--panel2);margin-top:8px}
+.cutrow{display:flex;gap:8px;align-items:center;padding:4px 10px}
+.cutrow .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cutrow input[type=number]{width:64px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:3px 6px;outline:none}
+#cutpsel,#cutexe{margin-top:0;width:100%}
+#cutd label.f{display:block;margin:12px 0 4px}
+.fold>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary::after{content:"";margin-left:auto;width:8px;height:8px;border-right:1.6px solid var(--mut);border-bottom:1.6px solid var(--mut);transform:rotate(45deg) translateY(-2px);transition:transform .15s}
+.fold[open]>summary::after{transform:rotate(-135deg) translateY(-2px)}
+.fold>summary .cnt{font-size:12px;font-weight:600;padding:0 8px;border-radius:99px;background:var(--panel2);border:1px solid var(--line);color:var(--mut)}
+.fold[open]>summary{margin-bottom:8px}
+#ddt,#iddt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:150px}
+.ddb{width:184px}
+.hp{flex:1}.hp #newProf{margin-left:auto}
+.ddi .nmx{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ddi small{max-width:170px;overflow:hidden;text-overflow:ellipsis}
+.ddi .x{margin-left:6px;border:0;background:none;color:var(--mut);cursor:pointer;opacity:0;font-size:16px;line-height:1;padding:0 2px}
+.ddi:hover .x{opacity:1}.ddi .x:hover{color:var(--bad)}
+.ddsep{height:1px;background:var(--line);margin:6px 4px}.ddi.add{color:var(--acc);font-weight:600}
+.side{top:calc(var(--hh,62px) + 14px)!important;max-height:calc(100vh - var(--hh,62px) - 28px)!important}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes drop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:no-preference){
+ .btn,.ddb,.star,.card,.tag,.chip{transition:border-color .15s,background-color .15s,color .15s,transform .1s,opacity .2s}
+ .btn:active{transform:scale(.97)}
+ .mod{transition:opacity .25s,border-color .15s}
+ .anim .mod{animation:rise .3s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--n,0)*20ms)}
+ dialog[open]{animation:pop .2s ease}
+ dialog[open]::backdrop{animation:fadeIn .2s ease}
+ .ddm:not([hidden]){animation:drop .14s ease}
+ .fold[open]>:not(summary){animation:fadeIn .22s ease}
+ .tr button,.lmod{transition:background-color .15s,color .15s}
+}
+@keyframes rowIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+.tr{max-height:44px}
+@media (prefers-reduced-motion:no-preference){
+ .files{transition:grid-template-rows .32s cubic-bezier(.3,.7,.2,1),border-color .32s}
+ .files>.fi{transition:padding .32s cubic-bezier(.3,.7,.2,1)}
+ .files>.fi>*{transition:opacity .24s ease}
+ .mod:not(.open) .files>.fi>*{opacity:0}
+ .tr.rin{animation:rowIn .26s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--k,0)*16ms)}
+ .tr.rout{opacity:0;transform:translateX(-8px);max-height:0;padding-top:0;padding-bottom:0;overflow:hidden;transition:opacity .15s ease,transform .15s ease,max-height .2s ease .05s,padding .2s ease .05s}
+ .swap .tr{animation:fadeIn .24s ease both}
+}
+.kids{display:grid;grid-template-rows:0fr}.kids>.ki{overflow:hidden;min-height:0}.kids.open{grid-template-rows:1fr}
+.fh .tq{flex:1;min-width:120px;height:30px;font-size:13px;padding:4px 10px}
+@media (prefers-reduced-motion:no-preference){.kids{transition:grid-template-rows .26s cubic-bezier(.3,.7,.2,1)}.kids>.ki>*{transition:opacity .2s ease}.kids:not(.open)>.ki>*{opacity:0}.tb.swap .tr{animation:fadeIn .22s ease both}}
+dialog.ed{width:min(1240px,96vw);height:min(820px,90vh);padding:0;overflow:hidden}
+dialog.ed[open]{display:flex;flex-direction:column}
+.ed-top{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}.ed-top h2{margin:0;font-size:16px}
+.ed-body{flex:1;display:grid;grid-template-columns:320px 1fr;min-height:0}
+.ed-l{border-right:1px solid var(--line);display:flex;flex-direction:column;gap:8px;padding:12px;min-height:0}
+.ed-list{flex:1;overflow:auto;margin:0 -4px}
+.edg{display:flex;align-items:center;gap:7px;padding:6px;cursor:pointer;font-size:12.5px;color:var(--mut);border-radius:6px}.edg:hover{background:var(--panel2)}
+.edg .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.edg svg.cv{width:10px;height:10px;fill:none;stroke:var(--mut);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .18s}.edg.open svg.cv{transform:rotate(90deg)}
+.edr{display:flex;align-items:center;gap:8px;padding:5px 8px 5px 24px;border-radius:6px;cursor:pointer;font-size:13px}.edr:hover{background:var(--panel2)}.edr.sel{background:var(--accbg);color:var(--acc)}
+.edr .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.edr small,.edg small{color:var(--mut)}
+.ext{font:600 10px "JetBrains Mono",monospace;padding:1px 5px;border-radius:5px;background:var(--panel2);border:1px solid var(--line);color:var(--mut)}.ext.json{color:var(--warn)}.ext.ini{color:var(--acc)}
+.bkd{width:7px;height:7px;border-radius:50%;background:var(--acc);display:inline-block;flex:none}
+.ed-r{min-width:0;min-height:0;display:flex;flex-direction:column;padding:12px 16px}
+.edh{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.edp{flex:1;min-width:0;font:13px "JetBrains Mono",monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.edp.dirty::after{content:" ●";color:var(--warn)}
+.edt{display:flex;gap:8px;align-items:center}
+.edbody{flex:1;overflow:auto;min-height:0}
+.edn{padding:8px 12px;border-radius:8px;background:var(--panel2);border:1px solid var(--line);margin-bottom:8px;font-size:13px;color:var(--warn)}.edn.bad{color:var(--bad)}
+#edraw{width:100%;height:100%;min-height:300px;resize:none;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--tx);padding:12px;font:12.5px/1.55 "JetBrains Mono",monospace;outline:none;tab-size:2;white-space:pre}
+.edsec{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:var(--panel2);overflow:hidden}
+.sh{display:flex;align-items:center;gap:8px;padding:8px 14px;font-weight:600;border-bottom:1px solid var(--line);background:var(--panel)}.sh small{color:var(--mut);font-weight:400}
+.kv{display:grid;grid-template-columns:minmax(120px,32%) minmax(0,1fr) minmax(0,36%) 22px;gap:12px;align-items:center;padding:6px 14px}.kv:hover{background:color-mix(in srgb,var(--panel) 60%,transparent)}
+.kv .k,.jk{font:12.5px "JetBrains Mono",monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kv .v,.jl .v{display:flex;align-items:center;gap:8px;min-width:0}.kv .v input,.jl .v input{flex:1;min-width:0}
+.kv .cm{color:var(--mut);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bv{font:12px "JetBrains Mono",monospace;color:var(--mut)}
+.x{border:0;background:none;color:var(--mut);cursor:pointer;font-size:16px;opacity:0;line-height:1;padding:0}.kv:hover .x,.jl:hover .x,.jn>summary:hover .x{opacity:1}.x:hover{color:var(--bad)}
+.note{padding:6px 14px;color:var(--mut);font-size:12px;font-style:italic}
+.addkv{display:flex;gap:8px;padding:8px 14px;border-top:1px dashed var(--line)}.addkv input{flex:1;min-width:0}
+details.jn{margin-left:14px;border-left:1px solid var(--line);padding-left:10px}details.jn>summary{cursor:pointer;display:flex;align-items:center;gap:8px;padding:4px 0;list-style:none}details.jn>summary::-webkit-details-marker{display:none}
+details.jn>summary small{color:var(--mut)}
+.jl{display:grid;grid-template-columns:minmax(100px,28%) minmax(0,1fr) 54px 20px;gap:10px;align-items:center;padding:3px 0 3px 14px}
+.jty{font-size:11px;color:var(--mut)}.jnull{color:var(--mut);font-style:italic}
+.jadd{display:flex;gap:8px;padding:6px 0 6px 14px}.jadd input{flex:1;min-width:0}.jv.bad{border-color:var(--bad)}
+.edaddsec{display:flex;gap:8px;margin-top:4px}.edaddsec input{flex:1}
+[hidden]{display:none!important}
+details.jn>summary::before{content:"";width:6px;height:6px;border-right:1.6px solid var(--mut);border-bottom:1.6px solid var(--mut);transform:rotate(-45deg);transition:transform .15s;margin-right:4px;flex:none}
+details.jn[open]>summary::before{transform:rotate(45deg)}
+.btn.pri.del:hover{background:color-mix(in srgb,var(--bad) 80%,#000);border-color:transparent;color:#fff}
+.toast.act{pointer-events:auto;display:flex;gap:14px;align-items:center;padding-right:8px}
+.toast button{border:0;border-radius:99px;background:var(--acc);color:var(--ink);font-weight:600;padding:3px 12px;cursor:pointer}
+details.about{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:var(--panel2);padding:8px 14px}
+details.about>summary{cursor:pointer;font-weight:600;font-size:13px;color:var(--mut)}
+details.about p{margin:6px 0 0;font-size:12.5px;color:var(--mut);overflow-wrap:anywhere}
+.kv{grid-template-columns:minmax(0,1fr) minmax(190px,330px) 22px!important;align-items:start!important}
+.kv .kl{min-width:0}.kv .kn{font:600 12.5px "JetBrains Mono",monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kv .kd{color:var(--mut);font-size:12px;line-height:1.4;margin-top:2px;overflow-wrap:anywhere}
+.kv .v{align-self:center}.kv .x{align-self:center}
+.kv.wide{grid-template-columns:minmax(0,1fr) 22px!important;grid-template-areas:"kl x" "v v"}.kv.wide .kl{grid-area:kl}.kv.wide .x{grid-area:x}.kv.wide .v{grid-area:v}
+.v.ids{display:block}.ids .cl{display:flex;flex-wrap:wrap;gap:6px;max-height:150px;overflow:auto;padding:2px 0}
+.ids .chip{font-size:12px}.ids .chip button{margin-left:4px}
+.cadd{display:flex;gap:10px;align-items:center;margin-top:8px}.cadd input{max-width:240px}.cadd small{color:var(--mut)}
+.kbd{font:600 11px "JetBrains Mono",monospace;padding:2px 7px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--tx);white-space:nowrap}
+.kv,.jl{content-visibility:auto;contain-intrinsic-size:auto 46px}
+.cdd{position:relative;display:inline-block}.cdd>.ddb{width:100%;height:36px;padding:0 10px 0 12px;font-weight:500;border-radius:8px}
+.cdd .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#sortsel{min-width:176px}#pvsel,#exsel,#cutpsel,#cutexe{display:block;width:100%}#bckey{flex:1;min-width:0}.jat{width:112px}
+.jat>.ddb{height:32px}
+.ddm .ddi.hl{background:var(--panel2)}
+#parbox{position:relative;flex:1;min-width:0}#parbox input{width:100%}
+.wc{margin-left:auto;display:flex;height:100%;-webkit-app-region:no-drag}
+.wb{width:48px;height:100%;border:0;background:transparent;color:var(--tx);display:flex;align-items:center;justify-content:center;cursor:default;padding:0;border-radius:0;transition:background-color .12s,color .12s}
+.wb:hover{background:var(--panel2)}.wb:active{background:var(--line)}
+.wb.close:hover{background:#e5484d;color:#fff}.wb.close:active{background:#c93b40;color:#fff}
+.wb svg{opacity:.85}.wb:hover svg{opacity:1}
+.mod{content-visibility:auto;contain-intrinsic-size:auto 66px}
+</style>
+</head>
+<body>
+<div class="titlebar"><img class="tb-ic" src="build/icon.png" alt=""><span class="tb-t">SA Mod Manager</span><span class="tb-s" id="tbs"></span><div class="wc"><button class="wb" id="wmin" aria-label="Minimize" title="Minimize"></button><button class="wb" id="wmax" aria-label="Maximize" title="Maximize"></button><button class="wb close" id="wclose" aria-label="Close" title="Close"></button></div></div>
+<header>
+  <div class="hl">
+    <div class="pf"><span>Game</span><div class="dd" id="idd"><button class="ddb" id="iddb" aria-haspopup="listbox" aria-expanded="false"><span id="iddt"></span><svg viewBox="0 0 12 12" width="12" height="12"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="ddm" id="iddm" role="listbox" hidden></div></div></div>
+    <div class="pf"><span>Profile</span><div class="dd" id="dd"><button class="ddb" id="ddb" aria-haspopup="listbox" aria-expanded="false"><span id="ddt"></span><svg viewBox="0 0 12 12" width="12" height="12"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="ddm" id="ddm" role="listbox" hidden></div></div><span class="curp" id="curp" title="$current is the Profile set in modloader.ini"></span></div>
+    <div class="dd" id="pmd"><button class="btn icon" id="pmb" title="Profile actions" aria-label="Profile actions" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="3.5" cy="8" r="1.3" fill="currentColor"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/><circle cx="12.5" cy="8" r="1.3" fill="currentColor"/></svg></button>
+      <div class="ddm right" id="pmm" hidden><div class="ddi" id="newProf">New profile…</div><div class="ddi" id="imp">Import profile…</div><div class="ddsep"></div><div class="ddi danger" id="delProf">Delete profile</div></div></div>
+    <button class="btn" id="setcur" title="Writes Profile = this profile into modloader.ini">Make current</button>
+  </div>
+  <div class="hr">
+    <button class="btn" id="scan">Scan GTA folder</button><button class="btn icon" id="rescan" disabled title="Rescan" aria-label="Rescan"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M13.5 2.5v3h-3"/></svg></button>
+    <span class="vsep"></span>
+    <button class="btn icon" id="logb" title="Modloader log" aria-label="Modloader log"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2h6l3 3v9H4z"/><path d="M10 2v3h3M6 8h5M6 11h5"/></svg></button><button class="btn icon" id="mkcut" disabled title="Create game shortcut" aria-label="Create game shortcut"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2h5v5"/><path d="M14 2 7.5 8.5"/><path d="M12 10v3.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-8A.5.5 0 0 1 3.5 5H7"/></svg></button><button class="btn" id="edbtn">Config editor</button>
+    <span class="vsep"></span>
+    <button class="btn icon" id="undo" disabled title="Undo (Ctrl+Z)" aria-label="Undo"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 3.8 2.6 6.7l2.9 2.9"/><path d="M3 6.7h5.6a3.6 3.6 0 0 1 0 7.2H6"/></svg></button><button class="btn icon" id="redo" disabled title="Redo (Ctrl+Y)" aria-label="Redo"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 3.8l2.9 2.9-2.9 2.9"/><path d="M13 6.7H7.4a3.6 3.6 0 0 0 0 7.2H10"/></svg></button><button class="btn" id="save" disabled>Save changes</button><button class="btn pri" id="inst">Install mod</button>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="bar"><input type="search" id="q" placeholder="Search mods or files"><div class="dd cdd" id="sortsel" aria-label="Sort mods"></div><span class="stats" id="stats"></span></div>
+    <div class="stats" id="src" style="margin:-4px 0 12px"></div>
+    <div id="list"></div>
+  </section>
+  <aside class="side">
+    <details class="card fold" id="pn-folder-config" open><summary><span>Folder.Config</span></summary><p>Global setting kept at the top of modloader.ini and shared by every profile.</p>
+      <div class="stats" style="margin-bottom:4px">PriorityLimit</div>
+      <div class="add"><div class="step"><button type="button" data-st="-1" aria-label="Decrease">−</button><input type="number" id="plim" min="1" placeholder="100 (default)"><button type="button" data-st="1" aria-label="Increase">+</button></div><button class="btn sm" id="plset">Set</button><button class="btn sm" id="plclr">Clear</button></div>
+      <div class="stats" id="plnote"></div></details>
+    <details class="card fold" id="pn-profile-settings" open><summary><span>Profile settings</span></summary><p>Options for the selected profile, saved in its Config section.</p>
+      <div class="stats" style="margin-bottom:4px">Parents</div>
+      <div class="add"><div class="dd" id="parbox"><input type="text" id="par" placeholder="Parent profile" autocomplete="off" role="combobox" aria-expanded="false"><div class="ddm" id="parm" hidden></div></div><button class="btn sm" id="padd">Add</button><button class="btn sm" id="pcur" title="$current: the profile selected right now">$current</button></div>
+      <div class="chips" id="parchips" style="margin-bottom:12px"></div>
+      <div class="stats" style="margin-bottom:4px">UseIfModule</div>
+      <div class="add"><input type="text" id="um" placeholder="e.g. SilentPatch.asi"><button class="btn sm" id="uset">Set</button><button class="btn sm" id="uclr">Clear</button></div>
+      <label class="stats" style="display:flex;gap:8px;align-items:center;margin:10px 0 6px"><input type="checkbox" id="ia">Ignore all mods (IgnoreAllMods)</label>
+      <label class="stats" style="display:flex;gap:8px;align-items:center;margin-bottom:6px"><input type="checkbox" id="ea">Exclude all mods except IncludeMods (ExcludeAllMods)</label>
+      <div class="stats" style="margin:10px 0 4px">IncludeMods</div>
+      <div class="add"><input type="text" id="inpat" placeholder="Mod name or wildcard"><button class="btn sm" id="inadd">Add</button></div>
+      <div class="chips" id="inchips"></div>
+      <p style="margin:10px 0 0">This profile is checked first, then its parents, and the first value found wins. $current is the profile selected right now. A mod marked exclusive is hidden from every profile except that one and the profiles that inherit from it. UseIfModule takes a single module name.</p></details>
+    <details class="card fold" id="pn-ignored-files" open><summary><span>Ignored files</span></summary><p>Patterns for the active profile. They are matched against each file’s path inside its mod, in every mod. Use <code>*</code> for a wildcard, e.g. <code>*.asi</code> or <code>sub/**</code>.</p>
+      <div class="add"><input type="text" id="ipat" placeholder="*.asi or sub/**"><button class="btn sm" id="iadd">Add</button></div>
+      <div class="chips" id="chips"></div></details>
+    <details class="card fold" id="pn-modloader-settings"><summary><span>Modloader settings</span></summary><p id="bcsrc"></p>
+      <label class="stats" style="display:flex;gap:8px;align-items:center;margin-bottom:6px"><input type="checkbox" data-bc="EnableMenu">Enable menu</label>
+      <label class="stats" style="display:flex;gap:8px;align-items:center;margin-bottom:6px"><input type="checkbox" data-bc="EnablePlugins">Enable plugins</label>
+      <label class="stats" style="display:flex;gap:8px;align-items:center;margin-bottom:6px"><input type="checkbox" data-bc="EnableLog">Write modloader.log</label>
+      <label class="stats" style="display:flex;gap:8px;align-items:center;margin-bottom:6px"><input type="checkbox" data-bc="ImmediateFlushLog">Flush the log immediately</label>
+      <label class="stats" style="display:flex;gap:8px;align-items:center;margin-bottom:10px"><input type="checkbox" data-bc="AutoRefresh">Refresh mods automatically</label>
+      <div class="add"><span class="stats" style="width:50%;align-self:center">Max log size (MiB)</span><input type="number" id="bcmls" min="0" step="1" style="flex:1;min-width:0;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 10px;outline:none"></div>
+      <div class="add" style="margin-bottom:0"><span class="stats" style="width:50%;align-self:center">Refresh key</span><div class="dd cdd" id="bckey" aria-label="Refresh key"></div></div></details>
+    <details class="card fold" id="plugd"><summary><span>Plugins</span><span class="cnt" id="plcnt">0</span></summary>
+      <p>DLLs in <code>.data/plugins</code>, with priorities saved to <code>plugins.ini</code>. Priority 0 disables a plugin and a blank value uses the default.</p><div id="plugs" style="max-height:220px;overflow:auto"></div></details>
+    <details class="card fold" id="pn-config-files" open><summary><span>Config files</span></summary><p>Live preview of what gets written. Profile files go in <code>modloader/.profiles/</code>, and modloader.ini sits in the modloader folder.</p>
+      <div class="dd cdd" id="pvsel" aria-label="File to preview" style="margin-bottom:8px"></div>
+      <div class="stats" id="pvpath" style="margin-bottom:6px;word-break:break-all"></div>
+      <pre id="ini"></pre>
+      <div style="display:flex;gap:8px;margin-top:10px"><button class="btn sm" id="copy">Copy</button><button class="btn sm" id="dl">Save .ini</button></div></details>
+  </aside>
+</main>
+
+<dialog id="dlg">
+  <h2>Install mod</h2>
+  <div class="drop" id="drop">Drop an extracted mod folder here<br><button class="btn sm" id="pf">Choose folder</button></div>
+  <input type="file" id="ff" webkitdirectory hidden>
+  <div class="plist" id="plist"></div>
+  <input type="text" id="mname" placeholder="Mod name" style="width:100%">
+  <label class="stats" style="display:flex;gap:8px;align-items:center;margin-top:10px"><input type="checkbox" id="inex">Install inside an existing mod folder</label>
+  <input type="search" id="exq" placeholder="Search mod folders" hidden style="width:100%;margin-top:8px">
+  <div class="dd cdd" id="exsel" hidden aria-label="Existing mod folder" style="margin-top:8px"></div>
+  <div class="stats" id="exnote" hidden style="margin-top:6px;word-break:break-all"></div>
+  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px"><button class="btn" id="cx">Cancel</button><button class="btn pri" id="ok" disabled>Install</button></div>
+</dialog>
+<dialog id="logd" class="wide">
+  <div class="lh"><h2>Modloader log</h2><span class="curp" id="lpill"></span>
+    <div style="margin-left:auto;display:flex;gap:8px"><button class="btn sm" id="lre">Reload</button><button class="btn sm" id="lopen">Open file…</button><button class="btn sm" id="lx">Close</button></div></div>
+  <div class="ltool"><div class="seg" id="lf"><button data-f="all" class="on"></button><button data-f="error"></button><button data-f="warn"></button><button data-f="info"></button><button data-f="debug"></button></div><input type="search" id="lq" placeholder="Search the log or click a mod name"></div>
+  <div class="lbody" id="lb"></div><input type="file" id="lfile" accept=".log,.txt" hidden>
+</dialog>
+<dialog id="cutd">
+  <h2>Create a game shortcut</h2>
+  <div class="stats" style="margin-bottom:4px">Launch</div>
+  <div class="seg" id="cutmode"><button data-m="prof" class="on">Use a profile</button><button data-m="mods">Only some mods</button><button data-m="none">No mods</button><button data-m="plain">Plain</button></div>
+  <div id="cutprof" style="margin-top:8px"><div class="dd cdd" id="cutpsel" aria-label="Profile"></div></div>
+  <div id="cutmods" hidden><div class="cutlist" id="cutlist"></div></div>
+  <label class="stats f">Executable</label><div class="dd cdd" id="cutexe" aria-label="Executable"></div>
+  <label class="stats f">Extra arguments (optional)</label><input type="text" id="cutextra" style="width:100%">
+  <label class="stats f">GTA folder path <span class="lh2">(needed for a .lnk)</span></label><input type="text" id="cutpath" placeholder="C:\Games\GTA San Andreas" style="width:100%"><div class="stats" id="cuthint" style="margin-top:4px"></div>
+  <label class="stats f">Shortcut name</label><input type="text" id="cutname" style="width:100%">
+  <div class="seg" id="cutfmt" style="margin-top:12px;width:max-content"><button data-f="lnk" class="on">Windows shortcut (.lnk)</button><button data-f="bat">Launcher (.bat)</button></div>
+  <pre id="cutprev" style="margin-top:10px;white-space:pre-wrap;word-break:break-all"></pre>
+  <div class="stats" id="cutnote" style="margin-top:6px"></div><div class="stats" id="cutwarn" style="min-height:18px;color:var(--warn)"></div>
+  <div style="display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:10px"><button class="btn" id="cutx">Close</button><button class="btn" id="cutsave" hidden>Save into GTA folder</button><button class="btn pri" id="cutdl">Save…</button></div>
+</dialog>
+<dialog id="askd"><h2 id="asktitle"></h2><div class="stats" id="asktext"></div><input type="text" id="askin" style="width:100%;margin-top:10px" hidden>
+  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px"><button class="btn" id="askno">Cancel</button><button class="btn pri" id="askok">OK</button></div></dialog>
+<dialog id="welc"><h2>Welcome</h2><p id="welcp" class="stats" style="margin:0 0 14px;line-height:1.5">Select your GTA San Andreas folder, the one that contains gta_sa.exe. Mod Loader has to be installed there already.</p>
+  <div style="display:flex;justify-content:flex-end"><button class="btn pri" id="welcgo">Choose GTA folder</button></div></dialog>
+<dialog id="edd" class="ed">
+  <div class="ed-top"><h2>Config editor</h2><div class="seg" id="edtabs"><button data-t="files" class="on">Files</button><button data-t="bk">Backups</button></div>
+    <span class="stats" id="edinfo"></span><span style="flex:1"></span><button class="btn sm" id="edrescan">Rescan</button><button class="btn sm" id="edclose">Close</button></div>
+  <div class="ed-body">
+    <aside class="ed-l"><input type="search" id="edq" placeholder="Search config files" autofocus><div class="seg" id="edf"><button data-f="all" class="on">All</button><button data-f="ini">.ini</button><button data-f="json">.json</button></div><div class="ed-list" id="edlist"></div></aside>
+    <section class="ed-r" id="edright"></section>
+  </div>
+</dialog>
+<div class="toast" id="toast"></div>
+
+<script src="fsshim.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const TYPES={dff:'Models',txd:'Textures',col:'Collision',ifp:'Animations',ide:'Definitions',ipl:'Placement',dat:'Data',cfg:'Config',cs:'CLEO',cm:'CLEO',csa:'CLEO',asi:'Plugin',dll:'Plugin',cleo:'CLEO',wav:'Audio',mp3:'Audio',ogg:'Audio',img:'Archive',gxt:'Text',fxt:'Text',ini:'Config',fxp:'Effects',scm:'Script'};
+const typesOf=m=>[...new Set(m.files.map(f=>TYPES[f.split('.').pop().toLowerCase()]).filter(Boolean))].slice(0,4);
+const blobs=new Map();
+let S={active:'Default',profiles:{Default:{pr:{},im:[],ex:[],ig:[]}},mods:[]};
+try{const s=localStorage.getItem('samm');if(s)S=JSON.parse(s)}catch(e){}
+const fx=n=>{const p=S.profiles[n];p.pr=p.pr||{};['im','ex','ig','inc','par','cx'].forEach(k=>p[k]=p[k]||[]);if(Array.isArray(p.um))p.um=p.um.join(', ');p.um=p.um||'';if(p.ia===undefined)p.ia=null;if(p.ea===undefined)p.ea=null;return p};
+const P=()=>fx(S.active);
+S.main=S.main||'modloader.ini';S.topSecs=S.topSecs||[];S.mods=S.mods||[];S.exes=S.exes||[];S.exe=S.exe||'';S.gpathAuto=S.gpathAuto||'';S.gpathUser=S.gpathUser||'';S.gname=S.gname||'';S.installs=S.installs||[];S.sort=S.sort||'name';S.curInst=S.curInst||'';S.bcFrom=S.bcFrom||'none';S.bc=S.bc||bcDef();S.bcRaw=S.bcRaw||'';S.panels=S.panels||{};S.bcx=S.bcx||[];S.bcTop=S.bcTop||[];S.pp=S.pp||{};S.ppTop=S.ppTop||[];S.plugins=S.plugins||[];S.fcl=S.fcl||[];S.cur=S.cur||'Default';if(S.pl===undefined)S.pl=null;
+function setPr(p,name,v){for(const k of Object.keys(p.pr))if(k.toLowerCase()===name.toLowerCase())delete p.pr[k];if(v!==50)p.pr[name]=v}
+function rawParents(n){const out=[];for(const a of fx(n).par){const l=a.toLowerCase();if(l==='$none')return[];
+ let r=null;if(l==='$current')r=S.cur===n?null:S.cur;else r=Object.keys(S.profiles).find(k=>k.toLowerCase()===l)||null;
+ if(r&&r!==n&&!out.includes(r))out.push(r)}return out}
+function reach(a,b,seen=[]){if(seen.includes(a))return false;return rawParents(a).some(p=>p===b||reach(p,b,[...seen,a]))}
+const parentsOf=n=>rawParents(n).filter(r=>!reach(r,n));
+function inheritedFrom(a,b,seen=[]){if(seen.includes(a))return false;return parentsOf(a).some(p=>p===b||inheritedFrom(p,b,[...seen,a]))}
+const hier=n=>[n,...parentsOf(n)];
+function flag(n,k,seen=[]){const p=fx(n);if(p[k]!=null)return p[k];if(seen.includes(n))return false;return parentsOf(n).some(x=>flag(x,k,[...seen,n]))}
+function eff(){const A=S.active,e={pr:{},im:{},ig:{},inc:{},ex:{},exo:[],ia:flag(A,'ia'),ea:flag(A,'ea')};
+ hier(A).forEach(x=>{const p=fx(x);for(const[k,v]of Object.entries(p.pr)){const l=k.toLowerCase();if(!(l in e.pr))e.pr[l]=[v,x]}
+  p.im.forEach(m=>{if(!(m in e.im))e.im[m]=x});p.ig.forEach(m=>{if(!(m in e.ig))e.ig[m]=x});p.inc.forEach(m=>{if(!(m in e.inc))e.inc[m]=x})});
+ fx(A).ex.forEach(m=>e.ex[m]=A);
+ Object.keys(S.profiles).forEach(q=>{if(q===A||inheritedFrom(A,q))return;fx(q).ex.forEach(m=>e.exo.push([m,q]))});
+ return e}
+let E={pr:{},im:{},ig:{},inc:{},ex:{},exo:[],ia:false,ea:false};
+function mw(pat,str,pi=0,si=0){let had=false;
+ for(;;){const c=pat[pi++];
+  if(c===undefined){const r=str[si];return r===undefined||((r==='/'||r==='\\')&&si+1===str.length)}
+  if(c==='/'||c==='\\'){const r=str[si];if(r!=='/'&&r!=='\\'){if(r===undefined&&pi>=pat.length)continue;return false}si++;had=true;continue}
+  if(c==='*'){const allow=!had||pat[pi]==='*';while(pat[pi]==='*')pi++;if(pi>=pat.length)return true;
+   for(;si<str.length;si++){if(mw(pat,str,pi,si))return true;const r=str[si];if((r==='/'||r==='\\')&&!allow)return false}return false}
+  if(c==='?'){const r=str[si];if(r===undefined||r==='/'||r==='\\')return false;si++;continue}
+  const r=str[si];if(r===undefined||r.toLowerCase()!==c.toLowerCase())return false;si++}}
+const hit=(o,n)=>{for(const p of Object.keys(o))if(mw(p,n))return o[p];return null};
+const swOn=n=>E.ia?false:E.ea?!!hit(E.inc,n):!hit(E.im,n);
+const exOther=n=>{if(hit(E.ex,n))return null;for(const[p,q]of E.exo)if(mw(p,n))return q;return null};
+const inh=n=>{const o=[],pe=E.pr[n.toLowerCase()],a=hit(E.im,n),c=hit(E.inc,n);
+ if(pe&&pe[1]!==S.active)o.push(['priority',pe[1]]);if(a&&a!==S.active)o.push(['ignored',a]);if(c&&c!==S.active)o.push(['included',c]);
+ return o.map(x=>`<span class="tag" title="Inherited from ${esc(x[1])}">${x[0]} from ${esc(x[1])}</span>`).join('')};
+var _st;const saveNow=()=>{try{localStorage.setItem('samm',JSON.stringify(S,(k,v)=>k==='mods'?undefined:v))}catch(e){}};
+const save=()=>{clearTimeout(_st);_st=setTimeout(saveNow,300)};
+addEventListener('beforeunload',saveNow);
+const toast=(t,undo)=>{const e=$('#toast');e.textContent=t;e.classList.toggle('act',!!undo);
+ if(undo){const b=document.createElement('button');b.textContent='Undo';b.onclick=()=>{e.classList.remove('show');undo()};e.append(b)}
+ e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),undo?7000:1800)};
+const prio=n=>{const pe=E.pr[n.toLowerCase()],v=pe?pe[0]:50;return S.pl!=null?Math.min(v,S.pl):v};
+const pat2re=p=>new RegExp('^'+p.replace(/[.+^${}()|[\]\\]/g,'\\$&').replace(/\*/g,'.*').replace(/\?/g,'.')+'$','i');
+const fileIgnored=(m,f)=>{const b=f.split('/').pop();return Object.keys(E.ig).some(p=>mw(p,f)||mw(p,b))};
+const FO='<svg class="fo" viewBox="0 0 16 16"><path d="M1.5 4.5a1 1 0 0 1 1-1h3.2l1.5 1.5h6.3a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1z" fill="currentColor" opacity=".85"/></svg>',
+ FI='<svg class="fi" viewBox="0 0 16 16"><path d="M4 1.5h5.5L13 5v9a.5.5 0 0 1-.5.5h-8.5a.5.5 0 0 1-.5-.5v-12a.5.5 0 0 1 .5-.5z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>',
+ CV='<svg class="cv" viewBox="0 0 12 12"><path d="M4 2.5 8 6 4 9.5"/></svg>';
+const dirsOf=m=>{const o=new Set();m.files.forEach(f=>{const ps=f.split('/');ps.pop();ps.forEach((_,i)=>o.add(ps.slice(0,i+1).join('/')))});return[...o]};
+function treeBody(m,focus){const q=(m._q||'').trim().toLowerCase(),root={d:{},f:[]};
+ m.files.forEach((f,j)=>{if(q&&!f.toLowerCase().includes(q))return;const ps=f.split('/'),n=ps.pop();let c=root;ps.forEach(x=>c=c.d[x]||(c.d[x]={d:{},f:[]}));c.f.push([n,j])});
+ const cnt=n=>n.f.length+Object.values(n.d).reduce((a,x)=>a+cnt(x),0),cmp=(a,b)=>a.localeCompare(b,undefined,{numeric:true,sensitivity:'base'});
+ const draw=(n,path,d)=>{let h='';
+  Object.keys(n.d).sort(cmp).forEach(k=>{const p=path?path+'/'+k:k,pat=`${p}/**`,open=!!q||!!(m._x&&m._x[p]),ig=pat in E.ig,c=n.d[k],k2=cnt(c);
+   h+=`<div class="tr dir ${open?'open':''} ${ig?'ign':''}" style="--d:${d}" data-a="fold" data-p="${esc(p)}">${CV}${FO}<span class="nm">${esc(k)}</span><small>${k2} file${k2>1?'s':''}</small><button data-a="idir" data-p="${esc(p)}">${ig?'Unignore':'Ignore'}</button></div><div class="kids ${open?'open':''}"><div class="ki">${open?draw(c,p,d+1):''}</div></div>`});
+  n.f.sort((a,b)=>cmp(a[0],b[0])).forEach(([nm,j])=>{const ig=fileIgnored(m.name,m.files[j]);
+   h+=`<div class="tr ${ig?'ign':''}" style="--d:${d}">${FI}<span class="nm">${esc(nm)}</span><button data-a="if" data-j="${j}">${ig?'Unignore':'Ignore'}</button></div>`});
+  return h};
+ if(focus){let n=root;for(const x of focus.p.split('/'))n=n.d[x]||{d:{},f:[]};return draw(n,focus.p,focus.p.split('/').length+1)}
+ if(q&&!Object.keys(root.d).length&&!root.f.length)return '<div class="stats" style="padding:8px 4px">No files match</div>';
+ return `<div class="tr root" style="--d:0">${FO}<span class="nm">${esc(m.name)}</span><small>${q?'matching files':m.files.length+' file'+(m.files.length>1?'s':'')}</small></div>`+draw(root,'',1)}
+function tree(m){const nd=dirsOf(m).length;
+ return `<div class="fh">${nd?'<button class="btn sm" data-a="expand">Expand all</button><button class="btn sm" data-a="collapse">Collapse all</button>':''}<input type="search" class="tq" placeholder="Search files" value="${esc(m._q||'')}" aria-label="Search files in this mod"></div><div class="tb">${treeBody(m)}</div>`}
+function status(m){const n=m.name;
+ if(E.ia)return['Ignored (profile ignores all mods)','bad'];
+ if(E.ea){if(!hit(E.inc,n))return['Excluded (not in IncludeMods)','warn']}
+ else{if(hit(E.im,n))return['Ignored','bad'];if(prio(n)===0)return['Disabled (priority 0)','bad']}
+ const x=exOther(n);if(x)return[`Exclusive to ${x}`,'warn'];
+ return['Active','st']}
+function render(){
+  undoTrack();E=eff();const p=P(),q=$('#q').value.toLowerCase();
+  const ns=Object.keys(S.profiles),rest=ns.filter(n=>n!=='Default'),it=n=>{const pa=fx(n).par;return `<div class="ddi ${n===S.active?'sel':''}" role="option" data-v="${esc(n)}"><svg class="ck" viewBox="0 0 12 12" width="12" height="12"><path d="M2.5 6.5 5 9l4.5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>${esc(n)}${n===S.cur?'<span class="cb">current</span>':''}${pa.length?`<small>inherits ${esc(pa.map(a=>a.toLowerCase()==='$current'?`$current (${S.cur===n?'itself':S.cur})`:a).join(', '))}</small>`:''}</div>`};
+  $('#ddt').textContent=S.active;$('#curp').textContent='$current = '+S.cur;$('#setcur').hidden=S.active===S.cur;
+  $('#ddm').innerHTML=(ns.includes('Default')?`<div class="ddg">Default</div>${it('Default')}`:'')+(rest.length?`<div class="ddg">Session profiles</div>${rest.map(it).join('')}`:'');
+  const act=S.mods.filter(m=>status(m)[1]==='st').length;
+  $('#stats').textContent=`${act} of ${S.mods.length} mods active`+(E.ia?' · ignoring all mods':E.ea?' · include-only mode':'');
+  const byName=(a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true,sensitivity:'base'});
+  const sorters={name:byName,namez:(a,b)=>byName(b,a),prio:(a,b)=>prio(b.name)-prio(a.name)||byName(a,b),priol:(a,b)=>prio(a.name)-prio(b.name)||byName(a,b),status:(a,b)=>(status(a)[1]==='st'?0:1)-(status(b)[1]==='st'?0:1)||byName(a,b),files:(a,b)=>b.files.length-a.files.length||byName(a,b)};
+  $('#sortsel').value=S.sort;
+  const mods=S.mods.filter(m=>!q||m.name.toLowerCase().includes(q)||m.files.some(f=>f.toLowerCase().includes(q))).sort(sorters[S.sort]||byName);
+  const hs=mods.map(m=>{const[st,c]=status(m),i=S.mods.indexOf(m),on=c==='st',v=prio(m.name);
+   return `<div class="mod ${on?'':'off'} ${m._o?'open':''}" data-i="${i}" style="--n:${Math.min(i,10)}">
+   <div class="row"><button class="sw ${swOn(m.name)?'on':''}" data-a="ign" title="${E.ea?'Include this mod':'Ignore this mod'}" aria-label="Toggle ${esc(m.name)}"></button>
+   <div style="min-width:0"><div class="name" data-a="open">${esc(m.name)}</div><div class="meta"><span class="tag ${c}">${st}</span>${typesOf(m).map(t=>`<span class="tag">${t}</span>`).join('')}<span>${m.files.length} files</span>${inh(m.name)}</div></div>
+   <div class="pr"><input type="range" min="0" max="${S.pl??100}" value="${v}" style="--p:${Math.min(100,v/(S.pl??100)*100)}%" data-a="pr" aria-label="Priority"><output title="Double-click to type a priority">${v}</output></div>
+   <div style="display:flex;gap:6px"><button class="star ${hit(E.ex,m.name)?'on':''}" data-a="ex" title="Exclusive: hidden from other profiles unless they inherit this one">★</button><button class="btn sm del" data-a="rm">Remove</button></div></div>
+   <div class="files"><div class="fi">${m._o?tree(m):''}</div></div></div>`});patchList(mods,hs);
+  $('#chips').innerHTML=p.ig.length?p.ig.map((x,i)=>`<span class="chip">${esc(x)}<button data-r="${i}" aria-label="Remove">×</button></span>`).join(''):'<span class="stats">Nothing ignored</span>';
+  $('#ini').textContent=ini();save();
+  $('#src').textContent=srcText;{const n=files().filter(([p,t])=>written[p]!==t).length;$('#save').disabled=!root||!n;$('#save').classList.toggle('pri',n>0);$('#save').textContent=n?`Save changes (${n})`:'Save changes';$('#rescan').disabled=!root;$('#undo').disabled=!UNDO.stack.length;$('#redo').disabled=!UNDO.redo.length}
+  $('#logb').style.visibility=logGet?'visible':'hidden';$('#mkcut').disabled=!S.exes.length;renderProf();renderSettings();renderPlugins();renderInst();
+}
+let PVsel='',PVlast='';
+function curFile(){const fl=files(),a=ppath(S.active);if(S.active!==PVlast){PVlast=S.active;PVsel=a}return fl.find(x=>x[0]===PVsel)||fl.find(x=>x[0]===a)||fl[0]}
+function ini(){const fl=files(),f=curFile();
+ cddOptions($('#pvsel'),fl.map(([p])=>({v:p,t:p+(p===ppath(S.active)?'  · editing':'')})),f[0]);
+ $('#pvpath').textContent='modloader/'+f[0];return f[1]||'; (empty)'}
+$('#pvsel').onchange=e=>{PVsel=e.target.value;render()};
+const tog=(a,v)=>{const i=a.indexOf(v);i<0?a.push(v):a.splice(i,1)};
+$('#list').addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(!t)return;
+ const m=S.mods[t.closest('.mod').dataset.i],p=P(),a=t.dataset.a;
+ if(a==='open'){toggleMod(t.closest('.mod'),m);return}
+ else if(a==='fold'){foldDir(m,t);return}
+ else if(a==='expand'||a==='collapse'){bulkFold(t.closest('.mod'),m,a==='expand');return}
+ else if(a==='idir'){const pat=`${t.dataset.p}/**`,i=p.ig.findIndex(x=>x.toLowerCase()===pat.toLowerCase());
+  if(i>=0)p.ig.splice(i,1);else if(pat in E.ig)return toast(`Ignored by parent “${E.ig[pat]}” — change it there`);else{p.ig.push(pat);toast('Ignored in every mod that has this folder')}}
+ else if(a==='ign'){if(E.ia)return toast('This profile ignores all mods');
+  const lst=E.ea?p.inc:p.im,o=E.ea?E.inc:E.im;
+  if(!hit(o,m.name))lst.push(m.name);
+  else{const i=lst.findIndex(x=>x.toLowerCase()===m.name.toLowerCase());if(i>=0)lst.splice(i,1);else{const q=hit(o,m.name);return toast(q!==S.active?`Set by parent “${q}” — change it there`:'Matched by a wildcard in this profile — edit the pattern')}}}
+ else if(a==='ex'){const i=p.ex.findIndex(x=>x.toLowerCase()===m.name.toLowerCase());
+  if(i>=0)p.ex.splice(i,1);else if(hit(E.ex,m.name))return toast('Matched by a wildcard in this profile — edit the pattern');else p.ex.push(m.name)}
+ else if(a==='if'){const f=m.files[t.dataset.j],i=p.ig.findIndex(x=>x.toLowerCase()===f.toLowerCase());
+   if(fileIgnored(m.name,f)){if(i>=0)p.ig.splice(i,1);else return toast('Ignored by a wildcard pattern or a parent — edit the pattern on the right')}else{p.ig.push(f);toast('Ignored in every mod that has this path')}}
+ else if(a==='rm'){ask({title:`Remove “${m.name}” from the list?`,text:'The mod’s files stay on disk.',ok:'Remove',danger:true}).then(ok=>{if(ok){const i=S.mods.indexOf(m);S.mods=S.mods.filter(x=>x!==m);blobs.delete(m.name);render();toast('Removed from the list',()=>{S.mods.splice(Math.min(i,S.mods.length),0,m);render()})}});return}
+ else return;render()});
+$('#list').addEventListener('input',e=>{if(e.target.classList.contains('tq')){const el=e.target.closest('.mod'),m=S.mods[el.dataset.i];m._q=e.target.value;clearTimeout(el._qt);el._qt=setTimeout(()=>{el.querySelector('.tb').innerHTML=treeBody(m)},90);return}
+ if(e.target.dataset.a!=='pr')return;
+ const m=S.mods[e.target.closest('.mod').dataset.i],v=+e.target.value;setPr(P(),m.name,v);
+ e.target.nextElementSibling.textContent=v;e.target.style.setProperty('--p',Math.min(100,v/(+e.target.max||100)*100)+'%');$('#ini').textContent=ini();save()});
+$('#list').addEventListener('change',e=>{if(e.target.dataset.a==='pr')render()});
+var _qt;$('#q').oninput=()=>{clearTimeout(_qt);_qt=setTimeout(render,90)};$('#sortsel').onchange=e=>{S.sort=e.target.value;render()};
+const ddb=$('#ddb'),ddm=$('#ddm');let hl=-1;
+const hlSet=()=>{const it=[...ddm.querySelectorAll('.ddi')];it.forEach((x,i)=>x.classList.toggle('hl',i===hl));if(it[hl])it[hl].scrollIntoView({block:'nearest'})};
+const ddOpen=o=>{ddm.hidden=!o;ddb.setAttribute('aria-expanded',o);if(o){hl=[...ddm.querySelectorAll('.ddi')].findIndex(x=>x.dataset.v===S.active);hlSet()}};
+ddb.onclick=()=>ddOpen(ddm.hidden);
+ddm.onclick=e=>{const i=e.target.closest('.ddi');if(i){S.active=i.dataset.v;ddOpen(false);render()}};
+document.addEventListener('click',e=>{if(!e.target.closest('#dd'))ddOpen(false)});
+ddb.onkeydown=e=>{const it=ddm.querySelectorAll('.ddi');
+ if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();if(ddm.hidden)return ddOpen(true);hl=(hl+(e.key==='ArrowDown'?1:-1)+it.length)%it.length;hlSet()}
+ else if(e.key==='Enter'&&!ddm.hidden&&it[hl]){e.preventDefault();it[hl].click()}
+ else if(e.key==='Escape')ddOpen(false)};
+const curLabel=(a,n)=>a.toLowerCase()==='$current'?(S.cur===n?'$current → itself (ignored)':`$current → ${S.cur}`):a;
+function renderProf(){const p=P();
+ const ch=(a,k,f)=>a.length?a.map((x,i)=>`<span class="chip">${esc(f?f(x):x)}<button data-r="${i}" aria-label="Remove">×</button></span>`).join(''):'<span class="stats">None</span>';
+ $('#parchips').innerHTML=p.par.length?ch(p.par,'par',x=>curLabel(x,S.active)):'<span class="stats">None ($None)</span>';
+ $('#inchips').innerHTML=ch(p.inc,'inc');
+ if(document.activeElement!==$('#um'))$('#um').value=p.um||'';
+ $('#ia').checked=!!E.ia;$('#ea').checked=!!E.ea;
+ if(document.activeElement!==$('#plim'))$('#plim').value=S.pl??'';
+ $('#plnote').textContent=S.pl!=null?`Mod priorities are capped at ${S.pl}.`:'Default limit: priorities go up to 100.'}
+const setLim=()=>{const v=parseInt($('#plim').value,10);if(isNaN(v)||v<1)return toast('Enter a whole number of 1 or more');S.pl=v;render()};
+$('#plset').onclick=setLim;$('#plim').onkeydown=e=>{if(e.key==='Enter')setLim()};
+document.querySelectorAll('.step [data-st]').forEach(b=>b.onclick=e=>{const i=$('#plim'),v=parseInt(i.value||S.pl||100,10)||100;i.value=Math.max(1,v+(+b.dataset.st)*(e.shiftKey?10:1));setLim()});
+$('#plclr').onclick=()=>{S.pl=null;$('#plim').value='';render()};
+$('#parchips').onclick=e=>{const b=e.target.closest('button');if(!b)return;P().par.splice(b.dataset.r,1);render()};
+$('#inchips').onclick=e=>{const b=e.target.closest('button');if(!b)return;P().inc.splice(b.dataset.r,1);render()};
+const addPar=v=>{v=v.trim();const p=P();if(!v)return;const l=v.toLowerCase();
+ if(l==='$none')return toast('Leave Parents empty for $None');
+ if(l==='$current')v='$current';
+ else{const k=Object.keys(S.profiles).find(x=>x.toLowerCase()===l);
+  if(!k)return toast(`No profile named “${v}”`);if(k===S.active)return toast('A profile can’t be its own parent');
+  if(reach(k,S.active))return toast(`“${k}” already inherits from this profile (circular)`);v=k}
+ if(!p.par.some(x=>x.toLowerCase()===v.toLowerCase()))p.par.push(v);$('#par').value='';render()};
+$('#padd').onclick=()=>addPar($('#par').value);$('#pcur').onclick=()=>addPar('$current');$('#par').onkeydown=e=>{if(e.key==='Enter')addPar(e.target.value)};
+const setUm=()=>{P().um=$('#um').value.trim();render()};
+$('#uset').onclick=setUm;$('#um').onkeydown=e=>{if(e.key==='Enter')setUm()};$('#uclr').onclick=()=>{P().um='';$('#um').value='';render()};
+const addIn=()=>{const v=$('#inpat').value.trim(),p=P();if(!v)return;if(!p.inc.includes(v))p.inc.push(v);$('#inpat').value='';render()};
+$('#inadd').onclick=addIn;$('#inpat').onkeydown=e=>{if(e.key==='Enter')addIn()};
+$('#ia').onchange=e=>{P().ia=e.target.checked;render()};$('#ea').onchange=e=>{P().ea=e.target.checked;render()};
+$('#newProf').onclick=async()=>{const raw=await ask({title:'New profile',text:'It is saved as .profiles/<name>.ini',input:true,placeholder:'Profile name',ok:'Create'});if(raw===null)return;
+ const n=raw.trim().replace(/\.ini$/i,'').replace(/[\\/:*?"<>|\[\]]/g,'').replace(/\./g,'_').trim();if(!n)return;
+ if(Object.keys(S.profiles).some(k=>k.toLowerCase()===n.toLowerCase()))return toast('A profile with that name already exists');
+ S.profiles[n]=newP();src[n]={path:`.profiles/${n}.ini`};S.active=n;render();
+ undoReset();await commit(`.profiles/${n}.ini`,`Created .profiles/${n}.ini`);
+ toast(`Created .profiles/${n}.ini`,async()=>{const path=`.profiles/${n}.ini`;delete S.profiles[n];delete src[n];S.active=S.cur;
+  try{const abs=pathN.join(root._path,...path.split('/'));BK.save(abs,fsN.readFileSync(abs,'utf8'));fsN.rmSync(abs,{force:true});delete written[path]}catch(e){}
+  undoReset();render();toast('Profile removed')})};
+$('#delProf').onclick=async()=>{const n=S.active;if(n==='Default')return toast('Default can’t be deleted');
+ if(n===S.cur)return toast('This is the current profile. Set another profile as current first');
+ const path=ppath(n);if(!await ask({title:`Delete profile “${n}”?`,text:root?`It will be removed from ${path}.`:'',ok:'Delete',danger:true}))return;
+ const prof0=S.profiles[n],s0=src[n];delete S.profiles[n];delete src[n];undoReset();
+ const left=Object.keys(S.profiles).some(k=>ppath(k)===path);
+ if(path===S.main||left)await commit(path,`Updated ${path}`);
+ else if(root&&await canWrite()){try{try{const abs=pathN.join(root._path,...path.split('/'));BK.save(abs,fsN.readFileSync(abs,'utf8'))}catch(e){}const ps=path.split('/'),f=ps.pop();let d=root;for(const x of ps)d=await d.getDirectoryHandle(x);await d.removeEntry(f);delete written[path];toast(`Removed ${path}`)}catch(e){}}
+ S.active=S.cur;render();
+ toast(`Deleted “${n}”`,async()=>{S.profiles[n]=prof0;src[n]=s0;S.active=n;undoReset();render();await commit(path,`Restored “${n}”`)})};
+const addIg=()=>{const v=$('#ipat').value.trim();if(!v)return;if(!P().ig.includes(v))P().ig.push(v);$('#ipat').value='';render()};
+$('#iadd').onclick=addIg;$('#ipat').onkeydown=e=>{if(e.key==='Enter')addIg()};
+$('#chips').onclick=e=>{const r=e.target.dataset.r;if(r!=null){P().ig.splice(r,1);render()}};
+$('#copy').onclick=()=>{require('electron').clipboard.writeText(ini());toast('Copied')};
+$('#imp').onclick=()=>{const i=document.createElement('input');i.type='file';i.accept='.ini';
+ i.onchange=async()=>{const fl=i.files[0],r=parseIniFile(await fl.text()),isMain=/^modloader\.ini$/i.test(fl.name),names=Object.keys(r.profs);
+  if(isMain){S.topSecs=r.top;S.pl=r.fc.pl;S.fcl=r.fc.lines;const k=r.fc.profile&&Object.keys(S.profiles).find(x=>x.toLowerCase()===r.fc.profile.toLowerCase());if(k)S.cur=k}
+  names.forEach(n=>{S.profiles[n]=r.profs[n];src[n]={path:isMain?S.main:`.profiles/${fl.name}`}});
+  if(!isMain&&names.length)S.active=names[0];
+  render();toast(`Imported ${names.length} profile${names.length===1?'':'s'}`)};i.click()};
+
+/* log viewer */
+const LV={rows:[],f:'all'},reEsc=x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+const lastSeg=p=>p.replace(/[\\/]+$/,'').split(/[\\/]/).pop();
+function parseLog(t){const rows=[];let mod='';
+ t.split(/\r?\n/).forEach(l=>{if(!l.trim())return;
+  if(/^\s+\S/.test(l)&&rows.length){rows[rows.length-1].more.push(l.trim());return}
+  const s=l.trim(),r={time:'',kind:'',level:'info',msg:s,more:[],sec:false};let m;
+  const fail=/^(Failed|Fatal)|\bfailed\b/i.test(s);
+  if(/^=+.*=+$/.test(s)){r.kind='start';r.sec=true;r.msg=s.replace(/^=+\s*|\s*=+$/g,'');mod=''}
+  else if(m=s.match(/^Scanning mods at "(.*?)"/)){r.kind='scan';r.sec=true;r.msg='Scanning mods in '+m[1];mod=''}
+  else if(m=s.match(/^Scanning files at "(.*?)"/)){r.kind='scan';r.sec=true;mod=lastSeg(m[1]);r.msg='Scanning '+mod}
+  else if(m=s.match(/^Ignoring mod at "(.*?)"/)){r.kind='ignore';r.sec=true;r.level='warn';mod=lastSeg(m[1]);r.msg='Ignoring mod '+mod}
+  else if(m=s.match(/^Updating mods for "(.*?)"/)){r.kind='update';r.sec=true;r.msg='Updating mods in '+m[1];mod=''}
+  else if(m=s.match(/^(Updating state for|No files in) "(.*?)"/)){r.kind='update';mod=lastSeg(m[2]);r.msg=(m[1]==='No files in'?'No files in ':'Updating ')+mod}
+  else if(m=s.match(/^Found file \[(0x[0-9A-Fa-f]+)\] "(.*)" with handler "(.*)"$/)){r.kind='file';r.msg=m[2];r.chip=m[3];r.hash=m[1]}
+  else if(m=s.match(/^No handler or callme for file "(.*)"/)){r.kind='file';r.level='debug';r.msg=m[1];r.chip='no handler'}
+  else if(m=s.match(/^Ignoring file "(.*)"/)){r.kind='ignore';r.msg=m[1];r.level='warn'}
+  else if(m=s.match(/^(Install|Reinstall|Uninstall)ing file "(.*)"$/)){r.kind=m[1].toLowerCase();r.msg=m[2]}
+  else if(m=s.match(/^Extinguishing (?:some files from|file) "(.*)"/)){r.kind='remove';r.msg=m[1]}
+  else if(/^(Reading profile|Using profile)/.test(s))r.kind='profile';
+  else if(/^(Loading basic config|Parsing command line|Command line|Using Mod Loader folder|Starting up filesystem|Shutting down)/.test(s))r.kind='config';
+  else if(/plugin/i.test(s))r.kind='plugin';
+  if(fail)r.level='error';
+  if(/^Warning:/i.test(s)){r.level='warn';r.msg=s.replace(/^Warning:\s*/i,'');if(!r.kind)r.kind='warning'}
+  if(fail&&!r.kind)r.kind='error';
+  r.mod=mod;rows.push(r)});
+ return rows}
+const tx=(h,fn)=>h.split(/(<[^>]+>)/).map((x,i)=>i%2?x:fn(x)).join('');
+function drawLog(){const q=$('#lq').value.toLowerCase(),rows=LV.rows,cnt={all:rows.length,error:0,warn:0,info:0,debug:0};
+ rows.forEach(r=>cnt[r.level]++);
+ const lab={all:'All',error:'Errors',warn:'Warnings',info:'Info',debug:'Debug'};
+ document.querySelectorAll('#lf button').forEach(b=>{b.textContent=`${lab[b.dataset.f]} ${cnt[b.dataset.f]}`;b.classList.toggle('on',b.dataset.f===LV.f)});
+ const names=S.mods.map(m=>esc(m.name)).filter(n=>n.length>2).sort((a,b)=>b.length-a.length),
+  mre=names.length?new RegExp('('+names.map(reEsc).join('|')+')','g'):null;
+ let list=rows.filter(r=>(LV.f==='all'||r.level===LV.f)&&(!q||(r.msg+' '+r.more.join(' ')+' '+(r.mod||'')+' '+(r.chip||'')).toLowerCase().includes(q)));
+ const cut=list.length>3000;if(cut)list=list.slice(-3000);
+ const fm=m=>{let h=esc(m);
+  h=tx(h,x=>x.replace(/\b[\w\-]+\.(?:dff|txd|col|ifp|ide|ipl|dat|cfg|ini|cs|cm|csa|asi|dll|cleo|wav|mp3|ogg|img|gxt|fxt|fxp|scm|log)\b/gi,'<span class="lf">$&</span>'));
+  h=tx(h,x=>x.replace(/(^|[\s(\[:,])'([^'<>]{2,80})'(?=[\s).,:\]]|$)/g,'$1<span class="lq">\'$2\'</span>').replace(/\b0x[0-9a-f]+\b/gi,'<span class="lh2">$&</span>'));
+  if(mre)h=tx(h,x=>x.replace(mre,v=>`<button class="lmod" data-mod="${v}">${v}</button>`));
+  return h};
+ $('#lb').innerHTML=(cut?'<div class="lr"><span></span><span></span><span class="lh2">Showing the last 3000 matching entries</span></div>':'')+
+  (list.length?list.map(r=>`<div class="lr ${r.level}${r.sec?' sec':''}"><span class="lt">${esc(r.kind||r.time)}</span><span class="lv">${r.level}</span><div class="lm">${fm(r.msg)}${r.chip?`<span class="hc">${esc(r.chip)}</span>`:''}${r.more.length?`<div class="lx">${esc(r.more.join('\n'))}</div>`:''}</div></div>`).join(''):'<div class="empty" style="border:0">Nothing to show</div>')}
+async function loadLog(){const lb=$('#lb');LV.rows=[];
+ $('#lpill').textContent=`$current = ${S.cur} · ${S.mods.length} mods`;
+ if(!logGet){drawLog();lb.innerHTML='<div class="empty" style="border:0">No modloader.log found in the scanned folder. Run the game once with Modloader installed, rescan, or use Open file.</div>';return}
+ try{LV.rows=parseLog(await(await logGet()).text());drawLog();lb.scrollTop=lb.scrollHeight}catch(e){lb.innerHTML=`<div class="empty" style="border:0">Couldn’t read the log: ${esc(e.message)}</div>`}}
+$('#logb').onclick=()=>{$('#logd').showModal();loadLog()};
+$('#lre').onclick=loadLog;$('#lx').onclick=()=>$('#logd').close();
+$('#lopen').onclick=()=>$('#lfile').click();
+$('#lfile').onchange=e=>{const fl=e.target.files[0];if(!fl)return;logGet=()=>Promise.resolve(fl);loadLog();e.target.value=''};
+$('#lq').oninput=drawLog;
+$('#lf').onclick=e=>{const b=e.target.closest('button');if(b){LV.f=b.dataset.f;drawLog()}};
+$('#lb').onclick=e=>{const b=e.target.closest('.lmod');if(b){$('#lq').value=b.dataset.mod;drawLog()}};
+/* settings + plugins */
+const FK=[...Array(12)].map((_,i)=>[112+i,'F'+(i+1)]);
+function renderSettings(){const b=S.bc;
+ $('#bcsrc').innerHTML=S.bcFrom==='file'?'Read from <code>.data/config.ini</code>.':S.bcFrom==='default'?'<code>.data/config.ini</code> doesn’t exist yet, so these values come from <code>config.ini.0</code>. Changing one creates the file.':'No config found, showing Modloader’s defaults. Changing a setting creates <code>.data/config.ini</code>.'
+ document.querySelectorAll('[data-bc]').forEach(c=>c.checked=!!b[c.dataset.bc]);
+ if(document.activeElement!==$('#bcmls'))$('#bcmls').value=+(b.MaxLogSize/1048576).toFixed(2);
+ cddOptions($('#bckey'),[...(FK.some(k=>k[0]===b.RefreshKey)?[]:[{v:String(b.RefreshKey),t:'Key code '+b.RefreshKey}]),...FK.map(([v,n])=>({v:String(v),t:n}))],String(b.RefreshKey))}
+function renderPlugins(){$('#plcnt').textContent=S.plugins.length;const g=n=>{const k=Object.keys(S.pp).find(x=>x.toLowerCase()===n.toLowerCase());return k==null?'':S.pp[k]};
+ $('#plugs').innerHTML=S.plugins.length?S.plugins.map(n=>`<div class="add"><span class="stats" style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;align-self:center" title="${esc(n)}">${esc(n)}</span><input type="number" min="0" max="100" placeholder="50" data-pl="${esc(n)}" value="${g(n)}" style="width:72px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 8px;outline:none"></div>`).join(''):'<span class="stats">No plugins found</span>'}
+document.querySelectorAll('[data-bc]').forEach(c=>c.onchange=()=>{S.bc[c.dataset.bc]=c.checked;S.bcDirty=true;render()});
+$('#bcmls').onchange=e=>{const v=parseFloat(e.target.value);if(!isNaN(v)&&v>=0){S.bc.MaxLogSize=Math.round(v*1048576);S.bcDirty=true}render()};
+$('#bckey').onchange=e=>{S.bc.RefreshKey=+e.target.value;S.bcDirty=true;render()};
+$('#plugs').onchange=e=>{const n=e.target.dataset.pl;if(n==null)return;const v=e.target.value.trim();
+ Object.keys(S.pp).forEach(k=>{if(k.toLowerCase()===n.toLowerCase())delete S.pp[k]});
+ if(v!=='')S.pp[n]=Math.max(0,parseInt(v,10)||0);S.ppDirty=true;render()};
+/* double-click a priority to type it */
+$('#list').addEventListener('dblclick',e=>{const o=e.target.closest('.pr output');if(!o)return;
+ const mod=S.mods[o.closest('.mod').dataset.i],lim=S.pl??100,inp=document.createElement('input');
+ inp.type='number';inp.className='pedit';inp.min=0;inp.max=lim;inp.value=prio(mod.name);o.replaceWith(inp);inp.focus();inp.select();
+ let done=false;const fin=ok=>{if(done)return;done=true;if(ok){const v=Math.max(0,Math.min(lim,parseInt(inp.value,10)));if(!isNaN(v))setPr(P(),mod.name,v)}render()};
+ inp.onkeydown=ev=>{if(ev.key==='Enter')fin(true);else if(ev.key==='Escape')fin(false)};inp.onblur=()=>fin(true)});
+/* saving files */
+async function saveAs(name,data){return await window.__native.saveFile(name,data)}
+$('#dl').onclick=async()=>{const f=curFile();try{const p=await saveAs(f[0].split('/').pop(),f[1],'INI file');if(p)toast('Saved '+p)}catch(e){toast('Saving failed: '+e.message)}};
+/* game shortcut: -modprof name, -mod name[=priority], -nomods */
+const CUT={mode:'prof',fmt:'lnk'};
+const cutTarget=()=>{const gp=($('#cutpath').value.trim()||gpath()).replace(/[\\/]+$/,''),exe=$('#cutexe').value||'gta_sa.exe';return{gp,exe,full:gp?gp+'\\'+exe:exe}};
+function cutArgs(){const a=[],q=v=>/[\s"]/.test(v)?`"${v.replace(/"/g,'\\"')}"`:v;
+ if(CUT.mode==='prof')a.push('-modprof',q($('#cutpsel').value));
+ else if(CUT.mode==='none')a.push('-nomods');
+ else if(CUT.mode==='mods')document.querySelectorAll('#cutlist [data-cm]:checked').forEach(c=>{const pr=c.closest('.cutrow').querySelector('input[type=number]').value.trim();a.push('-mod',q(c.dataset.cm+(pr!==''?'='+pr:'')))});
+ const x=$('#cutextra').value.trim();if(x)a.push(x);return a.join(' ')}
+function cutUi(){
+ document.querySelectorAll('#cutmode button').forEach(b=>b.classList.toggle('on',b.dataset.m===CUT.mode));
+ document.querySelectorAll('#cutfmt button').forEach(b=>b.classList.toggle('on',b.dataset.f===CUT.fmt));
+ $('#cutprof').hidden=CUT.mode!=='prof';$('#cutmods').hidden=CUT.mode!=='mods';
+ const t=cutTarget(),a=cutArgs(),nat=true;$('#cutprev').textContent=`"${t.full}"${a?' '+a:''}`;
+ $('#cutsave').hidden=!game||(CUT.fmt==='lnk'&&nat);
+ $('#cutnote').textContent=CUT.fmt==='lnk'?(nat?'Creates a real Windows shortcut with the target, arguments and icon filled in.':'Browsers can’t write a .lnk directly. Run this file once and it creates the shortcut on your Desktop.'):'Double-click it to start the game with these options.';
+ {const v=$('#cutpath').value.trim();$('#cuthint').textContent=!v?(S.gpathAuto?'Empty: the detected path will be used.':'Not detected: type the folder that contains gta_sa.exe.'):v===S.gpathAuto?'Detected automatically.':'Custom path. Clear the box to use the detected one.'}
+ $('#cutwarn').textContent=(CUT.fmt==='lnk'&&nat&&!t.gp)?'The shortcut needs the full GTA folder path above.':(!t.gp&&!nat)?'No GTA path set: save the file inside your GTA folder before running it.':CUT.mode==='mods'&&!document.querySelector('#cutlist [data-cm]:checked')?'Tick at least one mod.':''}
+function cutBuild(){const t=cutTarget(),a=cutArgs(),nm=($('#cutname').value.replace(/[\\/:*?"<>|]/g,'').trim()||'GTA SA'),nat=true;
+ if(CUT.fmt==='lnk'&&nat){if(!t.gp){toast('Enter the GTA folder path first');return null}return{native:true,name:nm+'.lnk',opts:{target:t.full,args:a,cwd:t.gp,description:nm,icon:t.full,iconIndex:0}}}
+ return{name:nm+'.bat',data:`@echo off\r\ncd /d "${t.gp||'%~dp0'}"\r\nstart "" "${t.exe}"${a?' '+a:''}\r\n`}}
+$('#mkcut').onclick=()=>{
+ cddOptions($('#cutexe'),S.exes.map(x=>({v:x,t:x})),S.exe);
+ cddOptions($('#cutpsel'),Object.keys(S.profiles).map(n=>({v:n,t:n})),S.cur);
+ $('#cutlist').innerHTML=S.mods.map(m=>`<label class="cutrow"><input type="checkbox" data-cm="${esc(m.name)}"><span class="nm">${esc(m.name)}</span><input type="number" min="0" placeholder="prio"></label>`).join('')||'<div class="stats" style="padding:8px 10px">No mods</div>';
+ 
+ $('#cutpath').value=gpath();$('#cutextra').value='';CUT.mode='prof';$('#cutname').value=`GTA SA - ${S.cur}`;cutUi();$('#cutd').showModal()};
+$('#cutd').addEventListener('input',cutUi);$('#cutd').addEventListener('change',cutUi);
+$('#cutpath').onchange=()=>{const v=$('#cutpath').value.trim();S.gpathUser=v&&v!==S.gpathAuto?v:'';const ci=curInst();if(ci)ci.gpathUser=S.gpathUser;save();cutUi()};
+$('#cutexe').addEventListener('change',()=>{S.exe=$('#cutexe').value});
+$('#cutmode').onclick=e=>{const b=e.target.closest('button');if(b){CUT.mode=b.dataset.m;cutUi()}};
+$('#cutfmt').onclick=e=>{const b=e.target.closest('button');if(b){CUT.fmt=b.dataset.f;cutUi()}};
+$('#cutx').onclick=()=>$('#cutd').close();
+$('#cutdl').onclick=async()=>{const f=cutBuild();if(!f)return;
+ try{if(f.native){const p=await window.__native.saveShortcut(f.name,f.opts);if(p)toast('Saved '+p);else if(p===false)toast('Couldn’t create the shortcut')}
+  else{const p=await saveAs(f.name,f.data,'Batch file');if(p)toast('Saved '+p)}}catch(e){toast('Saving failed: '+e.message)}};
+$('#cutsave').onclick=async()=>{const f=cutBuild();if(!f||f.native)return;try{await writeFile(f.name,f.data,game);toast(`Saved ${f.name} in the GTA folder`)}catch(e){toast('Saving failed: '+e.message)}};
+document.querySelectorAll('.side details').forEach(d=>{if(d.id in S.panels)d.open=S.panels[d.id];d.addEventListener('toggle',()=>{S.panels[d.id]=d.open;save()})});
+new ResizeObserver(()=>document.documentElement.style.setProperty('--hh',(document.querySelector('header').offsetHeight+40)+'px')).observe(document.querySelector('header'));
+function patchList(mods,hs){const L=$('#list');
+ if(!mods.length){L.innerHTML='<div class="empty">No mods to show. Scan your GTA folder to list the mods you already have, or install a new one.</div>';return}
+ if(L.firstElementChild&&L.firstElementChild._k===undefined)L.innerHTML='';
+ const old=new Map();[...L.children].forEach(el=>{if(el._k!==undefined)old.set(el._k,el)});const t=document.createElement('template');
+ mods.forEach((m,i)=>{const h=hs[i];let el=old.get(m.name);old.delete(m.name);
+  if(!el||el._h!==h){t.innerHTML=h;const n=t.content.firstElementChild;n._k=m.name;n._h=h;if(el)el.replaceWith(n);el=n}
+  const cur=L.children[i];if(cur!==el)L.insertBefore(el,cur||null)});
+ old.forEach(el=>el.remove())}
+function pulse(){document.body.classList.add('anim');clearTimeout(pulse.t);pulse.t=setTimeout(()=>document.body.classList.remove('anim'),750)}
+function ask(o){return new Promise(res=>{const d=$('#askd'),inp=$('#askin');
+ $('#asktitle').textContent=o.title||'';$('#asktext').textContent=o.text||'';inp.hidden=!o.input;inp.value=o.value||'';inp.placeholder=o.placeholder||'';
+ $('#askok').textContent=o.ok||'OK';$('#askno').hidden=!!o.info;$('#askok').classList.toggle('del',!!o.danger);
+ let done=false;const fin=v=>{if(done)return;done=true;d.close();res(v)};
+ $('#askok').onclick=()=>fin(o.input?inp.value:true);$('#askno').onclick=()=>fin(o.input?null:false);
+ inp.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();fin(inp.value)}};
+ d.oncancel=e=>{e.preventDefault();fin(o.input?null:false)};
+ d.showModal();if(o.input){inp.focus();inp.select()}else $('#askok').focus()})}
+const notice=(title,text)=>ask({title,text,info:true});
+/* smooth expanding: only the affected rows animate, the rest of the list is left alone */
+function toggleMod(el,m){const fi=el.querySelector('.files>.fi');clearTimeout(el._t);
+ if(!m._o){m._o=true;fi.innerHTML=tree(m);void fi.offsetHeight;el.classList.add('open')}
+ else{m._o=false;el.classList.remove('open');el._t=setTimeout(()=>{if(!m._o)fi.innerHTML=''},360)}
+ save()}
+function foldDir(m,row){const p=row.dataset.p,kids=row.nextElementSibling,ki=kids.firstElementChild;m._x=m._x||{};clearTimeout(kids._t);
+ if((m._q||'').trim()){row.classList.toggle('open');kids.classList.toggle('open');return}
+ if(!m._x[p]){m._x[p]=true;row.classList.add('open');ki.innerHTML=treeBody(m,{p});void ki.offsetHeight;kids.classList.add('open')}
+ else{m._x[p]=false;row.classList.remove('open');kids.classList.remove('open');kids._t=setTimeout(()=>{if(!m._x[p])ki.innerHTML=''},340)}
+ save()}
+function bulkFold(el,m,open){const tb=el.querySelector('.tb');m._x={};if(open)dirsOf(m).forEach(d=>m._x[d]=true);
+ tb.innerHTML=treeBody(m);tb.classList.add('swap');setTimeout(()=>tb.classList.remove('swap'),320);save()}
+/* header: profile actions menu + title bar colours */
+const pmOpen=o=>{$('#pmm').hidden=!o;$('#pmb').setAttribute('aria-expanded',o)};
+$('#pmb').onclick=()=>pmOpen($('#pmm').hidden);
+document.addEventListener('click',e=>{if(!e.target.closest('#pmd'))pmOpen(false)});
+$('#pmm').addEventListener('click',()=>pmOpen(false));
+const WI={min:'<path d="M3.5 8.5h9"/>',max:'<rect x="3.3" y="3.3" width="9.4" height="9.4" rx="1.7"/>',res:'<rect x="3" y="5.4" width="7.6" height="7.6" rx="1.5"/><path d="M5.8 5.4V4.7a1.5 1.5 0 0 1 1.5-1.5h4a1.5 1.5 0 0 1 1.5 1.5v4a1.5 1.5 0 0 1-1.5 1.5h-.7"/>',x:'<path d="M3.7 3.7l8.6 8.6M12.3 3.7l-8.6 8.6"/>'};
+const wi=d=>`<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const wState=m=>{$('#wmax').innerHTML=wi(m?WI.res:WI.max);const t=m?'Restore down':'Maximize';$('#wmax').title=t;$('#wmax').setAttribute('aria-label',t)};
+$('#wmin').innerHTML=wi(WI.min);$('#wclose').innerHTML=wi(WI.x);wState(false);
+window.__native.onWinState(wState);window.__native.isMax().then(wState);
+$('#wmin').onclick=()=>window.__native.win('min');$('#wmax').onclick=()=>window.__native.win('max');$('#wclose').onclick=()=>window.__native.win('close');
+/* game selector */
+const CHK='<svg class="ck" viewBox="0 0 12 12" width="12" height="12"><path d="M2.5 6.5 5 9l4.5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function renderInst(){const ci=curInst();$('#tbs').textContent=ci?`${ci.name} · ${S.cur}`:'';$('#iddt').textContent=ci?ci.name:(S.gname||'No game');
+ $('#iddm').innerHTML=S.installs.map(i=>`<div class="ddi ${i.id===S.curInst?'sel':''}" role="option" data-id="${esc(i.id)}">${CHK}<span class="nmx">${esc(i.name)}</span>${i.path?`<small>${esc(i.path)}</small>`:''}<button class="x" data-del="${esc(i.id)}" aria-label="Forget this installation" title="Forget this installation">×</button></div>`).join('')+(S.installs.length?'<div class="ddsep"></div>':'')+'<div class="ddi add" data-add="1">+ Add installation…</div>'}
+const iOpen=o=>{$('#iddm').hidden=!o;$('#iddb').setAttribute('aria-expanded',o)};
+$('#iddb').onclick=()=>iOpen($('#iddm').hidden);
+$('#iddb').onkeydown=e=>{if(e.key==='Escape')iOpen(false)};
+document.addEventListener('click',e=>{if(!e.target.closest('#idd'))iOpen(false)});
+$('#iddm').onclick=async e=>{const del=e.target.closest('[data-del]');
+ if(del){e.stopPropagation();iOpen(false);const i=S.installs.find(x=>x.id===del.dataset.del);
+  if(i&&await ask({title:`Forget “${i.name}”?`,text:'Only this manager’s link to the folder is removed. Nothing is deleted from disk.',ok:'Forget',danger:true})){const o=await idb('get',i.id).catch(()=>null),rec={...i};await forgetInst(i.id);toast(`Forgot “${i.name}”`,async()=>{S.installs.push(rec);if(o)try{await idb('put',rec.id,o)}catch(e){}render()})}return}
+ if(e.target.closest('[data-add]')){iOpen(false);pick();return}
+ const row=e.target.closest('[data-id]');if(row){iOpen(false);switchInst(row.dataset.id)}};
+/* ===== backups: the original and every earlier version of a config are kept before it is overwritten ===== */
+const fsN=require('fs'),pathN=require('path'),cryptoN=require('crypto');
+const fmtSize=b=>b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(1)+' MB';
+const BK={
+ base(){return pathN.join(window.__native.userData,'backups')},
+ anchor(){const a=game||root;return a&&a._path?a._path:''},
+ rel(abs){const a=this.anchor();return a&&abs.toLowerCase().startsWith(a.toLowerCase())?pathN.relative(a,abs).replace(/\\/g,'/'):abs.replace(/\\/g,'/')},
+ dir(rel){return pathN.join(this.base(),S.curInst||'default',cryptoN.createHash('sha1').update(rel.toLowerCase()).digest('hex').slice(0,16))},
+ versions(abs){const d=this.dir(this.rel(abs));if(!fsN.existsSync(d))return[];
+  const names=fsN.readdirSync(d).filter(n=>n.endsWith('.bak')).map(n=>n.slice(0,-4)),v=names.filter(x=>x!=='original').sort((a,b)=>b-a).map(id=>({id,time:+id}));
+  if(names.includes('original'))v.push({id:'original',time:fsN.statSync(pathN.join(d,'original.bak')).mtimeMs});return v},
+ save(abs,text){const rel=this.rel(abs),d=this.dir(rel);fsN.mkdirSync(d,{recursive:true});fsN.writeFileSync(pathN.join(d,'.rel'),rel);
+  const o=pathN.join(d,'original.bak');if(!fsN.existsSync(o))fsN.writeFileSync(o,text);
+  const vs=this.versions(abs).filter(v=>v.id!=='original');
+  if(vs.length&&fsN.readFileSync(pathN.join(d,vs[0].id+'.bak'),'utf8')===text)return;
+  fsN.writeFileSync(pathN.join(d,Date.now()+'.bak'),text);
+  this.versions(abs).filter(v=>v.id!=='original').slice(20).forEach(v=>fsN.unlinkSync(pathN.join(d,v.id+'.bak')))},
+ read(abs,id){return fsN.readFileSync(pathN.join(this.dir(this.rel(abs)),id+'.bak'),'utf8')},
+ has(abs){return fsN.existsSync(pathN.join(this.dir(this.rel(abs)),'original.bak'))},
+ all(){const d=pathN.join(this.base(),S.curInst||'default'),a=this.anchor(),out=[];if(!fsN.existsSync(d))return out;
+  for(const h of fsN.readdirSync(d)){const rf=pathN.join(d,h,'.rel');if(!fsN.existsSync(rf))continue;const rel=fsN.readFileSync(rf,'utf8'),abs=pathN.join(a,rel);
+   const names=fsN.readdirSync(pathN.join(d,h)).filter(n=>n.endsWith('.bak'));
+   out.push({rel,abs,count:names.length,last:Math.max(0,...names.map(n=>n==='original.bak'?0:+n.slice(0,-4))),missing:!fsN.existsSync(abs)})}
+  return out.sort((x,y)=>y.last-x.last)}};
+
+/* ===== config editor (.ini and .json anywhere in the game folder) ===== */
+const ED={files:[],filter:'all',q:'',tab:'files',cur:null,open:{},scanning:false,inst:null,touchedML:false};
+const edAnchor=()=>{const a=game||root;return a&&a._path?a._path:''};
+function parseIniEd(t){const eol=t.includes('\r\n')?'\r\n':'\n';
+ const lines=t.split(/\r?\n/).map(raw=>{if(/^\s*$/.test(raw))return{t:'b',raw};if(/^\s*[;#]/.test(raw))return{t:'c',raw};
+  let m=raw.match(/^(\s*)\[([^\]]*)\](\s*[;#].*|\s*)$/);if(m)return{t:'s',ind:m[1],name:m[2],cm:m[3]||'',raw};
+  m=raw.match(/^(\s*)([^=;#\[][^=]*?)(\s*=\s*)("[^"]*")(\s*[;#].*|\s*)$/)||raw.match(/^(\s*)([^=;#\[][^=]*?)(\s*=\s*)(.*?)(\s+[;#].*)?$/);
+  if(m)return{t:'k',ind:m[1],key:m[2],sep:m[3],val:m[4],cm:m[5]||'',raw};
+  return{t:'e',raw}});return{eol,lines}}
+const iniText=m=>m.lines.map(l=>l.t==='s'?l.ind+'['+l.name+']'+l.cm:l.t==='k'?l.ind+l.key+l.sep+l.val+l.cm:l.raw).join(m.eol);
+const detectIndent=t=>{const m=t.match(/^([ \t]+)"/m);return m?(m[1][0]==='\t'?'\t':m[1].length):2};
+const KEYN={8:'Backspace',9:'Tab',13:'Enter',16:'Shift',17:'Ctrl',18:'Alt',20:'Caps Lock',27:'Esc',32:'Space',33:'Page Up',34:'Page Down',35:'End',36:'Home',37:'Left',38:'Up',39:'Right',40:'Down',45:'Insert',46:'Delete',160:'Left Shift',161:'Right Shift',162:'Left Ctrl',163:'Right Ctrl',164:'Left Alt',165:'Right Alt',186:';',187:'=',188:',',189:'-',190:'.',191:'/',192:'`',219:'[',220:'\\',221:']',222:"'"};
+const vkName=v=>{if(!/^0x[0-9a-f]{1,3}$/i.test(v))return'';const n=parseInt(v,16);if(n>=48&&n<=57||n>=65&&n<=90)return String.fromCharCode(n);if(n>=112&&n<=135)return'F'+(n-111);if(n>=96&&n<=105)return'Num '+(n-96);return KEYN[n]||''};
+const cleanC=raw=>raw.replace(/^\s*[;#]+\s?/,'').replace(/\s*[#;]+\s*$/,'').trim();
+const isIdList=v=>/^"\s*\d+(\s*,\s*\d+)*\s*"$/.test(v.trim());
+const idTokens=v=>v.trim().slice(1,-1).split(',').map(x=>x.trim()).filter(Boolean);
+const chipHtml=t=>t.map((x,i)=>`<span class="chip" data-i="${i}">${esc(x)}<button data-chipx aria-label="Remove ${esc(x)}">×</button></span>`).join('');
+function chipsRender(row,l){const t=idTokens(l.val);row.querySelector('.cl').innerHTML=chipHtml(t);row.querySelector('.cn').textContent=t.length+' IDs'}
+function iniForm(m){const L=m.lines,secs=[];let cur={li:-1,name:null,items:[]};secs.push(cur);
+ L.forEach((l,li)=>{if(l.t==='s'){cur={li,name:l.name,items:[]};secs.push(cur)}else if(l.t!=='b')cur.items.push([l,li])});
+ const row=([l,li])=>{
+  if(l.t==='c'){const t=cleanC(l.raw);return t&&!/^[-=#*_~ ]+$/.test(t)?`<div class="note">${esc(t)}</div>`:''}
+  if(l.t==='e')return `<div class="kv" data-li="${li}"><div class="kl"><div class="kn"></div></div><div class="v"><input type="text" data-raw value="${esc(l.raw.trim())}" spellcheck="false"></div><button class="x" data-del title="Remove">×</button></div>`;
+  const key=l.key.trim(),v=l.val.trim(),d=cleanC(l.cm||''),numericHint=/\(\s*-?[\d.]+\s*(to|-|–)\s*-?[\d.]+/i.test(l.cm||'');
+  const isB=/^(true|false)$/i.test(v)||(/^[01]$/.test(v)&&!numericHint);
+  const head=`<div class="kl"><div class="kn" title="${esc(key)}">${esc(key)}</div>${d?`<div class="kd">${esc(d)}</div>`:''}</div>`;
+  if(isIdList(v)){const t=idTokens(v);return `<div class="kv wide" data-li="${li}">${head}<button class="x" data-del title="Remove">×</button><div class="v ids"><div class="cl">${chipHtml(t)}</div><div class="cadd"><input type="text" class="chip-in" placeholder="Add an ID and press Enter" spellcheck="false"><small class="cn">${t.length} IDs</small></div></div></div>`}
+  let val;
+  if(isB){const on=/^(true|1)$/i.test(v);val=`<button class="sw ${on?'on':''}" data-tog aria-label="Toggle ${esc(key)}"></button><span class="bv">${esc(v)}</span>`}
+  else{const kn=vkName(v);val=`<input type="text" data-val value="${esc(l.val)}" spellcheck="false">${kn?`<span class="kbd">${esc(kn)}</span>`:''}`}
+  return `<div class="kv" data-li="${li}">${head}<div class="v">${val}</div><button class="x" data-del title="Remove">×</button></div>`};
+ let h='';
+ secs.forEach(sc=>{if(sc.li<0){
+   const about=sc.items.filter(([l])=>l.t==='c').map(([l])=>cleanC(l.raw)).filter(t=>t&&!/^[-=#*_~ ]+$/.test(t)),rest=sc.items.filter(([l])=>l.t!=='c');
+   if(about.length)h+=`<details class="about"><summary>About this file</summary><div>${about.map(t=>`<p>${esc(t)}</p>`).join('')}</div></details>`;
+   if(rest.length)h+=`<div class="edsec" data-sec="-1">${rest.map(row).join('')}</div>`;return}
+  const keys=sc.items.filter(([l])=>l.t==='k'||l.t==='e').length;
+  h+=`<div class="edsec" data-sec="${sc.li}"><div class="sh"><span>[${esc(sc.name)}]</span><small>${keys} setting${keys===1?'':'s'}</small></div>${sc.items.map(row).join('')}<div class="addkv"><input type="text" class="ak" placeholder="New key" spellcheck="false"><input type="text" class="av" placeholder="Value" spellcheck="false"><button class="btn sm" data-addkv>Add</button></div></div>`});
+ return h+`<div class="edaddsec"><input type="text" id="edsecname" placeholder="New section name"><button class="btn sm" data-addsec>Add section</button></div>`}
+function jsonTree(o){const P=p=>esc(JSON.stringify(p)),cap=300;
+ const leaf=(v,p,k)=>{const t=v===null?'null':typeof v;
+  const ed=t==='boolean'?`<button class="sw ${v?'on':''}" data-jtog aria-label="Toggle"></button><span class="bv">${v}</span>`:t==='null'?'<span class="jnull">null</span><button class="btn sm" data-jset>Set value</button>':`<input type="text" class="jv" data-jt="${t==='number'?'n':'s'}" value="${esc(String(v))}" spellcheck="false">`;
+  return `<div class="jl" data-path="${P(p)}"><span class="jk" title="${esc(String(k))}">${esc(String(k))}</span><div class="v">${ed}</div><span class="jty">${t}</span><button class="x" data-jdel title="Remove">×</button></div>`};
+ const node=(v,p,k,d)=>{if(v&&typeof v==='object'){const isA=Array.isArray(v),ks=Object.keys(v);
+   return `<details class="jn" ${d<1?'open':''} data-path="${P(p)}"><summary><span class="jk">${esc(String(k))}</span><small>${isA?'['+ks.length+']':'{'+ks.length+'}'}</small>${p.length?'<button class="x" data-jdel title="Remove">×</button>':''}</summary><div class="jc">${ks.slice(0,cap).map(x=>node(v[x],[...p,isA?+x:x],x,d+1)).join('')}${ks.length>cap?`<div class="stats" style="padding:4px 14px">…and ${ks.length-cap} more (use Raw to edit)</div>`:''}<div class="jadd">${isA?'':'<input type="text" class="jak" placeholder="key" spellcheck="false">'}<div class="dd cdd jat" data-opts="string,number,boolean,null,object,array" data-val="string" aria-label="Type"></div><input type="text" class="jav" placeholder="value" spellcheck="false"><button class="btn sm" data-jadd>Add</button></div></div></details>`}
+  return leaf(v,p,k)};
+ return node(o,[],'root',0)}
+const jget=(o,p)=>p.reduce((a,k)=>a[k],o);
+function edText(){const c=ED.cur;if(c.view==='raw')return c.text;
+ if(c.kind==='ini')return iniText(c.model);
+ return c.touched?JSON.stringify(c.obj,null,c.indent)+(c.nl?'\n':''):c.orig}
+function edState(){const c=ED.cur;if(!c)return;c.dirty=edText()!==c.orig;
+ const s=$('#edsave');if(s){s.disabled=!c.dirty;s.textContent=c.dirty?'Save changes':'Saved'}const rv=$('#edrev');if(rv)rv.disabled=!c.dirty;
+ const p=$('#edright .edp');if(p)p.classList.toggle('dirty',c.dirty);
+ clearTimeout(ED._ht);ED._ht=setTimeout(edHistPush,420);edHistUi()}
+function edStateSoon(){clearTimeout(ED._st);ED._st=setTimeout(edState,160)}
+function edHistUi(){const c=ED.cur,u=$('#edundo'),r=$('#edredo');if(!c||!u)return;u.disabled=c.hi<=0&&edText()===c.hist[c.hi];r.disabled=c.hi>=c.hist.length-1}
+function edHistPush(){const c=ED.cur;if(!c||c._restoring)return;const t=edText();if(t===c.hist[c.hi]){edHistUi();return}
+ c.hist.splice(c.hi+1);c.hist.push(t);if(c.hist.length>100)c.hist.shift();c.hi=c.hist.length-1;edHistUi()}
+function edSetText(t){const c=ED.cur;c._restoring=true;
+ if(c.view==='raw')c.text=t;
+ else if(c.kind==='ini')c.model=parseIniEd(t);
+ else{try{c.obj=t.trim()?JSON.parse(t):{};c.touched=t!==c.orig}catch(e){c.view='raw';c.text=t}}
+ edRight();c._restoring=false}
+function edUndo(){const c=ED.cur;if(!c)return;clearTimeout(ED._st);clearTimeout(ED._ht);edHistPush();if(c.hi<=0)return;c.hi--;edSetText(c.hist[c.hi])}
+function edRedo(){const c=ED.cur;if(!c)return;clearTimeout(ED._st);clearTimeout(ED._ht);if(c.hi>=c.hist.length-1)return;c.hi++;edSetText(c.hist[c.hi])}
+function edBody(){const c=ED.cur,b=$('#edbody');
+ if(c.view==='raw'){b.innerHTML=`<textarea id="edraw" spellcheck="false">${esc(c.text)}</textarea>`;return}
+ b.innerHTML=c.kind==='ini'?iniForm(c.model):jsonTree(c.obj);enhanceCdd(b)}
+function edRight(){const c=ED.cur,r=$('#edright');
+ if(!c){r.innerHTML='<div class="empty" style="margin:auto;border:0">Pick a file on the left to edit it.<br>Every change is backed up automatically.</div>';return}
+ r.innerHTML=`<div class="edh"><div class="edp" title="${esc(c.abs)}">${esc(c.rel)}</div><div class="edt"><div class="seg" id="edview"><button data-v="form" class="${c.view==='form'?'on':''}">${c.kind==='json'?'Tree':'Form'}</button><button data-v="raw" class="${c.view==='raw'?'on':''}">Raw</button></div>${c.kind==='json'?'<button class="btn sm" id="edfmt">Format</button>':''}<div class="dd" id="edbd"><button class="btn sm" id="edbk">Backups</button><div class="ddm right" id="edbm" hidden></div></div><button class="btn sm" id="edundo" disabled title="Undo (Ctrl+Z)">Undo</button><button class="btn sm" id="edredo" disabled title="Redo (Ctrl+Y)">Redo</button><button class="btn sm" id="edrev">Revert</button><button class="btn sm pri" id="edsave">Save changes</button></div></div>${!c.exists?'<div class="edn">This file no longer exists. Restore a backup to bring it back.</div>':''}${c.err?`<div class="edn bad">${esc(c.err)}</div>`:''}<div class="edbody" id="edbody"></div>`;
+ edBody();edState()}
+function edList(){const box=$('#edlist');
+ if(ED.tab==='bk'){const q=ED.q.trim().toLowerCase(),a=BK.all().filter(x=>!q||x.rel.toLowerCase().includes(q));
+  box.innerHTML=a.length?a.map(x=>`<div class="edr ${ED.cur&&ED.cur.abs===x.abs?'sel':''}" data-abs="${esc(x.abs)}" style="padding-left:10px" title="${esc(x.rel)}"><span class="nm">${esc(x.rel)}</span>${x.missing?'<small style="color:var(--bad)">deleted</small>':''}<small>${x.count}</small></div>`).join(''):'<div class="stats" style="padding:10px">No backups yet. A backup is made automatically before a config is changed.</div>';return}
+ const q=ED.q.trim().toLowerCase(),fl=ED.files.filter(f=>(ED.filter==='all'||f.ext===ED.filter)&&(!q||f.rel.toLowerCase().includes(q)));
+ if(ED.scanning&&!fl.length){box.innerHTML='<div class="stats" style="padding:10px">Scanning…</div>';return}
+ if(!fl.length){box.innerHTML='<div class="stats" style="padding:10px">No config files found</div>';return}
+ const groups=new Map();fl.forEach(f=>{const i=f.rel.lastIndexOf('/'),d=i<0?'':f.rel.slice(0,i);if(!groups.has(d))groups.set(d,[]);groups.get(d).push(f)});
+ const cur=ED.cur&&ED.cur.abs;let h='',shown=0;
+ for(const[d,arr]of groups){const open=!!q||ED.open[d]||arr.some(f=>f.abs===cur);
+  h+=`<div class="edg ${open?'open':''}" data-d="${esc(d)}">${CV}<span class="nm" title="${esc(d)}">${esc(d||'Game folder')}</span><small>${arr.length}</small></div>`;
+  if(open&&shown<700)arr.forEach(f=>{shown++;h+=`<div class="edr ${f.abs===cur?'sel':''}" data-abs="${esc(f.abs)}" title="${esc(f.rel)}"><span class="ext ${f.ext}">${f.ext}</span><span class="nm">${esc(f.rel.split('/').pop())}</span>${BK.has(f.abs)?'<i class="bkd" title="Has backups"></i>':''}<small>${fmtSize(f.size)}</small></div>`})}
+ box.innerHTML=h}
+async function edScan(){const base=edAnchor();if(!base)return;ED.files=[];ED.scanning=true;ED.inst=S.curInst;edList();let n=0;
+ const skip=new Set(['.git','node_modules','$recycle.bin','system volume information']);
+ const walk=async(dir,depth)=>{let ents;try{ents=await fsN.promises.readdir(dir,{withFileTypes:true})}catch(e){return}
+  for(const e of ents){const p=pathN.join(dir,e.name);
+   if(e.isDirectory()){if(depth<14&&!skip.has(e.name.toLowerCase()))await walk(p,depth+1)}
+   else if(/\.(ini|json)$/i.test(e.name)){let sz=0;try{sz=fsN.statSync(p).size}catch(x){}if(sz<=3e6)ED.files.push({abs:p,rel:pathN.relative(base,p).replace(/\\/g,'/'),size:sz,ext:e.name.split('.').pop().toLowerCase()})}
+   if(++n%250===0){$('#edinfo').textContent=`Scanning… ${ED.files.length} files`;await new Promise(r=>setTimeout(r))}}};
+ await walk(base,0);ED.files.sort((a,b)=>a.rel.localeCompare(b.rel,undefined,{numeric:true}));ED.scanning=false;
+ $('#edinfo').textContent=`${ED.files.length} config file${ED.files.length===1?'':'s'}`;edList()}
+async function edOpen(abs,force){const c=ED.cur;
+ if(!force&&c&&c.dirty&&c.abs!==abs&&!await ask({title:'Discard unsaved changes?',text:c.rel,ok:'Discard',danger:true}))return;
+ let text='',bom=false;const exists=fsN.existsSync(abs);
+ if(exists){try{text=fsN.readFileSync(abs,'utf8')}catch(e){return notice('Couldn’t read the file',e.message)}if(text.charCodeAt(0)===0xFEFF){bom=true;text=text.slice(1)}}
+ const rel=pathN.relative(edAnchor(),abs).replace(/\\/g,'/'),kind=/\.json$/i.test(abs)?'json':'ini';
+ const n=ED.cur={abs,rel,kind,exists,bom,orig:text,text,dirty:false,view:'form',err:'',touched:false,hist:[text],hi:0};
+ if(kind==='ini')n.model=parseIniEd(text);
+ else{try{n.obj=text.trim()?JSON.parse(text):{};n.indent=detectIndent(text);n.nl=/\n$/.test(text)}catch(e){n.err='This JSON can’t be shown as a tree yet: '+e.message;n.view='raw'}}
+ edRight();edList()}
+async function edSave(){const c=ED.cur;if(!c||!c.dirty)return;let text=edText();
+ if(c.kind==='json'){try{JSON.parse(text)}catch(e){if(!await ask({title:'This JSON is not valid',text:e.message+' Save it anyway?',ok:'Save anyway',danger:true}))return}}
+ try{if(fsN.existsSync(c.abs))BK.save(c.abs,fsN.readFileSync(c.abs,'utf8'));fsN.mkdirSync(pathN.dirname(c.abs),{recursive:true});fsN.writeFileSync(c.abs,(c.bom?'\uFEFF':'')+text)}
+ catch(e){return notice('Saving failed',e.message)}
+ c.orig=text;c.exists=true;c.touched=false;if(c.view==='raw')c.text=text;const r=root&&root._path;if(r&&c.abs.toLowerCase().startsWith(r.toLowerCase()))ED.touchedML=true;
+ edState();edList();toast('Saved. The previous version is in Backups')}
+async function edRestore(id){const c=ED.cur;if(!c)return;
+ if(!await ask({title:id==='original'?'Restore the original file?':'Restore this version?',text:'The current file is backed up first, so you can undo this.',ok:'Restore'}))return;
+ try{const text=BK.read(c.abs,id);if(fsN.existsSync(c.abs))BK.save(c.abs,fsN.readFileSync(c.abs,'utf8'));fsN.mkdirSync(pathN.dirname(c.abs),{recursive:true});fsN.writeFileSync(c.abs,text)}
+ catch(e){return notice('Restore failed',e.message)}
+ const r=root&&root._path;if(r&&c.abs.toLowerCase().startsWith(r.toLowerCase()))ED.touchedML=true;
+ await edOpen(c.abs,true);toast('Restored')}
+async function edClose(){const c=ED.cur;if(c&&c.dirty&&!await ask({title:'Discard unsaved changes?',text:c.rel,ok:'Discard',danger:true}))return;
+ ED.cur=null;$('#edd').close();
+ if(ED.touchedML){ED.touchedML=false;const pend=files().filter(([p,t])=>written[p]!==t).length;if(pend)toast('Saved. Rescan to load the changes into the main view.');else{try{await scanRoot()}catch(e){}}}}
+function keepOpen(fn){const op=[...$('#edbody').querySelectorAll('details.jn[open]')].map(d=>d.dataset.path);fn();$('#edbody').querySelectorAll('details.jn').forEach(d=>{if(op.includes(d.dataset.path))d.open=true})}
+$('#edbtn').onclick=()=>{if(!root)return toast('Scan a GTA folder first');$('#edd').showModal();ED.tab='files';document.querySelectorAll('#edtabs button').forEach(b=>b.classList.toggle('on',b.dataset.t==='files'));if(ED.inst!==S.curInst||!ED.files.length)edScan();else edList();edRight()};
+$('#edclose').onclick=edClose;$('#edrescan').onclick=edScan;
+$('#edd').addEventListener('cancel',e=>{e.preventDefault();edClose()});
+$('#edd').addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
+ if(k==='s'){e.preventDefault();edSave()}
+ else if((k==='z'||k==='y')&&e.target.id!=='edraw'){e.preventDefault();if(k==='y'||e.shiftKey)edRedo();else edUndo()}});
+$('#edq').oninput=e=>{ED.q=e.target.value;edList()};
+$('#edtabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;ED.tab=b.dataset.t;document.querySelectorAll('#edtabs button').forEach(x=>x.classList.toggle('on',x===b));edList()};
+$('#edf').onclick=e=>{const b=e.target.closest('button');if(!b)return;ED.filter=b.dataset.f;document.querySelectorAll('#edf button').forEach(x=>x.classList.toggle('on',x===b));edList()};
+$('#edlist').onclick=e=>{const g=e.target.closest('.edg');if(g){ED.open[g.dataset.d]=!g.classList.contains('open');edList();return}
+ const r=e.target.closest('.edr');if(r)edOpen(r.dataset.abs)};
+$('#edright').addEventListener('input',e=>{const t=e.target,c=ED.cur;if(!c)return;
+ if(t.id==='edraw'){c.text=t.value;edStateSoon();return}
+ const row=t.closest('[data-li]');
+ if(row&&t.hasAttribute('data-val')){c.model.lines[+row.dataset.li].val=t.value;edStateSoon()}
+ else if(row&&t.hasAttribute('data-raw')){c.model.lines[+row.dataset.li].raw=t.value;edStateSoon()}
+ else if(t.classList.contains('jv')){const p=JSON.parse(t.closest('[data-path]').dataset.path),par=jget(c.obj,p.slice(0,-1)),k=p[p.length-1];
+  if(t.dataset.jt==='n'){const v=t.value.trim()===''?NaN:Number(t.value);t.classList.toggle('bad',isNaN(v));if(isNaN(v))return;par[k]=v}else par[k]=t.value;
+  c.touched=true;edStateSoon()}});
+$('#edright').addEventListener('keydown',e=>{
+ if(e.target.classList&&e.target.classList.contains('chip-in')&&(e.key==='Enter'||e.key===',')){e.preventDefault();const c=ED.cur,row=e.target.closest('[data-li]');if(!c||!row)return;
+  const l=c.model.lines[+row.dataset.li],tk=idTokens(l.val),add=e.target.value.split(/[\s,]+/).filter(x=>/^\d+$/.test(x)&&!tk.includes(x));
+  if(!add.length){if(e.target.value.trim())toast('Only new numbers can be added');return}
+  l.val='"'+[...tk,...add].join(', ')+'"';e.target.value='';chipsRender(row,l);edState();return}if(e.target.id==='edraw'&&e.key==='Tab'){e.preventDefault();const t=e.target,s=t.selectionStart;t.setRangeText('  ',s,t.selectionEnd,'end');t.dispatchEvent(new Event('input',{bubbles:true}))}});
+$('#edright').addEventListener('click',async e=>{const t=e.target,c=ED.cur;if(!c)return;
+ const bt=t.closest('button');
+ if(t.closest('#edview')&&bt){const v=bt.dataset.v;if(v===c.view)return;
+  if(v==='raw'){c.text=edText();c.view='raw'}
+  else{try{if(c.kind==='ini')c.model=parseIniEd(c.text);else{c.obj=c.text.trim()?JSON.parse(c.text):{};c.touched=true;c.indent=c.indent||2}c.view='form';c.err=''}catch(x){return toast('Fix the JSON first: '+x.message)}}
+  edRight();return}
+ if(bt&&bt.id==='edfmt'){try{const o=JSON.parse(edText());c.obj=o;c.touched=true;if(c.view==='raw'){c.text=JSON.stringify(o,null,c.indent||2)+(c.nl?'\n':'');edBody()}else edBody();edState();toast('Formatted')}catch(x){toast('Not valid JSON: '+x.message)}return}
+ if(bt&&bt.id==='edsave'){edSave();return}
+ if(bt&&bt.id==='edundo'){edUndo();return}
+ if(bt&&bt.id==='edredo'){edRedo();return}
+ if(bt&&bt.id==='edrev'){edOpen(c.abs,true);return}
+ if(bt&&bt.id==='edbk'){const m=$('#edbm'),vs=BK.versions(c.abs);
+  m.innerHTML=vs.length?vs.map(v=>`<div class="ddi" data-ver="${v.id}"><span class="nmx">${v.id==='original'?'Original (before the first edit)':new Date(v.time).toLocaleString()}</span><small>Restore</small></div>`).join(''):'<div class="ddi" style="color:var(--mut);cursor:default">No backups yet. One is made automatically before the first change.</div>';
+  m.hidden=!m.hidden;return}
+ const ver=t.closest('[data-ver]');if(ver){$('#edbm').hidden=true;edRestore(ver.dataset.ver);return}
+ if(!t.closest('#edbd'))$('#edbm')&&($('#edbm').hidden=true);
+ const row=t.closest('[data-li]');
+ const chipx=t.closest('[data-chipx]');
+ if(chipx&&row){const l=c.model.lines[+row.dataset.li],tk=idTokens(l.val);tk.splice(+chipx.closest('.chip').dataset.i,1);l.val='"'+tk.join(', ')+'"';chipsRender(row,l);edState();return}
+ if(bt&&bt.hasAttribute('data-tog')&&row){const l=c.model.lines[+row.dataset.li],v=l.val.trim(),bin=/^[01]$/.test(v),on=bin?v!=='1':!/^true$/i.test(v),cap=/^[A-Z]/.test(v);
+  l.val=bin?(on?'1':'0'):(on?(cap?'True':'true'):(cap?'False':'false'));bt.classList.toggle('on',on);bt.nextElementSibling.textContent=l.val;edState();return}
+ if(bt&&bt.hasAttribute('data-del')&&row){c.model.lines.splice(+row.dataset.li,1);edBody();edState();return}
+ if(bt&&bt.hasAttribute('data-addkv')){const sec=bt.closest('.edsec'),h=+sec.dataset.sec,k=sec.querySelector('.ak').value.trim(),v=sec.querySelector('.av').value;if(!k)return toast('Type a key name first');
+  const L=c.model.lines;let end=h+1;for(let i=h+1;i<L.length&&L[i].t!=='s';i++)if(L[i].t!=='b')end=i+1;
+  L.splice(end,0,{t:'k',ind:'',key:k,sep:' = ',val:v,cm:''});edBody();edState();return}
+ if(bt&&bt.hasAttribute('data-addsec')){const n=$('#edsecname').value.trim();if(!n)return toast('Type a section name first');
+  const L=c.model.lines;if(L.length&&L[L.length-1].t!=='b')L.push({t:'b',raw:''});L.push({t:'s',ind:'',name:n,cm:'',raw:''},{t:'b',raw:''});edBody();edState();$('#edbody').scrollTop=1e9;return}
+ const jl=t.closest('[data-path]');
+ if(bt&&bt.hasAttribute('data-jtog')&&jl){const p=JSON.parse(jl.dataset.path),par=jget(c.obj,p.slice(0,-1)),k=p[p.length-1];par[k]=!par[k];c.touched=true;bt.classList.toggle('on',par[k]);bt.nextElementSibling.textContent=par[k];edState();return}
+ if(bt&&bt.hasAttribute('data-jdel')&&jl){const p=JSON.parse(jl.dataset.path),par=jget(c.obj,p.slice(0,-1)),k=p[p.length-1];if(Array.isArray(par))par.splice(k,1);else delete par[k];c.touched=true;keepOpen(edBody);edState();return}
+ if(bt&&bt.hasAttribute('data-jset')&&jl){const p=JSON.parse(jl.dataset.path);jget(c.obj,p.slice(0,-1))[p[p.length-1]]='';c.touched=true;keepOpen(edBody);edState();return}
+ if(bt&&bt.hasAttribute('data-jadd')){const d=bt.closest('details.jn'),p=JSON.parse(d.dataset.path),cont=jget(c.obj,p),isA=Array.isArray(cont),ty=d.querySelector(':scope>.jc>.jadd .jat').value,raw=d.querySelector(':scope>.jc>.jadd .jav').value;
+  const key=isA?null:d.querySelector(':scope>.jc>.jadd .jak').value.trim();if(!isA){if(!key)return toast('Type a key name first');if(key in cont)return toast('That key already exists')}
+  let v;if(ty==='string')v=raw;else if(ty==='number'){v=Number(raw);if(raw.trim()===''||isNaN(v))return toast('Type a number')}else if(ty==='boolean')v=/^(true|1|yes|on)$/i.test(raw.trim());else if(ty==='null')v=null;else if(ty==='object')v={};else v=[];
+  if(isA)cont.push(v);else cont[key]=v;c.touched=true;keepOpen(edBody);edState()}});
+/* custom drop-downs (no native <select> anywhere) */
+const CHEV='<svg viewBox="0 0 12 12" width="12" height="12"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const CHK2='<svg class="ck" viewBox="0 0 12 12" width="12" height="12"><path d="M2.5 6.5 5 9l4.5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function placeMenu(m,anchor){const r=anchor.getBoundingClientRect();m.style.position='fixed';m.style.minWidth=r.width+'px';m.style.maxWidth='min(380px,calc(100vw - 24px))';m.style.left=r.left+'px';m.hidden=false;
+ const h=Math.min(320,m.scrollHeight),below=innerHeight-r.bottom;
+ if(below<h+16&&r.top>below){m.style.top='';m.style.bottom=(innerHeight-r.top+6)+'px'}else{m.style.bottom='';m.style.top=(r.bottom+6)+'px'}
+ const o=m.getBoundingClientRect().right-(innerWidth-8);if(o>0)m.style.left=Math.max(8,r.left-o)+'px'}
+function cddInit(el){if(el._i)return;el._i=1;el._o=[];el._v='';
+ el.innerHTML=`<button type="button" class="ddb" aria-haspopup="listbox" aria-expanded="false"><span class="t"></span>${CHEV}</button><div class="ddm" role="listbox" hidden></div>`;
+ Object.defineProperty(el,'value',{get(){return this._v},set(v){this._v=String(v);cddLabel(this)},configurable:true})}
+function cddLabel(el){const o=el._o.find(x=>x.v===el._v);el.querySelector('.t').textContent=o?o.t:''}
+function cddOptions(el,opts,val){cddInit(el);el._o=opts;el._v=val!=null&&opts.some(o=>o.v===String(val))?String(val):(opts[0]?opts[0].v:'');cddLabel(el)}
+function enhanceCdd(root){root.querySelectorAll('.cdd[data-opts]:not([data-i])').forEach(el=>{el.dataset.i=1;cddOptions(el,el.dataset.opts.split(',').map(v=>({v,t:v})),el.dataset.val)})}
+function cddOpen(el){const m=el.querySelector('.ddm'),b=el.querySelector('.ddb');
+ m.innerHTML=el._o.map(o=>`<div class="ddi ${o.v===el._v?'sel':''}" role="option" data-v="${esc(o.v)}">${CHK2}<span class="nmx">${esc(o.t)}</span></div>`).join('')||'<div class="ddi" style="color:var(--mut);cursor:default">Nothing to choose</div>';
+ placeMenu(m,b);el.classList.add('open');b.setAttribute('aria-expanded','true');const s=m.querySelector('.sel');if(s)s.scrollIntoView({block:'nearest'})}
+function cddClose(el){const m=el.querySelector('.ddm');if(m)m.hidden=true;el.classList.remove('open');const b=el.querySelector('.ddb');if(b)b.setAttribute('aria-expanded','false')}
+document.addEventListener('click',e=>{const dd=e.target.closest&&e.target.closest('.cdd');
+ document.querySelectorAll('.cdd.open').forEach(x=>{if(x!==dd)cddClose(x)});if(!dd)return;
+ const it=e.target.closest('.ddi[data-v]');
+ if(it){const v=it.dataset.v;cddClose(dd);if(v!==dd._v){dd._v=v;cddLabel(dd);dd.dispatchEvent(new Event('change',{bubbles:true}))}return}
+ if(e.target.closest('.ddb'))dd.classList.contains('open')?cddClose(dd):cddOpen(dd)});
+document.addEventListener('keydown',e=>{const b=e.target.closest&&e.target.closest('.cdd>.ddb');if(!b)return;const el=b.parentElement,open=el.classList.contains('open');
+ if(e.key==='Escape'){cddClose(el);return}
+ if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();if(!open){cddOpen(el);return}
+  const it=[...el.querySelectorAll('.ddi[data-v]')];let i=it.findIndex(x=>x.classList.contains('hl'));if(i<0)i=it.findIndex(x=>x.classList.contains('sel'));
+  i=(i+(e.key==='ArrowDown'?1:-1)+it.length)%it.length;it.forEach(x=>x.classList.remove('hl'));it[i].classList.add('hl');it[i].scrollIntoView({block:'nearest'})}
+ else if(e.key==='Enter'&&open){const h=el.querySelector('.ddi.hl');if(h){e.preventDefault();h.click()}}});
+addEventListener('scroll',e=>{if(e.target&&e.target.closest&&e.target.closest('.ddm'))return;document.querySelectorAll('.cdd.open').forEach(cddClose);parClose()},true);
+addEventListener('resize',()=>{document.querySelectorAll('.cdd.open').forEach(cddClose);parClose()});
+cddOptions($('#sortsel'),[{v:'name',t:'Name (A–Z)'},{v:'namez',t:'Name (Z–A)'},{v:'prio',t:'Priority (high first)'},{v:'priol',t:'Priority (low first)'},{v:'status',t:'Active first'},{v:'files',t:'Most files'}],S.sort);
+/* parents: a proper suggestion list instead of the browser's datalist */
+function parOpen(){const q=$('#par').value.trim().toLowerCase(),have=P().par.map(x=>x.toLowerCase()),m=$('#parm');
+ const names=Object.keys(S.profiles).filter(n=>n!==S.active&&!have.includes(n.toLowerCase())&&(!q||n.toLowerCase().includes(q)));
+ m.innerHTML=names.map(n=>`<div class="ddi" role="option" data-p="${esc(n)}"><span class="nmx">${esc(n)}</span></div>`).join('')||'<div class="ddi" style="color:var(--mut);cursor:default">No other profiles to add</div>';
+ placeMenu(m,$('#par'));$('#par').setAttribute('aria-expanded','true')}
+function parClose(){const m=$('#parm');if(m)m.hidden=true;const p=$('#par');if(p)p.setAttribute('aria-expanded','false')}
+$('#par').addEventListener('focus',parOpen);$('#par').addEventListener('input',parOpen);
+$('#parm').addEventListener('mousedown',e=>e.preventDefault());
+$('#parm').addEventListener('click',e=>{const it=e.target.closest('[data-p]');if(it){parClose();addPar(it.dataset.p)}});
+document.addEventListener('click',e=>{if(!e.target.closest('#parbox'))parClose()});
+$('#par').addEventListener('keydown',e=>{const m=$('#parm');
+ if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();if(m.hidden)parOpen();const it=[...m.querySelectorAll('.ddi[data-p]')];if(!it.length)return;let i=it.findIndex(x=>x.classList.contains('hl'));
+  i=(i+(e.key==='ArrowDown'?1:-1)+it.length)%it.length;it.forEach(x=>x.classList.remove('hl'));it[i].classList.add('hl');it[i].scrollIntoView({block:'nearest'})}
+ else if(e.key==='Enter'){const h=m.querySelector('.ddi.hl');if(h&&!m.hidden){e.preventDefault();e.stopImmediatePropagation();parClose();addPar(h.dataset.p)}}
+ else if(e.key==='Escape')parClose()},true);
+/* undo / redo for changes that are not saved yet */
+const UNDO={stack:[],redo:[],last:null,busy:false};
+const snapState=()=>{Object.keys(S.profiles).forEach(fx);return JSON.stringify({profiles:S.profiles,cur:S.cur,pl:S.pl,fcl:S.fcl,bc:S.bc,bcDirty:S.bcDirty,pp:S.pp,ppDirty:S.ppDirty,def:S.defInFile})};
+function undoTrack(){if(UNDO.busy)return;const x=snapState();if(UNDO.last===null){UNDO.last=x;return}
+ if(x!==UNDO.last){UNDO.stack.push(UNDO.last);if(UNDO.stack.length>80)UNDO.stack.shift();UNDO.redo=[];UNDO.last=x}}
+function undoReset(){UNDO.stack=[];UNDO.redo=[];UNDO.last=snapState()}
+function undoApply(x){const o=JSON.parse(x);UNDO.busy=true;
+ S.profiles=o.profiles;S.cur=o.cur;S.pl=o.pl;S.fcl=o.fcl;S.bc=o.bc;S.bcDirty=o.bcDirty;S.pp=o.pp;S.ppDirty=o.ppDirty;S.defInFile=o.def;
+ if(!S.profiles[S.active])S.active=S.cur;UNDO.last=x;UNDO.busy=false;render()}
+function doUndo(){if(!UNDO.stack.length)return;UNDO.redo.push(snapState());undoApply(UNDO.stack.pop())}
+function doRedo(){if(!UNDO.redo.length)return;UNDO.stack.push(snapState());undoApply(UNDO.redo.pop())}
+$('#undo').onclick=doUndo;$('#redo').onclick=doRedo;
+document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey)||document.querySelector('dialog[open]'))return;
+ const t=e.target;if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable))return;const k=e.key.toLowerCase();
+ if(k==='z'&&!e.shiftKey){e.preventDefault();doUndo()}else if(k==='y'||(k==='z'&&e.shiftKey)){e.preventDefault();doRedo()}});
+/* install into an existing mod folder */
+function fillEx(){const q=($('#exq').value||'').trim().toLowerCase(),o=[];
+ S.mods.slice().sort((a,b)=>a.name.localeCompare(b.name)).forEach(m=>{o.push(m.name);dirsOf(m).sort().forEach(d=>o.push(m.name+'/'+d))});
+ const f=q?o.filter(v=>v.toLowerCase().includes(q)):o,keep=$('#exsel').value;
+ cddOptions($('#exsel'),f.length?f.map(v=>({v,t:v.split('/').join(' / ')})):[{v:'',t:'No folder matches'}],f.includes(keep)?keep:null)}
+function exUi(){const on=$('#inex').checked;if(on)fillEx();$('#exsel').hidden=$('#exnote').hidden=$('#exq').hidden=!on;
+ $('#exnote').textContent=!$('#exsel').value?'Pick a folder above.':`Will be copied to modloader/${$('#exsel').value}/${$('#mname').value.trim()||'…'}/`}
+$('#inex').onchange=()=>{if($('#inex').checked&&!S.mods.length){$('#inex').checked=false;toast('Scan your modloader folder first so there are mods to choose from')}exUi()};
+$('#exsel').onchange=exUi;$('#exq').oninput=()=>{fillEx();exUi()};$('#mname').oninput=exUi;
+/* install */
+let pend=null;const dlg=$('#dlg');
+$('#inst').onclick=()=>{pend=null;$('#plist').textContent=root?'':'Scan your modloader folder first: mods are copied straight into it.';$('#mname').value='';$('#ok').disabled=true;$('#inex').checked=false;$('#exq').value='';exUi();dlg.showModal()};
+$('#cx').onclick=()=>dlg.close();
+$('#pf').onclick=()=>$('#ff').click();
+$('#ff').onchange=e=>take([...e.target.files]);
+const dr=$('#drop');
+dr.ondragover=e=>{e.preventDefault();dr.classList.add('hov')};dr.ondragleave=()=>dr.classList.remove('hov');
+dr.ondrop=async e=>{e.preventDefault();dr.classList.remove('hov');
+ const walk=async(en,pre)=>{if(en.isFile)return[await new Promise(r=>en.file(f=>{f._p=pre+f.name;r(f)}))];
+  const rd=en.createReader(),out=[];let b;do{b=await new Promise(r=>rd.readEntries(r));for(const c of b)out.push(...await walk(c,pre+en.name+'/'))}while(b.length);return out};
+ const it=[...e.dataTransfer.items].map(i=>i.webkitGetAsEntry&&i.webkitGetAsEntry()).filter(Boolean);
+ const fs=[];for(const en of it)fs.push(...await walk(en,en.isDirectory?'':''));take(fs)};
+async function take(files){
+ files=files.filter(f=>!/(^|\/)(Thumbs\.db|\.DS_Store|desktop\.ini)$/i.test(f.webkitRelativePath||f._p||f.name));if(!files.length)return;
+ const rp=f=>f.webkitRelativePath||f._p||f.name;
+ if(files.every(f=>!rp(f).includes('/'))){$('#plist').textContent='';$('#ok').disabled=true;
+  return toast(files.some(f=>/\.(zip|rar|7z)$/i.test(f.name))?'Archives aren’t supported. Extract it first, then use the folder':'Use an extracted mod folder, not loose files')}
+ let map=new Map(files.map(f=>[rp(f),f]));const first=[...map.keys()][0].split('/')[0];
+ if([...map.keys()].every(p=>p.includes('/')&&p.split('/')[0]===first)){const m2=new Map();map.forEach((v,k)=>m2.set(k.slice(first.length+1),v));map=m2}
+ pend=map;const paths=[...map.keys()];
+ $('#plist').innerHTML=paths.slice(0,60).map(esc).join('<br>')+(paths.length>60?`<br>…and ${paths.length-60} more`:'');
+ $('#mname').value=first;$('#ok').disabled=!root;exUi()}
+$('#ok').onclick=async()=>{let n=$('#mname').value.trim().replace(/[\\/:*?"<>|]/g,'');if(!n||!pend)return;
+ const nest=$('#inex').checked,dest=nest?$('#exsel').value:'',parts=dest.split('/'),tm=nest?S.mods.find(m=>m.name===parts[0]):null,sub=parts.slice(1).join('/'),rel=(sub?sub+'/':'')+n;
+ if(nest){if(!tm)return toast('Pick an existing mod folder');if(tm.files.some(f=>f.startsWith(rel+'/')))return toast(`“${n}” already exists inside ${dest}`)}
+ else if(S.mods.some(m=>m.name.toLowerCase()===n.toLowerCase()))return toast('A mod with that name already exists. Pick another name');
+ if(!(root&&await canWrite()))return toast('Scan your modloader folder first: mods are copied straight into it');
+ const b=$('#ok'),base=nest?parts[0]+'/'+rel:n;b.disabled=true;b.textContent='Copying…';
+ try{for(const[p,fl]of pend)await writeFile(base+'/'+p,fl)}catch(e){b.disabled=false;b.textContent='Install';return toast('Copy failed: '+e.message)}
+ b.textContent='Install';
+ if(nest){tm.files=[...tm.files,...[...pend.keys()].map(p=>rel+'/'+p)].sort();tm._o=true;tm._x=tm._x||{};rel.split('/').reduce((a,x)=>{const c=a?a+'/'+x:x;tm._x[c]=true;return c},'')}
+ else S.mods.unshift({name:n,files:[...pend.keys()].sort()});
+ dlg.close();undoReset();render();
+ toast(`Copied ${n} into ${nest?dest:'modloader'} (${pend.size} files)`,()=>{try{fsN.rmSync(pathN.join(root._path,...base.split('/')),{recursive:true,force:true})}catch(e){}
+  if(nest)tm.files=tm.files.filter(x=>!x.startsWith(rel+'/'));else S.mods=S.mods.filter(x=>x.name!==n);render();toast('Install undone')})};
+/* folder scan */
+let root=null,srcText='No folder scanned yet',src={},game=null,logGet=null,extraLog=null,written={};
+const newP=()=>({pr:{},im:[],ex:[],ig:[],inc:[],par:[],cx:[],um:'',ia:null,ea:null});
+const idb=window.__idb;
+const canWrite=async()=>!!root;
+async function writeFile(path,data,base=root){
+ if(/\.(ini|json)$/i.test(path)&&base&&base._path){try{const abs=pathN.join(base._path,...path.split('/'));if(fsN.existsSync(abs))BK.save(abs,fsN.readFileSync(abs,'utf8'))}catch(e){}}
+ const ps=path.split('/'),f=ps.pop();let d=base;for(const s of ps)d=await d.getDirectoryHandle(s,{create:true});const w=await(await d.getFileHandle(f,{create:true})).createWritable();await w.write(data);await w.close()}
+const PSEC=/^Profiles\.([^.]+)\.(Config|Priority|IgnoreMods|IgnoreFiles|IncludeMods|ExclusiveMods)$/;
+const ppath=n=>{const x=src[n];return x?x.path:n==='Default'?S.main:`.profiles/${n}.ini`};
+function applyLine(k,p,l){l=l.replace(/\s+;.*$/,'');const q=l.match(/^([^=]+?)\s*=\s*(.*)$/);
+ if(k==='Config'){const key=q?q[1].toLowerCase():'',val=q?q[2].trim():'';
+  if(key==='ignoreallfiles'||key==='ignoreallmods')p.ia=/^(1|true|yes|on)$/i.test(val);
+  else if(key==='excludeallmods')p.ea=/^(1|true|yes|on)$/i.test(val);
+  else if(key==='parents'){p.par=val.split(',').map(x=>x.trim()).filter(Boolean);if(p.par.some(x=>x.toLowerCase()==='$none'))p.par=[]}
+  else if(key==='useifmodule')p.um=val;
+  else p.cx.push(l)}
+ else if(k==='Priority'){if(q){const v=parseInt(q[2],0);if(!isNaN(v))setPr(p,q[1].trim(),Math.max(0,v))}}
+ else{const a={IgnoreMods:p.im,IgnoreFiles:p.ig,IncludeMods:p.inc,ExclusiveMods:p.ex}[k],e=l.replace(/\s*=.*$/,'');if(e&&!a.includes(e))a.push(e)}}
+function parseIniFile(t){const out={top:[],fc:{seen:false,profile:null,pl:null,lines:[]},profs:{}};let cur=null;
+ t.split(/\r?\n/).forEach(raw=>{const l=raw.trim(),h=l.match(/^\[(.+)\]$/);
+  if(h){const m=h[1].match(PSEC);
+   if(m)cur={k:m[2],p:out.profs[m[1]]||(out.profs[m[1]]=newP())};
+   else if(h[1]==='Folder.Config'){out.fc.seen=true;cur='fc'}
+   else{cur={sec:h[1],lines:[]};out.top.push(cur)}return}
+  if(!l||!cur)return;
+  if(cur==='fc'){if(l[0]===';'||l[0]==='#')return;const q=l.replace(/\s+;.*$/,'').match(/^([^=]+?)\s*=\s*(.*)$/),key=q?q[1].toLowerCase():'';
+   if(key==='profile')out.fc.profile=q[2].trim();
+   else if(key==='prioritylimit'){const v=parseInt(q[2],0);out.fc.pl=isNaN(v)?null:Math.max(0,v)}
+   else out.fc.lines.push(l)}
+  else if(cur.sec!==undefined)cur.lines.push(raw.trimEnd());
+  else if(l[0]!==';'&&l[0]!=='#')applyLine(cur.k,cur.p,l)});
+ return out}
+async function commit(path,msg){const f=files().find(x=>x[0]===path);if(!f)return;
+ if(root&&await canWrite()){try{await writeFile(path,f[1]);written[path]=f[1];toast(msg)}catch(e){toast('Saving failed: '+e.message)}}
+ else toast('Not written yet: this browser can’t write to the folder. Copy or download it from Config files')}
+function bcDef(){return{EnableMenu:true,EnablePlugins:true,EnableLog:true,ImmediateFlushLog:false,MaxLogSize:5242880,RefreshKey:115,AutoRefresh:true}}
+async function ingest(ents,dirs,label){
+ const mods=new Map(dirs.filter(d=>d[0]!=='.'&&d.toLowerCase()!=='profiles').map(d=>[d,[]]));
+ const pfiles=[],logs=[],plugs=[];src={};logGet=null;let mainGet=null,bcGet=null,ppGet=null,bcDef0=null,ppDef0=null;
+ for(const[p,get]of ents){const s=p.split('/'),top=s[0].toLowerCase();
+  if(/^modloader\.log$/i.test(p)){logs.push([p,get]);continue}
+  if(/^\.data\/config\.ini$/i.test(p)){bcGet=get;continue}
+  if(/^\.data\/config\.ini\.0$/i.test(p)){bcDef0=get;continue}
+  if(/^\.data\/plugins\/plugins\.ini\.0$/i.test(p)){ppDef0=get;continue}
+  if(/^\.data\/plugins\/plugins\.ini$/i.test(p)){ppGet=get;continue}
+  if(/^\.data\/plugins\/.+\.dll$/i.test(p)){plugs.push(p.slice(14));continue}
+  if(top==='.profiles'||top==='profiles'){if(s.length>1&&/\.ini$/i.test(p))pfiles.push([p,get]);continue}
+  if(/^modloader\.ini$/i.test(p)){mainGet=get;continue}
+  if(s.length>1&&s[0][0]!=='.'){if(!mods.has(s[0]))mods.set(s[0],[]);mods.get(s[0]).push(s.slice(1).join('/'))}}
+ logGet=logs.length?logs[0][1]:null;await detectPath(label);
+ const profs={};let top=[],fc={seen:false,profile:null,pl:null,lines:[]};S.main='modloader.ini';
+ if(mainGet){const r=parseIniFile(await(await mainGet()).text());top=r.top;fc=r.fc;for(const[n,p]of Object.entries(r.profs)){profs[n]=p;src[n]={path:S.main}}}
+ for(const[p,get]of pfiles.sort((a,b)=>a[0]<b[0]?-1:1)){const r=parseIniFile(await(await get()).text());
+  for(const[n,pr]of Object.entries(r.profs)){if(profs[n])continue;profs[n]=pr;src[n]={path:p}}}
+ S.topSecs=top;S.pl=fc.pl;S.fcl=fc.lines;S.defInFile=!!profs.Default;
+ if(!profs.Default){profs.Default=newP();src.Default={path:S.main}}
+ let cur='Default';if(fc.profile){const k=Object.keys(profs).find(x=>x.toLowerCase()===fc.profile.toLowerCase());if(k)cur=k}
+ S.profiles=profs;S.cur=cur;S.active=cur;
+ S.bc=bcDef();S.bcRaw='';S.bcx=[];S.bcTop=[];S.bcSeen=false;S.bcDirty=false;S.pp={};S.ppTop=[];S.ppSeen=false;S.ppDirty=false;S.plugins=plugs.sort();
+ const readBc=async get=>{const tx=await(await get()).text();S.bcRaw=tx;const r=parseIniFile(tx),c=r.top.find(o=>o.sec.toLowerCase()==='config');
+  (c?c.lines:[]).forEach(l=>{const q=l.replace(/\s+;.*$/,'').match(/^\s*([^=;#]+?)\s*=\s*(.*?)\s*$/);if(!q)return;const k=Object.keys(S.bc).find(x=>x.toLowerCase()===q[1].toLowerCase());
+   if(!k)return S.bcx.push(l.trim());const v=q[2];S.bc[k]=typeof S.bc[k]==='boolean'?/^(1|true|yes|on)$/i.test(v):(parseInt(v,0)||0)});
+  S.bcTop=r.top.filter(o=>o!==c)};
+ S.bcFrom='none';
+ if(bcGet){S.bcSeen=true;S.bcFrom='file';await readBc(bcGet)}else if(bcDef0){S.bcFrom='default';await readBc(bcDef0)}
+ const readPp=async get=>{const r=parseIniFile(await(await get()).text()),c=r.top.find(o=>o.sec==='Priority');
+  (c?c.lines:[]).forEach(l=>{const q=l.replace(/\s+;.*$/,'').match(/^\s*([^=;#]+?)\s*=\s*(.*?)\s*$/);if(q&&!isNaN(parseInt(q[2],0)))S.pp[q[1]]=Math.max(0,parseInt(q[2],0))});
+  S.ppTop=r.top.filter(o=>o!==c)};
+ if(ppGet){S.ppSeen=true;await readPp(ppGet)}else if(ppDef0)await readPp(ppDef0);
+ written={};files().forEach(([p,t])=>written[p]=t);
+ S.mods=[...mods].map(([name,files])=>({name,files:files.sort()})).sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}));
+ srcText=`Scanned “${label}”: ${S.mods.length} mods, ${Object.keys(profs).length} profiles`+exeNote();
+ try{$('#welc').close()}catch(e){}undoReset();pulse();render();toast(`Found ${S.mods.length} mods`)}
+const gpath=()=>S.gpathUser||S.gpathAuto||'';
+const curInst=()=>S.installs.find(i=>i.id===S.curInst)||null;
+async function detectPath(label){let a='';
+ if(game&&game._path)a=game._path;
+ else if(logGet){try{const t=await(await logGet()).text(),m=t.match(/Using Mod Loader folder "(.*?)"/);
+  if(m)a=m[1].replace(/[\\/]+$/,'').replace(/[\\/]modloader$/i,'').replace(/[\\/](scripts|plugins)$/i,'')}catch(e){}}
+ S.gpathAuto=a;const ci=curInst();
+ if(ci){S.gpathUser=ci.gpathUser||'';if(a)ci.path=a}
+ else{const nm=label||(game||root||{}).name||'';if(S.gname!==nm){S.gname=nm;S.gpathUser=''}}}
+const exeNote=()=>S.exes.length?` · found ${S.exes[0]}${gpath()?' in '+gpath():''}`:' · gta_sa.exe not found (pick the GTA folder to enable shortcuts)';
+async function findExes(){S.exes=[];
+ if(game){try{for await(const[n,e]of game.entries())if(e.kind==='file'&&/\.exe$/i.test(n))S.exes.push(n)}catch(e){}}
+ const rank=x=>/^gta[_-]sa\.exe$/i.test(x)?0:1;S.exes.sort((a,b)=>rank(a)-rank(b)||a.localeCompare(b));
+ if(!S.exes.includes(S.exe))S.exe=S.exes[0]||''}
+async function scanRoot(){await findExes();const ents=[],dirs=[];
+ const walk=async(d,pre)=>{for await(const[n,e]of d.entries()){if(e.kind==='file')ents.push([pre+n,()=>e.getFile()]);else{if(!pre)dirs.push(n);await walk(e,pre+n+'/')}}};
+ await walk(root,'');await ingest(ents,dirs,root.name)}
+async function findML(h){let best=null;const dirs=[h];
+ for(const n of['scripts','plugins']){try{dirs.push(await h.getDirectoryHandle(n))}catch(e){}}
+ for(const d of dirs){let asi=false,ml=null;
+  try{for await(const[n,e]of d.entries()){if(e.kind==='file'&&/^modloader\.asi$/i.test(n))asi=true;else if(e.kind==='directory'&&n.toLowerCase()==='modloader')ml=e}}catch(e){}
+  if(ml&&asi)return ml;if(ml&&!best)best=ml}
+ return best}
+async function instFor(h,g){const main=g||h;let found=null;
+ for(const i of S.installs){let o=null;try{o=await idb('get',i.id)}catch(e){}const oh=o&&(o.game||o.root);
+  if(oh){try{if(await oh.isSameEntry(main)){found=i;break}}catch(e){if(oh._path&&main._path&&oh._path===main._path){found=i;break}}}}
+ if(!found){found={id:'i'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),name:main.name,gpathUser:''};S.installs.push(found)}
+ found.name=main.name;return found}
+async function setRoot(h){let r=h,g=null;
+ if(h.name.toLowerCase()!=='modloader'){r=await findML(h);if(!r){await notice('Mod Loader not found',`There is no modloader folder in “${h.name}”. Install Mod Loader first, then scan this folder again.`);return}g=h}
+ const inst=await instFor(h,g);S.curInst=inst.id;root=r;game=g;extraLog=null;
+ try{await idb('put',inst.id,{root:r,game:g})}catch(e){}await scanRoot()}
+async function switchInst(id){if(id===S.curInst&&root)return;let o=null;try{o=await idb('get',id)}catch(e){}
+ const nm=(S.installs.find(i=>i.id===id)||{}).name||'that folder';
+ if(!o)return notice('Folder not found',`Couldn’t find “${nm}” anymore. Scan it again to link it back.`);
+ S.curInst=id;root=o.root||o;game=o.game||null;extraLog=null;
+ try{await scanRoot()}
+ catch(e){notice('Folder not found',`Couldn’t open “${nm}”. Scan it again to link it back.`)}}
+async function forgetInst(id){S.installs=S.installs.filter(i=>i.id!==id);try{await idb('del',id)}catch(e){}
+ if(S.curInst===id){S.curInst='';const nx=S.installs[0];
+  if(nx)await switchInst(nx.id);else{root=null;game=null;S.mods=[];S.exes=[];logGet=null;srcText='No folder scanned yet';render();welcome()}}
+ else render()}
+async function pick(){try{await setRoot(await showDirectoryPicker())}catch(e){if(e.name!=='AbortError')notice('Couldn’t open that folder',e.message)}}
+$('#scan').onclick=pick;
+$('#rescan').onclick=async()=>{try{await scanRoot()}catch(e){notice('Couldn’t read the folder',e.message)}};
+function profIni(n){const p=fx(n),h=x=>`[Profiles.${n}.${x}]`,lim=S.pl!=null?S.pl:100;
+ const cf=[...p.cx];if(p.ia!=null)cf.push('IgnoreAllMods = '+p.ia);if(p.ea!=null)cf.push('ExcludeAllMods = '+p.ea);
+ cf.push('Parents = '+(p.par.length?p.par.join(', '):'$None'));if(p.um)cf.push('UseIfModule = '+p.um);
+ const pr=Object.entries(p.pr).map(([k,v])=>k+' = '+Math.min(v,lim)),sec=(x,a)=>`${h(x)}\n${a.join('\n')}${a.length?'\n':''}\n`;
+ return sec('Config',cf)+sec('Priority',pr)+sec('IgnoreFiles',p.ig)+sec('IgnoreMods',p.im)+sec('IncludeMods',p.inc)+sec('ExclusiveMods',p.ex)}
+function patchIni(raw,sec,vals,dflt){const nl=raw.includes('\r\n')?'\r\n':'\n',L=raw.split(/\r?\n/);let cur='',seen={},last=-1,hdr=-1;
+ for(let i=0;i<L.length;i++){const h=L[i].trim().match(/^\[(.+)\]$/);
+  if(h){cur=h[1];if(cur.toLowerCase()===sec.toLowerCase())hdr=i;continue}
+  if(cur.toLowerCase()!==sec.toLowerCase())continue;if(L[i].trim())last=i;
+  const m=L[i].match(/^(\s*)([^=;#\s][^=]*?)(\s*=\s*)([^;]*?)(\s*)(;.*)?$/);if(!m)continue;
+  const k=Object.keys(vals).find(x=>x.toLowerCase()===m[2].toLowerCase());if(!k)continue;seen[k]=1;
+  const nv=String(vals[k]),span=m[4].length+m[5].length;L[i]=m[1]+m[2]+m[3]+(m[6]?nv.padEnd(Math.max(span,nv.length+1)):nv)+(m[6]||'')}
+ const add=Object.keys(vals).filter(k=>!seen[k]&&String(vals[k])!==String(dflt[k])).map(k=>`${k} = ${vals[k]}`);
+ if(add.length){if(hdr>=0)L.splice((last>hdr?last:hdr)+1,0,...add);else L.push(`[${sec}]`,...add)}
+ return L.join(nl)}
+const bcText=()=>{const b=S.bc,o=v=>v?'true':'false';
+ if(S.bcRaw)return patchIni(S.bcRaw,'Config',{EnableMenu:o(b.EnableMenu),EnablePlugins:o(b.EnablePlugins),EnableLog:o(b.EnableLog),ImmediateFlushLog:o(b.ImmediateFlushLog),MaxLogSize:b.MaxLogSize,RefreshKey:b.RefreshKey,AutoRefresh:o(b.AutoRefresh)},bcDef());
+ return `[Config]\n${[`EnableMenu = ${o(b.EnableMenu)}`,`EnablePlugins = ${o(b.EnablePlugins)}`,`EnableLog = ${o(b.EnableLog)}`,`ImmediateFlushLog = ${o(b.ImmediateFlushLog)}`,`MaxLogSize = ${b.MaxLogSize}`,`RefreshKey = ${b.RefreshKey}`,`AutoRefresh = ${o(b.AutoRefresh)}`,...S.bcx].join('\n')}\n\n`+S.bcTop.map(o=>`[${o.sec}]\n${o.lines.join('\n')}\n\n`).join('')};
+const ppText=()=>{const e=Object.entries(S.pp);return `[Priority]\n${e.map(([k,v])=>k+' = '+v).join('\n')}${e.length?'\n':''}\n`+S.ppTop.map(o=>`[${o.sec}]\n${o.lines.join('\n')}\n\n`).join('')};
+function filesRaw(){const by={};Object.keys(S.profiles).forEach(n=>(by[ppath(n)]=by[ppath(n)]||[]).push(n));
+ const out=[],dp=fx('Default'),blank=!Object.keys(dp.pr).length&&![dp.im,dp.ex,dp.ig,dp.inc,dp.par,dp.cx].some(a=>a.length)&&!dp.um&&dp.ia==null&&dp.ea==null;
+ let t=`[Folder.Config]\n${['Profile = '+S.cur,...(S.pl!=null?['PriorityLimit = '+S.pl]:[]),...S.fcl].join('\n')}\n\n`;
+ S.topSecs.forEach(o=>t+=`[${o.sec}]\n${o.lines.join('\n')}${o.lines.length?'\n':''}\n`);
+ (by[S.main]||[]).filter(n=>n!=='Default'||S.defInFile||!blank).sort().forEach(n=>t+=profIni(n));
+ out.push([S.main,t]);
+ Object.keys(by).filter(p=>p!==S.main).sort().forEach(p=>out.push([p,by[p].sort().map(profIni).join('')]));
+ if(S.bcSeen||S.bcDirty)out.push(['.data/config.ini',bcText()]);
+ if(S.ppSeen||S.ppDirty)out.push(['.data/plugins/plugins.ini',ppText()]);
+ return out}
+var _fc=null;function files(){if(_fc)return _fc;_fc=filesRaw();queueMicrotask(()=>{_fc=null});return _fc}
+$('#setcur').onclick=async()=>{const prev=S.cur;S.cur=S.active;undoReset();render();await commit(S.main,`modloader.ini now has Profile = ${S.active}`);
+ toast(`Current profile is now ${S.active}`,async()=>{S.cur=prev;undoReset();render();await commit(S.main,`Current profile is back to ${prev}`)})};
+$('#save').onclick=async()=>{try{
+  let c=0;for(const[path,t]of files())if(written[path]!==t){await writeFile(path,t);written[path]=t;c++}
+  Object.keys(S.profiles).forEach(n=>{if(!src[n])src[n]={path:ppath(n)}});
+  toast(c?`Saved ${c} file${c>1?'s':''}`:'Nothing to save')}catch(e){toast('Saving failed: '+e.message)}};
+async function probeLog(){if(!root||!await canWrite())return;let g=null;try{const fh=await root.getFileHandle('modloader.log');g=()=>fh.getFile()}catch(e){}
+ if(!!g!==!!logGet){logGet=g;render()}else if(g)logGet=g}
+window.addEventListener('focus',probeLog);
+const welcome=m=>{if(m)$('#welcp').textContent=m;try{if(!$('#welc').open)$('#welc').showModal()}catch(e){}pick()};
+$('#welcgo').onclick=()=>pick();
+async function restore(){
+ let cands=S.installs.slice();
+ if(!cands.length){try{const o=await idb('get','root');if(o){const g=o.game||null,r=o.root||o,main=g||r,inst={id:'legacy',name:main.name,gpathUser:''};
+  S.installs.push(inst);await idb('put','legacy',{root:r,game:g});S.curInst='legacy';cands=[inst]}}catch(e){}}
+ if(!cands.length)return welcome();
+ cands.sort((a,b)=>(b.id===S.curInst)-(a.id===S.curInst));
+ for(const i of cands){let o=null;try{o=await idb('get',i.id)}catch(e){}if(!o)continue;
+  S.curInst=i.id;root=o.root||o;game=o.game||null;
+  try{await scanRoot();return}catch(e){continue}}
+ welcome('Couldn’t find the saved GTA folder anymore. Select your GTA San Andreas folder again.')}
+restore();
+render();
+</script>
+</body>
+</html>

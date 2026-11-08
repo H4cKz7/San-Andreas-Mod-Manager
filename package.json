@@ -1,0 +1,22 @@
+{
+  "name": "sa-mod-manager",
+  "version": "1.1.0",
+  "description": "GTA San Andreas Mod Loader manager",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-packager . \"SA Mod Manager\" --platform=win32 --arch=x64 --icon=build/icon.ico --out=dist --overwrite --ignore=\"^/dist\"",
+    "build": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0",
+    "electron-packager": "^17.1.2"
+  },
+  "build": {
+    "appId": "com.samm.modmanager",
+    "productName": "SA Mod Manager",
+    "files": ["main.js", "index.html", "fsshim.js", "package.json", "build/**"],
+    "win": { "target": "portable", "icon": "build/icon.ico", "signAndEditExecutable": false }
+  }
+}
