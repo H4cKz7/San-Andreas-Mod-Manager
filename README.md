@@ -7,7 +7,7 @@ A lightweight desktop application designed to manage mods and configurations for
 ## Features
 
 * **Multi-Installation Support:** Track and switch between multiple GTA San Andreas game folders.
-* **Config Editor:** Built-in editor for `.ini`, `.json` and `jsonc` configuration files with safety backups.
+* **Config Editor:** Built-in editor for `.ini`, `.json` and `.jsonc` configuration files with safety backups.
 * **Mod Loader Integration:** Works seamlessly alongside Mod Loader.
 * **Automatic Backups:** Automatically saves original and previous versions of edited config files so you can easily roll back changes.
 
