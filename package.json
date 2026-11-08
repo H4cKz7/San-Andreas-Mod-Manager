@@ -1,6 +1,6 @@
 {
   "name": "sa-mod-manager",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "GTA San Andreas Mod Loader manager",
   "main": "main.js",
   "scripts": {

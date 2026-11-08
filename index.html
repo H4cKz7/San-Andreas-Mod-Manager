@@ -67,8 +67,8 @@ main{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;padding:20p
 .pr input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 30%,transparent)}
 .pr input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 30%,transparent)}
 .pr output{width:26px;text-align:right;font-variant-numeric:tabular-nums;color:var(--mut)}
-.star{background:none;border:1px solid var(--line);border-radius:8px;width:32px;height:30px;cursor:pointer;color:var(--mut);font-size:15px}
-.star.on{color:var(--warn);border-color:var(--warn);background:var(--panel2)}
+.star{background:none;border:1px solid var(--line);border-radius:8px;width:32px;height:30px;cursor:pointer;color:var(--mut);padding:0;display:inline-flex;align-items:center;justify-content:center}.star svg{display:block}
+.star.on{color:var(--warn);border-color:var(--warn);background:var(--panel2)}.star.on svg path{fill:currentColor}
 .files{display:grid;grid-template-rows:0fr;background:var(--panel2);border-top:1px solid transparent}
 .files>.fi{overflow:hidden;min-height:0;padding:0 14px}
 .mod.open .files{grid-template-rows:1fr;border-top-color:var(--line)}
@@ -234,7 +234,12 @@ dialog.ed[open]{display:flex;flex-direction:column}
 .edt{display:flex;gap:8px;align-items:center}
 .edbody{flex:1;overflow:auto;min-height:0}
 .edn{padding:8px 12px;border-radius:8px;background:var(--panel2);border:1px solid var(--line);margin-bottom:8px;font-size:13px;color:var(--warn)}.edn.bad{color:var(--bad)}
-#edraw{width:100%;height:100%;min-height:300px;resize:none;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--tx);padding:12px;font:12.5px/1.55 "JetBrains Mono",monospace;outline:none;tab-size:2;white-space:pre}
+.edrawwrap{position:relative;height:100%;min-height:300px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);overflow:hidden}
+#edraw,#edmir{position:absolute;inset:0;width:100%;height:100%;margin:0;border:0;padding:12px;box-sizing:border-box;font:12.5px/1.55 "JetBrains Mono",monospace;letter-spacing:normal;tab-size:2;white-space:pre}
+#edraw{resize:none;background:transparent;color:var(--tx);outline:none;overflow:auto}
+#edmir{overflow:hidden;color:transparent;pointer-events:none}
+#edmir mark{color:transparent;background:color-mix(in srgb,var(--warn) 38%,transparent);border-radius:2px}
+#edmir mark.cur{background:color-mix(in srgb,var(--acc) 60%,transparent);box-shadow:0 0 0 1px var(--acc)}
 .edsec{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:var(--panel2);overflow:hidden}
 .sh{display:flex;align-items:center;gap:8px;padding:8px 14px;font-weight:600;border-bottom:1px solid var(--line);background:var(--panel)}.sh small{color:var(--mut);font-weight:400}
 .kv{display:grid;grid-template-columns:minmax(120px,32%) minmax(0,1fr) minmax(0,36%) 22px;gap:12px;align-items:center;padding:6px 14px}.kv:hover{background:color-mix(in srgb,var(--panel) 60%,transparent)}
@@ -251,11 +256,29 @@ details.jn>summary small{color:var(--mut)}
 .jty{font-size:11px;color:var(--mut)}.jnull{color:var(--mut);font-style:italic}
 .jadd{display:flex;gap:8px;padding:6px 0 6px 14px}.jadd input{flex:1;min-width:0}.jv.bad{border-color:var(--bad)}
 .edaddsec{display:flex;gap:8px;margin-top:4px}.edaddsec input{flex:1}
+.edtb{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.edtb .btn.icon{width:28px;height:26px;padding:0}.edtb .btn.icon svg{display:block}
+.edtb .btn.on{border-color:var(--acc);color:var(--acc)}
+.edfind{display:flex;align-items:center;gap:6px;flex:1;min-width:230px;max-width:480px}
+.edtb #edcolall{margin-left:auto}
+.edfind input{flex:1;min-width:0;height:26px;padding:2px 10px;font-size:13px}
+.edfind .stats{font-size:12px;white-space:nowrap;min-width:64px;text-align:right}
+.finding .addkv,.finding .edaddsec,.finding .jadd{display:none}
+.fhide{display:none!important}
+.fhit{background:color-mix(in srgb,var(--acc) 10%,transparent)}
+.fcur{background:color-mix(in srgb,var(--acc) 22%,transparent)!important;box-shadow:inset 3px 0 0 var(--acc)}
+.sh{cursor:pointer;user-select:none}.sh:hover{background:var(--panel2)}
+.sh::before{content:"";width:6px;height:6px;border-right:1.6px solid var(--mut);border-bottom:1.6px solid var(--mut);transform:rotate(45deg);transition:transform .15s;margin:0 4px 2px 0;flex:none}
+.edsec.collapsed>.sh::before{transform:rotate(-45deg);margin-bottom:0}
+.edsec.collapsed>.sh{border-bottom-color:transparent}
+.edsec.collapsed:not(.fexp)>:not(.sh){display:none}
+.sh small{margin-left:auto}
+.tt{border:0;background:none;color:var(--mut);cursor:pointer;padding:3px;border-radius:6px;display:inline-flex;opacity:.55;flex:none}.tt:hover{opacity:1;color:var(--acc);background:var(--panel)}.tt svg{display:block}
 [hidden]{display:none!important}
 details.jn>summary::before{content:"";width:6px;height:6px;border-right:1.6px solid var(--mut);border-bottom:1.6px solid var(--mut);transform:rotate(-45deg);transition:transform .15s;margin-right:4px;flex:none}
 details.jn[open]>summary::before{transform:rotate(45deg)}
 .btn.pri.del:hover{background:color-mix(in srgb,var(--bad) 80%,#000);border-color:transparent;color:#fff}
-.toast.act{pointer-events:auto;display:flex;gap:14px;align-items:center;padding-right:8px}
+.toast.act{display:flex;gap:14px;align-items:center;padding-right:8px}.toast.act.show{pointer-events:auto}
 .toast button{border:0;border-radius:99px;background:var(--acc);color:var(--ink);font-weight:600;padding:3px 12px;cursor:pointer}
 details.about{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:var(--panel2);padding:8px 14px}
 details.about>summary{cursor:pointer;font-weight:600;font-size:13px;color:var(--mut)}
@@ -401,7 +424,7 @@ input[type=checkbox]:indeterminate{border-color:var(--acc);background:var(--acc)
 <dialog id="logd" class="wide">
   <div class="lh"><h2>Modloader log</h2><span class="curp" id="lpill"></span>
     <div style="margin-left:auto;display:flex;gap:8px"><button class="btn sm" id="lre">Reload</button><button class="btn sm" id="lopen">Open file…</button><button class="btn sm" id="lx">Close</button></div></div>
-  <div class="ltool"><div class="seg" id="lf"><button data-f="all" class="on"></button><button data-f="error"></button><button data-f="warn"></button><button data-f="info"></button><button data-f="debug"></button></div><input type="search" id="lq" placeholder="Search the log or click a mod name"></div>
+  <div class="ltool"><div class="seg" id="lf"><button data-f="all" class="on"></button><button data-f="error"></button><button data-f="warn"></button><button data-f="info"></button><button data-f="debug"></button></div><input type="search" id="lq" placeholder="Search the log"></div>
   <div class="lbody" id="lb"></div><input type="file" id="lfile" accept=".log,.txt" hidden>
 </dialog>
 <dialog id="cutd">
@@ -486,9 +509,9 @@ const inh=n=>{const o=[],pe=E.pr[n.toLowerCase()],a=hit(E.im,n),c=hit(E.inc,n);
 var _st;const saveNow=()=>{try{localStorage.setItem('samm',JSON.stringify(S,(k,v)=>k==='mods'?undefined:v))}catch(e){}};
 const save=()=>{clearTimeout(_st);_st=setTimeout(saveNow,300)};
 addEventListener('beforeunload',saveNow);
-const toast=(t,undo)=>{const e=$('#toast');e.textContent=t;e.classList.toggle('act',!!undo);
- if(undo){const b=document.createElement('button');b.textContent='Undo';b.onclick=()=>{e.classList.remove('show');undo()};e.append(b)}
- e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),undo?7000:1800)};
+const toast=(t,undo,redo)=>{const e=$('#toast'),has=!!(undo||redo);e.textContent=t;e.classList.toggle('act',has);
+ [['Undo',undo],['Redo',redo]].forEach(([l,f])=>{if(f){const b=document.createElement('button');b.textContent=l;b.onclick=()=>{e.classList.remove('show');f()};e.append(b)}});
+ e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),has?7000:1800)};
 const prio=n=>{const pe=E.pr[n.toLowerCase()],v=pe?pe[0]:50;return S.pl!=null?Math.min(v,S.pl):v};
 const pat2re=p=>new RegExp('^'+p.replace(/[.+^${}()|[\]\\]/g,'\\$&').replace(/\*/g,'.*').replace(/\?/g,'.')+'$','i');
 const fileIgnored=(m,f)=>{const b=f.split('/').pop();return Object.keys(E.ig).some(p=>mw(p,f)||mw(p,b))};
@@ -532,7 +555,7 @@ function render(){
    <div class="row"><button class="sw ${swOn(m.name)?'on':''}" data-a="ign" title="${E.ea?'Include this mod':'Ignore this mod'}" aria-label="Toggle ${esc(m.name)}"></button>
    <div style="min-width:0"><div class="name" data-a="open">${esc(m.name)}</div><div class="meta"><span class="tag ${c}">${st}</span>${typesOf(m).map(t=>`<span class="tag">${t}</span>`).join('')}<span>${m.files.length} files</span>${inh(m.name)}</div></div>
    <div class="pr"><input type="range" min="0" max="${S.pl??100}" value="${v}" style="--p:${Math.min(100,v/(S.pl??100)*100)}%" data-a="pr" aria-label="Priority"><output title="Double-click to type a priority">${v}</output></div>
-   <div style="display:flex;gap:6px"><button class="star ${hit(E.ex,m.name)?'on':''}" data-a="ex" title="Exclusive: hidden from other profiles unless they inherit this one">★</button><button class="btn sm del" data-a="rm">Remove</button></div></div>
+   <div style="display:flex;gap:6px"><button class="star ${hit(E.ex,m.name)?'on':''}" data-a="ex" title="Exclusive: hidden from other profiles unless they inherit this one" aria-label="Exclusive"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M8 1.9l1.85 3.9 4.25.55-3.1 2.95.78 4.2L8 11.4l-3.78 2.1.78-4.2L1.9 6.35l4.25-.55z" transform="translate(0 .4)" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></button><button class="btn sm del" data-a="rm">Remove</button></div></div>
    <div class="files"><div class="fi">${m._o?tree(m):''}</div></div></div>`});patchList(mods,hs);
   $('#chips').innerHTML=p.ig.length?p.ig.map((x,i)=>`<span class="chip">${esc(x)}<button data-r="${i}" aria-label="Remove">×</button></span>`).join(''):'<span class="stats">Nothing ignored</span>';
   $('#ini').textContent=ini();save();
@@ -839,7 +862,12 @@ const BK={
   return out.sort((x,y)=>y.last-x.last)}};
 
 /* ===== config editor (.ini and .json anywhere in the game folder) ===== */
-const ED={files:[],filter:'all',q:'',tab:'files',cur:null,open:{},scanning:false,inst:null,touchedML:false};
+const ED={files:[],filter:'all',q:'',tab:'files',cur:null,open:{},scanning:false,inst:null,touchedML:false,fq:'',fopen:false};
+const _ic=d=>`<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const ICO={pen:_ic('<path d="M3 13l.6-2.9 7.2-7.2a1.4 1.4 0 0 1 2 2L5.9 12.4 3 13z"/><path d="M9.6 4.1l2.3 2.3"/>'),
+ tog:_ic('<rect x="1.5" y="4.5" width="13" height="7" rx="3.5"/><circle cx="11" cy="8" r="1.7" fill="currentColor" stroke="none"/>'),
+ find:_ic('<circle cx="7" cy="7" r="4.4"/><path d="M10.4 10.4 14 14"/>'),
+ up:_ic('<path d="M4 10l4-4 4 4"/>'),down:_ic('<path d="M4 6l4 4 4-4"/>')};
 const edAnchor=()=>{const a=game||root;return a&&a._path?a._path:''};
 function parseIniEd(t){const eol=t.includes('\r\n')?'\r\n':'\n';
  const lines=t.split(/\r?\n/).map(raw=>{if(/^\s*$/.test(raw))return{t:'b',raw};if(/^\s*[;#]/.test(raw))return{t:'c',raw};
@@ -959,32 +987,32 @@ const isIdList=v=>/^"\s*\d+(\s*,\s*\d+)*\s*"$/.test(v.trim());
 const idTokens=v=>v.trim().slice(1,-1).split(',').map(x=>x.trim()).filter(Boolean);
 const chipHtml=t=>t.map((x,i)=>`<span class="chip" data-i="${i}">${esc(x)}<button data-chipx aria-label="Remove ${esc(x)}">×</button></span>`).join('');
 function chipsRender(row,l){const t=idTokens(l.val);row.querySelector('.cl').innerHTML=chipHtml(t);row.querySelector('.cn').textContent=t.length+' IDs'}
-function iniForm(m){const L=m.lines,secs=[];let cur={li:-1,name:null,items:[]};secs.push(cur);
+function iniForm(m,txt,col){txt=txt||new Set();col=col||new Set();const L=m.lines,secs=[];let cur={li:-1,name:null,items:[]};secs.push(cur);
  L.forEach((l,li)=>{if(l.t==='s'){cur={li,name:l.name,items:[]};secs.push(cur)}else if(l.t!=='b')cur.items.push([l,li])});
- const row=([l,li])=>{
+ const row=([l,li],sn)=>{
   if(l.t==='c'){const t=cleanC(l.raw);return t&&!/^[-=#*_~ ]+$/.test(t)?`<div class="note">${esc(t)}</div>`:''}
   if(l.t==='e')return `<div class="kv" data-li="${li}"><div class="kl"><div class="kn"></div></div><div class="v"><input type="text" data-raw value="${esc(l.raw.trim())}" spellcheck="false"></div><button class="x" data-del title="Remove">×</button></div>`;
   const key=l.key.trim(),v=l.val.trim(),d=cleanC(l.cm||''),numericHint=/\(\s*-?[\d.]+\s*(to|-|–)\s*-?[\d.]+/i.test(l.cm||'');
-  const isB=/^(true|false)$/i.test(v)||(/^[01]$/.test(v)&&!numericHint);
+  const isB0=/^(true|false)$/i.test(v)||(/^[01]$/.test(v)&&!numericHint),isB=isB0&&!txt.has(sn+'|'+key);
   const head=`<div class="kl"><div class="kn" title="${esc(key)}">${esc(key)}</div>${d?`<div class="kd">${esc(d)}</div>`:''}</div>`;
   if(isIdList(v)){const t=idTokens(v);return `<div class="kv wide" data-li="${li}">${head}<button class="x" data-del title="Remove">×</button><div class="v ids"><div class="cl">${chipHtml(t)}</div><div class="cadd"><input type="text" class="chip-in" placeholder="Add an ID and press Enter" spellcheck="false"><small class="cn">${t.length} IDs</small></div></div></div>`}
   let val;
-  if(isB){const on=/^(true|1)$/i.test(v);val=`<button class="sw ${on?'on':''}" data-tog aria-label="Toggle ${esc(key)}"></button><span class="bv">${esc(v)}</span>`}
-  else{const kn=vkName(v);val=`<input type="text" data-val value="${esc(l.val)}" spellcheck="false">${kn?`<span class="kbd">${esc(kn)}</span>`:''}`}
+  if(isB){const on=/^(true|1)$/i.test(v);val=`<button class="sw ${on?'on':''}" data-tog aria-label="Toggle ${esc(key)}"></button><span class="bv">${esc(v)}</span><button class="tt" data-totext title="Not really a toggle? Edit as text" aria-label="Edit ${esc(key)} as text">${ICO.pen}</button>`}
+  else{const kn=vkName(v);val=`<input type="text" data-val value="${esc(l.val)}" spellcheck="false">${kn?`<span class="kbd">${esc(kn)}</span>`:''}${isB0?`<button class="tt" data-totog title="Show as a toggle" aria-label="Show ${esc(key)} as a toggle">${ICO.tog}</button>`:''}`}
   return `<div class="kv" data-li="${li}">${head}<div class="v">${val}</div><button class="x" data-del title="Remove">×</button></div>`};
  let h='';
  secs.forEach(sc=>{if(sc.li<0){
    const about=sc.items.filter(([l])=>l.t==='c').map(([l])=>cleanC(l.raw)).filter(t=>t&&!/^[-=#*_~ ]+$/.test(t)),rest=sc.items.filter(([l])=>l.t!=='c');
    if(about.length)h+=`<details class="about"><summary>About this file</summary><div>${about.map(t=>`<p>${esc(t)}</p>`).join('')}</div></details>`;
-   if(rest.length)h+=`<div class="edsec" data-sec="-1">${rest.map(row).join('')}</div>`;return}
+   if(rest.length)h+=`<div class="edsec" data-sec="-1">${rest.map(x=>row(x,'')).join('')}</div>`;return}
   const keys=sc.items.filter(([l])=>l.t==='k'||l.t==='e').length;
-  h+=`<div class="edsec" data-sec="${sc.li}"><div class="sh"><span>[${esc(sc.name)}]</span><small>${keys} setting${keys===1?'':'s'}</small></div>${sc.items.map(row).join('')}<div class="addkv"><input type="text" class="ak" placeholder="New key" spellcheck="false"><input type="text" class="av" placeholder="Value" spellcheck="false"><button class="btn sm" data-addkv>Add</button></div></div>`});
+  h+=`<div class="edsec${col.has(sc.name)?' collapsed':''}" data-sec="${sc.li}" data-sn="${esc(sc.name)}"><div class="sh" tabindex="0" role="button" title="Click to collapse or expand" aria-expanded="${!col.has(sc.name)}"><span>[${esc(sc.name)}]</span><small>${keys} setting${keys===1?'':'s'}</small></div>${sc.items.map(x=>row(x,sc.name)).join('')}<div class="addkv"><input type="text" class="ak" placeholder="New key" spellcheck="false"><input type="text" class="av" placeholder="Value" spellcheck="false"><button class="btn sm" data-addkv>Add</button></div></div>`});
  return h+`<div class="edaddsec"><input type="text" id="edsecname" placeholder="New section name"><button class="btn sm" data-addsec>Add section</button></div>`}
-function jsonTree(o,ast){const P=p=>esc(JSON.stringify(p)),cap=300,dm=ast?JC.descs(ast):new Map();
+function jsonTree(o,ast,txt){const P=p=>esc(JSON.stringify(p)),cap=300,dm=ast?JC.descs(ast):new Map();
  const D=p=>dm.get(JSON.stringify(p))||'';
  const lbl=(p,k)=>{const d=D(p);return `<div class="jkc"><span class="jk" title="${esc(String(k))}">${esc(String(k))}</span>${d?`<div class="kd">${esc(d)}</div>`:''}</div>`};
  const leaf=(v,p,k)=>{const t=v===null?'null':typeof v,flag=t==='number'&&(v===0||v===1)&&/^b[A-Z_]/.test(String(k));
-  const ed=t==='boolean'||flag?`<button class="sw ${v===true||v===1?'on':''}" data-jtog aria-label="Toggle"></button><span class="bv">${v}</span>`:t==='null'?'<span class="jnull">null</span><button class="btn sm" data-jset>Set value</button>':`<input type="text" class="jv" data-jt="${t==='number'?'n':'s'}" value="${esc(String(v))}" spellcheck="false">`;
+  const isBo=t==='boolean'||flag,asT=isBo&&txt&&txt.has(JSON.stringify(p)),ed=isBo&&!asT?`<button class="sw ${v===true||v===1?'on':''}" data-jtog aria-label="Toggle"></button><span class="bv">${v}</span><button class="tt" data-totext title="Not really a toggle? Edit as text" aria-label="Edit as text">${ICO.pen}</button>`:t==='null'?'<span class="jnull">null</span><button class="btn sm" data-jset>Set value</button>':`<input type="text" class="jv" data-jt="${t==='boolean'?'b':t==='number'?'n':'s'}" value="${esc(String(v))}" spellcheck="false">${isBo?`<button class="tt" data-totog title="Show as a toggle" aria-label="Show as a toggle">${ICO.tog}</button>`:''}`;
   return `<div class="jl" data-path="${P(p)}">${lbl(p,k)}<div class="v">${ed}</div><span class="jty">${flag?'0 / 1':t}</span><button class="x" data-jdel title="Remove">×</button></div>`};
  const node=(v,p,k,d)=>{if(v&&typeof v==='object'){const isA=Array.isArray(v),ks=Object.keys(v);
    if(isA&&p.length&&ks.length&&ks.length<=300&&v.every(x=>typeof x==='number'))
@@ -997,11 +1025,13 @@ const jget=(o,p)=>p.reduce((a,k)=>a[k],o);
 function edText(){const c=ED.cur;if(c.view==='raw')return c.text;
  if(c.kind==='ini')return iniText(c.model);
  return c.jt}
-function edState(){const c=ED.cur;if(!c)return;c.dirty=edText()!==c.orig;
+function edBase(c){if(c.view==='form'&&c.kind==='ini'){if(c._bo!==c.orig){c._bo=c.orig;c._bn=iniText(parseIniEd(c.orig))}return c._bn}return c.orig}
+function edStateNow(){clearTimeout(ED._st);edState()}
+function edState(){const c=ED.cur;if(!c)return;c.dirty=edText()!==edBase(c);
  const s=$('#edsave');if(s){s.disabled=!c.dirty;s.textContent=c.dirty?'Save changes':'Saved'}const rv=$('#edrev');if(rv)rv.disabled=!c.dirty;
  const p=$('#edright .edp');if(p)p.classList.toggle('dirty',c.dirty);
  clearTimeout(ED._ht);ED._ht=setTimeout(edHistPush,420);edHistUi()}
-function edStateSoon(){clearTimeout(ED._st);ED._st=setTimeout(edState,160)}
+function edStateSoon(){clearTimeout(ED._st);const c=ED.cur;if(c&&c.view==='raw')return edState();ED._st=setTimeout(edState,160)}
 function edHistUi(){const c=ED.cur,u=$('#edundo'),r=$('#edredo');if(!c||!u)return;u.disabled=c.hi<=0&&edText()===c.hist[c.hi];r.disabled=c.hi>=c.hist.length-1}
 function edHistPush(){const c=ED.cur;if(!c||c._restoring)return;const t=edText();if(t===c.hist[c.hi]){edHistUi();return}
  c.hist.splice(c.hi+1);c.hist.push(t);if(c.hist.length>100)c.hist.shift();c.hi=c.hist.length-1;edHistUi()}
@@ -1013,11 +1043,11 @@ function edSetText(t){const c=ED.cur;c._restoring=true;
 function edUndo(){const c=ED.cur;if(!c)return;clearTimeout(ED._st);clearTimeout(ED._ht);edHistPush();if(c.hi<=0)return;c.hi--;edSetText(c.hist[c.hi])}
 function edRedo(){const c=ED.cur;if(!c)return;clearTimeout(ED._st);clearTimeout(ED._ht);if(c.hi>=c.hist.length-1)return;c.hi++;edSetText(c.hist[c.hi])}
 function edBody(){const c=ED.cur,b=$('#edbody');
- if(c.view==='raw'){b.innerHTML=`<textarea id="edraw" spellcheck="false">${esc(c.text)}</textarea>`;return}
- b.innerHTML=c.kind==='ini'?iniForm(c.model):(c.ast.lead.length?`<details class="about"><summary>About this file</summary><div>${c.ast.lead.map(t=>`<p>${esc(t)}</p>`).join('')}</div></details>`:'')+jsonTree(c.obj,c.ast);enhanceCdd(b)}
+ if(c.view==='raw'){b.innerHTML=`<div class="edrawwrap"><pre id="edmir" aria-hidden="true"></pre><textarea id="edraw" spellcheck="false">${esc(c.text)}</textarea></div>`;edFindApply();return}
+ b.innerHTML=c.kind==='ini'?iniForm(c.model,c.txt,c.col):(c.ast.lead.length?`<details class="about"><summary>About this file</summary><div>${c.ast.lead.map(t=>`<p>${esc(t)}</p>`).join('')}</div></details>`:'')+jsonTree(c.obj,c.ast,c.txt);enhanceCdd(b);edFindApply()}
 function edRight(){const c=ED.cur,r=$('#edright');
  if(!c){r.innerHTML='<div class="empty" style="margin:auto;border:0">Pick a file on the left to edit it.<br>Every change is backed up automatically.</div>';return}
- r.innerHTML=`<div class="edh"><div class="edp" title="${esc(c.abs)}">${esc(c.rel)}</div><div class="edt"><div class="seg" id="edview"><button data-v="form" class="${c.view==='form'?'on':''}">${c.kind==='json'?'Tree':'Form'}</button><button data-v="raw" class="${c.view==='raw'?'on':''}">Raw</button></div>${c.kind==='json'&&!c.jc?'<button class="btn sm" id="edfmt">Format</button>':''}<div class="dd" id="edbd"><button class="btn sm" id="edbk">Backups</button><div class="ddm right" id="edbm" hidden></div></div><button class="btn sm" id="edundo" disabled title="Undo (Ctrl+Z)">Undo</button><button class="btn sm" id="edredo" disabled title="Redo (Ctrl+Y)">Redo</button><button class="btn sm" id="edrev">Revert</button><button class="btn sm pri" id="edsave">Save changes</button></div></div>${!c.exists?'<div class="edn">This file no longer exists. Restore a backup to bring it back.</div>':''}${c.err?`<div class="edn bad">${esc(c.err)}</div>`:''}<div class="edbody" id="edbody"></div>`;
+ r.innerHTML=`<div class="edh"><div class="edp" title="${esc(c.abs)}">${esc(c.rel)}</div><div class="edt"><div class="seg" id="edview"><button data-v="form" class="${c.view==='form'?'on':''}">${c.kind==='json'?'Tree':'Form'}</button><button data-v="raw" class="${c.view==='raw'?'on':''}">Raw</button></div>${c.kind==='json'&&!c.jc?'<button class="btn sm" id="edfmt">Format</button>':''}<div class="dd" id="edbd"><button class="btn sm" id="edbk">Backups</button><div class="ddm right" id="edbm" hidden></div></div><button class="btn sm" id="edundo" disabled title="Undo (Ctrl+Z)">Undo</button><button class="btn sm" id="edredo" disabled title="Redo (Ctrl+Y)">Redo</button><button class="btn sm" id="edrev">Revert</button><button class="btn sm pri" id="edsave">Save changes</button></div></div>${edTbHtml(c)}${!c.exists?'<div class="edn">This file no longer exists. Restore a backup to bring it back.</div>':''}${c.err?`<div class="edn bad">${esc(c.err)}</div>`:''}<div class="edbody" id="edbody"></div>`;
  edBody();edState()}
 function edList(){const box=$('#edlist');$('#edbkbar').hidden=ED.tab!=='bk';
  if(ED.tab==='bk'){const q=ED.q.trim().toLowerCase(),all=BK.all(),a=all.filter(x=>(ED.filter==='all'||extOfRel(x.rel)===ED.filter)&&(!q||x.rel.toLowerCase().includes(q)));
@@ -1047,11 +1077,11 @@ async function edOpen(abs,force){const c=ED.cur;
  let text='',bom=false;const exists=fsN.existsSync(abs);
  if(exists){try{text=fsN.readFileSync(abs,'utf8')}catch(e){return notice('Couldn’t read the file',e.message)}if(text.charCodeAt(0)===0xFEFF){bom=true;text=text.slice(1)}}
  const rel=pathN.relative(edAnchor(),abs).replace(/\\/g,'/'),kind=/\.json$/i.test(abs)?'json':'ini';
- const n=ED.cur={abs,rel,kind,exists,bom,orig:text,text,dirty:false,view:'form',err:'',touched:false,hist:[text],hi:0};
+ const n=ED.cur={abs,rel,kind,exists,bom,orig:text,text,dirty:false,view:'form',err:'',touched:false,hist:[text],hi:0,txt:new Set(),col:new Set()};if(c&&c.abs===abs&&c.txt){n.txt=c.txt;n.col=c.col}
  if(kind==='ini')n.model=parseIniEd(text);
  else{try{jLoad(n,text);n.indent=detectIndent(text);n.nl=/\n$/.test(text)}catch(e){n.err='This JSON can’t be shown as a tree yet: '+e.message;n.view='raw'}}
  edRight();edList()}
-async function edSave(){const c=ED.cur;if(!c||!c.dirty)return;let text=edText();
+async function edSave(){const c=ED.cur;if(!c)return;edStateNow();if(!c.dirty)return;let text=edText();
  if(c.kind==='json'){try{JC.parse(text)}catch(e){if(!await ask({title:'This JSON is not valid',text:e.message+' Save it anyway?',ok:'Save anyway',danger:true}))return}}
  try{if(fsN.existsSync(c.abs))BK.save(c.abs,fsN.readFileSync(c.abs,'utf8'));fsN.mkdirSync(pathN.dirname(c.abs),{recursive:true});fsN.writeFileSync(c.abs,(c.bom?'\uFEFF':'')+text)}
  catch(e){return notice('Saving failed',e.message)}
@@ -1071,8 +1101,9 @@ $('#edbtn').onclick=()=>{if(!root)return toast('Scan a GTA folder first');$('#ed
 $('#edclose').onclick=edClose;$('#edrescan').onclick=edScan;
 $('#edd').addEventListener('cancel',e=>{e.preventDefault();edClose()});
 $('#edd').addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
- if(k==='s'){e.preventDefault();edSave()}
- else if((k==='z'||k==='y')&&e.target.id!=='edraw'){e.preventDefault();if(k==='y'||e.shiftKey)edRedo();else edUndo()}});
+ if(k==='f'&&!e.shiftKey&&!e.altKey){e.preventDefault();if(ED.cur)edFindOpen();else $('#edq').focus();return}
+ else if(k==='s'){e.preventDefault();edSave()}
+ else if((k==='z'||k==='y')&&e.target.id!=='edraw'&&e.target.id!=='edfq'){e.preventDefault();if(k==='y'||e.shiftKey)edRedo();else edUndo()}});
 $('#edq').oninput=e=>{ED.q=e.target.value;edList()};
 $('#edtabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;ED.tab=b.dataset.t;document.querySelectorAll('#edtabs button').forEach(x=>x.classList.toggle('on',x===b));edList()};
 $('#edf').onclick=e=>{const b=e.target.closest('button');if(!b)return;ED.filter=b.dataset.f;document.querySelectorAll('#edf button').forEach(x=>x.classList.toggle('on',x===b));edList()};
@@ -1131,14 +1162,17 @@ async function autoBackup(){const id=S.curInst,base=edAnchor();if(bkAutoRun||!ro
   S.autoBk[id]=true;save();if(n)toast(`Saved a first backup of ${n} config file${n===1?'':'s'}`)}
  catch(e){}finally{bkAutoRun=false}}
 $('#edright').addEventListener('input',e=>{const t=e.target,c=ED.cur;if(!c)return;
- if(t.id==='edraw'){c.text=t.value;edStateSoon();return}
+ if(t.id==='edfq'){ED.fq=t.value;ED._fi=-1;edFindApply('new');return}
+ if(t.id==='edraw'){c.text=t.value;edStateSoon();if(ED.fopen&&ED.fq.trim()){clearTimeout(ED._rt);ED._rt=setTimeout(()=>edRawFind(edRq(),0),120)}return}
  const row=t.closest('[data-li]');
  if(row&&t.hasAttribute('data-val')){c.model.lines[+row.dataset.li].val=t.value;edStateSoon()}
  else if(row&&t.hasAttribute('data-raw')){c.model.lines[+row.dataset.li].raw=t.value;edStateSoon()}
  else if(t.classList.contains('jv')){const p=JSON.parse(t.closest('[data-path]').dataset.path);
   if(t.dataset.jt==='n'){const s=t.value.trim(),bad=!JNUM.test(s);t.classList.toggle('bad',bad);if(bad)return;if(jEdit(c,'set',p,{raw:s}))edStateSoon()}
+  else if(t.dataset.jt==='b'){const s=t.value.trim(),raw=/^(true|false|null)$/.test(s)||JNUM.test(s)?s:JSON.stringify(t.value);if(jEdit(c,'set',p,{raw}))edStateSoon()}
   else if(jEdit(c,'set',p,{raw:JSON.stringify(t.value)}))edStateSoon()}});
-$('#edright').addEventListener('keydown',e=>{
+$('#edright').addEventListener('keydown',e=>{if(e.target.id==='edfq'){if(e.key==='Enter'){e.preventDefault();edFindStep(e.shiftKey?-1:1)}else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();edFindClose(true)}return}
+ if(e.target.classList&&e.target.classList.contains('sh')&&(e.key==='Enter'||e.key===' ')){e.preventDefault();e.target.click();return}
  if(e.target.classList&&e.target.classList.contains('jchip-in')&&(e.key==='Enter'||e.key===',')){e.preventDefault();const c=ED.cur,row=e.target.closest('[data-path]');if(!c||!row)return;
   const ps=row.dataset.path,p=JSON.parse(ps),add=e.target.value.split(/[\s,]+/).filter(Boolean);
   if(!add.length)return;if(add.some(x=>!JNUM.test(x)))return toast('Only numbers can be added here');
@@ -1150,8 +1184,20 @@ $('#edright').addEventListener('keydown',e=>{
   l.val='"'+[...tk,...add].join(', ')+'"';e.target.value='';chipsRender(row,l);edState();return}if(e.target.id==='edraw'&&e.key==='Tab'){e.preventDefault();const t=e.target,s=t.selectionStart;t.setRangeText('  ',s,t.selectionEnd,'end');t.dispatchEvent(new Event('input',{bubbles:true}))}});
 $('#edright').addEventListener('click',async e=>{const t=e.target,c=ED.cur;if(!c)return;
  const bt=t.closest('button');
- if(t.closest('#edview')&&bt){const v=bt.dataset.v;if(v===c.view)return;
-  if(v==='raw'){c.text=edText();c.view='raw'}
+ const shd=t.closest('.sh');
+ if(shd&&shd.parentElement.dataset.sn!=null){const sec=shd.parentElement,n=sec.dataset.sn,eff=sec.classList.contains('collapsed')&&!sec.classList.contains('fexp');
+  if(eff){sec.classList.remove('collapsed');c.col.delete(n)}else{sec.classList.add('collapsed');sec.classList.remove('fexp');c.col.add(n)}
+  shd.setAttribute('aria-expanded',String(eff));return}
+ if(bt&&bt.id==='edfbtn'){ED.fopen?edFindClose():edFindOpen();return}
+ if(bt&&bt.id==='edfx'){edFindClose(true);return}
+ if(bt&&bt.id==='edfprev'){edFindStep(-1);return}
+ if(bt&&bt.id==='edfnext'){edFindStep(1);return}
+ if(bt&&(bt.id==='edcolall'||bt.id==='edexpall')){const cl=bt.id==='edcolall';
+  if(c.kind==='ini')$('#edbody').querySelectorAll('.edsec[data-sn]').forEach(sc=>{sc.classList.toggle('collapsed',cl);if(cl){c.col.add(sc.dataset.sn);sc.classList.remove('fexp')}else c.col.delete(sc.dataset.sn);const h=sc.querySelector(':scope>.sh');if(h)h.setAttribute('aria-expanded',String(!cl))});
+  else $('#edbody').querySelectorAll('details.jn').forEach(d=>{if(d.dataset.path!=='[]')d.open=!cl});
+  return}
+ if(t.closest('#edview')&&bt){const v=bt.dataset.v;if(v===c.view)return;edStateNow();
+  if(v==='raw'){c.text=c.dirty?edText():c.orig;c.view='raw'}
   else{try{if(c.kind==='ini')c.model=parseIniEd(c.text);else{jLoad(c,c.text);c.indent=c.indent||2}c.view='form';c.err=''}catch(x){return toast('Fix the JSON first: '+x.message)}}
   edRight();return}
  if(bt&&bt.id==='edfmt'){try{const cur=edText();if(!jStrict(cur)){JC.parse(cur);return toast('This file has comments, and formatting would remove them')}
@@ -1168,6 +1214,13 @@ $('#edright').addEventListener('click',async e=>{const t=e.target,c=ED.cur;if(!c
  const ver=t.closest('[data-ver]');if(ver){$('#edbm').hidden=true;edRestore(ver.dataset.ver);return}
  if(!t.closest('#edbd'))$('#edbm')&&($('#edbm').hidden=true);
  const row=t.closest('[data-li]');
+ if(bt&&(bt.hasAttribute('data-totext')||bt.hasAttribute('data-totog'))){const to=bt.hasAttribute('data-totext'),jr=t.closest('[data-path]'),why='That value isn’t true/false or 0/1, so it stays a text field';let id,li=null;
+  if(row){const l=c.model.lines[+row.dataset.li],sec=t.closest('.edsec');li=row.dataset.li;id=(sec&&sec.dataset.sn||'')+'|'+l.key.trim();if(!to&&!/^(true|false|[01])$/i.test(l.val.trim()))return toast(why)}
+  else if(jr){id=jr.dataset.path;if(!to){const cv=jget(c.obj,JSON.parse(id));if(!(typeof cv==='boolean'||cv===0||cv===1))return toast(why)}}
+  else return;
+  to?c.txt.add(id):c.txt.delete(id);edReflow();
+  if(to){const bd=$('#edbody'),f=li!==null?bd.querySelector(`.kv[data-li="${li}"] input[data-val]`):[...bd.querySelectorAll('.jl')].find(x=>x.dataset.path===id)?.querySelector('input.jv');if(f){f.focus();f.select()}}
+  return}
  const chipx=t.closest('[data-chipx]');
  if(chipx&&row){const l=c.model.lines[+row.dataset.li],tk=idTokens(l.val);tk.splice(+chipx.closest('.chip').dataset.i,1);l.val='"'+tk.join(', ')+'"';chipsRender(row,l);edState();return}
  if(bt&&bt.hasAttribute('data-tog')&&row){const l=c.model.lines[+row.dataset.li],v=l.val.trim(),bin=/^[01]$/.test(v),on=bin?v!=='1':!/^true$/i.test(v),cap=/^[A-Z]/.test(v);
@@ -1189,6 +1242,58 @@ $('#edright').addEventListener('click',async e=>{const t=e.target,c=ED.cur;if(!c
   const key=isA?null:d.querySelector(':scope>.jc>.jadd .jak').value.trim();if(!isA){if(!key)return toast('Type a key name first');if(key in cont)return toast('That key already exists')}
   let rv;if(ty==='string')rv=JSON.stringify(raw);else if(ty==='number'){const s=raw.trim();if(!JNUM.test(s))return toast('Type a number');rv=s}else if(ty==='boolean')rv=/^(true|1|yes|on)$/i.test(raw.trim())?'true':'false';else if(ty==='null')rv='null';else if(ty==='object')rv='{}';else rv='[]';
   if(jEdit(c,'add',p,{key,raw:rv})){keepOpen(edBody);edState()}}});
+/* ===== 1.2.1: find inside the open file, collapsible sections, boolean-to-field ===== */
+function edReflow(){const b=$('#edbody'),st=b.scrollTop;keepOpen(edBody);b.scrollTop=st}
+function edTbHtml(c){const raw=c.view==='raw';
+ return `<div class="edtb"><button class="btn sm icon ${ED.fopen?'on':''}" id="edfbtn" title="Find (Ctrl+F)" aria-label="Find" aria-pressed="${!!ED.fopen}">${ICO.find}</button><div class="edfind" id="edfind" ${ED.fopen?'':'hidden'}><input type="search" id="edfq" placeholder="${raw?'Find in file':'Search settings'}" value="${esc(ED.fq)}" spellcheck="false" aria-label="Search this file"><span class="stats" id="edfcnt"></span><button class="btn sm icon" id="edfprev" title="Previous (Shift+Enter)" aria-label="Previous match">${ICO.up}</button><button class="btn sm icon" id="edfnext" title="Next (Enter)" aria-label="Next match">${ICO.down}</button><button class="btn sm icon" id="edfx" title="Close (Esc)" aria-label="Close search">×</button></div>${raw?'':'<button class="btn sm" id="edcolall">Collapse all</button><button class="btn sm" id="edexpall">Expand all</button>'}</div>`}
+const edRq=()=>ED.fopen&&ED.fq.trim()?ED.fq.toLowerCase():'';
+function edFindOpen(){if(!ED.cur)return;ED.fopen=true;const f=$('#edfind'),b=$('#edfbtn'),i=$('#edfq');if(f)f.hidden=false;if(b){b.classList.add('on');b.setAttribute('aria-pressed','true')}
+ if(i){i.focus();i.select()}edFindApply('new')}
+function edFindClose(back){ED.fopen=false;ED.fq='';ED._fi=-1;const f=$('#edfind'),b=$('#edfbtn'),i=$('#edfq');if(f)f.hidden=true;if(b){b.classList.remove('on');b.setAttribute('aria-pressed','false')}if(i)i.value='';
+ edFindApply();if(back){const r=$('#edraw');if(r)r.focus()}}
+/* form / tree: show only the settings that match (key, value or description) and mark them; raw: highlight every match */
+function edFindApply(step){const c=ED.cur,body=$('#edbody');if(!c||!body)return;
+ if(c.view==='raw'){body.classList.remove('finding');return edRawFind(edRq(),step||0)}
+ const q=ED.fopen?ED.fq.trim().toLowerCase():'',cnt=$('#edfcnt'),has=x=>x.toLowerCase().includes(q);
+ body.classList.toggle('finding',!!q);
+ body.querySelectorAll('.fhide,.fhit,.fcur,.fexp').forEach(x=>x.classList.remove('fhide','fhit','fcur','fexp'));
+ body.querySelectorAll('details.jn[data-fwas]').forEach(d=>{d.open=d.dataset.fwas==='1';if(!q)delete d.dataset.fwas});
+ if(!q){if(cnt)cnt.textContent='';ED._fi=-1;return}
+ body.querySelectorAll('details.jn').forEach(d=>{if(!('fwas' in d.dataset))d.dataset.fwas=d.open?'1':'0'});
+ const rowText=r=>{let t='';r.querySelectorAll('.kn,.jk,.kd,.bv').forEach(x=>t+=' '+x.textContent);r.querySelectorAll('.chip').forEach(x=>t+=' '+x.firstChild.textContent);r.querySelectorAll('input.jv,input[data-val],input[data-raw]').forEach(x=>t+=' '+x.value);return t};
+ body.querySelectorAll('.kv,.jl,.note').forEach(r=>{if(has(r.classList.contains('note')?r.textContent:rowText(r)))r.classList.add('fhit');else r.classList.add('fhide')});
+ body.querySelectorAll('.edsec').forEach(sec=>{const sh=sec.querySelector(':scope>.sh');
+  if(sh&&has(sh.firstElementChild.textContent)){sec.querySelectorAll('.fhide').forEach(x=>x.classList.remove('fhide'));sh.classList.add('fhit')}
+  else if(!sec.querySelector('.fhit')){sec.classList.add('fhide');return}
+  if(sec.classList.contains('collapsed'))sec.classList.add('fexp')});
+ [...body.querySelectorAll('details.jn')].reverse().forEach(d=>{const sm=d.querySelector(':scope>summary'),own=d.dataset.path!=='[]'&&has((sm.querySelector('.jk')||{textContent:''}).textContent+' '+((sm.querySelector('.jdesc')||{}).textContent||''));
+  if(own){d.querySelectorAll('.fhide').forEach(x=>x.classList.remove('fhide'));sm.classList.add('fhit')}
+  else if(!d.querySelector(':scope>.jc .jl:not(.fhide), :scope>.jc details.jn:not(.fhide)')){d.classList.add('fhide');return}
+  d.open=true});
+ const n=body.querySelectorAll('.fhit').length;ED._fh=[...body.querySelectorAll('.fhit')];ED._fi=-1;
+ if(cnt)cnt.textContent=n?`${n} match${n===1?'':'es'}`:'No matches'}
+function edFindStep(d){const c=ED.cur;if(!c)return;if(c.view==='raw')return edRawFind(edRq(),d);
+ const h=ED._fh||[];if(!h.length)return;h.forEach(x=>x.classList.remove('fcur'));
+ ED._fi=((ED._fi<0?(d>0?-1:0):ED._fi)+d+h.length)%h.length;const t=h[ED._fi];t.classList.add('fcur');t.scrollIntoView({block:'center'});
+ const cnt=$('#edfcnt');if(cnt)cnt.textContent=`${ED._fi+1} of ${h.length}`}
+/* raw: highlights sit in a hidden mirror behind the textarea; step = 0 refresh, 'new' jump to the first match from the caret, ±1 next / previous */
+function edRawFind(q,step){const ta=$('#edraw'),mir=$('#edmir'),cnt=$('#edfcnt');if(!ta||!mir)return;
+ if(!q){mir.innerHTML='';ED._ri=-1;if(cnt)cnt.textContent='';return}
+ const src=ta.value,low=src.toLowerCase(),ms=[];
+ for(let i=low.indexOf(q);i>=0&&ms.length<5000;i=low.indexOf(q,i+q.length))ms.push(i);
+ let i=ED._ri==null?-1:ED._ri;
+ if(step==='new'){i=ms.findIndex(m=>m>=ta.selectionStart);if(i<0)i=ms.length?0:-1}
+ else if(step===1||step===-1){i=!ms.length?-1:i<0?(step>0?0:ms.length-1):(i+step+ms.length)%ms.length}
+ else if(i>=ms.length)i=ms.length-1;
+ ED._ri=i;
+ let h='',p=0;ms.forEach((m,k)=>{h+=esc(src.slice(p,m))+`<mark${k===i?' class="cur"':''}>`+esc(src.slice(m,m+q.length))+'</mark>';p=m+q.length});
+ mir.innerHTML=h+esc(src.slice(p))+' ';
+ if(step&&i>=0){const m=ms[i],before=src.slice(0,m),line=before.split('\n').length-1,col=m-(before.lastIndexOf('\n')+1),lh=parseFloat(getComputedStyle(ta).lineHeight)||19.4;
+  ta.setSelectionRange(m,m+q.length);ta.scrollTop=Math.max(0,line*lh-ta.clientHeight/2);
+  const x=col*7.5;if(x<ta.scrollLeft||x>ta.scrollLeft+ta.clientWidth-80)ta.scrollLeft=Math.max(0,x-ta.clientWidth/3)}
+ mir.scrollTop=ta.scrollTop;mir.scrollLeft=ta.scrollLeft;
+ if(cnt)cnt.textContent=!ms.length?'No matches':i>=0?`${i+1} of ${ms.length}${ms.length>=5000?'+':''}`:`${ms.length} match${ms.length===1?'':'es'}`}
+$('#edright').addEventListener('scroll',e=>{if(e.target.id==='edraw'){const m=$('#edmir');if(m){m.scrollTop=e.target.scrollTop;m.scrollLeft=e.target.scrollLeft}}},true);
 /* custom drop-downs (no native <select> anywhere) */
 const CHEV='<svg viewBox="0 0 12 12" width="12" height="12"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const CHK2='<svg class="ck" viewBox="0 0 12 12" width="12" height="12"><path d="M2.5 6.5 5 9l4.5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -1329,8 +1434,8 @@ function parseIniFile(t){const out={top:[],fc:{seen:false,profile:null,pl:null,l
   else if(l[0]!==';'&&l[0]!=='#')applyLine(cur.k,cur.p,l)});
  return out}
 async function commit(path,msg){const f=files().find(x=>x[0]===path);if(!f)return;
- if(root&&await canWrite()){try{await writeFile(path,f[1]);written[path]=f[1];toast(msg)}catch(e){toast('Saving failed: '+e.message)}}
- else toast('Not written yet: this browser can’t write to the folder. Copy or download it from Config files')}
+ if(root&&await canWrite()){try{await writeFile(path,f[1]);written[path]=f[1];toast(msg);return true}catch(e){toast('Saving failed: '+e.message);return false}}
+ else{toast('Not written yet: this browser can’t write to the folder. Copy or download it from Config files');return false}}
 function bcDef(){return{EnableMenu:true,EnablePlugins:true,EnableLog:true,ImmediateFlushLog:false,MaxLogSize:5242880,RefreshKey:115,AutoRefresh:true}}
 async function ingest(ents,dirs,label){
  const mods=new Map(dirs.filter(d=>d[0]!=='.'&&d.toLowerCase()!=='profiles').map(d=>[d,[]]));
@@ -1444,8 +1549,12 @@ function filesRaw(){const by={};Object.keys(S.profiles).forEach(n=>(by[ppath(n)]
  if(S.ppSeen||S.ppDirty)out.push(['.data/plugins/plugins.ini',ppText()]);
  return out}
 var _fc=null;function files(){if(_fc)return _fc;_fc=filesRaw();queueMicrotask(()=>{_fc=null});return _fc}
-$('#setcur').onclick=async()=>{const prev=S.cur;S.cur=S.active;undoReset();render();await commit(S.main,`modloader.ini now has Profile = ${S.active}`);
- toast(`Current profile is now ${S.active}`,async()=>{S.cur=prev;undoReset();render();await commit(S.main,`Current profile is back to ${prev}`)})};
+const pendTxt=()=>{const n=files().filter(([p,t])=>written[p]!==t).length;return n?` · ${n} unsaved change${n===1?'':'s'}`:' · all changes saved'};
+$('#setcur').onclick=async()=>{const prev=S.cur,next=S.active;
+ const go=async to=>{S.cur=to;undoReset();render();const ok=await commit(S.main,'');render();return ok};
+ const doIt=async()=>{if(await go(next)!==false)toast(`Current profile is now ${next}${pendTxt()}`,undoIt)};
+ const undoIt=async()=>{if(await go(prev)!==false)toast(`Current profile is back to ${prev}${pendTxt()}`,null,doIt)};
+ doIt()};
 $('#save').onclick=async()=>{try{
   let c=0;for(const[path,t]of files())if(written[path]!==t){await writeFile(path,t);written[path]=t;c++}
   Object.keys(S.profiles).forEach(n=>{if(!src[n])src[n]={path:ppath(n)}});
