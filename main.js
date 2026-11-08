@@ -11,7 +11,7 @@ ipcMain.handle('launch-game',(e,exe)=>{try{if(typeof exe!=='string'||!fs.existsS
   if(process.platform==='win32')c=spawn('cmd.exe',['/d','/s','/c','start "" /D "'+cwd+'" "'+exe+'"'],{cwd,detached:true,stdio:'ignore',windowsHide:true,windowsVerbatimArguments:true});
   else c=spawn(exe,[],{cwd,detached:true,stdio:'ignore'});
   c.on('error',()=>{});c.unref();return true}catch(err){return String(err.message||err)}});
-ipcMain.on('theme',(e,t)=>{const w=BrowserWindow.fromWebContents(e.sender);if(w)w.setBackgroundColor(t==='light'?'#eef0ec':'#101311')});
+ipcMain.on('theme',(e,t)=>{const w=BrowserWindow.fromWebContents(e.sender);if(w)w.setBackgroundColor(/^#[0-9a-f]{6}$/i.test(t)?t:t==='light'?'#eef0ec':'#101311')});
 
 ipcMain.handle('pick-folder',async()=>{
   const r=await dialog.showOpenDialog({title:'Select your GTA San Andreas folder',properties:['openDirectory']});
