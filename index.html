@@ -366,6 +366,54 @@ dialog.bkdlg h2{margin:0}
 .bkd-foot{display:flex;gap:8px;justify-content:flex-end;margin-top:2px}
 input[type=checkbox]:indeterminate{border-color:var(--acc);background:var(--acc) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 6h6' fill='none' stroke='%23061008' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/13px no-repeat}
 :root[data-theme="light"] input[type=checkbox]:indeterminate{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 6h6' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")}
+
+/* ---- v1.2.3 ---- */
+.btn{gap:7px}.btn svg{flex:none}
+.lead{display:flex;align-items:center;gap:6px}
+.chev{border:0;background:none;padding:0;width:22px;height:22px;border-radius:6px;color:var(--mut);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.chev:hover{color:var(--acc);background:var(--panel2)}
+.chev svg{display:block;transition:transform .2s ease}
+.mod.open .chev svg{transform:rotate(90deg)}
+.tr button.trash{display:inline-flex;align-items:center;justify-content:center;padding:2px 6px}
+.tr button.trash svg{width:13px;height:13px}
+.tr button.trash:hover{border-color:var(--bad);color:var(--bad)}
+.cp-sv,.cp-sl{overflow:visible}
+.cp-sl{height:14px;margin:1px 0}
+.cp-knob{width:16px;height:16px;box-sizing:border-box;background:var(--kc,transparent)}
+.ck{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-top:1px solid var(--line)}
+.ckd{width:9px;height:9px;border-radius:50%;margin-top:5px;flex:none;background:var(--mut)}
+.ckd.ok{background:var(--acc)}.ckd.warn{background:var(--warn)}.ckd.bad{background:var(--bad)}
+.ckb{flex:1;min-width:0;overflow-wrap:anywhere}.ckb b{font-weight:600}
+.ckb small{display:block;color:var(--mut);font:11.5px "JetBrains Mono",ui-monospace,monospace;margin-top:2px}
+.ckh{font-weight:600;font-size:12.5px;margin:12px 0 2px;color:var(--mut)}
+.ckf summary{cursor:pointer;margin-top:8px}
+.fold>summary .cnt.warn{color:var(--warn)}.fold>summary .cnt.ok{color:var(--acc)}
+.trr{display:flex;gap:6px;align-items:center;padding:6px 0;border-top:1px solid var(--line)}
+.trr:first-child{border-top:0}.trn{flex:1;min-width:0}
+.trn .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.trn small{color:var(--mut);font-size:11.5px}
+.lwarn{display:flex;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--warn);border-radius:10px;color:var(--warn);background:color-mix(in srgb,var(--warn) 10%,transparent);font-size:13px}
+#lsel{min-width:240px;max-width:420px}
+
+.cks{border:1px solid var(--line);border-radius:10px;background:var(--panel2);padding:10px 12px;margin-bottom:8px}
+.cksh{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;font-weight:600;font-size:13px}
+.pill{font-size:11px;font-weight:600;padding:1px 9px;border-radius:99px;background:var(--panel);border:1px solid var(--line);color:var(--mut);white-space:nowrap}
+.pill.ok{background:var(--accbg);border-color:transparent;color:var(--acc)}
+.pill.warn{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 45%,transparent)}
+.pill.bad{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 45%,transparent)}
+.ckt{font-weight:600;font-size:13px;overflow-wrap:anywhere}
+.ckx{color:var(--mut);font-size:12px;line-height:1.45;margin-top:2px;overflow-wrap:anywhere}
+.ckm{color:var(--mut);font:11.5px "JetBrains Mono",ui-monospace,monospace;overflow-wrap:anywhere;margin-top:2px}
+.ckr{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--line)}
+.ckr:first-of-type{border-top:0}.ckn{flex:1;min-width:0}
+.ckf{margin-top:8px;border-top:1px solid var(--line);padding-top:6px}
+.ckf summary{cursor:pointer;font-size:12px;color:var(--mut);margin:0 0 2px}
+#pn-checker .btn.sm{padding:3px 10px}
+
+.hr{gap:10px 12px}.hg{display:flex;align-items:center;gap:6px}
+.hg+.hg{padding-left:12px;border-left:1px solid var(--line)}
+header .hg .btn{padding:0 11px}header .hg .btn.icon{width:34px;padding:0}
+#launch{border-color:var(--acc);color:var(--acc)}#launch:hover{background:var(--accbg)}
 </style>
 </head>
 <body>
@@ -379,11 +427,10 @@ input[type=checkbox]:indeterminate{border-color:var(--acc);background:var(--acc)
     <button class="btn" id="setcur" title="Writes Profile = this profile into modloader.ini">Make current</button>
   </div>
   <div class="hr">
-    <button class="btn" id="scan">Scan GTA folder</button><button class="btn icon" id="rescan" disabled title="Rescan" aria-label="Rescan"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M13.5 2.5v3h-3"/></svg></button>
-    <span class="vsep"></span>
-    <button class="btn icon" id="logb" title="Modloader log" aria-label="Modloader log"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2h6l3 3v9H4z"/><path d="M10 2v3h3M6 8h5M6 11h5"/></svg></button><button class="btn icon" id="mkcut" disabled title="Create game shortcut" aria-label="Create game shortcut"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2h5v5"/><path d="M14 2 7.5 8.5"/><path d="M12 10v3.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-8A.5.5 0 0 1 3.5 5H7"/></svg></button><button class="btn" id="edbtn">Config editor</button>
-    <span class="vsep"></span>
-    <button class="btn icon" id="undo" disabled title="Undo (Ctrl+Z)" aria-label="Undo"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 3.8 2.6 6.7l2.9 2.9"/><path d="M3 6.7h5.6a3.6 3.6 0 0 1 0 7.2H6"/></svg></button><button class="btn icon" id="redo" disabled title="Redo (Ctrl+Y)" aria-label="Redo"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 3.8l2.9 2.9-2.9 2.9"/><path d="M13 6.7H7.4a3.6 3.6 0 0 0 0 7.2H10"/></svg></button><button class="btn" id="save" disabled>Save changes</button><button class="btn pri" id="inst">Install mod</button>
+    <div class="hg"><button class="btn" id="scan"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 4.5a1 1 0 0 1 1-1h3.2l1.5 1.5h6.3a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1z"/></svg><span>Scan GTA folder</span></button><button class="btn icon" id="rescan" disabled title="Rescan" aria-label="Rescan"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M13.5 2.5v3h-3"/></svg></button></div>
+    <div class="hg"><button class="btn" id="edbtn"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5h6.5M12.5 4.5H14M2 11.5h1.5M7.5 11.5H14"/><circle cx="10.5" cy="4.5" r="1.6"/><circle cx="5.5" cy="11.5" r="1.6"/></svg><span>Config editor</span></button><button class="btn" id="logb" title="Logs" aria-label="Logs"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2h6l3 3v9H4z"/><path d="M10 2v3h3M6 8h5M6 11h5"/></svg><span>Logs</span></button><button class="btn" id="trb" title="Trash" aria-label="Trash"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.8 4.5h10.4M6.2 4.5V3h3.6v1.5M4.2 4.5l.6 8.6h6.4l.6-8.6M6.6 7v3.8M9.4 7v3.8"/></svg><span>Trash</span><span class="cb" id="trbc" hidden>0</span></button><button class="btn" id="mkcut" disabled title="Create game shortcut" aria-label="Create game shortcut"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2h5v5"/><path d="M14 2 7.5 8.5"/><path d="M12 10v3.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-8A.5.5 0 0 1 3.5 5H7"/></svg><span>Shortcut</span></button></div>
+    <div class="hg"><button class="btn" id="undo" disabled title="Undo (Ctrl+Z)" aria-label="Undo"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 3.8 2.6 6.7l2.9 2.9"/><path d="M3 6.7h5.6a3.6 3.6 0 0 1 0 7.2H6"/></svg><span>Undo</span></button><button class="btn" id="redo" disabled title="Redo (Ctrl+Y)" aria-label="Redo"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 3.8l2.9 2.9-2.9 2.9"/><path d="M13 6.7H7.4a3.6 3.6 0 0 0 0 7.2H10"/></svg><span>Redo</span></button><button class="btn" id="save" disabled><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5h7.5l2.5 2.5v8a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5z"/><path d="M5 2.5v3.5h5V2.5M5 13.5V9h6v4.5"/></svg><span id="savet">Save changes</span></button></div>
+    <div class="hg"><button class="btn pri" id="inst"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5v7M5 7l3 3 3-3M3 13h10"/></svg><span>Install mod</span></button><button class="btn" id="launch" disabled title="Run gta_sa.exe"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3.2v9.6L13 8z"/></svg><span>Launch Game</span></button></div>
   </div>
 </header>
 <main>
@@ -393,6 +440,8 @@ input[type=checkbox]:indeterminate{border-color:var(--acc);background:var(--acc)
     <div id="list"></div>
   </section>
   <aside class="side">
+    <details class="card fold" id="pn-checker" open><summary><span>Version &amp; Essentials</span><span class="cnt" id="chkcnt"></span></summary><p>Checks gta_sa.exe, the limit adjuster and the recommended essential plugins.</p><div id="chkbody"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn sm" id="chkrun">Re-check</button><button class="btn sm" id="chklink"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2h5v5M14 2 7.5 8.5M12 10v3.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-8A.5.5 0 0 1 3.5 5H7"/></svg>MixMods Essentials Pack</button></div></details>
     <details class="card fold" id="pn-folder-config" open><summary><span>Folder.Config</span></summary><p>Global setting kept at the top of modloader.ini and shared by every profile.</p>
       <div class="stats" style="margin-bottom:4px">PriorityLimit</div>
       <div class="add"><div class="step"><button type="button" data-st="-1" aria-label="Decrease">−</button><input type="number" id="plim" min="1" placeholder="100 (default)"><button type="button" data-st="1" aria-label="Increase">+</button></div><button class="btn sm" id="plset">Set</button><button class="btn sm" id="plclr">Clear</button></div>
@@ -412,6 +461,8 @@ input[type=checkbox]:indeterminate{border-color:var(--acc);background:var(--acc)
     <details class="card fold" id="pn-ignored-files" open><summary><span>Ignored files</span></summary><p>Patterns for the active profile. They are matched against each file’s path inside its mod, in every mod. Use <code>*</code> for a wildcard, e.g. <code>*.asi</code> or <code>sub/**</code>.</p>
       <div class="add"><input type="text" id="ipat" placeholder="*.asi or sub/**"><button class="btn sm" id="iadd">Add</button></div>
       <div class="chips" id="chips"></div></details>
+    <details class="card fold" id="pn-trash"><summary><span>Trash</span><span class="cnt" id="trcnt">0</span></summary><p>Removed mods and files wait here until you restore them or delete them for good.</p><div id="trlist"></div>
+      <div style="margin-top:8px"><button class="btn sm del" id="trempty" disabled>Empty Trash</button></div></details>
     <details class="card fold" id="pn-modloader-settings"><summary><span>Modloader settings</span></summary><p id="bcsrc"></p>
       <label class="stats" style="display:flex;gap:8px;align-items:center;margin-bottom:6px"><input type="checkbox" data-bc="EnableMenu">Enable menu</label>
       <label class="stats" style="display:flex;gap:8px;align-items:center;margin-bottom:6px"><input type="checkbox" data-bc="EnablePlugins">Enable plugins</label>
@@ -442,10 +493,15 @@ input[type=checkbox]:indeterminate{border-color:var(--acc);background:var(--acc)
   <div class="stats" id="exnote" hidden style="margin-top:6px;word-break:break-all"></div>
   <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px"><button class="btn" id="cx">Cancel</button><button class="btn pri" id="ok" disabled>Install</button></div>
 </dialog>
+<dialog id="trd"><h2>Trash</h2><div class="stats" style="margin-bottom:10px">Removed mods and files. Restore puts them back in the modloader folder; Delete removes them for good.</div>
+  <div id="trdlist" style="max-height:min(50vh,420px);overflow:auto"></div>
+  <div style="display:flex;gap:8px;justify-content:space-between;margin-top:14px"><button class="btn del" id="trdempty" disabled>Empty Trash</button><button class="btn" id="trdx">Close</button></div></dialog>
 <dialog id="logd" class="wide">
-  <div class="lh"><h2>Modloader log</h2><span class="curp" id="lpill"></span>
-    <div style="margin-left:auto;display:flex;gap:8px"><button class="btn sm" id="lre">Reload</button><button class="btn sm" id="lopen">Open file…</button><button class="btn sm" id="lx">Close</button></div></div>
-  <div class="ltool"><div class="seg" id="lf"><button data-f="all" class="on"></button><button data-f="error"></button><button data-f="warn"></button><button data-f="info"></button><button data-f="debug"></button></div><input type="search" id="lq" placeholder="Search the log"></div>
+  <div class="lh"><h2>Log viewer</h2><span class="curp" id="lpill"></span>
+    <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="lcopy">Copy</button><button class="btn sm" id="lloc">Open file location</button><button class="btn sm" id="lre">Reload</button><button class="btn sm" id="lopen">Open file…</button><button class="btn sm" id="lx">Close</button></div></div>
+  <div class="lwarn" id="lwarn" hidden><span id="lwarntx"></span></div>
+  <div class="ltool"><div class="dd cdd" id="lsel" aria-label="Log file"></div><div class="seg" id="lf"><button data-f="all" class="on"></button><button data-f="error"></button><button data-f="warn"></button><button data-f="info"></button><button data-f="debug"></button></div><input type="search" id="lq" placeholder="Search the log"></div>
+  <div class="stats" id="lpath" style="word-break:break-all;min-height:18px"></div>
   <div class="lbody" id="lb"></div><input type="file" id="lfile" accept=".log,.txt" hidden>
 </dialog>
 <dialog id="cutd">
@@ -464,7 +520,7 @@ input[type=checkbox]:indeterminate{border-color:var(--acc);background:var(--acc)
   <div style="display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:10px"><button class="btn" id="cutx">Close</button><button class="btn" id="cutsave" hidden>Save into GTA folder</button><button class="btn pri" id="cutdl">Save…</button></div>
 </dialog>
 <dialog id="askd"><h2 id="asktitle"></h2><div class="stats" id="asktext"></div><input type="text" id="askin" style="width:100%;margin-top:10px" hidden>
-  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px"><button class="btn" id="askno">Cancel</button><button class="btn pri" id="askok">OK</button></div></dialog>
+  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px"><button class="btn" id="askno">Cancel</button><button class="btn" id="askalt" hidden></button><button class="btn pri" id="askok">OK</button></div></dialog>
 <dialog id="welc"><h2>Welcome</h2><p id="welcp" class="stats" style="margin:0 0 14px;line-height:1.5">Select your GTA San Andreas folder, the one that contains gta_sa.exe. Mod Loader has to be installed there already.</p>
   <div style="display:flex;justify-content:flex-end"><button class="btn pri" id="welcgo">Choose GTA folder</button></div></dialog>
 <dialog id="edd" class="ed">
@@ -496,7 +552,7 @@ let S={active:'Default',profiles:{Default:{pr:{},im:[],ex:[],ig:[]}},mods:[]};
 try{const s=localStorage.getItem('samm');if(s)S=JSON.parse(s)}catch(e){}
 const fx=n=>{const p=S.profiles[n];p.pr=p.pr||{};['im','ex','ig','inc','par','cx'].forEach(k=>p[k]=p[k]||[]);if(Array.isArray(p.um))p.um=p.um.join(', ');p.um=p.um||'';if(p.ia===undefined)p.ia=null;if(p.ea===undefined)p.ea=null;return p};
 const P=()=>fx(S.active);
-S.main=S.main||'modloader.ini';S.topSecs=S.topSecs||[];S.mods=S.mods||[];S.exes=S.exes||[];S.exe=S.exe||'';S.gpathAuto=S.gpathAuto||'';S.gpathUser=S.gpathUser||'';S.gname=S.gname||'';S.installs=S.installs||[];S.sort=S.sort||'name';S.curInst=S.curInst||'';S.bcFrom=S.bcFrom||'none';S.bc=S.bc||bcDef();S.bcRaw=S.bcRaw||'';S.panels=S.panels||{};S.bcx=S.bcx||[];S.bcTop=S.bcTop||[];S.pp=S.pp||{};S.ppTop=S.ppTop||[];S.plugins=S.plugins||[];S.fcl=S.fcl||[];S.cur=S.cur||'Default';if(S.pl===undefined)S.pl=null;S.autoBk=S.autoBk||{};
+S.main=S.main||'modloader.ini';S.topSecs=S.topSecs||[];S.mods=S.mods||[];S.exes=S.exes||[];S.exe=S.exe||'';S.gpathAuto=S.gpathAuto||'';S.gpathUser=S.gpathUser||'';S.gname=S.gname||'';S.installs=S.installs||[];S.sort=S.sort||'name';S.curInst=S.curInst||'';S.bcFrom=S.bcFrom||'none';S.bc=S.bc||bcDef();S.bcRaw=S.bcRaw||'';S.panels=S.panels||{};S.bcx=S.bcx||[];S.bcTop=S.bcTop||[];S.pp=S.pp||{};S.ppTop=S.ppTop||[];S.plugins=S.plugins||[];S.fcl=S.fcl||[];S.cur=S.cur||'Default';if(S.pl===undefined)S.pl=null;S.autoBk=S.autoBk||{};S.essIgn=S.essIgn||[];
 function setPr(p,name,v){for(const k of Object.keys(p.pr))if(k.toLowerCase()===name.toLowerCase())delete p.pr[k];if(v!==50)p.pr[name]=v}
 function rawParents(n){const out=[];for(const a of fx(n).par){const l=a.toLowerCase();if(l==='$none')return[];
  let r=null;if(l==='$current')r=S.cur===n?null:S.cur;else r=Object.keys(S.profiles).find(k=>k.toLowerCase()===l)||null;
@@ -531,24 +587,24 @@ var _st;const saveNow=()=>{try{localStorage.setItem('samm',JSON.stringify(S,(k,v
 const save=()=>{clearTimeout(_st);_st=setTimeout(saveNow,300)};
 addEventListener('beforeunload',saveNow);
 var SAVEHOLD=false; /* while true, render() leaves the Save button alone (avoids a flash during an instant write) */
-const toast=(t,undo,redo)=>{const e=$('#toast'),has=!!(undo||redo);e.textContent=t;e.classList.toggle('act',has);
- [['Undo',undo],['Redo',redo]].forEach(([l,f])=>{if(f){const b=document.createElement('button');b.textContent=l;b.onclick=()=>{e.classList.remove('show');f()};e.append(b)}});
- e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),has?7000:1800)};
+const toast=t=>{const e=$('#toast');e.textContent=t; /* notifications only: no buttons */
+ e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),2400)};
 const prio=n=>{const pe=E.pr[n.toLowerCase()],v=pe?pe[0]:50;return S.pl!=null?Math.min(v,S.pl):v};
 const pat2re=p=>new RegExp('^'+p.replace(/[.+^${}()|[\]\\]/g,'\\$&').replace(/\*/g,'.*').replace(/\?/g,'.')+'$','i');
 const fileIgnored=(m,f)=>{const b=f.split('/').pop();return Object.keys(E.ig).some(p=>mw(p,f)||mw(p,b))};
 const FO='<svg class="fo" viewBox="0 0 16 16"><path d="M1.5 4.5a1 1 0 0 1 1-1h3.2l1.5 1.5h6.3a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1z" fill="currentColor" opacity=".85"/></svg>',
  FI='<svg class="fi" viewBox="0 0 16 16"><path d="M4 1.5h5.5L13 5v9a.5.5 0 0 1-.5.5h-8.5a.5.5 0 0 1-.5-.5v-12a.5.5 0 0 1 .5-.5z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>',
  CV='<svg class="cv" viewBox="0 0 12 12"><path d="M4 2.5 8 6 4 9.5"/></svg>';
+const TI='<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.8 4.5h10.4M6.2 4.5V3h3.6v1.5M4.2 4.5l.6 8.6h6.4l.6-8.6M6.6 7v3.8M9.4 7v3.8"/></svg>';
 const dirsOf=m=>{const o=new Set();m.files.forEach(f=>{const ps=f.split('/');ps.pop();ps.forEach((_,i)=>o.add(ps.slice(0,i+1).join('/')))});return[...o]};
 function treeBody(m,focus){const q=(m._q||'').trim().toLowerCase(),root={d:{},f:[]};
  m.files.forEach((f,j)=>{if(q&&!f.toLowerCase().includes(q))return;const ps=f.split('/'),n=ps.pop();let c=root;ps.forEach(x=>c=c.d[x]||(c.d[x]={d:{},f:[]}));c.f.push([n,j])});
  const cnt=n=>n.f.length+Object.values(n.d).reduce((a,x)=>a+cnt(x),0),cmp=(a,b)=>a.localeCompare(b,undefined,{numeric:true,sensitivity:'base'});
  const draw=(n,path,d)=>{let h='';
   Object.keys(n.d).sort(cmp).forEach(k=>{const p=path?path+'/'+k:k,pat=`${p}/**`,open=!!q||!!(m._x&&m._x[p]),ig=pat in E.ig,c=n.d[k],k2=cnt(c);
-   h+=`<div class="tr dir ${open?'open':''} ${ig?'ign':''}" style="--d:${d}" data-a="fold" data-p="${esc(p)}">${CV}${FO}<span class="nm">${esc(k)}</span><small>${k2} file${k2>1?'s':''}</small><button data-a="idir" data-p="${esc(p)}">${ig?'Unignore':'Ignore'}</button></div><div class="kids ${open?'open':''}"><div class="ki">${open?draw(c,p,d+1):''}</div></div>`});
+   h+=`<div class="tr dir ${open?'open':''} ${ig?'ign':''}" style="--d:${d}" data-a="fold" data-p="${esc(p)}">${CV}${FO}<span class="nm">${esc(k)}</span><small>${k2} file${k2>1?'s':''}</small><button data-a="idir" data-p="${esc(p)}">${ig?'Unignore':'Ignore'}</button><button class="trash" data-a="tdir" data-p="${esc(p)}" title="Move folder to Trash" aria-label="Move folder to Trash">${TI}</button></div><div class="kids ${open?'open':''}"><div class="ki">${open?draw(c,p,d+1):''}</div></div>`});
   n.f.sort((a,b)=>cmp(a[0],b[0])).forEach(([nm,j])=>{const ig=fileIgnored(m.name,m.files[j]);
-   h+=`<div class="tr ${ig?'ign':''}" style="--d:${d}">${FI}<span class="nm">${esc(nm)}</span><button data-a="if" data-j="${j}">${ig?'Unignore':'Ignore'}</button></div>`});
+   h+=`<div class="tr ${ig?'ign':''}" style="--d:${d}">${FI}<span class="nm">${esc(nm)}</span><button data-a="if" data-j="${j}">${ig?'Unignore':'Ignore'}</button><button class="trash" data-a="tf" data-j="${j}" title="Move file to Trash" aria-label="Move file to Trash">${TI}</button></div>`});
   return h};
  if(focus){let n=root;for(const x of focus.p.split('/'))n=n.d[x]||{d:{},f:[]};return draw(n,focus.p,focus.p.split('/').length+1)}
  if(q&&!Object.keys(root.d).length&&!root.f.length)return '<div class="stats" style="padding:8px 4px">No files match</div>';
@@ -574,15 +630,15 @@ function render(){
   const mods=S.mods.filter(m=>!q||m.name.toLowerCase().includes(q)||m.files.some(f=>f.toLowerCase().includes(q))).sort(sorters[S.sort]||byName);
   const hs=mods.map(m=>{const[st,c]=status(m),i=S.mods.indexOf(m),on=c==='st',v=prio(m.name);
    return `<div class="mod ${on?'':'off'} ${m._o?'open':''}" data-i="${i}" style="--n:${Math.min(i,10)}">
-   <div class="row"><button class="sw ${swOn(m.name)?'on':''}" data-a="ign" title="${E.ea?'Include this mod':'Ignore this mod'}" aria-label="Toggle ${esc(m.name)}"></button>
+   <div class="row"><div class="lead"><button class="chev" data-a="open" aria-expanded="${!!m._o}" aria-label="Show or hide the files of ${esc(m.name)}" title="Show or hide files"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2.5 8 6 4 9.5"/></svg></button><button class="sw ${swOn(m.name)?'on':''}" data-a="ign" title="${E.ea?'Include this mod':'Ignore this mod'}" aria-label="Toggle ${esc(m.name)}"></button></div>
    <div style="min-width:0"><div class="name" data-a="open">${esc(m.name)}</div><div class="meta"><span class="tag ${c}">${st}</span>${typesOf(m).map(t=>`<span class="tag">${t}</span>`).join('')}<span>${m.files.length} files</span>${inh(m.name)}</div></div>
    <div class="pr"><input type="range" min="0" max="${S.pl??100}" value="${v}" style="--p:${Math.min(100,v/(S.pl??100)*100)}%" data-a="pr" aria-label="Priority"><output title="Double-click to type a priority">${v}</output></div>
    <div style="display:flex;gap:6px"><button class="star ${hit(E.ex,m.name)?'on':''}" data-a="ex" title="Exclusive: hidden from other profiles unless they inherit this one" aria-label="Exclusive"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M8 1.9l1.85 3.9 4.25.55-3.1 2.95.78 4.2L8 11.4l-3.78 2.1.78-4.2L1.9 6.35l4.25-.55z" transform="translate(0 .4)" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></button><button class="btn sm del" data-a="rm">Remove</button></div></div>
    <div class="files"><div class="fi">${m._o?tree(m):''}</div></div></div>`});patchList(mods,hs);
   $('#chips').innerHTML=p.ig.length?p.ig.map((x,i)=>`<span class="chip">${esc(x)}<button data-r="${i}" aria-label="Remove">×</button></span>`).join(''):'<span class="stats">Nothing ignored</span>';
   $('#ini').textContent=ini();save();
-  $('#src').textContent=srcText;{const n=files().filter(([p,t])=>written[p]!==t).length;if(!SAVEHOLD){$('#save').disabled=!root||!n;$('#save').classList.toggle('pri',n>0);$('#save').textContent=n?`Save changes (${n})`:'Save changes'}$('#rescan').disabled=!root;$('#undo').disabled=!UNDO.stack.length;$('#redo').disabled=!UNDO.redo.length}
-  $('#logb').style.visibility=logGet?'visible':'hidden';$('#mkcut').disabled=!S.exes.length;renderProf();renderSettings();renderPlugins();renderInst();
+  $('#src').textContent=srcText;{const n=files().filter(([p,t])=>written[p]!==t).length;if(!SAVEHOLD){$('#save').disabled=!root||!n;$('#save').classList.toggle('pri',n>0);$('#savet').textContent=n?`Save changes (${n})`:'Save changes'}$('#rescan').disabled=!root;$('#undo').disabled=!UNDO.stack.length;$('#redo').disabled=!UNDO.redo.length}
+  $('#logb').style.visibility=root?'visible':'hidden';$('#mkcut').disabled=!S.exes.length;renderProf();renderSettings();renderPlugins();renderInst();renderChecks();renderTrash();$('#launch').disabled=!canLaunch();
 }
 let PVsel='',PVlast='';
 function curFile(){const fl=files(),a=ppath(S.active);if(S.active!==PVlast){PVlast=S.active;PVsel=a}return fl.find(x=>x[0]===PVsel)||fl.find(x=>x[0]===a)||fl[0]}
@@ -606,7 +662,9 @@ $('#list').addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(
   if(i>=0)p.ex.splice(i,1);else if(hit(E.ex,m.name))return toast('Matched by a wildcard in this profile — edit the pattern');else p.ex.push(m.name)}
  else if(a==='if'){const f=m.files[t.dataset.j],i=p.ig.findIndex(x=>x.toLowerCase()===f.toLowerCase());
    if(fileIgnored(m.name,f)){if(i>=0)p.ig.splice(i,1);else return toast('Ignored by a wildcard pattern or a parent — edit the pattern on the right')}else{p.ig.push(f);toast('Ignored in every mod that has this path')}}
- else if(a==='rm'){ask({title:`Remove “${m.name}” from the list?`,text:'The mod’s files stay on disk.',ok:'Remove',danger:true}).then(ok=>{if(ok){const i=S.mods.indexOf(m);S.mods=S.mods.filter(x=>x!==m);blobs.delete(m.name);render();toast('Removed from the list',()=>{S.mods.splice(Math.min(i,S.mods.length),0,m);render()})}});return}
+ else if(a==='rm'){trashMod(m);return}
+ else if(a==='tf'){trashPath(m,m.files[t.dataset.j],false);return}
+ else if(a==='tdir'){trashPath(m,t.dataset.p,true);return}
  else return;render()});
 $('#list').addEventListener('input',e=>{if(e.target.classList.contains('tq')){const el=e.target.closest('.mod'),m=S.mods[el.dataset.i];m._q=e.target.value;clearTimeout(el._qt);el._qt=setTimeout(()=>{el.querySelector('.tb').innerHTML=treeBody(m)},90);return}
  if(e.target.dataset.a!=='pr')return;
@@ -723,14 +781,46 @@ function drawLog(){const q=$('#lq').value.toLowerCase(),rows=LV.rows,cnt={all:ro
   return h};
  $('#lb').innerHTML=(cut?'<div class="lr"><span></span><span></span><span class="lh2">Showing the last 3000 matching entries</span></div>':'')+
   (list.length?list.map(r=>`<div class="lr ${r.level}${r.sec?' sec':''}"><span class="lt">${esc(r.kind||r.time)}</span><span class="lv">${r.level}</span><div class="lm">${fm(r.msg)}${r.chip?`<span class="hc">${esc(r.chip)}</span>`:''}${r.more.length?`<div class="lx">${esc(r.more.join('\n'))}</div>`:''}</div></div>`).join(''):'<div class="empty" style="border:0">Nothing to show</div>')}
-async function loadLog(){const lb=$('#lb');LV.rows=[];
+const LOG_BIG=2*1048576,LOG_MAX=16*1048576;LV.extra=[];LV.abs='';LV.list=[];LV.raw='';LV.size=0;LV.trunc=false;
+const isMLlog=p=>/modloader\.log$/i.test(p);
+function parseGenericLog(t){return t.split(/\r?\n/).filter(l=>l.trim()).map(l=>{const m=l.trim(),r={time:'',kind:'',level:'info',msg:m,more:[],sec:false,mod:''};
+ if(/\b(error|exception|fatal|crash|failed|failure)\b/i.test(m))r.level='error';else if(/\bwarn(ing)?\b/i.test(m))r.level='warn';return r})}
+async function logWalk(base){const out=[],skip=new Set(['.git','node_modules','$recycle.bin','system volume information']);
+ const walk=async(dir,depth)=>{if(out.length>=400)return;let ents;try{ents=await fsN.promises.readdir(dir,{withFileTypes:true})}catch(e){return}
+  for(const e of ents){const p=pathN.join(dir,e.name);
+   if(e.isDirectory()){if(depth<4&&!skip.has(e.name.toLowerCase()))await walk(p,depth+1)}
+   else if(/\.log$/i.test(e.name)){let st;try{st=await fsN.promises.stat(p)}catch(x){continue}out.push({abs:p,rel:pathN.relative(base,p).replace(/\\/g,'/'),size:st.size,t:st.mtimeMs})}}};
+ await walk(base,0);return out}
+async function refreshLogList(){const base=gameDir()||(root&&root._path)||'',l=base?await logWalk(base):[];
+ LV.extra.forEach(p=>{if(!l.some(x=>x.abs===p)){try{const st=fsN.statSync(p);l.push({abs:p,rel:p,size:st.size,t:st.mtimeMs})}catch(e){}}});
+ l.sort((a,b)=>(isMLlog(b.abs)-isMLlog(a.abs))||b.t-a.t);LV.list=l;
+ if(!l.some(x=>x.abs===LV.abs))LV.abs=l[0]?l[0].abs:'';
+ cddOptions($('#lsel'),l.length?l.map(x=>({v:x.abs,t:pathN.basename(x.abs)})):[{v:'',t:'No .log files found'}],LV.abs)}
+function logUi(){const big=LV.size>LOG_BIG;$('#lwarn').hidden=!big;
+ if(big)$('#lwarntx').textContent=`This log is ${fmtSize(LV.size)}. Copying it can be slow and may freeze the app`+(LV.trunc?'; only the last 4 MB is shown here':'')+'. Use “Open file location” to open it in your editor instead.';
+ $('#lcopy').disabled=!LV.abs;$('#lloc').disabled=!LV.abs;{const lp=$('#lpath');lp.textContent=LV.abs?'Location: '+pathN.dirname(LV.abs)+'  ·  '+fmtSize(LV.size):'';lp.title=LV.abs}}
+async function loadLog(rewalk){const lb=$('#lb');LV.rows=[];LV.raw='';LV.trunc=false;LV.size=0;
  $('#lpill').textContent=`$current = ${S.cur} · ${S.mods.length} mods`;
- if(!logGet){drawLog();lb.innerHTML='<div class="empty" style="border:0">No modloader.log found in the scanned folder. Run the game once with Modloader installed, rescan, or use Open file.</div>';return}
- try{LV.rows=parseLog(await(await logGet()).text());drawLog();lb.scrollTop=lb.scrollHeight}catch(e){lb.innerHTML=`<div class="empty" style="border:0">Couldn’t read the log: ${esc(e.message)}</div>`}}
+ if(rewalk!==false)await refreshLogList();
+ if(!LV.abs){drawLog();lb.innerHTML='<div class="empty" style="border:0">No .log files found in the game folder. Run the game once, rescan, or use Open file.</div>';logUi();return}
+ try{const st=await fsN.promises.stat(LV.abs);LV.size=st.size;let text;
+  if(st.size>LOG_MAX){const fh=await fsN.promises.open(LV.abs,'r');try{const len=4*1048576,b=Buffer.alloc(len);await fh.read(b,0,len,st.size-len);text=b.toString('utf8');text=text.slice(text.indexOf('\n')+1);LV.trunc=true}finally{await fh.close()}}
+  else text=await fsN.promises.readFile(LV.abs,'utf8');
+  LV.raw=text;LV.rows=isMLlog(LV.abs)?parseLog(text):parseGenericLog(text);drawLog();lb.scrollTop=lb.scrollHeight}
+ catch(e){lb.innerHTML=`<div class="empty" style="border:0">Couldn’t read the log: ${esc(e.message)}</div>`}
+ logUi()}
 $('#logb').onclick=()=>{$('#logd').showModal();loadLog()};
-$('#lre').onclick=loadLog;$('#lx').onclick=()=>$('#logd').close();
+$('#lre').onclick=()=>loadLog();$('#lx').onclick=()=>$('#logd').close();
+$('#lsel').onchange=e=>{LV.abs=e.target.value;loadLog(false)};
 $('#lopen').onclick=()=>$('#lfile').click();
-$('#lfile').onchange=e=>{const fl=e.target.files[0];if(!fl)return;logGet=()=>Promise.resolve(fl);loadLog();e.target.value=''};
+$('#lfile').onchange=e=>{const fl=e.target.files[0];e.target.value='';if(!fl)return;let p='';
+ try{p=require('electron').webUtils.getPathForFile(fl)}catch(x){}
+ if(!p)return toast('Couldn’t read that file’s location');
+ LV.extra=LV.extra.filter(x=>x!==p).concat(p);LV.abs=p;loadLog()};
+$('#lloc').onclick=()=>{if(LV.abs)window.__native.showItem(LV.abs)};
+$('#lcopy').onclick=async()=>{if(!LV.abs)return;
+ if(LV.size>LOG_BIG&&!await ask({title:'This log is very large',text:`${pathN.basename(LV.abs)} is ${fmtSize(LV.size)}. Copying it may take a while and can freeze the app. Copy it anyway?`,ok:'Copy anyway'}))return;
+ try{const t=LV.trunc?await fsN.promises.readFile(LV.abs,'utf8'):LV.raw;require('electron').clipboard.writeText(t);toast('Log copied')}catch(e){toast('Couldn’t copy: '+e.message)}};
 $('#lq').oninput=drawLog;
 $('#lf').onclick=e=>{const b=e.target.closest('button');if(b){LV.f=b.dataset.f;drawLog()}};
 $('#lb').onclick=e=>{const b=e.target.closest('.lmod');if(b){$('#lq').value=b.dataset.mod;drawLog()}};
@@ -753,7 +843,12 @@ $('#plugs').onchange=e=>{const n=e.target.dataset.pl;if(n==null)return;const v=e
 $('#list').addEventListener('dblclick',e=>{const o=e.target.closest('.pr output');if(!o)return;
  const mod=S.mods[o.closest('.mod').dataset.i],lim=S.pl??100,inp=document.createElement('input');
  inp.type='number';inp.className='pedit';inp.min=0;inp.max=lim;inp.value=prio(mod.name);o.replaceWith(inp);inp.focus();inp.select();
- let done=false;const fin=ok=>{if(done)return;done=true;if(ok){const v=Math.max(0,Math.min(lim,parseInt(inp.value,10)));if(!isNaN(v))setPr(P(),mod.name,v)}render()};
+ let done=false;const away=ev=>{if(ev.target!==inp)fin(true)};
+ const fin=ok=>{if(done)return;done=true;document.removeEventListener('pointerdown',away,true);
+  if(ok){const v=Math.max(0,Math.min(lim,parseInt(inp.value,10)));if(!isNaN(v))setPr(P(),mod.name,v)}
+  const row=inp.closest('.mod');if(row)row._h=null; /* force the row to be redrawn so the plain number comes back */
+  render()};
+ document.addEventListener('pointerdown',away,true);
  inp.onkeydown=ev=>{if(ev.key==='Enter')fin(true);else if(ev.key==='Escape')fin(false)};inp.onblur=()=>fin(true)});
 /* saving files */
 async function saveAs(name,data){return await window.__native.saveFile(name,data)}
@@ -810,6 +905,7 @@ function ask(o){return new Promise(res=>{const d=$('#askd'),inp=$('#askin');
  $('#askok').textContent=o.ok||'OK';$('#askno').hidden=!!o.info;$('#askok').classList.toggle('del',!!o.danger);
  let done=false;const fin=v=>{if(done)return;done=true;d.close();res(v)};
  $('#askok').onclick=()=>fin(o.input?inp.value:true);$('#askno').onclick=()=>fin(o.input?null:false);
+ const al=$('#askalt');al.hidden=!o.alt;al.textContent=o.alt||'';al.onclick=()=>fin('alt');
  inp.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();fin(inp.value)}};
  d.oncancel=e=>{e.preventDefault();fin(o.input?null:false)};
  d.showModal();if(o.input){inp.focus();inp.select()}else $('#askok').focus()})}
@@ -818,7 +914,7 @@ const notice=(title,text)=>ask({title,text,info:true});
 function toggleMod(el,m){const fi=el.querySelector('.files>.fi');clearTimeout(el._t);
  if(!m._o){m._o=true;fi.innerHTML=tree(m);void fi.offsetHeight;el.classList.add('open')}
  else{m._o=false;el.classList.remove('open');el._t=setTimeout(()=>{if(!m._o)fi.innerHTML=''},360)}
- save()}
+ {const cb=el.querySelector('.chev');if(cb)cb.setAttribute('aria-expanded',String(!!m._o))}save()}
 function foldDir(m,row){const p=row.dataset.p,kids=row.nextElementSibling,ki=kids.firstElementChild;m._x=m._x||{};clearTimeout(kids._t);
  if((m._q||'').trim()){row.classList.toggle('open');kids.classList.toggle('open');return}
  if(!m._x[p]){m._x[p]=true;row.classList.add('open');ki.innerHTML=treeBody(m,{p});void ki.offsetHeight;kids.classList.add('open')}
@@ -874,6 +970,9 @@ const BK={
   if(fsN.readFileSync(newest,'utf8')===text)return'same';
   fsN.writeFileSync(pathN.join(d,Date.now()+'.bak'),text);
   this.versions(abs).filter(v=>v.id!=='original').slice(20).forEach(v=>fsN.unlinkSync(pathN.join(d,v.id+'.bak')));return'added'},
+ async firstAsync(abs){const rel=this.rel(abs),d=this.dir(rel),o=pathN.join(d,'original.bak');
+  try{await fsN.promises.access(o);return false}catch(e){}
+  await fsN.promises.mkdir(d,{recursive:true});await fsN.promises.writeFile(pathN.join(d,'.rel'),rel);await fsN.promises.copyFile(abs,o);return true},
  removeFile(abs){fsN.rmSync(this.dir(this.rel(abs)),{recursive:true,force:true})},
  read(abs,id){return fsN.readFileSync(pathN.join(this.dir(this.rel(abs)),id+'.bak'),'utf8')},
  has(abs){return fsN.existsSync(pathN.join(this.dir(this.rel(abs)),'original.bak'))},
@@ -1102,7 +1201,7 @@ async function cfgWalk(base,out,tick){const skip=new Set(['.git','node_modules',
  const walk=async(dir,depth)=>{let ents;try{ents=await fsN.promises.readdir(dir,{withFileTypes:true})}catch(e){return}
   for(const e of ents){const p=pathN.join(dir,e.name);
    if(e.isDirectory()){if(depth<14&&!skip.has(e.name.toLowerCase()))await walk(p,depth+1)}
-   else if(/\.(ini|jsonc?)$/i.test(e.name)){let sz=0;try{sz=fsN.statSync(p).size}catch(x){}if(sz<=3e6)out.push({abs:p,rel:pathN.relative(base,p).replace(/\\/g,'/'),size:sz,ext:e.name.split('.').pop().toLowerCase()})}
+   else if(/\.(ini|jsonc?)$/i.test(e.name)){let sz=0;try{sz=(await fsN.promises.stat(p)).size}catch(x){}if(sz<=3e6)out.push({abs:p,rel:pathN.relative(base,p).replace(/\\/g,'/'),size:sz,ext:e.name.split('.').pop().toLowerCase()})}
    if(++n%250===0&&tick)await tick(out.length)}};
  await walk(base,0);out.sort((a,b)=>a.rel.localeCompare(b.rel,undefined,{numeric:true}));return out}
 async function edScan(){const base=edAnchor();if(!base)return;ED.files=[];ED.scanning=true;ED.inst=S.curInst;edList();
@@ -1189,14 +1288,17 @@ $('#bkgo').onclick=async()=>{if(BKD.busy||!BKD.sel.size)return;const items=BKD.i
  BKD.busy=false;$('#bkd').close();edList();
  toast(`Backed up ${added} file${added===1?'':'s'}`+(same?`, ${same} already up to date`:'')+(fail?`, ${fail} failed`:''))};
 $('#bkmake').onclick=()=>bkdOpen('make');$('#bkdel').onclick=()=>bkdOpen('del');
-/* the first time a game folder is scanned and no backups exist, save one of every config (once per game) */
+/* first scan of a game: save one backup of every config. It runs a few seconds after the scan, off the UI thread:
+   async file copies (no reading into JS), 4 at a time, yielding between batches, so the window never stutters. */
 let bkAutoRun=false;
+const scheduleAutoBackup=()=>setTimeout(autoBackup,2500);
 async function autoBackup(){const id=S.curInst,base=edAnchor();if(bkAutoRun||!root||!id||!base||S.autoBk[id])return;bkAutoRun=true;
- try{if(BK.all().length){S.autoBk[id]=true;save();return}
-  const list=await cfgWalk(base,[],()=>new Promise(r=>setTimeout(r)));
-  if(S.curInst!==id||BK.all().length)return;
-  let n=0;for(const f of list){try{BK.save(f.abs,fsN.readFileSync(f.abs,'utf8'));n++}catch(e){}}
-  S.autoBk[id]=true;save();if(n)toast(`Saved a first backup of ${n} config file${n===1?'':'s'}`)}
+ try{const list=await cfgWalk(base,[],()=>new Promise(r=>setTimeout(r,2)));if(S.curInst!==id)return;
+  let n=0,i=0;const work=async()=>{while(i<list.length){if(S.curInst!==id)return;const f=list[i++];
+   try{if(await BK.firstAsync(f.abs))n++}catch(e){}
+   if(i%16===0)await new Promise(r=>setTimeout(r,6))}};
+  await Promise.all([work(),work(),work(),work()]);
+  if(S.curInst!==id)return;S.autoBk[id]=true;save();if(n)toast(`Saved a first backup of ${n} config file${n===1?'':'s'}`)}
  catch(e){}finally{bkAutoRun=false}}
 $('#edright').addEventListener('input',e=>{const t=e.target,c=ED.cur;if(!c)return;
  if(t.id==='edfq'){ED.fq=t.value;ED._fi=-1;edFindApply('new');return}
@@ -1348,7 +1450,7 @@ function cpBuild(){const d=document.createElement('div');d.className='cpop';d.id
  d.innerHTML='<div class="cp-t"></div><div class="cp-sv"><div class="cp-knob"></div></div><div class="cp-sl cp-hue"><div class="cp-knob"></div></div><div class="cp-sl cp-al"><div class="cp-knob"></div></div><div class="cp-row"><div class="cp-pv"></div><input type="text" class="cp-hex" spellcheck="false" maxlength="9" aria-label="Hex colour"></div><div class="cp-row">'+['red','green','blue','alpha'].map(k=>'<label class="cp-f"><input type="text" class="cp-n" data-k="'+k+'" inputmode="numeric" maxlength="3" spellcheck="false" aria-label="'+k+'"><span>'+k[0].toUpperCase()+'</span></label>').join('')+'</div>';
  $('#edd').appendChild(d);CP.el=d;
  const drag=(el,fn)=>el.addEventListener('pointerdown',e=>{e.preventDefault();el.setPointerCapture(e.pointerId);
-  const go=ev=>{const b=el.getBoundingClientRect();fn(Math.max(0,Math.min(1,(ev.clientX-b.left)/b.width)),Math.max(0,Math.min(1,(ev.clientY-b.top)/b.height)))};
+  const go=ev=>{const b=el.getBoundingClientRect(),w=Math.max(1,el.clientWidth-16),h=Math.max(1,el.clientHeight-16);fn(Math.max(0,Math.min(1,(ev.clientX-b.left-el.clientLeft-8)/w)),Math.max(0,Math.min(1,(ev.clientY-b.top-el.clientTop-8)/h)))};
   go(e);const up=()=>{el.removeEventListener('pointermove',go);el.removeEventListener('pointerup',up);el.removeEventListener('pointercancel',up)};
   el.addEventListener('pointermove',go);el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up)});
  drag(d.querySelector('.cp-sv'),(x,y)=>{CP.s=x;CP.v=1-y;cpApply()});
@@ -1374,9 +1476,10 @@ function cpApply(skip){const c=CP.c;if(!c||ED.cur!==c){cpClose();return}
 function cpSync(skip){const d=CP.el;if(!d)return;const rgb=cpRgb(CP.h,CP.s,CP.v),r=rgb[0],g=rgb[1],b=rgb[2],a=CP.hasA?CP.a:255,
   chk='conic-gradient(var(--line) 25%,transparent 0 50%,var(--line) 0 75%,transparent 0) 0 0/8px 8px',col=r+','+g+','+b;
  const sv=d.querySelector('.cp-sv');sv.style.background='linear-gradient(to top,#000,rgba(0,0,0,0)),linear-gradient(to right,#fff,hsl('+Math.round(CP.h*360)+',100%,50%))';
- sv.firstChild.style.left=CP.s*100+'%';sv.firstChild.style.top=(1-CP.v)*100+'%';
- d.querySelector('.cp-hue').firstChild.style.left=CP.h*100+'%';
- const al=d.querySelector('.cp-al');al.hidden=!CP.hasA;al.style.background='linear-gradient(to right,rgba('+col+',0),rgb('+col+')),'+chk;al.firstChild.style.left=a/255*100+'%';
+ const kp=x=>'calc(8px + (100% - 16px) * '+x+')',hk=d.querySelector('.cp-hue').firstChild;
+ sv.firstChild.style.left=kp(CP.s);sv.firstChild.style.top=kp(1-CP.v);sv.firstChild.style.setProperty('--kc','rgb('+col+')');
+ hk.style.left=kp(CP.h);hk.style.setProperty('--kc','hsl('+Math.round(CP.h*360)+',100%,50%)');
+ const al=d.querySelector('.cp-al');al.hidden=!CP.hasA;al.style.background='linear-gradient(to right,rgba('+col+',0),rgb('+col+')),'+chk;al.firstChild.style.left=kp(a/255);al.firstChild.style.setProperty('--kc','rgba('+col+','+a/255+')');
  d.querySelector('.cp-pv').style.background='linear-gradient(rgba('+col+','+a/255+'),rgba('+col+','+a/255+')),'+chk;
  const hx=d.querySelector('.cp-hex');if(hx!==skip)hx.value=cpHex(rgb)+(CP.hasA&&a!==255?('0'+a.toString(16)).slice(-2):'');
  d.querySelectorAll('.cp-n').forEach(i=>{const k=i.dataset.k;i.closest('.cp-f').hidden=k==='alpha'&&!CP.hasA;if(i!==skip)i.value=k==='alpha'?a:rgb[['red','green','blue'].indexOf(k)]})}
@@ -1495,7 +1598,7 @@ $('#ok').onclick=async()=>{let n=$('#mname').value.trim().replace(/[\\/:*?"<>|]/
  b.textContent='Install';
  if(nest){tm.files=[...tm.files,...[...pend.keys()].map(p=>rel+'/'+p)].sort();tm._o=true;tm._x=tm._x||{};rel.split('/').reduce((a,x)=>{const c=a?a+'/'+x:x;tm._x[c]=true;return c},'')}
  else S.mods.unshift({name:n,files:[...pend.keys()].sort()});
- dlg.close();undoReset();render();
+ dlg.close();undoReset();render();runChecks();
  toast(`Copied ${n} into ${nest?dest:'modloader'} (${pend.size} files)`,()=>{try{fsN.rmSync(pathN.join(root._path,...base.split('/')),{recursive:true,force:true})}catch(e){}
   if(nest)tm.files=tm.files.filter(x=>!x.startsWith(rel+'/'));else S.mods=S.mods.filter(x=>x.name!==n);render();toast('Install undone')})};
 /* folder scan */
@@ -1588,7 +1691,7 @@ async function findExes(){S.exes=[];
  if(!S.exes.includes(S.exe))S.exe=S.exes[0]||''}
 async function scanRoot(){await findExes();const ents=[],dirs=[];
  const walk=async(d,pre)=>{for await(const[n,e]of d.entries()){if(e.kind==='file')ents.push([pre+n,()=>e.getFile()]);else{if(!pre)dirs.push(n);await walk(e,pre+n+'/')}}};
- await walk(root,'');await ingest(ents,dirs,root.name);autoBackup()}
+ await walk(root,'');await ingest(ents,dirs,root.name);scheduleAutoBackup();runChecks()}
 async function findML(h){let best=null;const dirs=[h];
  for(const n of['scripts','plugins']){try{dirs.push(await h.getDirectoryHandle(n))}catch(e){}}
  for(const d of dirs){let asi=false,ml=null;
@@ -1670,6 +1773,141 @@ async function restore(){
   S.curInst=i.id;root=o.root||o;game=o.game||null;
   try{await scanRoot();return}catch(e){continue}}
  welcome('Couldn’t find the saved GTA folder anymore. Select your GTA San Andreas folder again.')}
+/* ===== v1.2.3: Trash, Version & Essentials checker, Launch Game ===== */
+const gameDir=()=>game&&game._path?game._path:(root&&root._path&&/modloader$/i.test(root._path)?pathN.dirname(root._path):'');
+function listFiles(abs,pre=''){let out=[],ents;try{ents=fsN.readdirSync(abs,{withFileTypes:true})}catch(e){return out}
+ for(const e of ents){if(e.isDirectory())out=out.concat(listFiles(pathN.join(abs,e.name),pre+e.name+'/'));else out.push(pre+e.name)}return out}
+function refreshMod(name){const abs=pathN.join(root._path,name),i=S.mods.findIndex(m=>m.name===name);
+ if(!fsN.existsSync(abs)){if(i>=0)S.mods.splice(i,1);return}
+ const files=listFiles(abs).sort();
+ if(i>=0)S.mods[i].files=files;else{S.mods.push({name,files});S.mods.sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}))}}
+/* ---- Trash: items are moved (not copied) into the app's data folder and can be restored or deleted for good ---- */
+const TR={_k:null,_v:[],
+ dir(){return pathN.join(window.__native.userData,'trash',S.curInst||'default')},
+ list(){const k=this.dir();if(this._k!==k){this._k=k;try{this._v=JSON.parse(fsN.readFileSync(pathN.join(k,'index.json'),'utf8'))}catch(e){this._v=[]}}return this._v},
+ save(a){const k=this.dir();this._k=k;this._v=a;fsN.mkdirSync(k,{recursive:true});fsN.writeFileSync(pathN.join(k,'index.json'),JSON.stringify(a))},
+ async move(from,to){await fsN.promises.mkdir(pathN.dirname(to),{recursive:true});
+  try{await fsN.promises.rename(from,to)}catch(e){if(e.code!=='EXDEV')throw e;await fsN.promises.cp(from,to,{recursive:true});await fsN.promises.rm(from,{recursive:true,force:true})}}};
+const trName=it=>it.rel?it.rel.split('/').pop():it.mod;
+async function trashPut(modName,rel,isDir,n){
+ const abs=pathN.join(root._path,modName,...(rel?rel.split('/'):[])),id=Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+ await TR.move(abs,pathN.join(TR.dir(),id,'payload'));
+ const it={id,mod:modName,rel,dir:isDir,n,at:Date.now()};TR.save([it,...TR.list()]);return it}
+async function trashMod(m){
+ if(!root)return toast('Scan your modloader folder first');
+ if(!await ask({title:`Move “${m.name}” to the Trash?`,text:`The mod folder (${m.files.length} file${m.files.length===1?'':'s'}) is moved out of modloader. You can restore it from the Trash.`,ok:'Move to Trash',danger:true}))return;
+ try{const it=await trashPut(m.name,'',true,m.files.length);S.mods=S.mods.filter(x=>x!==m);blobs.delete(m.name);render();runChecks();toast('Moved to the Trash',()=>trashRestore(it.id))}
+ catch(e){notice('Couldn’t move it to the Trash',e.message)}}
+async function trashPath(m,rel,isDir){
+ if(!root)return toast('Scan your modloader folder first');
+ const n=isDir?m.files.filter(f=>f.startsWith(rel+'/')).length:1,nm=rel.split('/').pop();
+ if(!await ask({title:`Move “${nm}” to the Trash?`,text:(isDir?`The folder and its ${n} file${n===1?'':'s'}`:'The file')+` will be moved out of “${m.name}”. You can restore it from the Trash.`,ok:'Move to Trash',danger:true}))return;
+ try{const it=await trashPut(m.name,rel,isDir,n);m.files=m.files.filter(f=>isDir?!f.startsWith(rel+'/'):f!==rel);render();runChecks();toast('Moved to the Trash',()=>trashRestore(it.id))}
+ catch(e){notice('Couldn’t move it to the Trash',e.message)}}
+async function trashRestore(id){const it=TR.list().find(x=>x.id===id);if(!it||!root)return;
+ const from=pathN.join(TR.dir(),id,'payload');
+ if(!fsN.existsSync(from)){TR.save(TR.list().filter(x=>x.id!==id));render();return toast('That item is no longer in the Trash')}
+ let dest=pathN.join(root._path,it.mod,...(it.rel?it.rel.split('/'):[])),renamed='',replaced=false;
+ if(fsN.existsSync(dest)){
+  const ch=await ask({title:`“${pathN.basename(dest)}” already exists`,text:'Replace it with the one from the Trash? The current one is moved to the Trash instead of being deleted. Or keep both.',ok:'Replace',alt:'Keep both'});
+  if(!ch)return;
+  if(ch==='alt'){const dir=pathN.dirname(dest),ext=it.dir?'':pathN.extname(dest),base=pathN.basename(dest,ext);let k=1,c;
+   do{c=pathN.join(dir,`${base} (restored${k>1?' '+k:''})${ext}`);k++}while(fsN.existsSync(c));dest=c;renamed=pathN.basename(c)}
+  else{try{const isD=fsN.statSync(dest).isDirectory();await trashPut(it.mod,it.rel||'',isD,isD?listFiles(dest).length:1);replaced=true}catch(e){return notice('Couldn’t replace it',e.message)}}}
+ try{await TR.move(from,dest);await fsN.promises.rm(pathN.join(TR.dir(),id),{recursive:true,force:true})}catch(e){return notice('Couldn’t restore it',e.message)}
+ TR.save(TR.list().filter(x=>x.id!==id));
+ refreshMod(it.rel?it.mod:pathN.basename(dest));render();runChecks();
+ toast(renamed?`Restored as “${renamed}”`:replaced?'Restored. The file it replaced is now in the Trash':'Restored')}
+async function trashDelete(ids){for(const id of ids)await fsN.promises.rm(pathN.join(TR.dir(),id),{recursive:true,force:true});TR.save(TR.list().filter(x=>!ids.includes(x.id)));render()}
+function renderTrash(){const l=TR.list();$('#trcnt').textContent=l.length;$('#trempty').disabled=!l.length;$('#trdempty').disabled=!l.length;{const bc=$('#trbc');bc.textContent=l.length;bc.hidden=!l.length}
+ const h=l.length?l.map(it=>`<div class="trr"><div class="trn"><div class="nm" title="${esc(it.mod+(it.rel?'/'+it.rel:''))}">${esc(trName(it))}</div><small>${it.rel?'from '+esc(it.mod)+' · ':'mod · '}${it.dir?it.n+' file'+(it.n===1?'':'s')+' · ':''}${esc(new Date(it.at).toLocaleDateString())}</small></div><button class="btn sm" data-r="${it.id}">Restore</button><button class="btn sm del" data-d="${it.id}">Delete</button></div>`).join(''):'<span class="stats">The Trash is empty</span>';
+ for(const b of[$('#trlist'),$('#trdlist')])if(b._h!==h){b.innerHTML=h;b._h=h}}
+$('#trlist').onclick=async e=>{const r=e.target.closest('[data-r]'),d=e.target.closest('[data-d]');
+ if(r)return trashRestore(r.dataset.r);
+ if(d){const it=TR.list().find(x=>x.id===d.dataset.d);if(!it)return;
+  if(await ask({title:`Delete “${trName(it)}” permanently?`,text:'This can’t be undone.',ok:'Delete',danger:true}))try{await trashDelete([it.id]);toast('Deleted permanently')}catch(err){notice('Couldn’t delete it',err.message)}}};
+$('#trempty').onclick=async()=>{const l=TR.list();if(!l.length)return;
+ if(await ask({title:`Empty the Trash (${l.length} item${l.length===1?'':'s'})?`,text:'Everything in it is deleted permanently.',ok:'Empty Trash',danger:true}))try{await trashDelete(l.map(x=>x.id));toast('Trash emptied')}catch(err){notice('Couldn’t empty the Trash',err.message)}};
+$('#trdlist').onclick=e=>$('#trlist').onclick(e);$('#trdempty').onclick=()=>$('#trempty').onclick();
+$('#trb').onclick=()=>{renderTrash();$('#trd').showModal()};$('#trdx').onclick=()=>$('#trd').close();
+/* ---- Launch Game ---- */
+const exePath=()=>{const gd=gameDir();if(!gd)return'';const n=S.exes.find(x=>/^gta_sa\.exe$/i.test(x))||'gta_sa.exe',p=pathN.join(gd,n);return fsN.existsSync(p)?p:''};
+const canLaunch=()=>!!root&&!!exePath();
+$('#launch').onclick=async()=>{const p=exePath();if(!p)return toast('gta_sa.exe was not found in the game folder');
+ const pend=files().filter(([q,t])=>written[q]!==t).length;
+ if(pend&&!await ask({title:'You have unsaved changes',text:'The game reads the saved files, so those changes will not apply. Launch anyway?',ok:'Launch'}))return;
+ const r=await window.__native.launch(p);if(r===true)toast('Launching '+pathN.basename(p)+'…');else notice('Couldn’t launch the game',String(r))};
+/* ---- Version & Essentials checker ---- */
+const ESSENTIALS=[
+ {id:'repairgta',name:'RepairGTA',file:'RepairGTA.SA.asi'},
+ {id:'crashinfo',name:'CrashInfo',file:'CrashInfo.SA.asi'},
+ {id:'rundll',name:'Run32dll fix',file:'rundll32exefix.asi'},
+ {id:'silentpatch',name:'SilentPatch',file:'SilentPatchSA.asi'},
+ {id:'nodep',name:'No DEP',file:'_noDEP.asi'},
+ {id:'windowed',name:'Windowed Mode',file:'III.VC.SA.WindowedMode.asi'},
+ {id:'fv',name:'FramerateVigilante',file:'FramerateVigilante.SA.asi'},
+ {id:'wsfix',name:'Widescreen Fix (ThirteenAG)',file:'GTASA.WidescreenFix.asi'}];
+const OLA='III.VC.SA.LimitAdjuster.asi',F92='$fastman92limitAdjuster.asi',ESS_URL='https://www.mixmods.com.br/2019/06/sa-essentials-pack/';
+/* Add SHA-256 hashes of executables you trust here: 'sha256 in lower case':'label'. A match is accepted without the signature test. */
+const KNOWN_EXE={};
+const VC={res:null,t:0,ek:'',er:null};
+const sha256=p=>new Promise((res,rej)=>{const h=cryptoN.createHash('sha256'),s=fsN.createReadStream(p);s.on('data',d=>h.update(d));s.on('end',()=>res(h.digest('hex')));s.on('error',rej)});
+/* v1.0 US / EU are recognised the way mods do it: a marker word at a fixed address (mapped through the PE section table) */
+function peVersion(p,size){let fd;try{fd=fsN.openSync(p,'r');const hb=Buffer.alloc(8192),got=fsN.readSync(fd,hb,0,8192,0);
+ if(got<64||hb.readUInt16LE(0)!==0x5A4D)return null;const pe=hb.readUInt32LE(0x3C);if(pe+24>got||hb.toString('latin1',pe,pe+4)!=='PE\u0000\u0000')return null;
+ const ns=hb.readUInt16LE(pe+6),opt=hb.readUInt16LE(pe+20),base=hb.readUInt32LE(pe+52),at=pe+24+opt,secs=[];
+ for(let i=0;i<ns;i++){const o=at+i*40;if(o+40>got)break;secs.push({va:hb.readUInt32LE(o+12),vs:hb.readUInt32LE(o+8),rs:hb.readUInt32LE(o+16),rp:hb.readUInt32LE(o+20)})}
+ const rd=va=>{const rva=va-base,s=secs.find(x=>rva>=x.va&&rva<x.va+Math.min(x.vs||x.rs,x.rs||x.vs));if(!s)return null;const off=s.rp+(rva-s.va);if(off+2>size)return null;const b=Buffer.alloc(2);fsN.readSync(fd,b,0,2,off);return b.readUInt16LE(0)};
+ if(rd(0x82457C)===0x94BF)return'US';if(rd(0x8245BC)===0x94BF)return'EU';return null}
+ catch(e){return null}finally{if(fd!==undefined)try{fsN.closeSync(fd)}catch(e){}}}
+async function checkExe(gd){
+ if(!gd)return{state:'warn',title:'Game folder unknown',detail:'Scan the folder that contains gta_sa.exe to check the executable.'};
+ let ents=[];try{ents=fsN.readdirSync(gd)}catch(e){}
+ const name=ents.find(n=>/^gta_sa\.exe$/i.test(n));
+ if(!name)return{state:'bad',title:'gta_sa.exe not found',detail:'There is no gta_sa.exe in '+gd+'.'};
+ const p=pathN.join(gd,name),st=fsN.statSync(p),key=p+'|'+st.size+'|'+st.mtimeMs;if(VC.ek===key&&VC.er)return VC.er;
+ const hash=await sha256(p),ver=peVersion(p,st.size),known=KNOWN_EXE[hash],meta=fmtSize(st.size)+' · SHA-256 '+hash;let r;
+ if(known)r={state:'ok',title:'Known executable: '+known,detail:'Compatible with ASI mods and Mod Loader.',meta};
+ else if(ver)r={state:'ok',title:'GTA SA v1.0 '+ver+' executable',detail:'Compatible with ASI mods and Mod Loader.',meta};
+ else{const steam=ents.some(n=>/^(steam_api\.dll|gta-sa\.exe)$/i.test(n));
+  r={state:'warn',title:'Not a recognised v1.0 executable',detail:'Most mods need the v1.0 US or EU exe. Other versions (v1.01, v2.0, Steam, Rockstar Launcher) or a copy-protected retail exe can crash or stop mods loading.'+(steam?' Steam files were found here.':''),meta}}
+ VC.ek=key;VC.er=r;return r}
+async function asiWalk(dir,pre,add,depth){let ents;try{ents=await fsN.promises.readdir(dir,{withFileTypes:true})}catch(e){return}
+ for(const e of ents){if(e.isDirectory()){if(depth<12)await asiWalk(pathN.join(dir,e.name),pre+e.name+'/',add,depth+1)}else if(/\.asi$/i.test(e.name))add(e.name,pre+e.name)}}
+async function runChecks(){if(!root){VC.res=null;renderChecks();return}
+ const t=++VC.t,gd=gameDir(),idx=new Map(),add=(n,w)=>{const k=n.toLowerCase();if(!idx.has(k))idx.set(k,w)};
+ if(gd)for(const sub of['','scripts','plugins']){try{for(const e of fsN.readdirSync(pathN.join(gd,sub),{withFileTypes:true}))if(e.isFile()&&/\.asi$/i.test(e.name))add(e.name,(sub?sub+'/':'')+e.name)}catch(e){}}
+ if(root&&root._path)await asiWalk(root._path,'modloader/',add,0);
+ else S.mods.forEach(m=>m.files.forEach(f=>{if(/\.asi$/i.test(f))add(f.split('/').pop(),'modloader/'+m.name+'/'+f)}));
+ let exe;try{exe=await checkExe(gd)}catch(e){exe={state:'bad',title:'Couldn’t check gta_sa.exe',detail:e.message}}
+ if(t!==VC.t)return;
+ const o=idx.get(OLA.toLowerCase()),f=idx.get(F92.toLowerCase());let lim;
+ if(o&&f)lim={state:'bad',title:'Two limit adjusters are installed',detail:'Open and Fastman limit adjusters conflict and cause crashes. Keep only one.'};
+ else if(!o&&!f)lim={state:'warn',title:'No limit adjuster found',detail:'Install Open Limit Adjuster or Fastman Limit Adjuster to avoid crashes with large mod packs.'};
+ else lim={state:'ok',title:o?'Open Limit Adjuster':'Fastman Limit Adjuster',detail:o||f};
+ VC.res={exe,lim,ess:ESSENTIALS.map(x=>({...x,where:idx.get(x.file.toLowerCase())||''}))};renderChecks()}
+function renderChecks(){const b=$('#chkbody'),c=$('#chkcnt'),r=VC.res;let h;
+ const LB={ok:'OK',warn:'Review',bad:'Problem'};
+ const sec=(t,st,lab,body)=>`<section class="cks"><div class="cksh"><span>${t}</span><span class="pill ${st}">${lab||LB[st]}</span></div>${body}</section>`;
+ if(!root){h='<span class="stats">Scan a GTA folder to run the checks.</span>';c.textContent='';c.className='cnt'}
+ else if(!r){h='<span class="stats">Checking…</span>'}
+ else{const ign=S.essIgn,miss=r.ess.filter(x=>!x.where&&!ign.includes(x.id)),skip=r.ess.filter(x=>!x.where&&ign.includes(x.id)),have=r.ess.filter(x=>x.where),
+   issues=(r.exe.state==='ok'?0:1)+(r.lim.state==='ok'?0:1)+miss.length;
+  c.textContent=issues?issues+' to review':'All good';c.className='cnt '+(issues?'warn':'ok');
+  const rowI=(x,btn)=>`<div class="ckr"><div class="ckn"><div class="ckt">${esc(x.name)}</div><div class="ckm">${esc(x.file)}</div></div>${btn||''}</div>`;
+  h=sec('gta_sa.exe',r.exe.state,'',`<div class="ckt">${esc(r.exe.title)}</div><div class="ckx">${esc(r.exe.detail)}</div>`+(r.exe.meta?`<details class="ckf"><summary>File details</summary><div class="ckm">${esc(r.exe.meta)}</div></details>`:''))
+   +sec('Limit adjuster',r.lim.state,'',`<div class="ckt">${esc(r.lim.title)}</div><div class="ckx">${esc(r.lim.detail)}</div>`)
+   +sec('Essentials',miss.length?'warn':'ok',`${have.length} of ${r.ess.length}`,
+     (miss.length?`<div class="ckx" style="margin-bottom:2px">Missing:</div>`+miss.map(x=>rowI(x,`<button class="btn sm" data-ign="${x.id}">Ignore</button>`)).join(''):'<div class="ckx">Nothing missing.</div>')
+     +(skip.length?`<details class="ckf"><summary>Ignored (${skip.length})</summary>${skip.map(x=>rowI(x,`<button class="btn sm" data-unign="${x.id}">Restore</button>`)).join('')}</details>`:'')
+     +(have.length?`<details class="ckf"><summary>Found (${have.length})</summary>${have.map(x=>`<div class="ckr"><div class="ckn"><div class="ckt">${esc(x.name)}</div><div class="ckm">${esc(x.where)}</div></div></div>`).join('')}</details>`:''))}
+ if(b._h!==h){b.innerHTML=h;b._h=h}}
+$('#chkbody').onclick=e=>{const a=e.target.closest('[data-ign]'),u=e.target.closest('[data-unign]');
+ if(a){if(!S.essIgn.includes(a.dataset.ign))S.essIgn.push(a.dataset.ign);save();renderChecks()}
+ else if(u){S.essIgn=S.essIgn.filter(x=>x!==u.dataset.unign);save();renderChecks()}};
+$('#chkrun').onclick=async()=>{const b=$('#chkrun');b.disabled=true;VC.ek='';try{await runChecks()}finally{b.disabled=false}toast('Checks updated')};
+$('#chklink').onclick=()=>require('electron').shell.openExternal(ESS_URL);
+
 restore();
 render();
 </script>

@@ -1,10 +1,16 @@
 const{app,BrowserWindow,Menu,dialog,ipcMain,shell}=require('electron');
 const path=require('path'),fs=require('fs');
+const{spawn}=require('child_process');
 app.setAppUserModelId('com.samm.modmanager');
 ipcMain.on('user-data',e=>{e.returnValue=app.getPath('userData')});
 ipcMain.on('win',(e,c)=>{const w=BrowserWindow.fromWebContents(e.sender);if(!w)return;if(c==='min')w.minimize();else if(c==='max')w.isMaximized()?w.unmaximize():w.maximize();else if(c==='close')w.close()});
 ipcMain.handle('win-ismax',e=>{const w=BrowserWindow.fromWebContents(e.sender);return !!w&&w.isMaximized()});
 
+ipcMain.on('show-item',(e,p)=>{if(typeof p==='string'&&fs.existsSync(p))shell.showItemInFolder(p)});
+ipcMain.handle('launch-game',(e,exe)=>{try{if(typeof exe!=='string'||!fs.existsSync(exe))return'gta_sa.exe was not found';const cwd=path.dirname(exe);let c;
+  if(process.platform==='win32')c=spawn('cmd.exe',['/d','/s','/c','start "" /D "'+cwd+'" "'+exe+'"'],{cwd,detached:true,stdio:'ignore',windowsHide:true,windowsVerbatimArguments:true});
+  else c=spawn(exe,[],{cwd,detached:true,stdio:'ignore'});
+  c.on('error',()=>{});c.unref();return true}catch(err){return String(err.message||err)}});
 ipcMain.on('theme',(e,t)=>{const w=BrowserWindow.fromWebContents(e.sender);if(w)w.setBackgroundColor(t==='light'?'#eef0ec':'#101311')});
 
 ipcMain.handle('pick-folder',async()=>{
