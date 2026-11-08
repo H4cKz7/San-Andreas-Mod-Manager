@@ -49,8 +49,6 @@ Generates a single packed executable file:
 
     npm run build
 
-> **Important for Windows Users:** Building a single portable executable requires either enabling **Windows Developer Mode** (*Settings > System > For developers*) or running your terminal as an **Administrator**, otherwise `electron-builder` will fail with a "Cannot create symbolic link" error.
-
 ---
 
 ## Backups & Safety
