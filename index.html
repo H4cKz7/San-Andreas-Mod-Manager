@@ -26,6 +26,7 @@ header .btn.icon{width:34px;padding:0}
 .ddi.danger{color:var(--bad)}
 .titlebar{position:sticky;top:0;z-index:30;height:40px;display:flex;align-items:center;gap:9px;padding:0 0 0 14px;background:var(--panel);border-bottom:1px solid var(--line);-webkit-app-region:drag;user-select:none;font-size:13px}
 .tb-ic{width:20px;height:20px;border-radius:5px}.tb-t{font-weight:700}.tb-s{color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-v{position:relative;font:400 10.5px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.06em;padding:2px 9px;border-radius:99px;background:var(--accbg);color:var(--acc);border:1px solid color-mix(in srgb,var(--acc) 35%,transparent);white-space:nowrap}
 .tb-s:not(:empty)::before{content:"·";margin-right:9px}
 .logo{font-weight:700;font-size:18px;letter-spacing:-.01em;white-space:nowrap}
 .logo span{color:var(--acc)}
@@ -417,7 +418,7 @@ header .hg .btn{padding:0 11px}header .hg .btn.icon{width:34px;padding:0}
 </style>
 </head>
 <body>
-<div class="titlebar"><img class="tb-ic" src="build/icon.png" alt=""><span class="tb-t">SA Mod Manager</span><span class="tb-s" id="tbs"></span><div class="wc"><button class="wb" id="wtheme" title="Switch to light mode" aria-label="Switch to light mode"></button><button class="wb" id="wmin" aria-label="Minimize" title="Minimize"></button><button class="wb" id="wmax" aria-label="Maximize" title="Maximize"></button><button class="wb close" id="wclose" aria-label="Close" title="Close"></button></div></div>
+<div class="titlebar"><img class="tb-ic" src="build/icon.png" alt=""><span class="tb-t">San Andreas Mod Manager</span><span class="tb-v">v1.2.3</span><span class="tb-s" id="tbs"></span><div class="wc"><button class="wb" id="wtheme" title="Switch to light mode" aria-label="Switch to light mode"></button><button class="wb" id="wmin" aria-label="Minimize" title="Minimize"></button><button class="wb" id="wmax" aria-label="Maximize" title="Maximize"></button><button class="wb close" id="wclose" aria-label="Close" title="Close"></button></div></div>
 <header>
   <div class="hl">
     <div class="pf"><span>Game</span><div class="dd" id="idd"><button class="ddb" id="iddb" aria-haspopup="listbox" aria-expanded="false"><span id="iddt"></span><svg viewBox="0 0 12 12" width="12" height="12"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="ddm" id="iddm" role="listbox" hidden></div></div></div>
@@ -493,7 +494,7 @@ header .hg .btn{padding:0 11px}header .hg .btn.icon{width:34px;padding:0}
   <div class="stats" id="exnote" hidden style="margin-top:6px;word-break:break-all"></div>
   <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px"><button class="btn" id="cx">Cancel</button><button class="btn pri" id="ok" disabled>Install</button></div>
 </dialog>
-<dialog id="trd"><h2>Trash</h2><div class="stats" style="margin-bottom:10px">Removed mods and files. Restore puts them back in the modloader folder; Delete removes them for good.</div>
+<dialog id="trd"><h2>Trash</h2><div class="stats" style="margin-bottom:10px">Removed mods and files. Restore button puts them back in their original directory; Delete removes them for good.</div>
   <div id="trdlist" style="max-height:min(50vh,420px);overflow:auto"></div>
   <div style="display:flex;gap:8px;justify-content:space-between;margin-top:14px"><button class="btn del" id="trdempty" disabled>Empty Trash</button><button class="btn" id="trdx">Close</button></div></dialog>
 <dialog id="logd" class="wide">
