@@ -249,6 +249,27 @@ dialog.ed[open]{display:flex;flex-direction:column}
 .bv{font:12px "JetBrains Mono",monospace;color:var(--mut)}
 .x{border:0;background:none;color:var(--mut);cursor:pointer;font-size:16px;opacity:0;line-height:1;padding:0}.kv:hover .x,.jl:hover .x,.jn>summary:hover .x{opacity:1}.x:hover{color:var(--bad)}
 .note{padding:6px 14px;color:var(--mut);font-size:12px;font-style:italic}
+.note.jsec{font-style:normal;font-weight:600;font-size:13px;color:var(--tx);padding:14px 4px 4px;margin-top:8px;border-top:1px solid var(--line)}
+.jc>.note.jsec:first-child,.edbody>.note.jsec:first-child{border-top:0;margin-top:0}
+.csw{display:inline-block;width:14px;height:14px;border-radius:4px;border:1px solid var(--line);flex:none;vertical-align:middle}
+.cpw{position:relative;display:inline-flex;flex:none}
+.cpw .csw{width:18px;height:18px;cursor:pointer;transition:border-color .12s}
+.cpw:hover .csw,.cpw:focus-within .csw{border-color:var(--acc)}
+.cpop{position:fixed;z-index:60;width:248px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;box-shadow:0 18px 44px rgba(0,0,0,.28);display:flex;flex-direction:column;gap:10px;user-select:none}
+.cp-t{font:600 12.5px "JetBrains Mono",ui-monospace,monospace;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cp-sv{position:relative;height:140px;border-radius:8px;border:1px solid var(--line);cursor:crosshair;touch-action:none}
+.cp-sl{position:relative;height:12px;border-radius:99px;border:1px solid var(--line);cursor:pointer;touch-action:none}
+.cp-hue{background:linear-gradient(to right,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)}
+.cp-knob{position:absolute;width:14px;height:14px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.45),0 1px 4px rgba(0,0,0,.4);transform:translate(-50%,-50%);pointer-events:none}
+.cp-sl .cp-knob{top:50%}
+.cp-row{display:flex;gap:8px;align-items:center}
+.cp-pv{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);flex:none}
+.cp-hex,.cp-n{background:var(--panel2);border:1px solid var(--line);border-radius:8px;outline:none;font:12px "JetBrains Mono",ui-monospace,monospace;color:var(--tx);min-width:0}
+.cp-hex{flex:1;height:32px;padding:0 10px}
+.cp-n{width:100%;height:30px;padding:0 4px;text-align:center}
+.cp-hex:focus,.cp-n:focus{border-color:var(--acc)}
+.cp-f{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;color:var(--mut);min-width:0}
+.cpw .cpick{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:0;padding:0}
 .addkv{display:flex;gap:8px;padding:8px 14px;border-top:1px dashed var(--line)}.addkv input{flex:1;min-width:0}
 details.jn{margin-left:14px;border-left:1px solid var(--line);padding-left:10px}details.jn>summary{cursor:pointer;display:flex;align-items:center;gap:8px;padding:4px 0;list-style:none}details.jn>summary::-webkit-details-marker{display:none}
 details.jn>summary small{color:var(--mut)}
@@ -881,7 +902,7 @@ const detectIndent=t=>{const m=t.match(/^([ \t]+)"/m);return m?(m[1][0]==='\t'?'
 /* ===== JSON with comments: parsed into positions so edits keep comments, indentation and line endings ===== */
 const JC=(()=>{
  const NUM=/-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?/y,LIT=/true|false|null/y;
- const cleanC=(t,c)=>{const s=t.slice(c.s,c.e);return c.block?s.replace(/^\/\*+/,'').replace(/\*+\/$/,'').split(/\r?\n/).map(x=>x.replace(/^\s*\*+\s?/,'').trim()).filter(Boolean).join(' '):s.replace(/^\/\/+\s?/,'').trim()};
+ const cleanC=(t,c)=>{const s=t.slice(c.s,c.e);return(c.block?s.replace(/^\/\*+/,'').replace(/\*+\/$/,'').split(/\r?\n/).map(x=>x.replace(/^\s*\*+\s?/,'').trim()).filter(Boolean).join(' '):s.replace(/^\/\/+\s?/,'').trim()).replace(/^[-=~_*]{3,}\s*|\s*[-=~_*]{3,}$/g,'').trim()};
  const end=m=>m.trail?m.trail.e:m.comma!=null?m.comma+1:m.v.e;
  function parse(text){
   const n=text.length;let i=0;
@@ -904,7 +925,9 @@ const JC=(()=>{
   function member(cms,ks,ke,key,v){let k=cms.length,nx=ks;
    while(k>0){const c=cms[k-1];if((text.slice(c.e,nx).match(/\n/g)||[]).length>1)break;nx=c.s;k--}
    const own=cms.slice(k);
-   return{key,ks,ke,v,s:own.length?own[0].s:ks,desc:own.map(c=>cleanC(text,c)).filter(Boolean).join(' '),comma:null,trail:null}}
+   const ruled=own.some(c=>!c.block&&/^\/\/+\s*[-=~_*]{3,}|[-=~_*]{3,}\s*$/.test(text.slice(c.s,c.e))),txt=own.map(c=>cleanC(text,c)).filter(Boolean).join(' ');
+   return{key,ks,ke,v,s:own.length?own[0].s:ks,desc:ruled?'':txt,head:ruled?txt:'',comma:null,trail:null}}
+  function tdesc(m){const x=m.trail?cleanC(text,m.trail):'';if(x)m.desc=m.desc?m.desc+' '+x:x}
   function after(m,close){const save=i;skip(null);
    if(text[i]===','){m.comma=i;i++;m.trail=trailing()}
    else{if(i>=n)err('The file ends before the '+(close==='}'?'object':'list')+' is closed');if(text[i]!==close)err('Expected "," or "'+close+'"');i=save;m.trail=trailing()}}
@@ -916,12 +939,12 @@ const JC=(()=>{
     const ks=i,key=str(),ke=i;skip(null);
     if(text[i]!==':')err('Expected ":" after the property name');
     i++;skip(null);
-    const m=member(cms,ks,ke,key,value());nd.members.push(m);after(m,'}')}}
+    const m=member(cms,ks,ke,key,value());nd.members.push(m);after(m,'}');tdesc(m)}}
   function arr(){const nd={t:'array',s:i,members:[]};i++;
    for(;;){const cms=[];skip(cms);
     if(i>=n)err('Unterminated [',nd.s);
     if(text[i]===']'){nd.e=++i;return nd}
-    const ks=i,m=member(cms,ks,ks,null,value());nd.members.push(m);after(m,']')}}
+    const ks=i,m=member(cms,ks,ks,null,value());nd.members.push(m);after(m,']');tdesc(m)}}
   function value(){const c=text[i];
    if(c==='{')return obj();
    if(c==='[')return arr();
@@ -968,7 +991,10 @@ const JC=(()=>{
   const ind=indentOf(t,last.ks);
   if(last.comma==null)return t.slice(0,last.v.e)+','+t.slice(last.v.e,le)+eol+ind+item+t.slice(le);
   return t.slice(0,le)+eol+ind+item+','+t.slice(le)}
- return{parse,val,nodeAt,descs,set,del,add}})();
+ function heads(ast){const mp=new Map();
+  const walk=(nd,p)=>{if(nd.t==='object'||nd.t==='array')nd.members.forEach((m,i)=>{const q=[...p,nd.t==='object'?m.key:i];if(m.head)mp.set(JSON.stringify(q),m.head);walk(m.v,q)})};
+  walk(ast.root,[]);return mp}
+ return{parse,val,nodeAt,descs,heads,set,del,add}})();
 
 const JNUM=/^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/,jStrict=t=>{try{JSON.parse(t);return true}catch(e){return false}};
 /* read JSON text into the tree model; throws when the text can't be read */
@@ -1009,20 +1035,30 @@ function iniForm(m,txt,col){txt=txt||new Set();col=col||new Set();const L=m.line
   const keys=sc.items.filter(([l])=>l.t==='k'||l.t==='e').length;
   h+=`<div class="edsec${col.has(sc.name)?' collapsed':''}" data-sec="${sc.li}" data-sn="${esc(sc.name)}"><div class="sh" tabindex="0" role="button" title="Click to collapse or expand" aria-expanded="${!col.has(sc.name)}"><span>[${esc(sc.name)}]</span><small>${keys} setting${keys===1?'':'s'}</small></div>${sc.items.map(x=>row(x,sc.name)).join('')}<div class="addkv"><input type="text" class="ak" placeholder="New key" spellcheck="false"><input type="text" class="av" placeholder="Value" spellcheck="false"><button class="btn sm" data-addkv>Add</button></div></div>`});
  return h+`<div class="edaddsec"><input type="text" id="edsecname" placeholder="New section name"><button class="btn sm" data-addsec>Add section</button></div>`}
-function jsonTree(o,ast,txt){const P=p=>esc(JSON.stringify(p)),cap=300,dm=ast?JC.descs(ast):new Map();
+function jsonTree(o,ast,txt,jo){const P=p=>esc(JSON.stringify(p)),cap=300,dm=ast?JC.descs(ast):new Map(),hm=ast?JC.heads(ast):new Map();
  const D=p=>dm.get(JSON.stringify(p))||'';
+ const hx2=n=>('0'+Math.max(0,Math.min(255,Math.round(+n)||0)).toString(16)).slice(-2);
+ const cpick=(v,sw)=>sw?'<span class="cpw">'+sw+'<button type="button" class="cpick" aria-label="Pick colour" title="Pick colour"></button></span>':'';
+ const swatch=v=>v&&typeof v==='object'&&!Array.isArray(v)&&['red','green','blue'].every(x=>typeof v[x]==='number')?'<i class="csw" title="rgba('+v.red+', '+v.green+', '+v.blue+(typeof v.alpha==='number'?', '+v.alpha:'')+')" style="background:rgba('+v.red+','+v.green+','+v.blue+','+(typeof v.alpha==='number'?Math.max(0,Math.min(255,v.alpha))/255:1)+')"></i>':'';
  const lbl=(p,k)=>{const d=D(p);return `<div class="jkc"><span class="jk" title="${esc(String(k))}">${esc(String(k))}</span>${d?`<div class="kd">${esc(d)}</div>`:''}</div>`};
  const leaf=(v,p,k)=>{const t=v===null?'null':typeof v,flag=t==='number'&&(v===0||v===1)&&/^b[A-Z_]/.test(String(k));
   const isBo=t==='boolean'||flag,asT=isBo&&txt&&txt.has(JSON.stringify(p)),ed=isBo&&!asT?`<button class="sw ${v===true||v===1?'on':''}" data-jtog aria-label="Toggle"></button><span class="bv">${v}</span><button class="tt" data-totext title="Not really a toggle? Edit as text" aria-label="Edit as text">${ICO.pen}</button>`:t==='null'?'<span class="jnull">null</span><button class="btn sm" data-jset>Set value</button>':`<input type="text" class="jv" data-jt="${t==='boolean'?'b':t==='number'?'n':'s'}" value="${esc(String(v))}" spellcheck="false">${isBo?`<button class="tt" data-totog title="Show as a toggle" aria-label="Show as a toggle">${ICO.tog}</button>`:''}`;
   return `<div class="jl" data-path="${P(p)}">${lbl(p,k)}<div class="v">${ed}</div><span class="jty">${flag?'0 / 1':t}</span><button class="x" data-jdel title="Remove">×</button></div>`};
- const node=(v,p,k,d)=>{if(v&&typeof v==='object'){const isA=Array.isArray(v),ks=Object.keys(v);
+ const node=(v,p,k,d)=>{const hx=hm.get(JSON.stringify(p));return(hx?'<div class="note jsec">'+esc(hx)+'</div>':'')+node0(v,p,k,d)};
+ const node0=(v,p,k,d)=>{if(v&&typeof v==='object'){const isA=Array.isArray(v),ks=Object.keys(v);
    if(isA&&p.length&&ks.length&&ks.length<=300&&v.every(x=>typeof x==='number'))
     return `<div class="jl jids" data-path="${P(p)}">${lbl(p,k)}<div class="v ids"><div class="cl">${v.map((x,i)=>`<span class="chip" data-i="${i}">${x}<button data-jchipx aria-label="Remove ${x}">×</button></span>`).join('')}</div><div class="cadd"><input type="text" class="jchip-in" placeholder="Add a number, then Enter" spellcheck="false"><small>${ks.length} value${ks.length===1?'':'s'}</small></div></div><span class="jty">list</span><button class="x" data-jdel title="Remove">×</button></div>`;
    const dd=D(p);
-   return `<details class="jn" ${d<1?'open':''} data-path="${P(p)}"><summary><span class="jk">${esc(String(k))}</span><small>${isA?'['+ks.length+']':'{'+ks.length+'}'}</small>${dd?`<span class="jdesc" title="${esc(dd)}">${esc(dd)}</span>`:''}${p.length?'<button class="x" data-jdel title="Remove">×</button>':''}</summary><div class="jc">${ks.slice(0,cap).map(x=>node(v[x],[...p,isA?+x:x],x,d+1)).join('')}${ks.length>cap?`<div class="stats" style="padding:4px 14px">…and ${ks.length-cap} more (use Raw to edit)</div>`:''}<div class="jadd">${isA?'':'<input type="text" class="jak" placeholder="key" spellcheck="false">'}<div class="dd cdd jat" data-opts="string,number,boolean,null,object,array" data-val="string" aria-label="Type"></div><input type="text" class="jav" placeholder="value" spellcheck="false"><button class="btn sm" data-jadd>Add</button></div></div></details>`}
+   return `<details class="jn" ${(jo&&JSON.stringify(p) in jo?jo[JSON.stringify(p)]:d<1)?'open':''} data-path="${P(p)}"><summary><span class="jk">${esc(String(k))}</span>${cpick(v,swatch(v))}<small>${isA?'['+ks.length+']':'{'+ks.length+'}'}</small>${dd?`<span class="jdesc" title="${esc(dd)}">${esc(dd)}</span>`:''}${p.length?'<button class="x" data-jdel title="Remove">×</button>':''}</summary><div class="jc">${ks.slice(0,cap).map(x=>node(v[x],[...p,isA?+x:x],x,d+1)).join('')}${ks.length>cap?`<div class="stats" style="padding:4px 14px">…and ${ks.length-cap} more (use Raw to edit)</div>`:''}<div class="jadd">${isA?'':'<input type="text" class="jak" placeholder="key" spellcheck="false">'}<div class="dd cdd jat" data-opts="string,number,boolean,null,object,array" data-val="string" aria-label="Type"></div><input type="text" class="jav" placeholder="value" spellcheck="false"><button class="btn sm" data-jadd>Add</button></div></div></details>`}
   return leaf(v,p,k)};
  return node(o,[],'root',0)}
 const jget=(o,p)=>p.reduce((a,k)=>a[k],o);
+// live colour swatch: re-read the red/green/blue/alpha values of the object the edited field belongs to
+function swUpdate(t){const c=ED.cur,d=t.closest('details.jn');if(!c||!d)return;const sw=d.querySelector(':scope>summary .csw');if(!sw)return;
+ let v;try{v=jget(c.obj,JSON.parse(d.dataset.path))}catch(e){return}
+ if(!v||typeof v!=='object')return;const n=x=>Math.max(0,Math.min(255,Math.round(+v[x])||0)),ha=typeof v.alpha==='number',s=n('red')+','+n('green')+','+n('blue');
+ sw.style.background='rgba('+s+','+(ha?n('alpha')/255:1)+')';sw.title='rgba('+s+(ha?', '+n('alpha'):'')+')';
+ const pk=d.querySelector(':scope>summary .cpick');if(pk)pk.value='#'+[n('red'),n('green'),n('blue')].map(x=>('0'+x.toString(16)).slice(-2)).join('')}
 function edText(){const c=ED.cur;if(c.view==='raw')return c.text;
  if(c.kind==='ini')return iniText(c.model);
  return c.jt}
@@ -1040,16 +1076,16 @@ function edSetText(t){const c=ED.cur;c._restoring=true;
  if(c.view==='raw')c.text=t;
  else if(c.kind==='ini')c.model=parseIniEd(t);
  else{try{jLoad(c,t)}catch(e){c.view='raw';c.text=t}}
- edRight();c._restoring=false}
+ edRight(true);c._restoring=false}
 function edUndo(){const c=ED.cur;if(!c)return;clearTimeout(ED._st);clearTimeout(ED._ht);edHistPush();if(c.hi<=0)return;c.hi--;edSetText(c.hist[c.hi])}
 function edRedo(){const c=ED.cur;if(!c)return;clearTimeout(ED._st);clearTimeout(ED._ht);if(c.hi>=c.hist.length-1)return;c.hi++;edSetText(c.hist[c.hi])}
-function edBody(){const c=ED.cur,b=$('#edbody');
+function edBody(){cpClose();const c=ED.cur,b=$('#edbody');
  if(c.view==='raw'){b.innerHTML=`<div class="edrawwrap"><pre id="edmir" aria-hidden="true"></pre><textarea id="edraw" spellcheck="false">${esc(c.text)}</textarea></div>`;edFindApply();return}
- b.innerHTML=c.kind==='ini'?iniForm(c.model,c.txt,c.col):(c.ast.lead.length?`<details class="about"><summary>About this file</summary><div>${c.ast.lead.map(t=>`<p>${esc(t)}</p>`).join('')}</div></details>`:'')+jsonTree(c.obj,c.ast,c.txt);enhanceCdd(b);edFindApply()}
-function edRight(){const c=ED.cur,r=$('#edright');
+ b.innerHTML=c.kind==='ini'?iniForm(c.model,c.txt,c.col):(c.ast.lead.length?`<details class="about"><summary>About this file</summary><div>${c.ast.lead.map(t=>`<p>${esc(t)}</p>`).join('')}</div></details>`:'')+jsonTree(c.obj,c.ast,c.txt,c.jo);enhanceCdd(b);edFindApply()}
+function edRight(keep){const c=ED.cur,r=$('#edright'),sc0=keep&&$('#edbody')?$('#edbody').scrollTop:0;
  if(!c){r.innerHTML='<div class="empty" style="margin:auto;border:0">Pick a file on the left to edit it.<br>Every change is backed up automatically.</div>';return}
  r.innerHTML=`<div class="edh"><div class="edp" title="${esc(c.abs)}">${esc(c.rel)}</div><div class="edt"><div class="seg" id="edview"><button data-v="form" class="${c.view==='form'?'on':''}">${c.kind==='json'?'Tree':'Form'}</button><button data-v="raw" class="${c.view==='raw'?'on':''}">Raw</button></div>${c.kind==='json'&&!c.jc?'<button class="btn sm" id="edfmt">Format</button>':''}<div class="dd" id="edbd"><button class="btn sm" id="edbk">Backups</button><div class="ddm right" id="edbm" hidden></div></div><button class="btn sm" id="edundo" disabled title="Undo (Ctrl+Z)">Undo</button><button class="btn sm" id="edredo" disabled title="Redo (Ctrl+Y)">Redo</button><button class="btn sm" id="edrev">Revert</button><button class="btn sm pri" id="edsave">Save changes</button></div></div>${edTbHtml(c)}${!c.exists?'<div class="edn">This file no longer exists. Restore a backup to bring it back.</div>':''}${c.err?`<div class="edn bad">${esc(c.err)}</div>`:''}<div class="edbody" id="edbody"></div>`;
- edBody();edState()}
+ edBody();edState();if(keep){const b=$('#edbody');if(b)b.scrollTop=sc0}}
 function edList(){const box=$('#edlist');$('#edbkbar').hidden=ED.tab!=='bk';
  if(ED.tab==='bk'){const q=ED.q.trim().toLowerCase(),all=BK.all(),a=all.filter(x=>(ED.filter==='all'||extOfRel(x.rel)===ED.filter)&&(!q||x.rel.toLowerCase().includes(q)));
   box.innerHTML=a.length?a.map(x=>`<div class="edr ${ED.cur&&ED.cur.abs===x.abs?'sel':''}" data-abs="${esc(x.abs)}" style="padding-left:10px" title="${esc(x.rel)}"><span class="ext ${extOfRel(x.rel)}">${extOfRel(x.rel)}</span><span class="nm">${esc(x.rel)}</span>${x.missing?'<small style="color:var(--bad)">deleted</small>':''}<small>${x.count}</small></div>`).join(''):`<div class="stats" style="padding:10px">${all.length?'No backups match this search or filter.':'No backups yet. One is saved automatically before a config changes. Use “Back up configs…” above to save one for your files now.'}</div>`;return}
@@ -1073,12 +1109,12 @@ async function edScan(){const base=edAnchor();if(!base)return;ED.files=[];ED.sca
  await cfgWalk(base,ED.files,async n=>{$('#edinfo').textContent=`Scanning… ${n} files`;await new Promise(r=>setTimeout(r))});
  ED.scanning=false;
  $('#edinfo').textContent=`${ED.files.length} config file${ED.files.length===1?'':'s'}`;edList()}
-async function edOpen(abs,force){const c=ED.cur;
+async function edOpen(abs,force){cpClose();const c=ED.cur;
  if(!force&&c&&c.dirty&&c.abs!==abs&&!await ask({title:'Discard unsaved changes?',text:c.rel,ok:'Discard',danger:true}))return;
  let text='',bom=false;const exists=fsN.existsSync(abs);
  if(exists){try{text=fsN.readFileSync(abs,'utf8')}catch(e){return notice('Couldn’t read the file',e.message)}if(text.charCodeAt(0)===0xFEFF){bom=true;text=text.slice(1)}}
  const rel=pathN.relative(edAnchor(),abs).replace(/\\/g,'/'),kind=/\.jsonc?$/i.test(abs)?'json':'ini';
- const n=ED.cur={abs,rel,kind,exists,bom,orig:text,text,dirty:false,view:'form',err:'',touched:false,hist:[text],hi:0,txt:new Set(),col:new Set()};if(c&&c.abs===abs&&c.txt){n.txt=c.txt;n.col=c.col}
+ const n=ED.cur={abs,rel,kind,exists,bom,orig:text,text,dirty:false,view:'form',err:'',touched:false,hist:[text],hi:0,txt:new Set(),col:new Set(),jo:{}};if(c&&c.abs===abs&&c.txt){n.txt=c.txt;n.col=c.col;n.jo=c.jo||{}}
  if(kind==='ini')n.model=parseIniEd(text);
  else{try{jLoad(n,text);n.indent=detectIndent(text);n.nl=/\n$/.test(text)}catch(e){n.err='This JSON can’t be shown as a tree yet: '+e.message;n.view='raw'}}
  edRight();edList()}
@@ -1169,7 +1205,7 @@ $('#edright').addEventListener('input',e=>{const t=e.target,c=ED.cur;if(!c)retur
  if(row&&t.hasAttribute('data-val')){c.model.lines[+row.dataset.li].val=t.value;edStateSoon()}
  else if(row&&t.hasAttribute('data-raw')){c.model.lines[+row.dataset.li].raw=t.value;edStateSoon()}
  else if(t.classList.contains('jv')){const p=JSON.parse(t.closest('[data-path]').dataset.path);
-  if(t.dataset.jt==='n'){const s=t.value.trim(),bad=!JNUM.test(s);t.classList.toggle('bad',bad);if(bad)return;if(jEdit(c,'set',p,{raw:s}))edStateSoon()}
+  if(t.dataset.jt==='n'){const s=t.value.trim(),bad=!JNUM.test(s);t.classList.toggle('bad',bad);if(bad)return;if(jEdit(c,'set',p,{raw:s})){edStateSoon();swUpdate(t)}}
   else if(t.dataset.jt==='b'){const s=t.value.trim(),raw=/^(true|false|null)$/.test(s)||JNUM.test(s)?s:JSON.stringify(t.value);if(jEdit(c,'set',p,{raw}))edStateSoon()}
   else if(jEdit(c,'set',p,{raw:JSON.stringify(t.value)}))edStateSoon()}});
 $('#edright').addEventListener('keydown',e=>{if(e.target.id==='edfq'){if(e.key==='Enter'){e.preventDefault();edFindStep(e.shiftKey?-1:1)}else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();edFindClose(true)}return}
@@ -1294,6 +1330,67 @@ function edRawFind(q,step){const ta=$('#edraw'),mir=$('#edmir'),cnt=$('#edfcnt')
   const x=col*7.5;if(x<ta.scrollLeft||x>ta.scrollLeft+ta.clientWidth-80)ta.scrollLeft=Math.max(0,x-ta.clientWidth/3)}
  mir.scrollTop=ta.scrollTop;mir.scrollLeft=ta.scrollLeft;
  if(cnt)cnt.textContent=!ms.length?'No matches':i>=0?`${i+1} of ${ms.length}${ms.length>=5000?'+':''}`:`${ms.length} match${ms.length===1?'':'es'}`}
+// remember which tree sections are open, per file, so re-draws (undo, redo, revert, add / remove) put them back
+$('#edright').addEventListener('toggle',e=>{const d=e.target,c=ED.cur;if(!c||c.kind!=='json'||!d.classList||!d.classList.contains('jn')||document.querySelector('#edbody.finding'))return;c.jo=c.jo||{};c.jo[d.dataset.path]=d.open},true);
+// colour picker: write the chosen colour into the red / green / blue numbers (alpha is left alone)
+$('#edright').addEventListener('input',e=>{const t=e.target,c=ED.cur;if(!c||!t.classList||!t.classList.contains('cpick'))return;
+ const d=t.closest('details.jn');if(!d)return;const p=JSON.parse(d.dataset.path),h=t.value,rgb={red:parseInt(h.slice(1,3),16),green:parseInt(h.slice(3,5),16),blue:parseInt(h.slice(5,7),16)};
+ for(const k of ['red','green','blue'])if(!jEdit(c,'set',[...p,k],{raw:String(rgb[k])}))return;
+ d.querySelectorAll(':scope>.jc>.jl').forEach(l=>{const k=JSON.parse(l.dataset.path).pop(),i=l.querySelector('input.jv');if(i&&k in rgb)i.value=rgb[k]});
+ swUpdate(t);edStateSoon()});
+// ===== themed colour picker with alpha: opens from a colour swatch in the JSON tree =====
+const CP={el:null,c:null,p:null,anchor:null,h:0,s:0,v:0,a:255,hasA:false,open:false};
+function cpRgb(h,s,v){const f=n=>{const k=(n+h*6)%6;return v-v*s*Math.max(0,Math.min(k,4-k,1))};return[f(5),f(3),f(1)].map(x=>Math.round(x*255))}
+function cpHsv(r,g,b){r/=255;g/=255;b/=255;const mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn;let h=0;
+ if(d){h=mx===r?((g-b)/d+6)%6:mx===g?(b-r)/d+2:(r-g)/d+4;h/=6}return[h,mx?d/mx:0,mx]}
+const cpHex=rgb=>'#'+rgb.map(x=>('0'+x.toString(16)).slice(-2)).join('');
+function cpBuild(){const d=document.createElement('div');d.className='cpop';d.id='cpop';d.hidden=true;
+ d.innerHTML='<div class="cp-t"></div><div class="cp-sv"><div class="cp-knob"></div></div><div class="cp-sl cp-hue"><div class="cp-knob"></div></div><div class="cp-sl cp-al"><div class="cp-knob"></div></div><div class="cp-row"><div class="cp-pv"></div><input type="text" class="cp-hex" spellcheck="false" maxlength="9" aria-label="Hex colour"></div><div class="cp-row">'+['red','green','blue','alpha'].map(k=>'<label class="cp-f"><input type="text" class="cp-n" data-k="'+k+'" inputmode="numeric" maxlength="3" spellcheck="false" aria-label="'+k+'"><span>'+k[0].toUpperCase()+'</span></label>').join('')+'</div>';
+ $('#edd').appendChild(d);CP.el=d;
+ const drag=(el,fn)=>el.addEventListener('pointerdown',e=>{e.preventDefault();el.setPointerCapture(e.pointerId);
+  const go=ev=>{const b=el.getBoundingClientRect();fn(Math.max(0,Math.min(1,(ev.clientX-b.left)/b.width)),Math.max(0,Math.min(1,(ev.clientY-b.top)/b.height)))};
+  go(e);const up=()=>{el.removeEventListener('pointermove',go);el.removeEventListener('pointerup',up);el.removeEventListener('pointercancel',up)};
+  el.addEventListener('pointermove',go);el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up)});
+ drag(d.querySelector('.cp-sv'),(x,y)=>{CP.s=x;CP.v=1-y;cpApply()});
+ drag(d.querySelector('.cp-hue'),x=>{CP.h=Math.min(x,0.9999);cpApply()});
+ drag(d.querySelector('.cp-al'),x=>{CP.a=Math.round(x*255);cpApply()});
+ const fromRgb=(r,g,b)=>{const hv=cpHsv(r,g,b);if(hv[1]>0&&hv[2]>0)CP.h=hv[0];CP.s=hv[1];CP.v=hv[2]};
+ d.addEventListener('input',e=>{const t=e.target;
+  if(t.classList.contains('cp-n')){const k=t.dataset.k,n=parseInt(t.value,10);if(isNaN(n))return;const val=Math.max(0,Math.min(255,n));
+   if(k==='alpha')CP.a=val;else{const rgb=cpRgb(CP.h,CP.s,CP.v);rgb[['red','green','blue'].indexOf(k)]=val;fromRgb(rgb[0],rgb[1],rgb[2])}
+   cpApply(t)}
+  else if(t.classList.contains('cp-hex')){const m=t.value.trim().replace(/^#/,'');if(!/^([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(m))return;
+   const f=m.length===3?m.replace(/./g,'$&$&'):m;fromRgb(parseInt(f.slice(0,2),16),parseInt(f.slice(2,4),16),parseInt(f.slice(4,6),16));
+   if(f.length===8&&CP.hasA)CP.a=parseInt(f.slice(6,8),16);cpApply(t)}});
+ d.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();const a=CP.anchor;cpClose();if(a)a.focus()}});
+ return d}
+// write the colour into the file (only the numbers that changed), then refresh the fields and swatch
+function cpApply(skip){const c=CP.c;if(!c||ED.cur!==c){cpClose();return}
+ const rgb=cpRgb(CP.h,CP.s,CP.v),vals={red:rgb[0],green:rgb[1],blue:rgb[2]};if(CP.hasA)vals.alpha=CP.a;
+ for(const k of Object.keys(vals)){let cur;try{cur=jget(c.obj,[...CP.p,k])}catch(e){}if(cur!==vals[k]&&!jEdit(c,'set',[...CP.p,k],{raw:String(vals[k])}))return}
+ const d=CP.anchor&&CP.anchor.closest('details.jn');
+ if(d)d.querySelectorAll(':scope>.jc>.jl').forEach(l=>{const k=JSON.parse(l.dataset.path).pop(),i=l.querySelector('input.jv');if(i&&k in vals)i.value=vals[k]});
+ if(CP.anchor)swUpdate(CP.anchor);edStateSoon();cpSync(skip)}
+function cpSync(skip){const d=CP.el;if(!d)return;const rgb=cpRgb(CP.h,CP.s,CP.v),r=rgb[0],g=rgb[1],b=rgb[2],a=CP.hasA?CP.a:255,
+  chk='conic-gradient(var(--line) 25%,transparent 0 50%,var(--line) 0 75%,transparent 0) 0 0/8px 8px',col=r+','+g+','+b;
+ const sv=d.querySelector('.cp-sv');sv.style.background='linear-gradient(to top,#000,rgba(0,0,0,0)),linear-gradient(to right,#fff,hsl('+Math.round(CP.h*360)+',100%,50%))';
+ sv.firstChild.style.left=CP.s*100+'%';sv.firstChild.style.top=(1-CP.v)*100+'%';
+ d.querySelector('.cp-hue').firstChild.style.left=CP.h*100+'%';
+ const al=d.querySelector('.cp-al');al.hidden=!CP.hasA;al.style.background='linear-gradient(to right,rgba('+col+',0),rgb('+col+')),'+chk;al.firstChild.style.left=a/255*100+'%';
+ d.querySelector('.cp-pv').style.background='linear-gradient(rgba('+col+','+a/255+'),rgba('+col+','+a/255+')),'+chk;
+ const hx=d.querySelector('.cp-hex');if(hx!==skip)hx.value=cpHex(rgb)+(CP.hasA&&a!==255?('0'+a.toString(16)).slice(-2):'');
+ d.querySelectorAll('.cp-n').forEach(i=>{const k=i.dataset.k;i.closest('.cp-f').hidden=k==='alpha'&&!CP.hasA;if(i!==skip)i.value=k==='alpha'?a:rgb[['red','green','blue'].indexOf(k)]})}
+function cpOpen(btn){const c=ED.cur,d=btn.closest('details.jn');if(!c||!d)return;let p,v;try{p=JSON.parse(d.dataset.path);v=jget(c.obj,p)}catch(e){return}
+ if(!v||typeof v!=='object')return;if(CP.open&&CP.anchor===btn){cpClose();return}
+ const el=CP.el||cpBuild();CP.c=c;CP.p=p;CP.anchor=btn;CP.hasA=typeof v.alpha==='number';CP.a=CP.hasA?Math.max(0,Math.min(255,Math.round(v.alpha))):255;
+ const hv=cpHsv(+v.red||0,+v.green||0,+v.blue||0);CP.h=hv[0];CP.s=hv[1];CP.v=hv[2];
+ const nm=d.querySelector(':scope>summary .jk');el.querySelector('.cp-t').textContent=nm?nm.textContent:'Colour';
+ cpSync();placeMenu(el,btn);CP.open=true}
+function cpClose(){if(CP.el)CP.el.hidden=true;CP.open=false;CP.anchor=null;CP.c=null}
+$('#edright').addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('.cpick');if(b){e.preventDefault();cpOpen(b)}});
+document.addEventListener('mousedown',e=>{if(CP.open&&!e.target.closest('#cpop')&&!e.target.closest('.cpick'))cpClose()},true);
+addEventListener('scroll',e=>{if(CP.open&&!(e.target.closest&&e.target.closest('#cpop')))cpClose()},true);
+addEventListener('resize',cpClose);
 $('#edright').addEventListener('scroll',e=>{if(e.target.id==='edraw'){const m=$('#edmir');if(m){m.scrollTop=e.target.scrollTop;m.scrollLeft=e.target.scrollLeft}}},true);
 /* custom drop-downs (no native <select> anywhere) */
 const CHEV='<svg viewBox="0 0 12 12" width="12" height="12"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
