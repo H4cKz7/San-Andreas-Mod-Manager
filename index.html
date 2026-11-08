@@ -509,6 +509,7 @@ const inh=n=>{const o=[],pe=E.pr[n.toLowerCase()],a=hit(E.im,n),c=hit(E.inc,n);
 var _st;const saveNow=()=>{try{localStorage.setItem('samm',JSON.stringify(S,(k,v)=>k==='mods'?undefined:v))}catch(e){}};
 const save=()=>{clearTimeout(_st);_st=setTimeout(saveNow,300)};
 addEventListener('beforeunload',saveNow);
+var SAVEHOLD=false; /* while true, render() leaves the Save button alone (avoids a flash during an instant write) */
 const toast=(t,undo,redo)=>{const e=$('#toast'),has=!!(undo||redo);e.textContent=t;e.classList.toggle('act',has);
  [['Undo',undo],['Redo',redo]].forEach(([l,f])=>{if(f){const b=document.createElement('button');b.textContent=l;b.onclick=()=>{e.classList.remove('show');f()};e.append(b)}});
  e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),has?7000:1800)};
@@ -559,7 +560,7 @@ function render(){
    <div class="files"><div class="fi">${m._o?tree(m):''}</div></div></div>`});patchList(mods,hs);
   $('#chips').innerHTML=p.ig.length?p.ig.map((x,i)=>`<span class="chip">${esc(x)}<button data-r="${i}" aria-label="Remove">×</button></span>`).join(''):'<span class="stats">Nothing ignored</span>';
   $('#ini').textContent=ini();save();
-  $('#src').textContent=srcText;{const n=files().filter(([p,t])=>written[p]!==t).length;$('#save').disabled=!root||!n;$('#save').classList.toggle('pri',n>0);$('#save').textContent=n?`Save changes (${n})`:'Save changes';$('#rescan').disabled=!root;$('#undo').disabled=!UNDO.stack.length;$('#redo').disabled=!UNDO.redo.length}
+  $('#src').textContent=srcText;{const n=files().filter(([p,t])=>written[p]!==t).length;if(!SAVEHOLD){$('#save').disabled=!root||!n;$('#save').classList.toggle('pri',n>0);$('#save').textContent=n?`Save changes (${n})`:'Save changes'}$('#rescan').disabled=!root;$('#undo').disabled=!UNDO.stack.length;$('#redo').disabled=!UNDO.redo.length}
   $('#logb').style.visibility=logGet?'visible':'hidden';$('#mkcut').disabled=!S.exes.length;renderProf();renderSettings();renderPlugins();renderInst();
 }
 let PVsel='',PVlast='';
@@ -1346,9 +1347,9 @@ const snapState=()=>{Object.keys(S.profiles).forEach(fx);return JSON.stringify({
 function undoTrack(){if(UNDO.busy)return;const x=snapState();if(UNDO.last===null){UNDO.last=x;return}
  if(x!==UNDO.last){UNDO.stack.push(UNDO.last);if(UNDO.stack.length>80)UNDO.stack.shift();UNDO.redo=[];UNDO.last=x}}
 function undoReset(){UNDO.stack=[];UNDO.redo=[];UNDO.last=snapState()}
-function undoApply(x){const o=JSON.parse(x);UNDO.busy=true;
+function undoApply(x){const o=JSON.parse(x),pc=S.cur;UNDO.busy=true;
  S.profiles=o.profiles;S.cur=o.cur;S.pl=o.pl;S.fcl=o.fcl;S.bc=o.bc;S.bcDirty=o.bcDirty;S.pp=o.pp;S.ppDirty=o.ppDirty;S.defInFile=o.def;
- if(!S.profiles[S.active])S.active=S.cur;UNDO.last=x;UNDO.busy=false;render()}
+ if(!S.profiles[S.active])S.active=S.cur;UNDO.last=x;UNDO.busy=false;if(S.cur!==pc)SAVEHOLD=true;render();if(S.cur!==pc)syncCur()}
 function doUndo(){if(!UNDO.stack.length)return;UNDO.redo.push(snapState());undoApply(UNDO.stack.pop())}
 function doRedo(){if(!UNDO.redo.length)return;UNDO.stack.push(snapState());undoApply(UNDO.redo.pop())}
 $('#undo').onclick=doUndo;$('#redo').onclick=doRedo;
@@ -1550,11 +1551,9 @@ function filesRaw(){const by={};Object.keys(S.profiles).forEach(n=>(by[ppath(n)]
  return out}
 var _fc=null;function files(){if(_fc)return _fc;_fc=filesRaw();queueMicrotask(()=>{_fc=null});return _fc}
 const pendTxt=()=>{const n=files().filter(([p,t])=>written[p]!==t).length;return n?` · ${n} unsaved change${n===1?'':'s'}`:' · all changes saved'};
-$('#setcur').onclick=async()=>{const prev=S.cur,next=S.active;
- const go=async to=>{S.cur=to;undoReset();render();const ok=await commit(S.main,'');render();return ok};
- const doIt=async()=>{if(await go(next)!==false)toast(`Current profile is now ${next}${pendTxt()}`,undoIt)};
- const undoIt=async()=>{if(await go(prev)!==false)toast(`Current profile is back to ${prev}${pendTxt()}`,null,doIt)};
- doIt()};
+/* "Make current" is a normal step in the header Undo / Redo history; undoing or redoing it rewrites modloader.ini too */
+async function syncCur(){SAVEHOLD=true;let ok;try{ok=await commit(S.main,'')}finally{SAVEHOLD=false}render();if(ok!==false)toast(`Current profile is ${S.cur}${pendTxt()}`)}
+$('#setcur').onclick=()=>{SAVEHOLD=true;S.cur=S.active;render();syncCur()};
 $('#save').onclick=async()=>{try{
   let c=0;for(const[path,t]of files())if(written[path]!==t){await writeFile(path,t);written[path]=t;c++}
   Object.keys(S.profiles).forEach(n=>{if(!src[n])src[n]={path:ppath(n)}});
