@@ -140,7 +140,7 @@ dialog.wide[open]{display:flex;flex-direction:column;gap:10px}
 .tr:hover{background-color:var(--panel)}
 .tr.dir{cursor:pointer;font-weight:500}
 .tr svg{flex:none;width:14px;height:14px}
-.tr svg.fo{color:var(--warn)}.tr svg.fi{color:var(--mut)}
+.tr svg.fo{color:var(--folder,var(--acc));filter:drop-shadow(0 2px 0 color-mix(in srgb,var(--folder,var(--acc)) 55%,#000))}.tr svg.fi{color:var(--fileic,var(--mut));filter:drop-shadow(0 2px 0 var(--lip))}
 .tr svg.cv{width:10px;height:10px;fill:none;stroke:var(--mut);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .18s ease}
 .tr.dir.open svg.cv{transform:rotate(90deg)}
 .tr .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -540,6 +540,11 @@ header .split>.btn.more{width:26px;padding:0;margin-left:-1px;border-radius:0 8p
 @media (prefers-reduced-motion:no-preference){.ckf[open]>:not(summary){animation:fadeIn .22s ease}}
 .split>.btn.sm.more{width:22px;padding:0;margin-left:-1px;border-radius:0 8px 8px 0}
 #edundom,#edredom{min-width:160px}
+
+/* ---- Launch Game drop-down ---- */
+#launchmore{border-color:var(--acc);color:var(--acc);--l:var(--acclip)}
+#launchmore:hover{background:var(--accbg)}
+#launchm{min-width:290px}
 </style>
 </head>
 <body>
@@ -556,7 +561,7 @@ header .split>.btn.more{width:26px;padding:0;margin-left:-1px;border-radius:0 8p
     <div class="hg"><button class="btn" id="scan"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 4.5a1 1 0 0 1 1-1h3.2l1.5 1.5h6.3a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1z"/></svg><span>Scan GTA folder</span></button><button class="btn icon" id="rescan" disabled title="Rescan" aria-label="Rescan"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M13.5 2.5v3h-3"/></svg></button></div>
     <div class="hg"><button class="btn" id="edbtn"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5h6.5M12.5 4.5H14M2 11.5h1.5M7.5 11.5H14"/><circle cx="10.5" cy="4.5" r="1.6"/><circle cx="5.5" cy="11.5" r="1.6"/></svg><span>Config editor</span></button><button class="btn" id="logb" title="Logs" aria-label="Logs"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2h6l3 3v9H4z"/><path d="M10 2v3h3M6 8h5M6 11h5"/></svg><span>Logs</span></button><button class="btn" id="trb" title="Trash" aria-label="Trash"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.8 4.5h10.4M6.2 4.5V3h3.6v1.5M4.2 4.5l.6 8.6h6.4l.6-8.6M6.6 7v3.8M9.4 7v3.8"/></svg><span>Trash</span><span class="cb" id="trbc" hidden>0</span></button><button class="btn" id="mkcut" disabled title="Create game shortcut" aria-label="Create game shortcut"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2h5v5"/><path d="M14 2 7.5 8.5"/><path d="M12 10v3.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-8A.5.5 0 0 1 3.5 5H7"/></svg><span>Shortcut</span></button></div>
     <div class="hg"><div class="dd split" id="undod"><button class="btn" id="undo" disabled title="Undo (Ctrl+Z)" aria-label="Undo"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 3.8 2.6 6.7l2.9 2.9"/><path d="M3 6.7h5.6a3.6 3.6 0 0 1 0 7.2H6"/></svg><span>Undo</span></button><button class="btn more" id="undomore" disabled title="More undo options" aria-label="More undo options" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><div class="ddm" id="undom" role="menu" hidden><div class="ddi" id="undoall" role="menuitem">Undo all<small id="undoalln"></small></div></div></div><div class="dd split" id="redod"><button class="btn" id="redo" disabled title="Redo (Ctrl+Y)" aria-label="Redo"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 3.8l2.9 2.9-2.9 2.9"/><path d="M13 6.7H7.4a3.6 3.6 0 0 0 0 7.2H10"/></svg><span>Redo</span></button><button class="btn more" id="redomore" disabled title="More redo options" aria-label="More redo options" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><div class="ddm" id="redom" role="menu" hidden><div class="ddi" id="redoall" role="menuitem">Redo all<small id="redoalln"></small></div></div></div><button class="btn" id="save" disabled><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5h7.5l2.5 2.5v8a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5z"/><path d="M5 2.5v3.5h5V2.5M5 13.5V9h6v4.5"/></svg><span id="savet">Save changes</span></button></div>
-    <div class="hg"><button class="btn pri" id="inst"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5v7M5 7l3 3 3-3M3 13h10"/></svg><span>Install mod</span></button><button class="btn" id="launch" disabled title="Run gta_sa.exe"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3.2v9.6L13 8z"/></svg><span>Launch Game</span></button></div>
+    <div class="hg"><button class="btn pri" id="inst"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5v7M5 7l3 3 3-3M3 13h10"/></svg><span>Install mod</span></button><div class="dd split" id="launchd"><button class="btn" id="launch" disabled title="Run gta_sa.exe"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3.2v9.6L13 8z"/></svg><span>Launch Game</span></button><button class="btn more" id="launchmore" disabled title="More launch options" aria-label="More launch options" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><div class="ddm right" id="launchm" role="menu" hidden><div class="ddi" role="menuitem" data-l="none">Launch without mods<small>-nomods</small></div><div class="ddi" role="menuitem" data-l="some">Launch with only some mods…<small>-mod</small></div></div></div></div>
   </div>
 </header>
 <main>
@@ -670,6 +675,12 @@ header .split>.btn.more{width:26px;padding:0;margin-left:-1px;border-radius:0 8p
   <div class="thtop"><div class="seg" id="thmode"><button data-m="dark">Dark</button><button data-m="light">Light</button></div><div class="dd cdd" id="thpre" aria-label="Preset"></div></div>
   <div class="thlist" id="throws"></div>
   <div class="thfoot"><button class="btn del" id="threset">Reset colors</button><div class="thacts"><button class="btn" id="thimp">Import theme…</button><button class="btn" id="thexp">Export theme…</button><button class="btn" id="thx">Close</button></div></div></dialog>
+<dialog id="lmd"><h2>Launch with only some mods</h2>
+  <div class="stats" style="margin-bottom:8px">Only the ticked mods in the modloader folder are loaded. Set a priority if you want one.</div>
+  <input type="search" id="lmq" placeholder="Search mods" style="width:100%">
+  <div class="cutlist" id="lmlist" style="max-height:min(40vh,320px)"></div>
+  <div class="stats" id="lmcnt" style="margin-top:6px"></div>
+  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px"><button class="btn" id="lmx">Cancel</button><button class="btn pri" id="lmgo" disabled>Launch</button></div></dialog>
 <div class="toast" id="toast"></div>
 
 <script src="fsshim.js"></script>
@@ -723,7 +734,7 @@ const toast=t=>{const e=$('#toast');e.textContent=t; /* notifications only: no b
 const prio=n=>{const pe=E.pr[n.toLowerCase()],v=pe?pe[0]:50;return S.pl!=null?Math.min(v,S.pl):v};
 const pat2re=p=>new RegExp('^'+p.replace(/[.+^${}()|[\]\\]/g,'\\$&').replace(/\*/g,'.*').replace(/\?/g,'.')+'$','i');
 const fileIgnored=(m,f)=>{const b=f.split('/').pop();return Object.keys(E.ig).some(p=>mw(p,f)||mw(p,b))};
-const FO='<svg class="fo" viewBox="0 0 16 16"><path d="M1.5 4.5a1 1 0 0 1 1-1h3.2l1.5 1.5h6.3a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1z" fill="currentColor" opacity=".85"/></svg>',
+const FO='<svg class="fo" viewBox="0 0 16 16"><path d="M1.5 4A1.5 1.5 0 0 1 3 2.5h2.9l1.6 1.7H13A1.5 1.5 0 0 1 14.5 5.7v6.8A1.5 1.5 0 0 1 13 14H3a1.5 1.5 0 0 1-1.5-1.5z" fill="currentColor" fill-opacity=".28" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M1.5 6.7h13" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>',
  FI='<svg class="fi" viewBox="0 0 16 16"><path d="M4 1.5h5.5L13 5v9a.5.5 0 0 1-.5.5h-8.5a.5.5 0 0 1-.5-.5v-12a.5.5 0 0 1 .5-.5z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>',
  CV='<svg class="cv" viewBox="0 0 12 12"><path d="M4 2.5 8 6 4 9.5"/></svg>';
 const TI='<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.8 4.5h10.4M6.2 4.5V3h3.6v1.5M4.2 4.5l.6 8.6h6.4l.6-8.6M6.6 7v3.8M9.4 7v3.8"/></svg>';
@@ -769,7 +780,7 @@ function render(){
   $('#chips').innerHTML=p.ig.length?p.ig.map((x,i)=>`<span class="chip">${esc(x)}<button data-r="${i}" aria-label="Remove">×</button></span>`).join(''):'<span class="stats">Nothing ignored</span>';
   $('#ini').textContent=ini();save();
   $('#src').textContent=srcText;{const n=files().filter(([p,t])=>written[p]!==t).length;if(!SAVEHOLD){$('#save').disabled=!root||!n;$('#save').classList.toggle('pri',n>0);$('#savet').textContent=n?`Save changes (${n})`:'Save changes'}$('#rescan').disabled=!root;$('#undo').disabled=!UNDO.stack.length;$('#redo').disabled=!UNDO.redo.length;{const u=UNDO.stack.length,r=UNDO.redo.length;$('#undomore').disabled=!u;$('#redomore').disabled=!r;$('#undoalln').textContent=u;$('#redoalln').textContent=r}}
-  $('#logb').style.visibility=root?'visible':'hidden';$('#mkcut').disabled=!S.exes.length;renderProf();renderSettings();renderPlugins();renderInst();renderChecks();renderTrash();$('#launch').disabled=!canLaunch();
+  $('#logb').style.visibility=root?'visible':'hidden';$('#mkcut').disabled=!S.exes.length;renderProf();renderSettings();renderPlugins();renderInst();renderChecks();renderTrash();{const cl=!canLaunch();$('#launch').disabled=cl;$('#launchmore').disabled=cl}
 }
 let PVsel='',PVlast='';
 function curFile(){const fl=files(),a=ppath(S.active);if(S.active!==PVlast){PVlast=S.active;PVsel=a}return fl.find(x=>x[0]===PVsel)||fl.find(x=>x[0]===a)||fl[0]}
@@ -1086,10 +1097,11 @@ const TH_VARS=[
  ['Surfaces',[['bg','Background','Window and page'],['panel','Panels','Header, cards and dialogs'],['panel2','Fields and raised','Inputs, buttons and drop-downs']]],
  ['Content',[['tx','Text','Main text'],['mut','Muted text','Hints and labels'],['line','Borders','Outlines and dividers']]],
  ['Accent',[['acc','Accent','Switches, sliders, primary buttons'],['accbg','Accent tint','Soft accent backgrounds'],['ink','Text on accent','Label on accent buttons']]],
- ['Status',[['warn','Warning','Warnings and the star'],['bad','Danger','Errors and delete actions']]]];
+ ['Status',[['warn','Warning','Warnings and the star'],['bad','Danger','Errors and delete actions']]],
+ ['Icons',[['folder','Folder icons','Folders in a mod’s file list'],['fileic','File icons','Files in a mod’s file list']]]];
 const TH_KEYS=TH_VARS.flatMap(g=>g[1].map(r=>r[0]));
-const TH_DEF={dark:{bg:'#101311',panel:'#181c19',panel2:'#1e231f',line:'#2a312b',tx:'#e6eae4',mut:'#8b948a',acc:'#4cc468',accbg:'#18301e',warn:'#e8963f',bad:'#e5695c',ink:'#07120a'},
- light:{bg:'#eef0ec',panel:'#ffffff',panel2:'#f5f6f3',line:'#dcdfd8',tx:'#1b1f1a',mut:'#6b7268',acc:'#2f9e44',accbg:'#e1f3e4',warn:'#d9822b',bad:'#c94a3d',ink:'#ffffff'}};
+const TH_DEF={dark:{bg:'#101311',panel:'#181c19',panel2:'#1e231f',line:'#2a312b',tx:'#e6eae4',mut:'#8b948a',acc:'#4cc468',accbg:'#18301e',warn:'#e8963f',bad:'#e5695c',ink:'#07120a',folder:'#4cc468',fileic:'#8b948a'},
+ light:{bg:'#eef0ec',panel:'#ffffff',panel2:'#f5f6f3',line:'#dcdfd8',tx:'#1b1f1a',mut:'#6b7268',acc:'#2f9e44',accbg:'#e1f3e4',warn:'#d9822b',bad:'#c94a3d',ink:'#ffffff',folder:'#2f9e44',fileic:'#6b7268'}};
 const TH_PRE=[
  {name:'Default',base:'dark',vars:{}},
  {name:'Default',base:'light',vars:{}},
@@ -1110,7 +1122,7 @@ const thLum=h=>{const[r,g,b]=thRgb(h).map(v=>{v/=255;return v<=.03928?v/12.92:Ma
 const thNorm=s=>{s=s.trim().replace(/^#/,'');if(/^[0-9a-f]{3}$/i.test(s))s=s.replace(/./g,'$&$&');return/^[0-9a-f]{6}$/i.test(s)?'#'+s.toLowerCase():''};
 /* the accent tint and the text on accent follow the accent unless you set them yourself */
 const thEff=(m,o)=>{o=o||TC.c[m]||{};const e={...TH_DEF[m],...o};
- if(o.acc){if(!o.accbg)e.accbg=thHex(thMix(thRgb(e.panel),thRgb(e.acc),m==='light'?.16:.2));if(!o.ink)e.ink=thLum(e.acc)>.4?'#07120a':'#ffffff'}return e};
+ if(o.acc){if(!o.accbg)e.accbg=thHex(thMix(thRgb(e.panel),thRgb(e.acc),m==='light'?.16:.2));if(!o.ink)e.ink=thLum(e.acc)>.4?'#07120a':'#ffffff';if(!o.folder)e.folder=e.acc}if(o.mut&&!o.fileic)e.fileic=e.mut;return e};
 function thSave(){try{const eff={};for(const m of['dark','light'])if(Object.keys(TC.c[m]).length)eff[m]=thEff(m);
  localStorage.setItem('samm-colors',JSON.stringify(TC.c));localStorage.setItem('samm-colors-eff',JSON.stringify(eff))}catch(e){}}
 function thApply(skip){const m=THEME.cur(),has=Object.keys(TC.c[m]||{}).length,e=thEff(m),st=document.documentElement.style;
@@ -1121,7 +1133,7 @@ function thSync(skip){const m=THEME.cur(),o=TC.c[m]||{},e=thEff(m);
  document.querySelectorAll('#thmode button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));
  const pi=TH_PRE.findIndex(p=>p.base===m&&TH_KEYS.every(k=>thEff(m,p.vars)[k]===e[k]));
  cddOptions($('#thpre'),[...(pi<0?[{v:'custom',t:'Custom'}]:[]),...TH_PRE.map((p,i)=>({v:String(i),t:p.name+' · '+p.base}))],pi<0?'custom':String(pi));
- document.querySelectorAll('#throws .thr').forEach(r=>{const k=r.dataset.k,auto=!o[k]&&o.acc&&(k==='accbg'||k==='ink'),h=r.querySelector('.thh');
+ document.querySelectorAll('#throws .thr').forEach(r=>{const k=r.dataset.k,auto=!o[k]&&((o.acc&&(k==='accbg'||k==='ink'||k==='folder'))||(o.mut&&k==='fileic')),h=r.querySelector('.thh');
   r.querySelector('.thsw').style.background=e[k];if(h!==skip){h.value=e[k];h.classList.remove('bad')}
   r.querySelector('[data-reset]').disabled=!(k in o);r.querySelector('.thd').textContent=r.dataset.d+(auto?' · follows the accent':'')});
  $('#threset').disabled=!Object.keys(o).length;$('#thexp').disabled=!(Object.keys(TC.c.dark).length||Object.keys(TC.c.light).length)}
@@ -2001,10 +2013,13 @@ const pendTxt=()=>{const n=files().filter(([p,t])=>written[p]!==t).length;return
 /* "Make current" is a normal step in the header Undo / Redo history; undoing or redoing it rewrites modloader.ini too */
 async function syncCur(){SAVEHOLD=true;let ok;try{ok=await commit(S.main,'')}finally{SAVEHOLD=false}render();if(ok!==false)toast(`Current profile is ${S.cur}${pendTxt()}`)}
 $('#setcur').onclick=()=>{SAVEHOLD=true;S.cur=S.active;render();syncCur()};
-$('#save').onclick=async()=>{try{
+$('#save').onclick=async()=>{const b=$('#save');if(b.disabled)return;b.disabled=true;
+ try{
   let c=0;for(const[path,t]of files())if(written[path]!==t){await writeFile(path,t);written[path]=t;c++}
   Object.keys(S.profiles).forEach(n=>{if(!src[n])src[n]={path:ppath(n)}});
-  toast(c?`Saved ${c} file${c>1?'s':''}`:'Nothing to save')}catch(e){toast('Saving failed: '+e.message)}};
+  toast(c?`Saved ${c} file${c>1?'s':''}`:'Nothing to save')}
+ catch(e){toast('Saving failed: '+e.message)}
+ finally{render()}};
 async function probeLog(){if(!root||!await canWrite())return;let g=null;try{const fh=await root.getFileHandle('modloader.log');g=()=>fh.getFile()}catch(e){}
  if(!!g!==!!logGet){logGet=g;render()}else if(g)logGet=g}
 window.addEventListener('focus',probeLog);
@@ -2080,10 +2095,39 @@ $('#trb').onclick=()=>{renderTrash();$('#trd').showModal()};$('#trdx').onclick=(
 /* ---- Launch Game ---- */
 const exePath=()=>{const gd=gameDir();if(!gd)return'';const n=S.exes.find(x=>/^gta_sa\.exe$/i.test(x))||'gta_sa.exe',p=pathN.join(gd,n);return fsN.existsSync(p)?p:''};
 const canLaunch=()=>!!root&&!!exePath();
-$('#launch').onclick=async()=>{const p=exePath();if(!p)return toast('gta_sa.exe was not found in the game folder');
- const pend=files().filter(([q,t])=>written[q]!==t).length;
- if(pend&&!await ask({title:'You have unsaved changes',text:'The game reads the saved files, so those changes will not apply. Launch anyway?',ok:'Launch'}))return;
- const r=await window.__native.launch(p);if(r===true)toast('Launching '+pathN.basename(p)+'…');else notice('Couldn’t launch the game',String(r))};
+/* ---- Launch Game: plain launch, no mods, or only some mods (same arguments as the shortcut) ---- */
+async function doLaunch(args){const p=exePath();if(!p)return toast('gta_sa.exe was not found in the game folder');
+ if(!args){const pend=files().filter(([q,t])=>written[q]!==t).length;
+  if(pend&&!await ask({title:'You have unsaved changes',text:'The game reads the saved files, so those changes will not apply. Launch anyway?',ok:'Launch'}))return}
+ const r=await window.__native.launch(p,args||'');
+ if(r===true)toast('Launching '+pathN.basename(p)+(args==='-nomods'?' without mods':args?' with selected mods':'')+'…');
+ else notice('Couldn’t launch the game',String(r))}
+$('#launch').onclick=()=>doLaunch('');
+const lq=v=>/[\s"]/.test(v)?'"'+v.replace(/"/g,'\\"')+'"':v;
+const LM={sel:new Map()};
+const lmOpenMenu=o=>{$('#launchm').hidden=!o;$('#launchmore').setAttribute('aria-expanded',String(o))};
+$('#launchmore').onclick=()=>lmOpenMenu($('#launchm').hidden);
+document.addEventListener('click',e=>{if(!e.target.closest('#launchd'))lmOpenMenu(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lmOpenMenu(false)});
+function lmStat(){const n=LM.sel.size;$('#lmcnt').textContent=n?n+' mod'+(n===1?'':'s')+' selected':'Tick at least one mod.';$('#lmgo').disabled=!n}
+function lmDraw(){const names=new Set(S.mods.map(m=>m.name));[...LM.sel.keys()].forEach(k=>{if(!names.has(k))LM.sel.delete(k)});
+ const q=$('#lmq').value.trim().toLowerCase();
+ const ms=S.mods.slice().sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true,sensitivity:'base'})).filter(m=>!q||m.name.toLowerCase().includes(q));
+ $('#lmlist').innerHTML=ms.map(m=>{const on=LM.sel.has(m.name),pr=on?LM.sel.get(m.name):'';
+  return '<label class="cutrow"><input type="checkbox" data-n="'+esc(m.name)+'"'+(on?' checked':'')+'><span class="nm">'+esc(m.name)+'</span><input type="number" min="0" placeholder="prio" data-p="'+esc(m.name)+'" value="'+esc(pr)+'"></label>'}).join('')||'<div class="stats" style="padding:8px 10px">No mods</div>';
+ lmStat()}
+$('#lmq').oninput=lmDraw;
+$('#lmlist').addEventListener('change',e=>{const t=e.target,n=t.dataset.n;if(n==null)return;
+ if(t.checked)LM.sel.set(n,t.closest('.cutrow').querySelector('input[type=number]').value.trim());else LM.sel.delete(n);lmStat()});
+$('#lmlist').addEventListener('input',e=>{const t=e.target,n=t.dataset.p;if(n==null)return;const v=t.value.trim();
+ if(v!==''||LM.sel.has(n)){LM.sel.set(n,v);t.closest('.cutrow').querySelector('input[type=checkbox]').checked=true;lmStat()}});
+$('#launchm').onclick=e=>{const it=e.target.closest('[data-l]');if(!it)return;lmOpenMenu(false);
+ if(it.dataset.l==='none')doLaunch('-nomods');
+ else{$('#lmq').value='';lmDraw();$('#lmd').showModal()}};
+$('#lmx').onclick=()=>$('#lmd').close();
+$('#lmgo').onclick=()=>{const a=[],names=new Set(S.mods.map(m=>m.name));
+ LM.sel.forEach((pr,n)=>{if(names.has(n))a.push('-mod',lq(n+(pr!==''?'='+pr:'')))});
+ if(!a.length)return;$('#lmd').close();doLaunch(a.join(' '))};
 /* ---- Version & Essentials checker ---- */
 const ESSENTIALS=[
  {id:'repairgta',name:'RepairGTA',file:'RepairGTA.SA.asi'},

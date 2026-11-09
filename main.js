@@ -7,8 +7,8 @@ ipcMain.on('win',(e,c)=>{const w=BrowserWindow.fromWebContents(e.sender);if(!w)r
 ipcMain.handle('win-ismax',e=>{const w=BrowserWindow.fromWebContents(e.sender);return !!w&&w.isMaximized()});
 
 ipcMain.on('show-item',(e,p)=>{if(typeof p==='string'&&fs.existsSync(p))shell.showItemInFolder(p)});
-ipcMain.handle('launch-game',(e,exe)=>{try{if(typeof exe!=='string'||!fs.existsSync(exe))return'gta_sa.exe was not found';const cwd=path.dirname(exe);let c;
-  if(process.platform==='win32')c=spawn('cmd.exe',['/d','/s','/c','start "" /D "'+cwd+'" "'+exe+'"'],{cwd,detached:true,stdio:'ignore',windowsHide:true,windowsVerbatimArguments:true});
+ipcMain.handle('launch-game',(e,exe,args)=>{try{if(typeof exe!=='string'||!fs.existsSync(exe))return'gta_sa.exe was not found';const cwd=path.dirname(exe);const extra=typeof args==='string'&&args.trim()?' '+args.trim().replace(/[\r\n]+/g,' '):'';let c;
+  if(process.platform==='win32')c=spawn('cmd.exe',['/d','/s','/c','start "" /D "'+cwd+'" "'+exe+'"'+extra],{cwd,detached:true,stdio:'ignore',windowsHide:true,windowsVerbatimArguments:true});
   else c=spawn(exe,[],{cwd,detached:true,stdio:'ignore'});
   c.on('error',()=>{});c.unref();return true}catch(err){return String(err.message||err)}});
 ipcMain.on('theme',(e,t)=>{const w=BrowserWindow.fromWebContents(e.sender);if(w)w.setBackgroundColor(/^#[0-9a-f]{6}$/i.test(t)?t:t==='light'?'#eef0ec':'#101311')});
