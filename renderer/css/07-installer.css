@@ -1,0 +1,47 @@
+/* SA Mod Manager - 07-installer.css: v1.2.5: smart installer dialog and file picker tree (loaded in order by index.html) */
+/* ---- v1.2.5: smart installer ---- */
+dialog.instdlg{width:min(660px,94vw);max-height:90vh;overflow:auto}
+#mld{padding:24px 28px 26px}
+#mld .dopt{padding:16px 20px 18px}
+#mld .mld-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+#mld .mld-actions .btn{flex:1;min-width:145px;justify-content:center}
+.asum{border:1px solid var(--line);border-radius:10px;background:var(--panel2);padding:8px 12px;margin:10px 0 0;font-size:13px;box-shadow:0 2px 0 var(--lip)}
+.asum .ir{display:flex;gap:10px;padding:3px 0}
+.asum .ir b{flex:none;max-width:46%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.asum .ir span{color:var(--mut);min-width:0;overflow-wrap:anywhere}
+.asum .wn{color:var(--warn);font-size:12.5px;padding:3px 0;overflow-wrap:anywhere}
+.dopt{display:flex;gap:10px;align-items:flex-start;padding:7px 10px;margin-top:6px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);cursor:pointer;box-shadow:0 2px 0 var(--lip)}
+.dopt input{margin-top:2px}
+.dopt .dt{display:flex;flex-direction:column;min-width:0}
+.dopt small{color:var(--mut);font-size:12px;overflow-wrap:anywhere}
+.dopt.sugg{border-color:var(--acc);background:var(--accbg)}
+.dopt.sugg small{color:var(--acc)}
+.dopt.dis{opacity:.5;cursor:default}
+#asktext{white-space:pre-line}
+.name{display:flex;align-items:center;gap:8px;font-size:15.5px;font-weight:700;letter-spacing:.005em}
+.name .nt{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.name svg.fo{flex:none;width:17px;height:17px;color:var(--folder,var(--acc));filter:drop-shadow(0 2px 0 color-mix(in srgb,var(--folder,var(--acc)) 55%,#000))}
+.name:hover .nt{color:var(--acc)}
+input[type=password]{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 10px;outline:none;box-shadow:0 2px 0 var(--lip)}
+input[type=password]:focus{border-color:var(--acc);box-shadow:0 2px 0 var(--acclip)}
+#pkd{margin:10px 0 0}
+.pkt{display:flex;gap:8px;align-items:center;margin-top:8px}
+.pkl{max-height:240px;overflow:auto;border:1px solid var(--line);border-radius:10px;background:var(--panel);margin-top:8px}
+.pkr{display:flex;align-items:center;gap:8px;padding:4px 10px;cursor:pointer;font:12px "JetBrains Mono",ui-monospace,monospace}
+.pkr:hover{background:var(--panel2)}
+.pkr .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pkr .tag{font-family:Archivo,system-ui,sans-serif;font-size:11px;white-space:nowrap}
+.pkg{border-bottom:1px solid var(--line);padding-bottom:4px}
+.pkgh{display:flex;align-items:center;gap:8px;padding:8px 10px 2px;font-weight:600;font-size:13px}
+.pkgh .tag{font-weight:400;font-size:11px}
+.pkr{padding-left:calc(10px + var(--d,0)*16px)}
+.pkf{display:flex;align-items:center;gap:8px;padding:4px 10px 4px calc(10px + var(--d,0)*16px);cursor:pointer;font:12px "JetBrains Mono",ui-monospace,monospace}
+.pkf:hover{background:var(--panel2)}
+.pkf .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.pkc{display:inline-flex;align-items:center;justify-content:center;width:12px;height:12px;flex:none}
+.pkf svg.cv{width:10px;height:10px;fill:none;stroke:var(--mut);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .18s ease}
+.pkf.open svg.cv{transform:rotate(90deg)}
+.pkfi{display:inline-flex;flex:none}
+.pkfi svg{width:14px;height:14px;color:var(--folder,var(--acc))}
+.pkn{color:var(--mut);font:11px Archivo,system-ui,sans-serif;white-space:nowrap}
+

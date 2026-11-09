@@ -1,6 +1,6 @@
 {
   "name": "sa-mod-manager",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "GTA San Andreas Mod Loader manager",
   "main": "main.js",
   "scripts": {
@@ -18,8 +18,32 @@
     "appId": "com.samm.modmanager",
     "productName": "SA Mod Manager",
     "afterPack": "afterPack.js",
-    "files": ["main.js", "index.html", "fsshim.js", "package.json", "build/**"],
-    "extraResources": [{ "from": "build/icon.png", "to": "icon.png" }],
-    "win": { "target": "portable", "icon": "build/icon.ico", "signAndEditExecutable": false }
+    "files": [
+      "main.js",
+      "index.html",
+      "renderer/**",
+      "fsshim.js",
+      "package.json",
+      "build/**"
+    ],
+    "extraResources": [
+      {
+        "from": "build/icon.png",
+        "to": "icon.png"
+      }
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "build/icon.ico",
+      "signAndEditExecutable": false
+    },
+    "asarUnpack": [
+      "node_modules/7zip-bin/**/*",
+      "node_modules/node-unrar-js/**/*"
+    ]
+  },
+  "dependencies": {
+    "7zip-bin": "^5.2.0",
+    "node-unrar-js": "^2.0.2"
   }
 }

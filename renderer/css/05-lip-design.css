@@ -1,0 +1,79 @@
+/* SA Mod Manager - 05-lip-design.css: raised "lip" look of buttons, switches, sliders, fields (loaded in order by index.html) */
+/* ---- raised "lip" design (from the mod switch), theme aware ---- */
+:root{--lip:color-mix(in srgb,var(--line) 40%,#000);--acclip:color-mix(in srgb,var(--acc) 55%,#000);--badlip:color-mix(in srgb,var(--bad) 55%,#000);--warnlip:color-mix(in srgb,var(--warn) 55%,#000);--tintlip:color-mix(in srgb,var(--accbg) 55%,#000)}
+:root[data-theme="light"]{--lip:color-mix(in srgb,var(--line) 78%,#000);--tintlip:color-mix(in srgb,var(--accbg) 80%,#000)}
+
+/* toggle switches: the mod list (.switch) and the config editor (.sw) share one look */
+.switch{font-size:10px;position:relative;display:inline-block;width:4em;height:2em;flex:none;margin:0;cursor:pointer}
+.switch input[type=checkbox]{position:absolute;opacity:0;width:0;height:0;margin:0;border:0!important;background:none!important;box-shadow:none!important;transform:none!important;appearance:none;-webkit-appearance:none}
+.switch .slider{position:absolute;cursor:pointer;inset:0}
+.switch .slider,.sw{background-color:var(--line);border-radius:.5em;box-shadow:0 .2em var(--lip);transition:background-color .3s ease}
+.sw{font-size:10px;width:4em;height:2em}
+.sw.on{background-color:var(--line)}
+.switch .slider::before,.sw::after{--h:var(--mut);position:absolute;content:"";height:1.5em;width:1.4em;border-radius:.3em;left:.3em;top:auto;bottom:.7em;background-color:var(--h);box-shadow:0 .4em color-mix(in srgb,var(--h) 50%,#000);transition:transform .32s cubic-bezier(.4,0,.2,1),bottom .16s ease-out,box-shadow .16s ease-out,background-color .28s ease}
+
+.switch input:checked+.slider::before,.sw.on::after{--h:var(--acc);transform:translateX(2em)}
+.switch input:focus-visible+.slider{outline:2px solid var(--acc);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.switch .slider,.switch .slider::before,.sw,.sw::after{transition:none}}
+
+/* buttons: raised on a solid lip, pressed in when clicked */
+.btn{--l:var(--lip);--d:3px;box-shadow:0 var(--d) 0 var(--l)}
+.btn.sm{--d:2px}
+.btn.pri,#launch{--l:var(--acclip)}
+.btn.pri.del{--l:var(--badlip)}
+.btn:active:not(:disabled){transform:translateY(calc(var(--d) - 1px));box-shadow:0 1px 0 var(--l)}
+.star{box-shadow:0 3px 0 var(--lip)}.star.on{box-shadow:0 3px 0 var(--warnlip)}
+.star:active{transform:translateY(2px);box-shadow:0 1px 0 var(--lip)}
+.ddb{box-shadow:0 3px 0 var(--lip)}
+.ddb[aria-expanded=true]{transform:translateY(2px);box-shadow:0 1px 0 var(--lip)}
+
+/* fields */
+select,input[type=text],input[type=search],input[type=number]{box-shadow:0 2px 0 var(--lip)}
+select:focus,input[type=text]:focus,input[type=search]:focus,input[type=number]:focus{border-color:var(--acc);box-shadow:0 2px 0 var(--acclip)}
+.step{box-shadow:0 2px 0 var(--lip)}
+.step input,.cpop input,.step input:focus,.cpop input:focus{box-shadow:none}
+
+/* check boxes */
+input[type=checkbox]{border-radius:6px;box-shadow:0 2px 0 var(--lip)}
+input[type=checkbox]:checked,input[type=checkbox]:indeterminate{box-shadow:0 2px 0 var(--acclip)}
+input[type=checkbox]:active{transform:translateY(2px);box-shadow:none}
+.switch input[type=checkbox]{box-shadow:none!important;transform:none!important}
+
+/* priority slider: a fader with a raised cap, a soft fill and a readout box */
+.pr{gap:10px}
+.pr input[type=range]{--fill:color-mix(in srgb,var(--acc) 55%,var(--line));height:30px}
+.pr input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:5px;background:linear-gradient(to right,var(--fill) var(--p),var(--line) var(--p));box-shadow:0 2px 0 var(--lip)}
+.pr input[type=range]::-moz-range-track{height:8px;border-radius:5px;background:var(--line);box-shadow:0 2px 0 var(--lip)}
+.pr input[type=range]::-moz-range-progress{height:8px;border-radius:5px;background:var(--fill)}
+.pr input[type=range]::-webkit-slider-thumb{width:12px;height:22px;margin-top:-7px;border-radius:5px;border:0;cursor:grab;background:linear-gradient(color-mix(in srgb,var(--ink) 45%,transparent),color-mix(in srgb,var(--ink) 45%,transparent)) center/2px 9px no-repeat,var(--acc);box-shadow:0 3px 0 var(--acclip);transform:none}
+.pr input[type=range]::-moz-range-thumb{width:12px;height:22px;border-radius:5px;border:0;background:var(--acc);box-shadow:0 3px 0 var(--acclip)}
+
+.pr input[type=range]:active::-webkit-slider-thumb{cursor:grabbing}
+.pr input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 3px 0 var(--acclip),0 0 0 3px color-mix(in srgb,var(--acc) 30%,transparent)}
+.pr output{min-width:40px;padding:3px 0;text-align:center;border-radius:7px;background:var(--panel2);border:1px solid var(--line);box-shadow:0 2px 0 var(--lip);color:var(--tx);cursor:text}
+.pr output:hover{border-color:var(--acc);color:var(--acc)}
+.pedit{width:40px;padding:3px 0;text-align:center}
+
+/* segmented controls, badges, chips, key caps */
+.seg{box-shadow:0 3px 0 var(--lip)}
+.seg button.on{background:var(--acc);color:var(--ink);box-shadow:0 2px 0 var(--acclip)}
+.tag,.chip{border-radius:7px;box-shadow:0 2px 0 var(--lip)}
+.tag.st{box-shadow:0 2px 0 var(--tintlip)}
+.cb,.hc,.curp,.tb-v,.pill,.fold>summary .cnt{border-radius:7px}
+.cb,.hc,.curp,.tb-v,.pill.ok{box-shadow:0 2px 0 var(--tintlip)}
+.pill,.fold>summary .cnt{box-shadow:0 2px 0 var(--lip)}
+.pill.ok{box-shadow:0 2px 0 var(--tintlip)}
+.kbd,.thsw{box-shadow:0 2px 0 var(--lip)}
+
+/* surfaces */
+.mod,.card,.edsec{box-shadow:0 3px 0 var(--lip)}
+.mod{margin-bottom:11px}
+.side{padding-bottom:6px}
+dialog{box-shadow:0 6px 0 var(--lip)}
+.toast{border-radius:10px;box-shadow:0 3px 0 color-mix(in srgb,var(--tx) 50%,#000)}
+
+@media (prefers-reduced-motion:no-preference){
+ .btn,.ddb,.star,.card,.tag,.chip{transition:border-color .15s ease,background-color .15s ease,color .15s ease,transform .12s ease-out,box-shadow .12s ease-out,opacity .2s ease}
+ .seg button{transition:background-color .2s ease,color .2s ease,box-shadow .2s ease}
+ input[type=checkbox]{transition:background .12s,border-color .12s,transform .1s,box-shadow .1s}
+}

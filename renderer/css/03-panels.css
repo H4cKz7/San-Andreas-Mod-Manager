@@ -1,0 +1,49 @@
+/* SA Mod Manager - 03-panels.css: v1.2.3 additions: chevrons, trash rows, checker cards, launch warning (loaded in order by index.html) */
+/* ---- v1.2.3 ---- */
+.btn{gap:7px}.btn svg{flex:none}
+.lead{display:flex;align-items:center;gap:6px}
+.chev{border:0;background:none;padding:0;width:22px;height:22px;border-radius:6px;color:var(--mut);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.chev:hover{color:var(--acc);background:var(--panel2)}
+.chev svg{display:block;transition:transform .2s ease}
+.mod.open .chev svg{transform:rotate(90deg)}
+.tr button.trash{display:inline-flex;align-items:center;justify-content:center;padding:2px 6px}
+.tr button.trash svg{width:13px;height:13px}
+.tr button.trash:hover{border-color:var(--bad);color:var(--bad)}
+.cp-sv,.cp-sl{overflow:visible}
+.cp-sl{height:14px;margin:1px 0}
+.cp-knob{width:16px;height:16px;box-sizing:border-box;background:var(--kc,transparent)}
+
+.ckd{width:9px;height:9px;border-radius:50%;margin-top:5px;flex:none;background:var(--mut)}
+.ckd.ok{background:var(--acc)}.ckd.warn{background:var(--warn)}.ckd.bad{background:var(--bad)}
+.ckb{flex:1;min-width:0;overflow-wrap:anywhere}.ckb b{font-weight:600}
+.ckb small{display:block;color:var(--mut);font:11.5px "JetBrains Mono",ui-monospace,monospace;margin-top:2px}
+.ckh{font-weight:600;font-size:12.5px;margin:12px 0 2px;color:var(--mut)}
+.ckf summary{cursor:pointer;margin-top:8px}
+.fold>summary .cnt.warn{color:var(--warn)}.fold>summary .cnt.ok{color:var(--acc)}
+.trr{display:flex;gap:6px;align-items:center;padding:6px 0;border-top:1px solid var(--line)}
+.trr:first-child{border-top:0}.trn{flex:1;min-width:0}
+.trn .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.trn small{color:var(--mut);font-size:11.5px}
+.lwarn{display:flex;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--warn);border-radius:10px;color:var(--warn);background:color-mix(in srgb,var(--warn) 10%,transparent);font-size:13px}
+#lsel{min-width:240px;max-width:420px}
+
+.cks{border:1px solid var(--line);border-radius:10px;background:var(--panel2);padding:10px 12px;margin-bottom:8px}
+.cksh{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;font-weight:600;font-size:13px}
+.pill{font-size:11px;font-weight:600;padding:1px 9px;border-radius:99px;background:var(--panel);border:1px solid var(--line);color:var(--mut);white-space:nowrap}
+.pill.ok{background:var(--accbg);border-color:transparent;color:var(--acc)}
+.pill.warn{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 45%,transparent)}
+.pill.bad{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 45%,transparent)}
+.ckt{font-weight:600;font-size:13px;overflow-wrap:anywhere}
+.ckx{color:var(--mut);font-size:12px;line-height:1.45;margin-top:2px;overflow-wrap:anywhere}
+.ckm{color:var(--mut);font:11.5px "JetBrains Mono",ui-monospace,monospace;overflow-wrap:anywhere;margin-top:2px}
+.ckr{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--line)}
+.ckr:first-of-type{border-top:0}.ckn{flex:1;min-width:0}
+.ckf{margin-top:8px;border-top:1px solid var(--line);padding-top:6px}
+.ckf summary{cursor:pointer;font-size:12px;color:var(--mut);margin:0 0 2px}
+#pn-checker .btn.sm{padding:3px 10px}
+
+.hr{gap:10px 12px}.hg{display:flex;align-items:center;gap:6px}
+.hg+.hg{padding-left:12px;border-left:1px solid var(--line)}
+header .hg .btn{padding:0 11px}header .hg .btn.icon{width:34px;padding:0}
+#launch{border-color:var(--acc);color:var(--acc)}#launch:hover{background:var(--accbg)}
+

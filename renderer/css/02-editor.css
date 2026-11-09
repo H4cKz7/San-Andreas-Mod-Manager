@@ -1,0 +1,41 @@
+/* SA Mod Manager - 02-editor.css: config editor layout and controls (loaded in order by index.html) */
+/* ---- config editor: consistent control sizes and no overlapping drop-downs ---- */
+.ddb svg{flex:none}
+.cdd .ddb .t{min-width:0}
+.jat>.ddb{min-width:0;padding:0 10px}
+.ed-r input[type=text],.ed-r input[type=number]{height:32px;padding:0 10px;border-radius:8px;font-size:13px;min-width:0}
+.kv{align-items:center!important;padding:8px 14px}
+.kv .kl{align-self:center}
+.jl{grid-template-columns:minmax(120px,34%) minmax(0,1fr) 60px 20px;column-gap:12px;align-items:center;padding:5px 0 5px 14px}
+.jl .v input.jv{max-width:440px}
+.jl.jids{align-items:start}
+.jl.jids .jty,.jl.jids .x{margin-top:7px}
+.jkc{min-width:0}.jkc .jk{display:block}
+.jkc .kd{color:var(--mut);font-size:12px;line-height:1.4;margin-top:2px;overflow-wrap:anywhere}
+.jdesc{flex:1;min-width:0;color:var(--mut);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+details.jn>summary{min-height:28px}
+.jadd{align-items:center;flex-wrap:wrap;row-gap:8px}
+.jadd .jak{flex:1 1 150px;min-width:110px}
+.jadd .jat{flex:none;width:118px}
+.jadd .jav{flex:2 1 180px;min-width:120px}
+.jadd .btn,.addkv .btn{flex:none;height:32px}
+.addkv{align-items:center}
+.jty{text-align:right}
+.jl .sw+.bv{min-width:3ch}
+/* ---- backups ---- */
+.edbkbar{display:flex;gap:8px}.edbkbar .btn{flex:1;min-width:0;white-space:nowrap}
+dialog.bkdlg{width:min(660px,94vw);padding:18px}
+dialog.bkdlg[open]{display:flex;flex-direction:column;gap:10px;max-height:min(760px,90vh)}
+dialog.bkdlg h2{margin:0}
+.bkd-tool{display:flex;gap:10px;align-items:center}.bkd-tool input{flex:1;min-width:0}
+.bkd-sel{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bkd-sel label{display:flex;align-items:center;gap:8px;cursor:pointer}
+.bkd-list{flex:1;min-height:220px;max-height:400px;overflow:auto;border:1px solid var(--line);border-radius:10px;background:var(--panel2)}
+.bkr{display:flex;align-items:center;gap:10px;padding:6px 12px;border-bottom:1px solid var(--line);cursor:pointer;font-size:13px}
+.bkr:hover{background:var(--panel)}
+.bkr .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bkr small{color:var(--mut);white-space:nowrap}.bkr small.bkh{color:var(--acc)}
+.bkd-foot{display:flex;gap:8px;justify-content:flex-end;margin-top:2px}
+input[type=checkbox]:indeterminate{border-color:var(--acc);background:var(--acc) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 6h6' fill='none' stroke='%23061008' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/13px no-repeat}
+:root[data-theme="light"] input[type=checkbox]:indeterminate{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 6h6' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")}
+

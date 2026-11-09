@@ -1,0 +1,33 @@
+/* SA Mod Manager - 06-header-checker.css: v1.2.4: split buttons, checker drop-downs (loaded in order by index.html) */
+/* ---- v1.2.4 ---- */
+.split{display:inline-flex}
+.split>.btn:first-child{border-top-right-radius:0;border-bottom-right-radius:0}
+header .split>.btn.more{width:26px;padding:0;margin-left:-1px;border-radius:0 8px 8px 0}
+.split>.btn:hover,.split>.btn:focus-visible{position:relative;z-index:1}
+#undom,#redom{min-width:170px}
+.ddi>svg.ck{display:block;padding:0;border:0;gap:0}
+.pr input[type=range]::-webkit-slider-thumb{transition:none}
+.thfoot{flex-wrap:wrap}.thacts{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+/* ---- v1.2.4: Version & Essentials drop-downs and dots ---- */
+.ckf{margin-top:8px;padding:0;border:1px solid var(--line);border-radius:9px;background:var(--panel);box-shadow:0 2px 0 var(--lip);overflow:hidden}
+.ckf>summary{display:flex;align-items:center;gap:8px;margin:0;padding:6px 10px;cursor:pointer;list-style:none;user-select:none;font-size:12px;font-weight:600;color:var(--mut)}
+.ckf>summary::-webkit-details-marker{display:none}
+.ckf>summary:hover{color:var(--tx);background:var(--panel2)}
+.ckf>summary>span:first-child{flex:1;min-width:0}
+.ckf>summary::after{content:"";flex:none;width:7px;height:7px;border-right:1.6px solid var(--mut);border-bottom:1.6px solid var(--mut);transform:rotate(45deg) translateY(-2px);transition:transform .15s}
+.ckf[open]>summary{color:var(--tx);border-bottom:1px solid var(--line)}
+.ckf[open]>summary::after{transform:rotate(-135deg) translateY(-2px)}
+.ckf>:not(summary){margin-left:10px;margin-right:10px}
+.ckf[open]{padding-bottom:4px}
+.ckf>.ckm{margin-top:0;padding:8px 0 4px}
+.ckr>.ckd{width:10px;height:10px;margin:0;background:var(--mut);box-shadow:0 2px 0 var(--lip)}
+.ckr>.ckd.ok{background:var(--acc);box-shadow:0 2px 0 var(--acclip)}
+.ckr>.ckd.warn{background:var(--warn);box-shadow:0 2px 0 var(--warnlip)}
+@media (prefers-reduced-motion:no-preference){.ckf[open]>:not(summary){animation:fadeIn .22s ease}}
+.split>.btn.sm.more{width:22px;padding:0;margin-left:-1px;border-radius:0 8px 8px 0}
+#edundom,#edredom{min-width:160px}
+
+/* ---- Launch Game drop-down ---- */
+#launchmore{border-color:var(--acc);color:var(--acc);--l:var(--acclip)}
+#launchmore:hover{background:var(--accbg)}
+#launchm{min-width:290px}

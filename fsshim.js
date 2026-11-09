@@ -13,12 +13,12 @@ const dirH=p=>({kind:'directory',name:path.basename(p),_path:p,
  async queryPermission(){return'granted'},async requestPermission(){return'granted'},async isSameEntry(o){return !!o&&o._path===p}});
 window.showDirectoryPicker=async()=>{const p=await ipcRenderer.invoke('pick-folder');if(!p){const e=new Error('cancelled');e.name='AbortError';throw e}return dirH(p)};
 window.__idb=async(m,key,v)=>{const k='samm-h-'+key;
- if(m==='put'){localStorage.setItem(k,JSON.stringify({root:v.root._path,game:v.game?v.game._path:null}));return}
+ if(m==='put'){localStorage.setItem(k,JSON.stringify({root:v.root?v.root._path:null,game:v.game?v.game._path:null}));return}
  if(m==='del'){localStorage.removeItem(k);return}
  let raw=localStorage.getItem(k);
  if(!raw&&key==='root'){const r=localStorage.getItem('samm-root'),g=localStorage.getItem('samm-game');if(r)raw=JSON.stringify({root:r,game:g})}
- if(!raw)return;const o=JSON.parse(raw);if(!o.root||!fs.existsSync(o.root))return;
- return{root:dirH(o.root),game:o.game&&fs.existsSync(o.game)?dirH(o.game):null}};
+ if(!raw)return;const o=JSON.parse(raw);const rOk=!!o.root&&fs.existsSync(o.root),gOk=!!o.game&&fs.existsSync(o.game);if(!rOk&&!gOk)return;
+ return{root:rOk?dirH(o.root):null,game:gOk?dirH(o.game):null}};
 // Native saving (real file dialogs + real Windows shortcuts) instead of browser downloads
 window.__native={
  userData:ipcRenderer.sendSync('user-data'),
@@ -29,4 +29,7 @@ window.__native={
  isMax:()=>ipcRenderer.invoke('win-ismax'),
  onWinState:cb=>ipcRenderer.on('win-state',(e,m)=>cb(m)),
  saveFile:(name,data)=>ipcRenderer.invoke('save-file',name,data),
- saveShortcut:(name,opts)=>ipcRenderer.invoke('save-shortcut',name,opts)};
+ saveShortcut:(name,opts)=>ipcRenderer.invoke('save-shortcut',name,opts),
+ pickArchive:()=>ipcRenderer.invoke('pick-archive'),
+ extract:(file,pw)=>ipcRenderer.invoke('archive-extract',file,pw),
+ cleanTmp:d=>ipcRenderer.invoke('archive-clean',d)};
