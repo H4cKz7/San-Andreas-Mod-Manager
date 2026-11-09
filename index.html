@@ -17,12 +17,12 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 Archivo,system-ui,-apple-system,"Segoe UI",sans-serif}
 button,input,select{font:inherit;color:inherit}
 header{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;padding:10px 22px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:calc(40px + env(safe-area-inset-top,0px));z-index:5}
-.hl,.hr{display:flex;align-items:center;gap:10px;min-width:0}
+.hl:not(.ddi),.hr{display:flex;align-items:center;gap:10px;min-width:0}
 .hr{gap:8px}
 header .btn{height:34px;padding:0 13px;white-space:nowrap}
 header .btn.icon{width:34px;padding:0}
 .vsep{width:1px;height:20px;background:var(--line);margin:0 4px}
-@media(max-width:1560px){header{flex-wrap:wrap}.hl,.hr{flex-wrap:wrap}}
+@media(max-width:1560px){header{flex-wrap:wrap}.hl:not(.ddi),.hr{flex-wrap:wrap}}
 .ddm.right{left:auto;right:0;min-width:210px}
 .ddi.danger{color:var(--bad)}
 .titlebar{position:sticky;top:0;z-index:30;height:40px;display:flex;align-items:center;gap:9px;padding:0 0 0 14px;background:var(--panel);border-bottom:1px solid var(--line);-webkit-app-region:drag;user-select:none;font-size:13px}
@@ -47,7 +47,7 @@ main{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;padding:20p
 .stats{color:var(--mut);font-size:13px}
 .mod{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;overflow:hidden}
 .mod.off{opacity:.55}
-.row{display:grid;grid-template-columns:auto minmax(0,1fr) 170px auto;gap:14px;align-items:center;padding:11px 14px}
+.row{display:grid;grid-template-columns:auto minmax(0,1fr) 196px auto;gap:14px;align-items:center;padding:11px 14px}
 @media(max-width:620px){.row{grid-template-columns:auto 1fr auto}.row .pr{grid-column:1/-1;order:5}}
 .name{font-weight:600;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .meta{color:var(--mut);font-size:12px;display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
@@ -62,10 +62,10 @@ main{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;padding:20p
 .pr input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:99px;background:linear-gradient(to right,var(--acc) var(--p),var(--line) var(--p))}
 .pr input[type=range]::-moz-range-track{height:6px;border-radius:99px;background:var(--line)}
 .pr input[type=range]::-moz-range-progress{height:6px;border-radius:99px;background:var(--acc)}
-.pr input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;margin-top:-5px;border-radius:50%;background:var(--panel);border:2px solid var(--acc);box-shadow:0 1px 4px rgba(0,0,0,.3);transition:transform .12s,box-shadow .12s}
-.pr input[type=range]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--panel);border:2px solid var(--acc);box-shadow:0 1px 4px rgba(0,0,0,.3);transition:transform .12s}
-.pr input[type=range]:hover::-webkit-slider-thumb{transform:scale(1.15)}.pr input[type=range]:active::-webkit-slider-thumb{transform:scale(1.28)}
-.pr input[type=range]:hover::-moz-range-thumb{transform:scale(1.15)}.pr input[type=range]:active::-moz-range-thumb{transform:scale(1.28)}
+.pr input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;margin-top:-5px;border-radius:50%;background:var(--panel);border:2px solid var(--acc);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.pr input[type=range]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--panel);border:2px solid var(--acc);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+
+
 .pr input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 30%,transparent)}
 .pr input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 30%,transparent)}
 .pr output{width:26px;text-align:right;font-variant-numeric:tabular-nums;color:var(--mut)}
@@ -382,7 +382,7 @@ input[type=checkbox]:indeterminate{border-color:var(--acc);background:var(--acc)
 .cp-sv,.cp-sl{overflow:visible}
 .cp-sl{height:14px;margin:1px 0}
 .cp-knob{width:16px;height:16px;box-sizing:border-box;background:var(--kc,transparent)}
-.ck{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-top:1px solid var(--line)}
+
 .ckd{width:9px;height:9px;border-radius:50%;margin-top:5px;flex:none;background:var(--mut)}
 .ckd.ok{background:var(--acc)}.ckd.warn{background:var(--warn)}.ckd.bad{background:var(--bad)}
 .ckb{flex:1;min-width:0;overflow-wrap:anywhere}.ckb b{font-weight:600}
@@ -434,10 +434,116 @@ dialog.themedlg h2{margin:0}
 .thh{width:96px;height:32px;padding:0 10px;font:12px "JetBrains Mono",ui-monospace,monospace;text-align:center;border-radius:8px}
 .thh.bad{border-color:var(--bad)}
 .thfoot{display:flex;gap:8px;justify-content:space-between;margin-top:2px}
+
+/* ---- raised "lip" design (from the mod switch), theme aware ---- */
+:root{--lip:color-mix(in srgb,var(--line) 40%,#000);--acclip:color-mix(in srgb,var(--acc) 55%,#000);--badlip:color-mix(in srgb,var(--bad) 55%,#000);--warnlip:color-mix(in srgb,var(--warn) 55%,#000);--tintlip:color-mix(in srgb,var(--accbg) 55%,#000)}
+:root[data-theme="light"]{--lip:color-mix(in srgb,var(--line) 78%,#000);--tintlip:color-mix(in srgb,var(--accbg) 80%,#000)}
+
+/* toggle switches: the mod list (.switch) and the config editor (.sw) share one look */
+.switch{font-size:10px;position:relative;display:inline-block;width:4em;height:2em;flex:none;margin:0;cursor:pointer}
+.switch input[type=checkbox]{position:absolute;opacity:0;width:0;height:0;margin:0;border:0!important;background:none!important;box-shadow:none!important;transform:none!important;appearance:none;-webkit-appearance:none}
+.switch .slider{position:absolute;cursor:pointer;inset:0}
+.switch .slider,.sw{background-color:var(--line);border-radius:.5em;box-shadow:0 .2em var(--lip);transition:background-color .3s ease}
+.sw{font-size:10px;width:4em;height:2em}
+.sw.on{background-color:var(--line)}
+.switch .slider::before,.sw::after{--h:var(--mut);position:absolute;content:"";height:1.5em;width:1.4em;border-radius:.3em;left:.3em;top:auto;bottom:.7em;background-color:var(--h);box-shadow:0 .4em color-mix(in srgb,var(--h) 50%,#000);transition:transform .32s cubic-bezier(.4,0,.2,1),bottom .16s ease-out,box-shadow .16s ease-out,background-color .28s ease}
+
+.switch input:checked+.slider::before,.sw.on::after{--h:var(--acc);transform:translateX(2em)}
+.switch input:focus-visible+.slider{outline:2px solid var(--acc);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.switch .slider,.switch .slider::before,.sw,.sw::after{transition:none}}
+
+/* buttons: raised on a solid lip, pressed in when clicked */
+.btn{--l:var(--lip);--d:3px;box-shadow:0 var(--d) 0 var(--l)}
+.btn.sm{--d:2px}
+.btn.pri,#launch{--l:var(--acclip)}
+.btn.pri.del{--l:var(--badlip)}
+.btn:active:not(:disabled){transform:translateY(calc(var(--d) - 1px));box-shadow:0 1px 0 var(--l)}
+.star{box-shadow:0 3px 0 var(--lip)}.star.on{box-shadow:0 3px 0 var(--warnlip)}
+.star:active{transform:translateY(2px);box-shadow:0 1px 0 var(--lip)}
+.ddb{box-shadow:0 3px 0 var(--lip)}
+.ddb[aria-expanded=true]{transform:translateY(2px);box-shadow:0 1px 0 var(--lip)}
+
+/* fields */
+select,input[type=text],input[type=search],input[type=number]{box-shadow:0 2px 0 var(--lip)}
+select:focus,input[type=text]:focus,input[type=search]:focus,input[type=number]:focus{border-color:var(--acc);box-shadow:0 2px 0 var(--acclip)}
+.step{box-shadow:0 2px 0 var(--lip)}
+.step input,.cpop input,.step input:focus,.cpop input:focus{box-shadow:none}
+
+/* check boxes */
+input[type=checkbox]{border-radius:6px;box-shadow:0 2px 0 var(--lip)}
+input[type=checkbox]:checked,input[type=checkbox]:indeterminate{box-shadow:0 2px 0 var(--acclip)}
+input[type=checkbox]:active{transform:translateY(2px);box-shadow:none}
+.switch input[type=checkbox]{box-shadow:none!important;transform:none!important}
+
+/* priority slider: a fader with a raised cap, a soft fill and a readout box */
+.pr{gap:10px}
+.pr input[type=range]{--fill:color-mix(in srgb,var(--acc) 55%,var(--line));height:30px}
+.pr input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:5px;background:linear-gradient(to right,var(--fill) var(--p),var(--line) var(--p));box-shadow:0 2px 0 var(--lip)}
+.pr input[type=range]::-moz-range-track{height:8px;border-radius:5px;background:var(--line);box-shadow:0 2px 0 var(--lip)}
+.pr input[type=range]::-moz-range-progress{height:8px;border-radius:5px;background:var(--fill)}
+.pr input[type=range]::-webkit-slider-thumb{width:12px;height:22px;margin-top:-7px;border-radius:5px;border:0;cursor:grab;background:linear-gradient(color-mix(in srgb,var(--ink) 45%,transparent),color-mix(in srgb,var(--ink) 45%,transparent)) center/2px 9px no-repeat,var(--acc);box-shadow:0 3px 0 var(--acclip);transform:none}
+.pr input[type=range]::-moz-range-thumb{width:12px;height:22px;border-radius:5px;border:0;background:var(--acc);box-shadow:0 3px 0 var(--acclip)}
+
+.pr input[type=range]:active::-webkit-slider-thumb{cursor:grabbing}
+.pr input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 3px 0 var(--acclip),0 0 0 3px color-mix(in srgb,var(--acc) 30%,transparent)}
+.pr output{min-width:40px;padding:3px 0;text-align:center;border-radius:7px;background:var(--panel2);border:1px solid var(--line);box-shadow:0 2px 0 var(--lip);color:var(--tx);cursor:text}
+.pr output:hover{border-color:var(--acc);color:var(--acc)}
+.pedit{width:40px;padding:3px 0;text-align:center}
+
+/* segmented controls, badges, chips, key caps */
+.seg{box-shadow:0 3px 0 var(--lip)}
+.seg button.on{background:var(--acc);color:var(--ink);box-shadow:0 2px 0 var(--acclip)}
+.tag,.chip{border-radius:7px;box-shadow:0 2px 0 var(--lip)}
+.tag.st{box-shadow:0 2px 0 var(--tintlip)}
+.cb,.hc,.curp,.tb-v,.pill,.fold>summary .cnt{border-radius:7px}
+.cb,.hc,.curp,.tb-v,.pill.ok{box-shadow:0 2px 0 var(--tintlip)}
+.pill,.fold>summary .cnt{box-shadow:0 2px 0 var(--lip)}
+.pill.ok{box-shadow:0 2px 0 var(--tintlip)}
+.kbd,.thsw{box-shadow:0 2px 0 var(--lip)}
+
+/* surfaces */
+.mod,.card,.edsec{box-shadow:0 3px 0 var(--lip)}
+.mod{margin-bottom:11px}
+.side{padding-bottom:6px}
+dialog{box-shadow:0 6px 0 var(--lip)}
+.toast{border-radius:10px;box-shadow:0 3px 0 color-mix(in srgb,var(--tx) 50%,#000)}
+
+@media (prefers-reduced-motion:no-preference){
+ .btn,.ddb,.star,.card,.tag,.chip{transition:border-color .15s ease,background-color .15s ease,color .15s ease,transform .12s ease-out,box-shadow .12s ease-out,opacity .2s ease}
+ .seg button{transition:background-color .2s ease,color .2s ease,box-shadow .2s ease}
+ input[type=checkbox]{transition:background .12s,border-color .12s,transform .1s,box-shadow .1s}
+}
+/* ---- v1.2.4 ---- */
+.split{display:inline-flex}
+.split>.btn:first-child{border-top-right-radius:0;border-bottom-right-radius:0}
+header .split>.btn.more{width:26px;padding:0;margin-left:-1px;border-radius:0 8px 8px 0}
+.split>.btn:hover,.split>.btn:focus-visible{position:relative;z-index:1}
+#undom,#redom{min-width:170px}
+.ddi>svg.ck{display:block;padding:0;border:0;gap:0}
+.pr input[type=range]::-webkit-slider-thumb{transition:none}
+.thfoot{flex-wrap:wrap}.thacts{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+/* ---- v1.2.4: Version & Essentials drop-downs and dots ---- */
+.ckf{margin-top:8px;padding:0;border:1px solid var(--line);border-radius:9px;background:var(--panel);box-shadow:0 2px 0 var(--lip);overflow:hidden}
+.ckf>summary{display:flex;align-items:center;gap:8px;margin:0;padding:6px 10px;cursor:pointer;list-style:none;user-select:none;font-size:12px;font-weight:600;color:var(--mut)}
+.ckf>summary::-webkit-details-marker{display:none}
+.ckf>summary:hover{color:var(--tx);background:var(--panel2)}
+.ckf>summary>span:first-child{flex:1;min-width:0}
+.ckf>summary::after{content:"";flex:none;width:7px;height:7px;border-right:1.6px solid var(--mut);border-bottom:1.6px solid var(--mut);transform:rotate(45deg) translateY(-2px);transition:transform .15s}
+.ckf[open]>summary{color:var(--tx);border-bottom:1px solid var(--line)}
+.ckf[open]>summary::after{transform:rotate(-135deg) translateY(-2px)}
+.ckf>:not(summary){margin-left:10px;margin-right:10px}
+.ckf[open]{padding-bottom:4px}
+.ckf>.ckm{margin-top:0;padding:8px 0 4px}
+.ckr>.ckd{width:10px;height:10px;margin:0;background:var(--mut);box-shadow:0 2px 0 var(--lip)}
+.ckr>.ckd.ok{background:var(--acc);box-shadow:0 2px 0 var(--acclip)}
+.ckr>.ckd.warn{background:var(--warn);box-shadow:0 2px 0 var(--warnlip)}
+@media (prefers-reduced-motion:no-preference){.ckf[open]>:not(summary){animation:fadeIn .22s ease}}
+.split>.btn.sm.more{width:22px;padding:0;margin-left:-1px;border-radius:0 8px 8px 0}
+#edundom,#edredom{min-width:160px}
 </style>
 </head>
 <body>
-<div class="titlebar"><img class="tb-ic" src="build/icon.png" alt=""><span class="tb-t">San Andreas Mod Manager</span><span class="tb-v">v1.2.3</span><span class="tb-s" id="tbs"></span><div class="wc"><button class="wb" id="wpal" title="Appearance" aria-label="Appearance"></button><button class="wb" id="wtheme" title="Switch to light mode" aria-label="Switch to light mode"></button><button class="wb" id="wmin" aria-label="Minimize" title="Minimize"></button><button class="wb" id="wmax" aria-label="Maximize" title="Maximize"></button><button class="wb close" id="wclose" aria-label="Close" title="Close"></button></div></div>
+<div class="titlebar"><img class="tb-ic" src="build/icon.png" alt=""><span class="tb-t">San Andreas Mod Manager</span><span class="tb-v">v1.2.4</span><span class="tb-s" id="tbs"></span><div class="wc"><button class="wb" id="wpal" title="Appearance" aria-label="Appearance"></button><button class="wb" id="wtheme" title="Switch to light mode" aria-label="Switch to light mode"></button><button class="wb" id="wmin" aria-label="Minimize" title="Minimize"></button><button class="wb" id="wmax" aria-label="Maximize" title="Maximize"></button><button class="wb close" id="wclose" aria-label="Close" title="Close"></button></div></div>
 <header>
   <div class="hl">
     <div class="pf"><span>Game</span><div class="dd" id="idd"><button class="ddb" id="iddb" aria-haspopup="listbox" aria-expanded="false"><span id="iddt"></span><svg viewBox="0 0 12 12" width="12" height="12"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="ddm" id="iddm" role="listbox" hidden></div></div></div>
@@ -449,7 +555,7 @@ dialog.themedlg h2{margin:0}
   <div class="hr">
     <div class="hg"><button class="btn" id="scan"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 4.5a1 1 0 0 1 1-1h3.2l1.5 1.5h6.3a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1z"/></svg><span>Scan GTA folder</span></button><button class="btn icon" id="rescan" disabled title="Rescan" aria-label="Rescan"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M13.5 2.5v3h-3"/></svg></button></div>
     <div class="hg"><button class="btn" id="edbtn"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5h6.5M12.5 4.5H14M2 11.5h1.5M7.5 11.5H14"/><circle cx="10.5" cy="4.5" r="1.6"/><circle cx="5.5" cy="11.5" r="1.6"/></svg><span>Config editor</span></button><button class="btn" id="logb" title="Logs" aria-label="Logs"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2h6l3 3v9H4z"/><path d="M10 2v3h3M6 8h5M6 11h5"/></svg><span>Logs</span></button><button class="btn" id="trb" title="Trash" aria-label="Trash"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.8 4.5h10.4M6.2 4.5V3h3.6v1.5M4.2 4.5l.6 8.6h6.4l.6-8.6M6.6 7v3.8M9.4 7v3.8"/></svg><span>Trash</span><span class="cb" id="trbc" hidden>0</span></button><button class="btn" id="mkcut" disabled title="Create game shortcut" aria-label="Create game shortcut"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2h5v5"/><path d="M14 2 7.5 8.5"/><path d="M12 10v3.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-8A.5.5 0 0 1 3.5 5H7"/></svg><span>Shortcut</span></button></div>
-    <div class="hg"><button class="btn" id="undo" disabled title="Undo (Ctrl+Z)" aria-label="Undo"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 3.8 2.6 6.7l2.9 2.9"/><path d="M3 6.7h5.6a3.6 3.6 0 0 1 0 7.2H6"/></svg><span>Undo</span></button><button class="btn" id="redo" disabled title="Redo (Ctrl+Y)" aria-label="Redo"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 3.8l2.9 2.9-2.9 2.9"/><path d="M13 6.7H7.4a3.6 3.6 0 0 0 0 7.2H10"/></svg><span>Redo</span></button><button class="btn" id="save" disabled><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5h7.5l2.5 2.5v8a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5z"/><path d="M5 2.5v3.5h5V2.5M5 13.5V9h6v4.5"/></svg><span id="savet">Save changes</span></button></div>
+    <div class="hg"><div class="dd split" id="undod"><button class="btn" id="undo" disabled title="Undo (Ctrl+Z)" aria-label="Undo"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 3.8 2.6 6.7l2.9 2.9"/><path d="M3 6.7h5.6a3.6 3.6 0 0 1 0 7.2H6"/></svg><span>Undo</span></button><button class="btn more" id="undomore" disabled title="More undo options" aria-label="More undo options" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><div class="ddm" id="undom" role="menu" hidden><div class="ddi" id="undoall" role="menuitem">Undo all<small id="undoalln"></small></div></div></div><div class="dd split" id="redod"><button class="btn" id="redo" disabled title="Redo (Ctrl+Y)" aria-label="Redo"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 3.8l2.9 2.9-2.9 2.9"/><path d="M13 6.7H7.4a3.6 3.6 0 0 0 0 7.2H10"/></svg><span>Redo</span></button><button class="btn more" id="redomore" disabled title="More redo options" aria-label="More redo options" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><div class="ddm" id="redom" role="menu" hidden><div class="ddi" id="redoall" role="menuitem">Redo all<small id="redoalln"></small></div></div></div><button class="btn" id="save" disabled><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5h7.5l2.5 2.5v8a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5z"/><path d="M5 2.5v3.5h5V2.5M5 13.5V9h6v4.5"/></svg><span id="savet">Save changes</span></button></div>
     <div class="hg"><button class="btn pri" id="inst"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5v7M5 7l3 3 3-3M3 13h10"/></svg><span>Install mod</span></button><button class="btn" id="launch" disabled title="Run gta_sa.exe"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3.2v9.6L13 8z"/></svg><span>Launch Game</span></button></div>
   </div>
 </header>
@@ -563,7 +669,7 @@ dialog.themedlg h2{margin:0}
   <div class="stats">Customize the colors of the manager. Changes apply instantly and are remembered. Dark and light each keep their own colors.</div>
   <div class="thtop"><div class="seg" id="thmode"><button data-m="dark">Dark</button><button data-m="light">Light</button></div><div class="dd cdd" id="thpre" aria-label="Preset"></div></div>
   <div class="thlist" id="throws"></div>
-  <div class="thfoot"><button class="btn del" id="threset">Reset colors</button><button class="btn" id="thx">Close</button></div></dialog>
+  <div class="thfoot"><button class="btn del" id="threset">Reset colors</button><div class="thacts"><button class="btn" id="thimp">Import theme…</button><button class="btn" id="thexp">Export theme…</button><button class="btn" id="thx">Close</button></div></div></dialog>
 <div class="toast" id="toast"></div>
 
 <script src="fsshim.js"></script>
@@ -655,14 +761,14 @@ function render(){
   const mods=S.mods.filter(m=>!q||m.name.toLowerCase().includes(q)||m.files.some(f=>f.toLowerCase().includes(q))).sort(sorters[S.sort]||byName);
   const hs=mods.map(m=>{const[st,c]=status(m),i=S.mods.indexOf(m),on=c==='st',v=prio(m.name);
    return `<div class="mod ${on?'':'off'} ${m._o?'open':''}" data-i="${i}" style="--n:${Math.min(i,10)}">
-   <div class="row"><div class="lead"><button class="chev" data-a="open" aria-expanded="${!!m._o}" aria-label="Show or hide the files of ${esc(m.name)}" title="Show or hide files"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2.5 8 6 4 9.5"/></svg></button><button class="sw ${swOn(m.name)?'on':''}" data-a="ign" title="${E.ea?'Include this mod':'Ignore this mod'}" aria-label="Toggle ${esc(m.name)}"></button></div>
+   <div class="row"><div class="lead"><button class="chev" data-a="open" aria-expanded="${!!m._o}" aria-label="Show or hide the files of ${esc(m.name)}" title="Show or hide files"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2.5 8 6 4 9.5"/></svg></button><label class="switch" title="${E.ea?'Include this mod':'Ignore this mod'}"><input type="checkbox" data-a="ign" ${swOn(m.name)?'checked':''} aria-label="Toggle ${esc(m.name)}"><span class="slider"></span></label></div>
    <div style="min-width:0"><div class="name" data-a="open">${esc(m.name)}</div><div class="meta"><span class="tag ${c}">${st}</span>${typesOf(m).map(t=>`<span class="tag">${t}</span>`).join('')}<span>${m.files.length} files</span>${inh(m.name)}</div></div>
    <div class="pr"><input type="range" min="0" max="${S.pl??100}" value="${v}" style="--p:${Math.min(100,v/(S.pl??100)*100)}%" data-a="pr" aria-label="Priority"><output title="Double-click to type a priority">${v}</output></div>
    <div style="display:flex;gap:6px"><button class="star ${hit(E.ex,m.name)?'on':''}" data-a="ex" title="Exclusive: hidden from other profiles unless they inherit this one" aria-label="Exclusive"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M8 1.9l1.85 3.9 4.25.55-3.1 2.95.78 4.2L8 11.4l-3.78 2.1.78-4.2L1.9 6.35l4.25-.55z" transform="translate(0 .4)" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></button><button class="btn sm del" data-a="rm">Remove</button></div></div>
    <div class="files"><div class="fi">${m._o?tree(m):''}</div></div></div>`});patchList(mods,hs);
   $('#chips').innerHTML=p.ig.length?p.ig.map((x,i)=>`<span class="chip">${esc(x)}<button data-r="${i}" aria-label="Remove">×</button></span>`).join(''):'<span class="stats">Nothing ignored</span>';
   $('#ini').textContent=ini();save();
-  $('#src').textContent=srcText;{const n=files().filter(([p,t])=>written[p]!==t).length;if(!SAVEHOLD){$('#save').disabled=!root||!n;$('#save').classList.toggle('pri',n>0);$('#savet').textContent=n?`Save changes (${n})`:'Save changes'}$('#rescan').disabled=!root;$('#undo').disabled=!UNDO.stack.length;$('#redo').disabled=!UNDO.redo.length}
+  $('#src').textContent=srcText;{const n=files().filter(([p,t])=>written[p]!==t).length;if(!SAVEHOLD){$('#save').disabled=!root||!n;$('#save').classList.toggle('pri',n>0);$('#savet').textContent=n?`Save changes (${n})`:'Save changes'}$('#rescan').disabled=!root;$('#undo').disabled=!UNDO.stack.length;$('#redo').disabled=!UNDO.redo.length;{const u=UNDO.stack.length,r=UNDO.redo.length;$('#undomore').disabled=!u;$('#redomore').disabled=!r;$('#undoalln').textContent=u;$('#redoalln').textContent=r}}
   $('#logb').style.visibility=root?'visible':'hidden';$('#mkcut').disabled=!S.exes.length;renderProf();renderSettings();renderPlugins();renderInst();renderChecks();renderTrash();$('#launch').disabled=!canLaunch();
 }
 let PVsel='',PVlast='';
@@ -672,8 +778,22 @@ function ini(){const fl=files(),f=curFile();
  $('#pvpath').textContent='modloader/'+f[0];return f[1]||'; (empty)'}
 $('#pvsel').onchange=e=>{PVsel=e.target.value;render()};
 const tog=(a,v)=>{const i=a.indexOf(v);i<0?a.push(v):a.splice(i,1)};
+/* The row is updated in place (never replaced), so the switch under the cursor keeps its hover and focus.
+   The browser reverts the click's own toggle after the handler (preventDefault), so the final state is applied on the
+   next frame: the same element then slides from the old position to the new one. */
+function slideSw(i,now){requestAnimationFrame(()=>{const n=document.querySelector('#list .mod[data-i="'+i+'"] .switch input');if(n&&n.checked!==now)n.checked=now})}
+function morph(a,b){
+ if(a.nodeType!==b.nodeType||a.nodeName!==b.nodeName)return false;
+ if(a.nodeType!==1){if(a.data!==b.data)a.data=b.data;return true}
+ for(const at of [...a.attributes])if(!b.hasAttribute(at.name))a.removeAttribute(at.name);
+ for(const at of [...b.attributes])if(a.getAttribute(at.name)!==at.value)a.setAttribute(at.name,at.value);
+ if(a.nodeName==='INPUT'){if(a.type==='checkbox'||a.type==='radio'){const c=b.hasAttribute('checked');if(a.checked!==c)a.checked=c}else{const v=b.getAttribute('value')||'';if(a.value!==v)a.value=v}}
+ const ac=[...a.childNodes],bc=[...b.childNodes];
+ for(let i=0;i<bc.length;i++){if(i<ac.length){if(!morph(ac[i],bc[i]))ac[i].replaceWith(bc[i])}else a.appendChild(bc[i])}
+ while(a.childNodes.length>bc.length)a.lastChild.remove();
+ return true}
 $('#list').addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(!t)return;
- const m=S.mods[t.closest('.mod').dataset.i],p=P(),a=t.dataset.a;
+ const m=S.mods[t.closest('.mod').dataset.i],p=P(),a=t.dataset.a;let wasOn=null;if(a==='ign'){e.preventDefault();wasOn=!t.checked}
  if(a==='open'){toggleMod(t.closest('.mod'),m);return}
  else if(a==='fold'){foldDir(m,t);return}
  else if(a==='expand'||a==='collapse'){bulkFold(t.closest('.mod'),m,a==='expand');return}
@@ -690,7 +810,7 @@ $('#list').addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(
  else if(a==='rm'){trashMod(m);return}
  else if(a==='tf'){trashPath(m,m.files[t.dataset.j],false);return}
  else if(a==='tdir'){trashPath(m,t.dataset.p,true);return}
- else return;render()});
+ else return;render();if(wasOn!==null)slideSw(S.mods.indexOf(m),swOn(m.name))});
 $('#list').addEventListener('input',e=>{if(e.target.classList.contains('tq')){const el=e.target.closest('.mod'),m=S.mods[el.dataset.i];m._q=e.target.value;clearTimeout(el._qt);el._qt=setTimeout(()=>{el.querySelector('.tb').innerHTML=treeBody(m)},90);return}
  if(e.target.dataset.a!=='pr')return;
  const m=S.mods[e.target.closest('.mod').dataset.i],v=+e.target.value;setPr(P(),m.name,v);
@@ -921,7 +1041,7 @@ function patchList(mods,hs){const L=$('#list');
  if(L.firstElementChild&&L.firstElementChild._k===undefined)L.innerHTML='';
  const old=new Map();[...L.children].forEach(el=>{if(el._k!==undefined)old.set(el._k,el)});const t=document.createElement('template');
  mods.forEach((m,i)=>{const h=hs[i];let el=old.get(m.name);old.delete(m.name);
-  if(!el||el._h!==h){t.innerHTML=h;const n=t.content.firstElementChild;n._k=m.name;n._h=h;if(el)el.replaceWith(n);el=n}
+  if(!el||el._h!==h){t.innerHTML=h;const n=t.content.firstElementChild;if(el){morph(el,n);el._h=h}else{n._k=m.name;n._h=h;el=n}}
   const cur=L.children[i];if(cur!==el)L.insertBefore(el,cur||null)});
  old.forEach(el=>el.remove())}
 function pulse(){document.body.classList.add('anim');clearTimeout(pulse.t);pulse.t=setTimeout(()=>document.body.classList.remove('anim'),750)}
@@ -1004,7 +1124,7 @@ function thSync(skip){const m=THEME.cur(),o=TC.c[m]||{},e=thEff(m);
  document.querySelectorAll('#throws .thr').forEach(r=>{const k=r.dataset.k,auto=!o[k]&&o.acc&&(k==='accbg'||k==='ink'),h=r.querySelector('.thh');
   r.querySelector('.thsw').style.background=e[k];if(h!==skip){h.value=e[k];h.classList.remove('bad')}
   r.querySelector('[data-reset]').disabled=!(k in o);r.querySelector('.thd').textContent=r.dataset.d+(auto?' · follows the accent':'')});
- $('#threset').disabled=!Object.keys(o).length}
+ $('#threset').disabled=!Object.keys(o).length;$('#thexp').disabled=!(Object.keys(TC.c.dark).length||Object.keys(TC.c.light).length)}
 let thBuilt=false;
 function thBuild(){if(thBuilt)return;thBuilt=true;
  $('#throws').innerHTML=TH_VARS.map(([g,rs])=>`<div class="thg">${g}</div>`+rs.map(([k,n,d])=>`<div class="thr" data-k="${k}" data-d="${d}"><button type="button" class="thsw cpick" aria-label="Pick ${n}" title="Pick a colour"></button><div class="thl"><div class="thn">${n}</div><div class="thd"></div></div><input type="text" class="thh" maxlength="7" spellcheck="false" aria-label="${n} hex colour"><button class="btn sm" data-reset>Reset</button></div>`).join('')).join('')}
@@ -1024,6 +1144,24 @@ $('#thpre').onchange=e=>{const p=TH_PRE[+e.target.value];if(!p)return;cpClose();
  document.documentElement.dataset.theme=p.base;try{localStorage.setItem('samm-theme',p.base)}catch(x){}
  TC.c[p.base]={...p.vars};thSave();THEME.ui();thApply()};
 $('#threset').onclick=()=>{cpClose();TC.c[THEME.cur()]={};thSave();thApply();toast('Colors reset')};
+/* export / import a theme as a .json file (only the colors you changed, for dark and light) */
+function thParse(t){let o;try{o=JSON.parse(t)}catch(e){return null}
+ if(!o||typeof o!=='object'||Array.isArray(o))return null;
+ const pick=c=>{const r={};if(c&&typeof c==='object')for(const k of TH_KEYS){const v=typeof c[k]==='string'?thNorm(c[k]):'';if(v)r[k]=v}return r};
+ const c=o.colors&&typeof o.colors==='object'?o.colors:o,out={};
+ if(c.dark||c.light){for(const m of['dark','light']){const r=pick(c[m]);if(Object.keys(r).length)out[m]=r}}
+ else{const r=pick(c);if(Object.keys(r).length)out[o.mode==='light'?'light':'dark']=r}
+ return Object.keys(out).length?{colors:out,mode:o.mode==='light'||o.mode==='dark'?o.mode:null}:null}
+$('#thexp').onclick=async()=>{const colors={};for(const m of['dark','light'])if(Object.keys(TC.c[m]).length)colors[m]={...TC.c[m]};
+ if(!Object.keys(colors).length)return toast('Nothing to export yet. Change a color or pick a preset first');
+ const out={format:'samm-theme',version:1,mode:colors[THEME.cur()]?THEME.cur():Object.keys(colors)[0],colors};
+ try{const p=await saveAs('SAMM theme.json',JSON.stringify(out,null,2));if(p)toast('Saved '+p)}catch(e){toast('Saving failed: '+e.message)}};
+$('#thimp').onclick=()=>{const i=document.createElement('input');i.type='file';i.accept='.json,application/json';
+ i.onchange=async()=>{const fl=i.files[0];if(!fl)return;let t='';try{t=await fl.text()}catch(e){return toast('Couldn’t read that file')}
+  const p=thParse(t);if(!p)return toast('That isn’t a valid theme file');
+  cpClose();for(const m of Object.keys(p.colors))TC.c[m]={...p.colors[m]};
+  const want=p.mode&&p.colors[p.mode]?p.mode:(p.colors[THEME.cur()]?THEME.cur():Object.keys(p.colors)[0]);
+  thSave();if(want!==THEME.cur())THEME.set(want);else thApply();toast('Theme imported')};i.click()};
 $('#throws').addEventListener('click',e=>{const sw=e.target.closest('.thsw'),rs=e.target.closest('[data-reset]');
  if(sw){const r=sw.closest('.thr'),k=r.dataset.k;cpOpenFree(sw,thEff(THEME.cur())[k],r.querySelector('.thn').textContent,hex=>thSet(k,hex))}
  else if(rs){const k=rs.closest('.thr').dataset.k,m=THEME.cur();if(TC.c[m])delete TC.c[m][k];thSave();thApply()}});
@@ -1262,7 +1400,8 @@ function edState(){const c=ED.cur;if(!c)return;c.dirty=edText()!==edBase(c);
  const p=$('#edright .edp');if(p)p.classList.toggle('dirty',c.dirty);
  clearTimeout(ED._ht);ED._ht=setTimeout(edHistPush,420);edHistUi()}
 function edStateSoon(){clearTimeout(ED._st);const c=ED.cur;if(c&&c.view==='raw')return edState();ED._st=setTimeout(edState,160)}
-function edHistUi(){const c=ED.cur,u=$('#edundo'),r=$('#edredo');if(!c||!u)return;u.disabled=c.hi<=0&&edText()===c.hist[c.hi];r.disabled=c.hi>=c.hist.length-1}
+function edHistUi(){const c=ED.cur,u=$('#edundo'),r=$('#edredo');if(!c||!u)return;const nu=c.hi+(edText()!==c.hist[c.hi]?1:0),nr=c.hist.length-1-c.hi;u.disabled=!nu;r.disabled=nr<=0;
+ const um=$('#edundomore'),rm=$('#edredomore');if(um)um.disabled=!nu;if(rm)rm.disabled=nr<=0;const a=$('#edundoalln'),b=$('#edredoalln');if(a)a.textContent=nu;if(b)b.textContent=Math.max(0,nr)}
 function edHistPush(){const c=ED.cur;if(!c||c._restoring)return;const t=edText();if(t===c.hist[c.hi]){edHistUi();return}
  c.hist.splice(c.hi+1);c.hist.push(t);if(c.hist.length>100)c.hist.shift();c.hi=c.hist.length-1;edHistUi()}
 function edSetText(t){const c=ED.cur;c._restoring=true;
@@ -1272,12 +1411,16 @@ function edSetText(t){const c=ED.cur;c._restoring=true;
  edRight(true);c._restoring=false}
 function edUndo(){const c=ED.cur;if(!c)return;clearTimeout(ED._st);clearTimeout(ED._ht);edHistPush();if(c.hi<=0)return;c.hi--;edSetText(c.hist[c.hi])}
 function edRedo(){const c=ED.cur;if(!c)return;clearTimeout(ED._st);clearTimeout(ED._ht);if(c.hi>=c.hist.length-1)return;c.hi++;edSetText(c.hist[c.hi])}
+function edUndoAll(){const c=ED.cur;if(!c)return;clearTimeout(ED._st);clearTimeout(ED._ht);edHistPush();if(c.hi<=0)return;c.hi=0;edSetText(c.hist[0])}
+function edRedoAll(){const c=ED.cur;if(!c)return;clearTimeout(ED._st);clearTimeout(ED._ht);if(c.hi>=c.hist.length-1)return;c.hi=c.hist.length-1;edSetText(c.hist[c.hi])}
+function edSplClose(){['#edundom','#edredom'].forEach(k=>{const m=$(k);if(m)m.hidden=true});['#edundomore','#edredomore'].forEach(k=>{const b=$(k);if(b)b.setAttribute('aria-expanded','false')})}
+document.addEventListener('click',e=>{if(!e.target.closest('#edundod,#edredod'))edSplClose()});
 function edBody(){cpClose();const c=ED.cur,b=$('#edbody');
  if(c.view==='raw'){b.innerHTML=`<div class="edrawwrap"><pre id="edmir" aria-hidden="true"></pre><textarea id="edraw" spellcheck="false">${esc(c.text)}</textarea></div>`;edFindApply();return}
  b.innerHTML=c.kind==='ini'?iniForm(c.model,c.txt,c.col):(c.ast.lead.length?`<details class="about"><summary>About this file</summary><div>${c.ast.lead.map(t=>`<p>${esc(t)}</p>`).join('')}</div></details>`:'')+jsonTree(c.obj,c.ast,c.txt,c.jo);enhanceCdd(b);edFindApply()}
 function edRight(keep){const c=ED.cur,r=$('#edright'),sc0=keep&&$('#edbody')?$('#edbody').scrollTop:0;
  if(!c){r.innerHTML='<div class="empty" style="margin:auto;border:0">Pick a file on the left to edit it.<br>Every change is backed up automatically.</div>';return}
- r.innerHTML=`<div class="edh"><div class="edp" title="${esc(c.abs)}">${esc(c.rel)}</div><div class="edt"><div class="seg" id="edview"><button data-v="form" class="${c.view==='form'?'on':''}">${c.kind==='json'?'Tree':'Form'}</button><button data-v="raw" class="${c.view==='raw'?'on':''}">Raw</button></div>${c.kind==='json'&&!c.jc?'<button class="btn sm" id="edfmt">Format</button>':''}<div class="dd" id="edbd"><button class="btn sm" id="edbk">Backups</button><div class="ddm right" id="edbm" hidden></div></div><button class="btn sm" id="edundo" disabled title="Undo (Ctrl+Z)">Undo</button><button class="btn sm" id="edredo" disabled title="Redo (Ctrl+Y)">Redo</button><button class="btn sm" id="edrev">Revert</button><button class="btn sm pri" id="edsave">Save changes</button></div></div>${edTbHtml(c)}${!c.exists?'<div class="edn">This file no longer exists. Restore a backup to bring it back.</div>':''}${c.err?`<div class="edn bad">${esc(c.err)}</div>`:''}<div class="edbody" id="edbody"></div>`;
+ r.innerHTML=`<div class="edh"><div class="edp" title="${esc(c.abs)}">${esc(c.rel)}</div><div class="edt"><div class="seg" id="edview"><button data-v="form" class="${c.view==='form'?'on':''}">${c.kind==='json'?'Tree':'Form'}</button><button data-v="raw" class="${c.view==='raw'?'on':''}">Raw</button></div>${c.kind==='json'&&!c.jc?'<button class="btn sm" id="edfmt">Format</button>':''}<div class="dd" id="edbd"><button class="btn sm" id="edbk">Backups</button><div class="ddm right" id="edbm" hidden></div></div><div class="dd split" id="edundod"><button class="btn sm" id="edundo" disabled title="Undo (Ctrl+Z)">Undo</button><button class="btn sm more" id="edundomore" disabled title="More undo options" aria-label="More undo options" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><div class="ddm" id="edundom" role="menu" hidden><div class="ddi" role="menuitem" data-eall="undo">Undo all<small id="edundoalln"></small></div></div></div><div class="dd split" id="edredod"><button class="btn sm" id="edredo" disabled title="Redo (Ctrl+Y)">Redo</button><button class="btn sm more" id="edredomore" disabled title="More redo options" aria-label="More redo options" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><div class="ddm right" id="edredom" role="menu" hidden><div class="ddi" role="menuitem" data-eall="redo">Redo all<small id="edredoalln"></small></div></div></div><button class="btn sm" id="edrev">Revert</button><button class="btn sm pri" id="edsave">Save changes</button></div></div>${edTbHtml(c)}${!c.exists?'<div class="edn">This file no longer exists. Restore a backup to bring it back.</div>':''}${c.err?`<div class="edn bad">${esc(c.err)}</div>`:''}<div class="edbody" id="edbody"></div>`;
  edBody();edState();if(keep){const b=$('#edbody');if(b)b.scrollTop=sc0}}
 function edList(){const box=$('#edlist');$('#edbkbar').hidden=ED.tab!=='bk';
  if(ED.tab==='bk'){const q=ED.q.trim().toLowerCase(),all=BK.all(),a=all.filter(x=>(ED.filter==='all'||extOfRel(x.rel)===ED.filter)&&(!q||x.rel.toLowerCase().includes(q)));
@@ -1437,6 +1580,8 @@ $('#edright').addEventListener('click',async e=>{const t=e.target,c=ED.cur;if(!c
   const eol=cur.includes('\r\n')?'\r\n':'\n',out=JSON.stringify(JSON.parse(cur),null,c.indent||2).replace(/\n/g,eol)+(c.nl?eol:'');
   if(c.view==='raw')c.text=out;else jLoad(c,out);edBody();edState();toast('Formatted')}catch(x){toast('Not valid JSON: '+x.message)}return}
  if(bt&&bt.id==='edsave'){edSave();return}
+ if(bt&&(bt.id==='edundomore'||bt.id==='edredomore')){const m=$(bt.id==='edundomore'?'#edundom':'#edredom'),o=m.hidden;edSplClose();m.hidden=!o;bt.setAttribute('aria-expanded',String(o));return}
+ const eall=t.closest('[data-eall]');if(eall){edSplClose();eall.dataset.eall==='undo'?edUndoAll():edRedoAll();return}
  if(bt&&bt.id==='edundo'){edUndo();return}
  if(bt&&bt.id==='edredo'){edRedo();return}
  if(bt&&bt.id==='edrev'){edOpen(c.abs,true);return}
@@ -1646,7 +1791,15 @@ function undoApply(x){const o=JSON.parse(x),pc=S.cur;UNDO.busy=true;
  if(!S.profiles[S.active])S.active=S.cur;UNDO.last=x;UNDO.busy=false;if(S.cur!==pc)SAVEHOLD=true;render();if(S.cur!==pc)syncCur()}
 function doUndo(){if(!UNDO.stack.length)return;UNDO.redo.push(snapState());undoApply(UNDO.stack.pop())}
 function doRedo(){if(!UNDO.redo.length)return;UNDO.stack.push(snapState());undoApply(UNDO.redo.pop())}
+function doUndoAll(){if(!UNDO.stack.length)return;const st=UNDO.stack,first=st[0];UNDO.redo.push(snapState(),...st.slice(1).reverse());UNDO.stack=[];undoApply(first)}
+function doRedoAll(){if(!UNDO.redo.length)return;const r=UNDO.redo,last=r[0];UNDO.stack.push(snapState(),...r.slice(1).reverse());UNDO.redo=[];undoApply(last)}
 $('#undo').onclick=doUndo;$('#redo').onclick=doRedo;
+const SPL=[['#undomore','#undom'],['#redomore','#redom']];
+const splClose=()=>SPL.forEach(([b,m])=>{$(m).hidden=true;$(b).setAttribute('aria-expanded','false')});
+SPL.forEach(([b,m])=>{$(b).onclick=()=>{const o=$(m).hidden;splClose();$(m).hidden=!o;$(b).setAttribute('aria-expanded',String(o))}});
+document.addEventListener('click',e=>{if(!e.target.closest('#undod,#redod'))splClose()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')splClose()});
+$('#undoall').onclick=()=>{splClose();doUndoAll()};$('#redoall').onclick=()=>{splClose();doRedoAll()};
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey)||document.querySelector('dialog[open]'))return;
  const t=e.target;if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable))return;const k=e.key.toLowerCase();
  if(k==='z'&&!e.shiftKey){e.preventDefault();doUndo()}else if(k==='y'||(k==='z'&&e.shiftKey)){e.preventDefault();doRedo()}});
@@ -1944,7 +2097,7 @@ const ESSENTIALS=[
 const OLA='III.VC.SA.LimitAdjuster.asi',F92='$fastman92limitAdjuster.asi',ESS_URL='https://www.mixmods.com.br/2019/06/sa-essentials-pack/';
 /* Add SHA-256 hashes of executables you trust here: 'sha256 in lower case':'label'. A match is accepted without the signature test. */
 const KNOWN_EXE={};
-const VC={res:null,t:0,ek:'',er:null};
+const VC={res:null,t:0,ek:'',er:null,o:{}};
 const sha256=p=>new Promise((res,rej)=>{const h=cryptoN.createHash('sha256'),s=fsN.createReadStream(p);s.on('data',d=>h.update(d));s.on('end',()=>res(h.digest('hex')));s.on('error',rej)});
 /* v1.0 US / EU are recognised the way mods do it: a marker word at a fixed address (mapped through the PE section table) */
 function peVersion(p,size){let fd;try{fd=fsN.openSync(p,'r');const hb=Buffer.alloc(8192),got=fsN.readSync(fd,hb,0,8192,0);
@@ -1988,17 +2141,18 @@ function renderChecks(){const b=$('#chkbody'),c=$('#chkcnt'),r=VC.res;let h;
  else{const ign=S.essIgn,miss=r.ess.filter(x=>!x.where&&!ign.includes(x.id)),skip=r.ess.filter(x=>!x.where&&ign.includes(x.id)),have=r.ess.filter(x=>x.where),
    issues=(r.exe.state==='ok'?0:1)+(r.lim.state==='ok'?0:1)+miss.length;
   c.textContent=issues?issues+' to review':'All good';c.className='cnt '+(issues?'warn':'ok');
-  const rowI=(x,btn)=>`<div class="ckr"><div class="ckn"><div class="ckt">${esc(x.name)}</div><div class="ckm">${esc(x.file)}</div></div>${btn||''}</div>`;
-  h=sec('gta_sa.exe',r.exe.state,'',`<div class="ckt">${esc(r.exe.title)}</div><div class="ckx">${esc(r.exe.detail)}</div>`+(r.exe.meta?`<details class="ckf"><summary>File details</summary><div class="ckm">${esc(r.exe.meta)}</div></details>`:''))
+  const rowI=(x,btn,d)=>`<div class="ckr"><i class="ckd ${d||''}"></i><div class="ckn"><div class="ckt">${esc(x.name)}</div><div class="ckm">${esc(x.file)}</div></div>${btn||''}</div>`;
+  h=sec('gta_sa.exe',r.exe.state,'',`<div class="ckt">${esc(r.exe.title)}</div><div class="ckx">${esc(r.exe.detail)}</div>`+(r.exe.meta?`<details class="ckf" data-k="file"${VC.o.file?' open':''}><summary><span>File details</span></summary><div class="ckm">${esc(r.exe.meta)}</div></details>`:''))
    +sec('Limit adjuster',r.lim.state,'',`<div class="ckt">${esc(r.lim.title)}</div><div class="ckx">${esc(r.lim.detail)}</div>`)
    +sec('Essentials',miss.length?'warn':'ok',`${have.length} of ${r.ess.length}`,
-     (miss.length?`<div class="ckx" style="margin-bottom:2px">Missing:</div>`+miss.map(x=>rowI(x,`<button class="btn sm" data-ign="${x.id}">Ignore</button>`)).join(''):'<div class="ckx">Nothing missing.</div>')
-     +(skip.length?`<details class="ckf"><summary>Ignored (${skip.length})</summary>${skip.map(x=>rowI(x,`<button class="btn sm" data-unign="${x.id}">Restore</button>`)).join('')}</details>`:'')
-     +(have.length?`<details class="ckf"><summary>Found (${have.length})</summary>${have.map(x=>`<div class="ckr"><div class="ckn"><div class="ckt">${esc(x.name)}</div><div class="ckm">${esc(x.where)}</div></div></div>`).join('')}</details>`:''))}
+     (miss.length?`<div class="ckx" style="margin-bottom:2px">Missing:</div>`+miss.map(x=>rowI(x,`<button class="btn sm" data-ign="${x.id}">Ignore</button>`,'warn')).join(''):'<div class="ckx">Nothing missing.</div>')
+     +(skip.length?`<details class="ckf" data-k="ign"${VC.o.ign?' open':''}><summary><span>Ignored</span><span class="pill">${skip.length}</span></summary>${skip.map(x=>rowI(x,`<button class="btn sm" data-unign="${x.id}">Restore</button>`)).join('')}</details>`:'')
+     +(have.length?`<details class="ckf" data-k="found"${VC.o.found?' open':''}><summary><span>Found</span><span class="pill ok">${have.length}</span></summary>${have.map(x=>`<div class="ckr"><i class="ckd ok"></i><div class="ckn"><div class="ckt">${esc(x.name)}</div><div class="ckm">${esc(x.where)}</div></div></div>`).join('')}</details>`:''))}
  if(b._h!==h){b.innerHTML=h;b._h=h}}
 $('#chkbody').onclick=e=>{const a=e.target.closest('[data-ign]'),u=e.target.closest('[data-unign]');
  if(a){if(!S.essIgn.includes(a.dataset.ign))S.essIgn.push(a.dataset.ign);save();renderChecks()}
  else if(u){S.essIgn=S.essIgn.filter(x=>x!==u.dataset.unign);save();renderChecks()}};
+$('#chkbody').addEventListener('toggle',e=>{const k=e.target.dataset&&e.target.dataset.k;if(k)VC.o[k]=e.target.open},true);
 $('#chkrun').onclick=async()=>{const b=$('#chkrun');b.disabled=true;VC.ek='';try{await runChecks()}finally{b.disabled=false}toast('Checks updated')};
 $('#chklink').onclick=()=>require('electron').shell.openExternal(ESS_URL);
 
