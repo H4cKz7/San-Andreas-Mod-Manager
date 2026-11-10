@@ -1,0 +1,68 @@
+/* SA Mod Manager - 08-dnd.css: v1.2.6: selection, drag & drop highlights, animations (loaded in order by index.html) */
+/* ---- v1.2.6 (SAMM-DND): drag & drop, clipboard, stable header, toast above dialogs ---- */
+.toast[popover]{inset:auto;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));margin:0;border:0;overflow:visible;width:max-content;max-width:92vw}
+.curp{max-width:220px}
+@media(max-width:1560px){
+ /* two fixed rows: profile controls on the left of row 1 with Install mod + Launch Game pinned to its right, tools on row 2 */
+ header{flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:flex-start}
+ header>.hl{order:1;flex:1 1 0;min-width:0;flex-wrap:wrap}
+ header>.hr{display:contents}
+ header>.hr>.hg{order:3;flex:none}
+ header>.hr>.hg:last-child{order:1;margin-left:auto;padding-left:0;border-left:0}
+ header::after{content:"";order:2;flex:0 0 100%;height:0;margin-top:-10px}
+}
+#list .row,#list .tr{user-select:none}
+.mdrag{cursor:grab}
+.mod.sel{border-color:var(--acc)}
+.mod.sel>.row{background:var(--accbg)}
+.tr.sel,.tr.sel:hover{background-color:var(--accbg)}
+.mod.cutm>.row,.tr.cutm{opacity:.45}
+/* SAMM-FIX1: outline the whole card so the dashes follow its rounded corners */
+.mod.dropok,.tr.dropok{outline:2px dashed var(--acc);outline-offset:-2px}
+.mod.dropok>.row,.tr.dropok{background-color:var(--accbg)}
+.mod.dropbad,.tr.dropbad{outline:2px dashed var(--bad);outline-offset:-2px}
+#list.dropzone{outline:2px dashed var(--acc);outline-offset:6px;border-radius:12px}
+.dghost{position:fixed;top:-300px;left:-300px;padding:6px 12px;border-radius:9px;background:var(--panel);color:var(--tx);border:1px solid var(--acc);box-shadow:0 3px 0 var(--acclip);font-weight:600;font-size:13px;white-space:nowrap;max-width:320px;overflow:hidden;text-overflow:ellipsis}
+.dtip{position:fixed;z-index:1000;pointer-events:none;padding:4px 10px;border-radius:8px;background:var(--tx);color:var(--bg);font-size:12.5px;max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;box-shadow:0 3px 0 color-mix(in srgb,var(--tx) 50%,#000)}
+.dtip[hidden]{display:none}
+@keyframes landed{0%{background-color:color-mix(in srgb,var(--acc) 42%,transparent);transform:translateX(-6px) scale(.985)}55%{transform:translateX(0) scale(1.008)}100%{background-color:transparent;transform:none}}
+@media (prefers-reduced-motion:no-preference){
+ .mod.leaving{opacity:0;transform:scale(.97);max-height:0!important;margin-bottom:0;border-width:0;pointer-events:none;transition:opacity .2s ease,transform .22s ease,max-height .28s cubic-bezier(.3,.7,.2,1) .04s,margin .28s ease .04s,border-width .1s ease}
+ .tr.leaving{opacity:0;transform:translateX(-10px);max-height:0;padding-top:0;padding-bottom:0;overflow:hidden;pointer-events:none;transition:opacity .16s ease,transform .18s ease,max-height .22s ease .06s,padding .22s ease .06s}
+ .tr.landed{animation:landed .95s cubic-bezier(.2,.7,.2,1)}
+ .mod.landed>.row{animation:landed .95s cubic-bezier(.2,.7,.2,1)}
+ .mod.dropok,.mod.dropok>.row,.tr.dropok,.mod.dropbad,.tr.dropbad{transition:background-color .12s ease,outline-color .12s ease}
+}
+/* ==========================================================================
+   LIFT FIX: every raised control sits on a solid "lip" (a shadow under it), which
+   makes the whole thing look like it dropped. One variable, applied to all of them
+   the same way so rows stay aligned. Title bar and header are left alone.
+   Change --lift to tune it everywhere (-1px = subtle, -3px = strong).
+   ========================================================================== */
+:root { --lift: -2px; --lift-in: -1px; } /* --lift-in: extra lift for pills inside their container */
+
+/* 1. buttons, stars, drop-downs, segmented containers, toggles, text fields, steppers */
+:is(.btn, .star, .ddb, .seg, .switch, .sw,
+    input[type=text], input[type=search], input[type=number], input[type=password],
+    select, .step):not(header *, .titlebar *, .step *, .cpop *, .switch input) {
+  position: relative;
+  top: var(--lift);
+}
+
+/* 2. the pills inside a segmented control (Files / Backups, All / .ini ...):
+      lift them inside the container so the raised edge clears its border */
+.seg button {
+  position: relative;
+  top: var(--lift-in);
+}
+
+/* 3. priority slider: track and number box lift like everything else,
+      the thumb gets extra lift so its own raised edge doesn't make it look dropped */
+.pr input[type=range],
+.pr output {
+  position: relative;
+  top: var(--lift);
+}
+.pr input[type=range]::-webkit-slider-thumb {
+  margin-top: -9px; /* default in 05-lip-design.css is -7px */
+}
