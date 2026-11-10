@@ -59,7 +59,7 @@
       <div class="add"><input type="text" id="inpat" placeholder="Mod name or wildcard"><button class="btn sm" id="inadd">Add</button></div>
       <div class="chips" id="inchips"></div>
       <p style="margin:10px 0 0">This profile is checked first, then its parents, and the first value found wins. $current is the profile selected right now. A mod marked exclusive is hidden from every profile except that one and the profiles that inherit from it. UseIfModule takes a single module name.</p></details>
-    <details class="card fold" id="pn-ignored-files" open><summary><span>Ignored files</span></summary><p>Patterns for the active profile. They are matched against each file’s path inside its mod, in every mod. Use <code>*</code> for a wildcard, e.g. <code>*.asi</code> or <code>sub/**</code>.</p>
+    <details class="card fold" id="pn-ignored-files" open><summary><span>Ignored files</span></summary><p>Ignored mod folders and patterns for the active profile. Patterns are matched against each file’s path inside its mod, in every mod. Use <code>*</code> for a wildcard, e.g. <code>*.asi</code> or <code>sub/**</code>.</p>
       <div class="add"><input type="text" id="ipat" placeholder="*.asi or sub/**"><button class="btn sm" id="iadd">Add</button></div>
       <div class="chips" id="chips"></div></details>
     <details class="card fold" id="pn-trash"><summary><span>Trash</span><span class="cnt" id="trcnt">0</span></summary><p>Removed mods and files wait here until you restore them or delete them for good.</p><div id="trlist"></div>

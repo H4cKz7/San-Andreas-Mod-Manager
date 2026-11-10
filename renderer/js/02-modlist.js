@@ -16,7 +16,7 @@ function treeBody(m,focus){const q=(m._q||'').trim().toLowerCase(),root={d:{},f:
   return h};
  if(focus){let n=root;for(const x of focus.p.split('/'))n=n.d[x]||{d:{},f:[]};return draw(n,focus.p,focus.p.split('/').length+1)}
  if(q&&!Object.keys(root.d).length&&!root.f.length)return '<div class="stats" style="padding:8px 4px">No files match</div>';
- return `<div class="tr root" style="--d:0" data-rel="">${FO}<span class="nm">${esc(m.name)}</span><small>${q?'matching files':m.files.length+' file'+(m.files.length>1?'s':'')}</small></div>`+draw(root,'',1)}
+ const mi=!!hit(E.im,m.name);return `<div class="tr root ${mi?'ign':''}" style="--d:0" data-rel="">${FO}<span class="nm">${esc(m.name)}</span><small>${q?'matching files':m.files.length+' file'+(m.files.length>1?'s':'')}</small></div>`+draw(root,'',1)}
 function tree(m){const nd=dirsOf(m).length;
  return `<div class="fh">${nd?'<button class="btn sm" data-a="expand">Expand all</button><button class="btn sm" data-a="collapse">Collapse all</button>':''}<input type="search" class="tq" placeholder="Search files" value="${esc(m._q||'')}" aria-label="Search files in this mod"></div><div class="tb">${treeBody(m)}</div>`}
 function status(m){const n=m.name;
@@ -43,7 +43,8 @@ function render(){
    <div class="pr"><input type="range" min="0" max="${S.pl??100}" value="${v}" style="--p:${Math.min(100,v/(S.pl??100)*100)}%" data-a="pr" aria-label="Priority"><output title="Double-click to type a priority">${v}</output></div>
    <div style="display:flex;gap:6px"><button class="star ${hit(E.ex,m.name)?'on':''}" data-a="ex" title="Exclusive: hidden from other profiles unless they inherit this one" aria-label="Exclusive"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M8 1.9l1.85 3.9 4.25.55-3.1 2.95.78 4.2L8 11.4l-3.78 2.1.78-4.2L1.9 6.35l4.25-.55z" transform="translate(0 .4)" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></button><button class="btn sm del" data-a="rm">Remove</button></div></div>
    <div class="files"><div class="fi">${m._o?tree(m):''}</div></div></div>`});patchList(mods,hs);
-  $('#chips').innerHTML=p.ig.length?p.ig.map((x,i)=>`<span class="chip">${esc(x)}<button data-r="${i}" aria-label="Remove">×</button></span>`).join(''):'<span class="stats">Nothing ignored</span>';
+  {const fi=FO.replace('<svg ','<svg width="12" height="12" ');
+   $('#chips').innerHTML=(p.im.length||p.ig.length)?p.im.map((x,i)=>`<span class="chip" title="Ignored mod folder">${fi}${esc(x)}<button data-m="${i}" aria-label="Remove">×</button></span>`).join('')+p.ig.map((x,i)=>`<span class="chip">${esc(x)}<button data-r="${i}" aria-label="Remove">×</button></span>`).join(''):'<span class="stats">Nothing ignored</span>'}
   $('#ini').textContent=ini();save();
   $('#src').textContent=srcText;{const n=files().filter(([p,t])=>written[p]!==t).length;if(!SAVEHOLD){$('#save').disabled=!root||!n;$('#save').classList.toggle('pri',n>0);$('#savet').textContent=n?`Save changes (${n})`:'Save changes'}$('#rescan').disabled=!(root||game);$('#undo').disabled=!UNDO.stack.length;$('#redo').disabled=!UNDO.redo.length;{const u=UNDO.stack.length,r=UNDO.redo.length;$('#undomore').disabled=!u;$('#redomore').disabled=!r;$('#undoalln').textContent=u;$('#redoalln').textContent=r}}
   $('#logb').style.visibility=root?'visible':'hidden';$('#mkcut').disabled=!S.exes.length;renderProf();renderSettings();renderPlugins();renderInst();renderChecks();mlBtnSync();renderTrash();{const cl=!canLaunch();$('#launch').disabled=cl;$('#launchmore').disabled=cl}
@@ -151,7 +152,7 @@ $('#delProf').onclick=async()=>{const n=S.active;if(n==='Default')return toast('
  toast(`Deleted “${n}”`,async()=>{S.profiles[n]=prof0;src[n]=s0;S.active=n;undoReset();render();await commit(path,`Restored “${n}”`)})};
 const addIg=()=>{const v=$('#ipat').value.trim();if(!v)return;if(!P().ig.includes(v))P().ig.push(v);$('#ipat').value='';render()};
 $('#iadd').onclick=addIg;$('#ipat').onkeydown=e=>{if(e.key==='Enter')addIg()};
-$('#chips').onclick=e=>{const r=e.target.dataset.r;if(r!=null){P().ig.splice(r,1);render()}};
+$('#chips').onclick=e=>{const r=e.target.dataset.r,m=e.target.dataset.m;if(m!=null){P().im.splice(m,1);render()}else if(r!=null){P().ig.splice(r,1);render()}};
 $('#copy').onclick=()=>{require('electron').clipboard.writeText(ini());toast('Copied')};
 $('#imp').onclick=()=>{const i=document.createElement('input');i.type='file';i.accept='.ini';
  i.onchange=async()=>{const fl=i.files[0],r=parseIniFile(await fl.text()),isMain=/^modloader\.ini$/i.test(fl.name),names=Object.keys(r.profs);
