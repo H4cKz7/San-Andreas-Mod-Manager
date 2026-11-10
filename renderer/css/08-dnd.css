@@ -33,3 +33,36 @@
  .mod.landed>.row{animation:landed .95s cubic-bezier(.2,.7,.2,1)}
  .mod.dropok,.mod.dropok>.row,.tr.dropok,.mod.dropbad,.tr.dropbad{transition:background-color .12s ease,outline-color .12s ease}
 }
+/* ==========================================================================
+   LIFT FIX: every raised control sits on a solid "lip" (a shadow under it), which
+   makes the whole thing look like it dropped. One variable, applied to all of them
+   the same way so rows stay aligned. Title bar and header are left alone.
+   Change --lift to tune it everywhere (-1px = subtle, -3px = strong).
+   ========================================================================== */
+:root { --lift: -2px; --lift-in: -1px; } /* --lift-in: extra lift for pills inside their container */
+
+/* 1. buttons, stars, drop-downs, segmented containers, toggles, text fields, steppers */
+:is(.btn, .star, .ddb, .seg, .switch, .sw,
+    input[type=text], input[type=search], input[type=number], input[type=password],
+    select, .step):not(header *, .titlebar *, .step *, .cpop *, .switch input) {
+  position: relative;
+  top: var(--lift);
+}
+
+/* 2. the pills inside a segmented control (Files / Backups, All / .ini ...):
+      lift them inside the container so the raised edge clears its border */
+.seg button {
+  position: relative;
+  top: var(--lift-in);
+}
+
+/* 3. priority slider: track and number box lift like everything else,
+      the thumb gets extra lift so its own raised edge doesn't make it look dropped */
+.pr input[type=range],
+.pr output {
+  position: relative;
+  top: var(--lift);
+}
+.pr input[type=range]::-webkit-slider-thumb {
+  margin-top: -9px; /* default in 05-lip-design.css is -7px */
+}
