@@ -1,0 +1,10 @@
+# dependencies (anyone can recreate with npm install)
+node_modules/
+
+# build output from npm run build / npm run pack
+dist/
+
+# logs and OS junk
+npm-debug.log*
+Thumbs.db
+.DS_Store
