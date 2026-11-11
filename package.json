@@ -7,7 +7,7 @@
     "start": "electron .",
     "pack": "electron-builder --dir",
     "build": "electron-builder",
-	"installer": "electron-builder --win nsis"
+	  "installer": "electron-builder --win nsis"
   },
   "devDependencies": {
     "@electron/packager": "^18.4.4",
