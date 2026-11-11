@@ -28,7 +28,14 @@
 
 If you want to package the app into a standalone executable:
 
-### Standard Package (Recommended)
+### Single Portable `.exe` (Recommended)
+Generates a single packed executable file:
+
+    npm run build
+
+* **Output:** `dist\`
+
+### Standard Package (Optional)
 Creates a packaged folder containing the `.exe` and its dependencies (keep the entire folder together):
 
     npm install
@@ -36,10 +43,6 @@ Creates a packaged folder containing the `.exe` and its dependencies (keep the e
 
 * **Output:** `dist\win-unpacked\SA Mod Manager.exe`
 
-### Single Portable `.exe` (Optional)
-Generates a single packed executable file:
-
-    npm run build
 
 ## Backups & Safety
 
