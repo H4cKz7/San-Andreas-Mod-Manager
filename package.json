@@ -1,17 +1,17 @@
-{
+	{
   "name": "sa-mod-manager",
   "version": "1.2.6",
   "description": "GTA San Andreas Mod Loader manager",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "pack": "electron-packager . \"SA Mod Manager\" --platform=win32 --arch=x64 --icon=build/icon.ico --out=dist --overwrite --ignore=\"^/dist\"",
+    "pack": "electron-builder --dir",
     "build": "electron-builder"
   },
   "devDependencies": {
+    "@electron/packager": "^18.4.4",
     "electron": "^45.2.3",
-    "electron-builder": "^25.1.0",
-    "electron-packager": "^17.1.2",
+    "electron-builder": "^26.18.0",
     "rcedit": "^4.0.1"
   },
   "build": {
@@ -45,5 +45,8 @@
   "dependencies": {
     "7zip-bin": "^5.2.0",
     "node-unrar-js": "^2.0.2"
+  },
+  "allowScripts": {
+    "electron-winstaller@5.4.0": true
   }
 }
