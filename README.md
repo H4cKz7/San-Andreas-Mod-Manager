@@ -34,13 +34,20 @@ Generates a single packed executable file:
 
 * **Output:** `dist\`
 
+### Create the Installer (Recommended)
+Generate the installer for the mod manager:
+
+    npm run installer
+
+* **Output:** `dist\`
+
 ### Standard Package (Optional)
 Creates a packaged folder containing the `.exe` and its dependencies (keep the entire folder together):
 
     npm install
     npm run pack
 
-* **Output:** `dist\win-unpacked\SA Mod Manager.exe`
+* **Output:** `dist\win-unpacked\`
 
 
 ## Backups & Safety
