@@ -34,7 +34,7 @@ Creates a packaged folder containing the `.exe` and its dependencies (keep the e
     npm install
     npm run pack
 
-* **Output:** `dist\win-unpacked\SA Mod Manager.exe`
+* **Output:** `dist\SA Mod Manager-win32-x64\SA Mod Manager.exe`
 
 ### Single Portable `.exe` (Optional)
 Generates a single packed executable file:
