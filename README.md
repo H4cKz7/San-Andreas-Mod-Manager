@@ -10,7 +10,6 @@
 ## Getting Started
 ### Prerequisites
 * [Node.js](https://nodejs.org/) installed on your system.
-* **Mod Loader** must already be installed in your target GTA San Andreas directory.
 
 ### Running from Source
 
