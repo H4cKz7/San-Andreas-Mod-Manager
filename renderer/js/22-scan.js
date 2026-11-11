@@ -103,7 +103,7 @@ async function instFor(main){let found=null;
  found.name=main.name;return found}
 
 /* ---- v1.2.7: prepare a clean game when Mod Loader is missing ---- */
-const ML_URL='https://github.com/thelink2012/modloader/',ESS_URL2='https://www.mixmods.com.br/2019/06/sa-essentials-pack/';
+const ML_URL='https://github.com/thelink2012/modloader/releases/latest',ESS_URL2='https://www.mixmods.com.br/2019/06/sa-essentials-pack/';
 $('#mldmll').onclick=()=>require('electron').shell.openExternal(ML_URL);
 $('#mldesl').onclick=()=>require('electron').shell.openExternal(ESS_URL2);
 function mlMissing(h){return new Promise(res=>{const d=$('#mld');
@@ -137,6 +137,7 @@ async function scanGameOnly(label){
  await detectPath(label);
  srcText='Game folder “'+label+'” found. Mod Loader is not installed yet'+exeNote();
  try{$('#welc').close()}catch(e){}
+ _fc=null;written={};files().forEach(([p,t])=>written[p]=t); /* fresh install: nothing to save yet */
  undoReset();pulse();render();runChecks()}
 /* open what is stored for an installation; looks for the modloader folder again if it was missing before */
 async function openStored(){

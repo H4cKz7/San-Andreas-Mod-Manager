@@ -46,4 +46,10 @@
 .hg+.hg{padding-left:12px;border-left:1px solid var(--line)}
 header .hg .btn{padding:0 11px}header .hg .btn.icon{width:34px;padding:0}
 #launch{border-color:var(--acc);color:var(--acc)}#launch:hover{background:var(--accbg)}
-
+/* asi-pick-one */
+.cks .cknote{margin:12px 0 8px;padding:6px 9px;border:1px solid color-mix(in srgb,var(--warn) 45%,transparent);border-radius:8px;background:color-mix(in srgb,var(--warn) 10%,transparent);color:var(--warn)}
+.cknote b{font-weight:700}
+.cknote+.ckr{border-top:0}
+.ckor{display:flex;align-items:center;gap:8px;color:var(--mut);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:2px 0}
+.ckor::before,.ckor::after{content:"";flex:1;height:1px;background:var(--line)}
+.ckor+.ckr{border-top:0}

@@ -111,7 +111,7 @@ Install mod dialog: archives, plan, file picker tree, copy, undo install
 - functions: readText*, buildPlan*, uniqueName, route, drawPlan, exclK3, verOf, sameBytes*, markVersions*, pkView, pkRow, pkMulti, pkUi, pkStat, drawPick, pkTreeRow, pkTree, pkFolder, pkRedraw, loadPackage*, clearTmps, openArchive*, take*, undoInstall*
 - top-level consts/vars: pend, PLAN, ARCH, baseInstall, dlg, K3, LBL, pathOf, gfiles, cleanName, VER_EXT, ALT_RE, cmpVer, rankFiles, PKT, pkQ, dr
 
-### 22-scan.js  (18.9 KB)
+### 22-scan.js  (19.1 KB)
 folder scan, modloader.ini / profile reading and writing, Save, restore on start
 - functions: writeFile*, applyLine, parseIniFile, commit*, ingest*, detectPath*, findExes*, scanRoot*, findML*, instFor*, mlMissing, openBaseInstaller, applyBasePlan, mlBtnSync, scanGameOnly*, openStored*, setRoot*, switchInst*, forgetInst*, pick*, profIni, patchIni, filesRaw, files, syncCur*, probeLog*, restore*
 - top-level consts/vars: root, srcText, src, game, logGet, extraLog, written, newP, idb, canWrite, PSEC, ppath, gpath, curInst, exeNote, ML_URL, ESS_URL2, bcText, ppText, _fc, pendTxt, welcome
@@ -126,10 +126,10 @@ Launch Game button and launch options
 - functions: doLaunch*, lmStat, lmDraw
 - top-level consts/vars: exePath, canLaunch, lq, LM, lmOpenMenu
 
-### 25-checker.js  (12.6 KB)
+### 25-checker.js  (14.5 KB)
 Version & Essentials checker card
 - functions: asiCheck*, peVersion, checkExe*, asiWalk*, runChecks*, renderChecks
-- top-level consts/vars: ESSENTIALS, OLA, F92, ESS_URL, KNOWN_EXE, VC, ASI_URL, ASI_DLLS, asiBody, sha256
+- top-level consts/vars: ESSENTIALS, OLA, F92, ESS_URL, KNOWN_EXE, VC, ASI_URL, ASI_URL_SILENT, DL_URL, dlRow, DLB, ckBody, ASI_DLLS, asiBody, sha256
 
 ### 26-dnd.js  (13.5 KB)
 selection, drag & drop, cut / copy / paste of mods, folders and files
@@ -154,7 +154,7 @@ styled tooltips replacing the native title popups
 ## CSS (renderer/css), loaded in this order, later files override earlier ones
 - **01-base.css** (31.0 KB): variables, layout, header, mod list, cards, dialogs, editor widgets
 - **02-editor.css** (2.9 KB): config editor layout and controls
-- **03-panels.css** (3.5 KB): v1.2.3 additions: chevrons, trash rows, checker cards, launch warning
+- **03-panels.css** (4.1 KB): v1.2.3 additions: chevrons, trash rows, checker cards, launch warning
 - **04-appearance.css** (1.3 KB): Appearance dialog
 - **05-lip-design.css** (5.9 KB): raised "lip" look of buttons, switches, sliders, fields
 - **06-header-checker.css** (2.3 KB): v1.2.4: split buttons, checker drop-downs

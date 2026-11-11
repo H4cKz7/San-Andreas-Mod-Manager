@@ -18,6 +18,13 @@ const KNOWN_EXE={};
 const VC={res:null,t:0,ek:'',er:null,o:{}};
 /* ---- ASI loader check v2 (Silent's ASI Loader / Ultimate ASI Loader) ---- */ /* asi-check-v2 */
 const ASI_URL='https://github.com/ThirteenAG/Ultimate-ASI-Loader/releases/latest';
+const ASI_URL_SILENT='https://github.com/GTAmodding/ASI-Loader/releases/latest';
+/* v1.2.8: download buttons for Mod Loader and the limit adjusters */
+const DL_URL={ml:'https://github.com/thelink2012/modloader/releases/latest',ola:'https://www.mixmods.com.br/2022/10/open-limit-adjuster/',f92:'https://www.mixmods.com.br/2022/01/fastman92-limit-adjuster/'};
+const dlRow=(t,m,k)=>'<div class="ckr"><div class="ckn"><div class="ckt">'+t+'</div><div class="ckm">'+m+'</div></div><button class="btn sm" data-dl="'+k+'">Download</button></div>';
+const DLB={ml:dlRow('Mod Loader','GitHub releases','ml')+'<div class="ckx">Download it, then add it with the mod installer.</div>',
+ lim:'<div class="ckx cknote"><b>Pick only one.</b> Open Limit Adjuster and Fastman92 Limit Adjuster can conflict and crash the game when used together unless they are properly configured. Running both is for advanced users only.</div>'+dlRow('Open Limit Adjuster','III.VC.SA.LimitAdjuster.asi · MixMods','ola')+'<div class="ckor"><span>or</span></div>'+dlRow('Fastman92 Limit Adjuster','$fastman92limitAdjuster.asi · MixMods','f92')};
+const ckBody=a=>'<div class="ckt">'+esc(a.title)+'</div><div class="ckx">'+esc(a.detail)+'</div>'+(a.dl||'');
 /* DLL names an ASI loader can be installed as: Silent's uses vorbisFile.dll, Ultimate uses dinput8.dll or one of the other proxy names */
 const ASI_DLLS=['vorbisfile.dll','dinput8.dll','dsound.dll','ddraw.dll','d3d8.dll','d3d9.dll','winmm.dll','wininet.dll','msacm32.dll','version.dll'];
 /* A DLL counts as an ASI loader when it contains the ".asi" string (ASCII or UTF-16); stock/system DLLs never do.
@@ -43,7 +50,7 @@ async function asiCheck(gd,idx){
   return{state:'ok',title:lab,detail:x.name+' in the game folder.'}}
  if(other.length)return{state:'warn',title:'dinput8.dll is not an ASI loader',detail:'The dinput8.dll in the game folder does not look like an ASI loader, so .asi plugins may not load.',link:true};
  return{state:hasAsi?'bad':'warn',title:'No ASI loader found',detail:hasAsi?'.asi plugins were found but nothing loads them. Install Silent\u2019s ASI Loader (vorbisFile.dll) or Ultimate ASI Loader (dinput8.dll) in the game folder.':'Needed for any .asi mod (CLEO, SilentPatch, limit adjusters, Mod Loader). Install Silent\u2019s ASI Loader (vorbisFile.dll) or Ultimate ASI Loader (dinput8.dll).',link:true}}
-const asiBody=a=>'<div class="ckt">'+esc(a.title)+'</div><div class="ckx">'+esc(a.detail)+'</div>'+(a.link?'<div class="ckr"><div class="ckn"><div class="ckm">Ultimate ASI Loader (GitHub releases)</div></div><button class="btn sm" data-open="asi">Download</button></div>':'');
+const asiBody=a=>'<div class="ckt">'+esc(a.title)+'</div><div class="ckx">'+esc(a.detail)+'</div>'+(a.link?'<div class="ckx cknote"><b>Pick only one.</b> Both do the same job. Installing both makes plugins load twice and can crash the game.</div>'+'<div class="ckr"><div class="ckn"><div class="ckt">Ultimate ASI Loader</div><div class="ckm">dinput8.dll \u00b7 GitHub releases</div></div><button class="btn sm" data-open="asi">Download</button></div>'+'<div class="ckor"><span>or</span></div>'+'<div class="ckr"><div class="ckn"><div class="ckt">Silent\u2019s ASI Loader</div><div class="ckm">vorbisFile.dll \u00b7 GitHub</div></div><button class="btn sm" data-open="asis">Download</button></div>':'');
 const sha256=p=>new Promise((res,rej)=>{const h=cryptoN.createHash('sha256'),s=fsN.createReadStream(p);s.on('data',d=>h.update(d));s.on('end',()=>res(h.digest('hex')));s.on('error',rej)});
 /* v1.0 US / EU are recognised the way mods do it: a marker word at a fixed address (mapped through the PE section table) */
 function peVersion(p,size){let fd;try{fd=fsN.openSync(p,'r');const hb=Buffer.alloc(8192),got=fsN.readSync(fd,hb,0,8192,0);
@@ -76,10 +83,10 @@ async function runChecks(){if(!root&&!game){VC.res=null;renderChecks();return}
  if(t!==VC.t)return;
  let asi;try{asi=await asiCheck(gd,idx)}catch(e){asi={state:'bad',title:'Couldn\u2019t check the ASI loader',detail:e.message}}
  if(t!==VC.t)return;
- const mlw=idx.get('modloader.asi'),mlc=mlw?{state:'ok',title:'modloader.asi found',detail:mlw==='modloader.asi'?'In the game folder.':'In '+mlw.replace(/\/[^/]*$/,'')+'.'}:{state:'bad',title:'modloader.asi not found',detail:'Mod Loader’s plugin has to be in the game folder (or scripts / plugins) for the mods in modloader to load.'};
+ const mlw=idx.get('modloader.asi'),mlc=mlw?{state:'ok',title:'modloader.asi found',detail:mlw==='modloader.asi'?'In the game folder.':'In '+mlw.replace(/\/[^/]*$/,'')+'.'}:{state:'bad',dl:DLB.ml,title:'modloader.asi not found',detail:'Mod Loader’s plugin has to be in the game folder (or scripts / plugins) for the mods in modloader to load.'};
  const o=idx.get(OLA.toLowerCase()),f=idx.get(F92.toLowerCase());let lim;
- if(o&&f)lim={state:'bad',title:'Two limit adjusters are installed',detail:'Open and Fastman limit adjusters conflict and cause crashes. Keep only one.'};
- else if(!o&&!f)lim={state:'warn',title:'No limit adjuster found',detail:'Install Open Limit Adjuster or Fastman Limit Adjuster to avoid crashes with large mod packs.'};
+ if(o&&f)lim={state:'warn',title:'Two limit adjusters are installed',detail:'Open and Fastman92 limit adjusters can conflict and crash the game unless they are properly configured to work together. That setup is for advanced users. If you did not set it up on purpose, keep only one.'};
+ else if(!o&&!f)lim={state:'warn',dl:DLB.lim,title:'No limit adjuster found',detail:'Install Open Limit Adjuster or Fastman92 Limit Adjuster to avoid crashes with large mod packs.'};
  else lim={state:'ok',title:o?'Open Limit Adjuster':'Fastman Limit Adjuster',detail:o||f};
  VC.res={exe,ml:mlc,asi,lim,ess:ESSENTIALS.map(x=>({...x,where:idx.get(x.file.toLowerCase())||''}))};renderChecks()}
 function renderChecks(){const b=$('#chkbody'),c=$('#chkcnt'),r=VC.res;let h;
@@ -93,8 +100,8 @@ function renderChecks(){const b=$('#chkbody'),c=$('#chkcnt'),r=VC.res;let h;
   const rowI=(x,btn,d)=>`<div class="ckr"><i class="ckd ${d||''}"></i><div class="ckn"><div class="ckt">${esc(x.name)}</div><div class="ckm">${esc(x.file)}</div></div>${btn||''}</div>`;
   h=sec('gta_sa.exe',r.exe.state,'',`<div class="ckt">${esc(r.exe.title)}</div><div class="ckx">${esc(r.exe.detail)}</div>`+(r.exe.meta?`<details class="ckf" data-k="file"${VC.o.file?' open':''}><summary><span>File details</span></summary><div class="ckm">${esc(r.exe.meta)}</div></details>`:''))
    +sec('ASI loader',r.asi.state,'',asiBody(r.asi))
-   +sec('Mod Loader',r.ml.state,'',`<div class="ckt">${esc(r.ml.title)}</div><div class="ckx">${esc(r.ml.detail)}</div>`)
-   +sec('Limit adjuster',r.lim.state,'',`<div class="ckt">${esc(r.lim.title)}</div><div class="ckx">${esc(r.lim.detail)}</div>`)
+   +sec('Mod Loader',r.ml.state,'',ckBody(r.ml))
+   +sec('Limit adjuster',r.lim.state,'',ckBody(r.lim))
    +sec('Essentials',miss.length?'warn':'ok',`${have.length} of ${r.ess.length}`,
      (miss.length?`<div class="ckx" style="margin-bottom:2px">Missing:</div>`+miss.map(x=>rowI(x,`<button class="btn sm" data-ign="${x.id}">Ignore</button>`,'warn')).join(''):'<div class="ckx">Nothing missing.</div>')
      +(skip.length?`<details class="ckf" data-k="ign"${VC.o.ign?' open':''}><summary><span>Ignored</span><span class="pill">${skip.length}</span></summary>${skip.map(x=>rowI(x,`<button class="btn sm" data-unign="${x.id}">Restore</button>`)).join('')}</details>`:'')
@@ -102,6 +109,8 @@ function renderChecks(){const b=$('#chkbody'),c=$('#chkcnt'),r=VC.res;let h;
  if(b._h!==h){b.innerHTML=h;b._h=h}}
 $('#chkbody').onclick=e=>{const a=e.target.closest('[data-ign]'),u=e.target.closest('[data-unign]');
  if(e.target.closest('[data-open="asi"]')){require('electron').shell.openExternal(ASI_URL);return}
+ if(e.target.closest('[data-open="asis"]')){require('electron').shell.openExternal(ASI_URL_SILENT);return}
+ {const dl=e.target.closest('[data-dl]');if(dl&&DL_URL[dl.dataset.dl]){require('electron').shell.openExternal(DL_URL[dl.dataset.dl]);return}}
  if(a){if(!S.essIgn.includes(a.dataset.ign))S.essIgn.push(a.dataset.ign);save();renderChecks()}
  else if(u){S.essIgn=S.essIgn.filter(x=>x!==u.dataset.unign);save();renderChecks()}};
 $('#chkbody').addEventListener('toggle',e=>{const k=e.target.dataset&&e.target.dataset.k;if(k)VC.o[k]=e.target.open},true);
