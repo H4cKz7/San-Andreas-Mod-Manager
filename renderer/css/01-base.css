@@ -111,7 +111,7 @@ dialog h2{margin:0 0 12px;font-size:17px}
 .curp{min-width:112px;text-align:center;overflow:hidden;text-overflow:ellipsis;font:12px "JetBrains Mono",ui-monospace,monospace;padding:3px 10px;border-radius:99px;background:var(--accbg);color:var(--acc);white-space:nowrap}
 dialog.wide{width:min(1000px,96vw);height:min(760px,86vh);padding:16px}
 dialog.wide[open]{display:flex;flex-direction:column;gap:10px}
-.lh{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.lh h2{margin:0}
+.lh{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.lh h2{margin:0}.lh #lpill{flex:none;max-width:100%;overflow:visible;text-overflow:clip}
 .ltool{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.ltool input{flex:1;min-width:140px}
 .seg{display:flex;gap:4px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:3px}
 .seg button{border:0;background:none;padding:4px 10px;border-radius:7px;cursor:pointer;color:var(--mut)}
@@ -315,4 +315,5 @@ details.about p{margin:6px 0 0;font-size:12.5px;color:var(--mut);overflow-wrap:a
 .wb.close:hover{background:#e5484d;color:#fff}.wb.close:active{background:#c93b40;color:#fff}
 .wb svg{opacity:.85}.wb:hover svg{opacity:1}
 .mod{content-visibility:auto;contain-intrinsic-size:auto 66px}
-
+#tipbox{position:fixed;inset:auto;margin:0;z-index:60;width:max-content;max-width:min(380px,calc(100vw - 24px));padding:6px 10px;border-radius:9px;overflow:visible;background:var(--panel);color:var(--tx);border:1px solid var(--line);box-shadow:0 12px 32px rgba(0,0,0,.3);font-size:12px;line-height:1.45;white-space:pre-line;overflow-wrap:anywhere;pointer-events:none;opacity:0;transform:translateY(-2px);transition:opacity .12s ease,transform .12s ease}
+#tipbox.on{opacity:1;transform:none}

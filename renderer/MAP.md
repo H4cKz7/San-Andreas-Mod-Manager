@@ -144,10 +144,15 @@ export the mod list as a short .txt (sharing) or a browsable .html (debugging)
 - functions: exportData, exportName, exportDirs, exportTreeHtml, exportReport, exportHtml, exportPrep*, exportRun*, expMenuClose
 - top-level consts/vars: EXPORT_DOCS
 
+### 29-tooltips.js  (2.2 KB)
+styled tooltips replacing the native title popups
+- functions: tipOff, tipShow
+- top-level consts/vars: tipEl, tipT, tipFor, tipOpen
+
 (`name*` = async function)
 
 ## CSS (renderer/css), loaded in this order, later files override earlier ones
-- **01-base.css** (30.5 KB): variables, layout, header, mod list, cards, dialogs, editor widgets
+- **01-base.css** (31.0 KB): variables, layout, header, mod list, cards, dialogs, editor widgets
 - **02-editor.css** (2.9 KB): config editor layout and controls
 - **03-panels.css** (3.5 KB): v1.2.3 additions: chevrons, trash rows, checker cards, launch warning
 - **04-appearance.css** (1.3 KB): Appearance dialog
