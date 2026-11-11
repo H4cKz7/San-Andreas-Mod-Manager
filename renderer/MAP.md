@@ -17,17 +17,17 @@ global state S, profiles and inheritance, glob matching, small helpers
 - functions: setPr, rawParents, reach, inheritedFrom, flag, eff, mw
 - top-level consts/vars: $, esc, TYPES, typesOf, blobs, S, fx, P, parentsOf, hier, E, hit, swOn, exOther, inh, _st, saveNow, save, SAVEHOLD, toast, prio, pat2re, fileIgnored
 
-### 02-modlist.js  (19.6 KB)
+### 02-modlist.js  (20.1 KB)
 icons, file tree, render() of the mod list, list events, profile / Folder.Config sidebar UI
 - functions: treeBody, tree, status, render, curFile, ini, slideSw, morph, renderProf
 - top-level consts/vars: FO, FI, CV, TI, dirsOf, PVsel, PVlast, tog, _qt, ddb, ddm, hl, hlSet, ddOpen, curLabel, setLim, addPar, setUm, addIn, addIg
 
-### 03-logs.js  (8.4 KB)
+### 03-logs.js  (8.5 KB)
 log viewer dialog (modloader.log parsing and display)
 - functions: parseLog, drawLog, parseGenericLog, logWalk*, refreshLogList*, logUi, loadLog*
 - top-level consts/vars: LV, reEsc, lastSeg, tx, LOG_BIG, LOG_MAX, isMLlog
 
-### 04-settings.js  (3.1 KB)
+### 04-settings.js  (3.2 KB)
 Modloader settings and Plugins sidebar cards
 - functions: renderSettings, renderPlugins
 - top-level consts/vars: FK
@@ -37,21 +37,21 @@ save-as helper and the game shortcut (.lnk / .bat) dialog
 - functions: saveAs*, cutArgs, cutUi, cutBuild
 - top-level consts/vars: CUT, cutTarget
 
-### 06-ui.js  (3.4 KB)
+### 06-ui.js  (3.5 KB)
 sidebar panel state, patchList() DOM morphing, ask() dialog, expanding mod rows
 - functions: patchList, pulse, ask, toggleMod, foldDir, bulkFold
 - top-level consts/vars: notice
 
-### 07-header.js  (1.4 KB)
+### 07-header.js  (1.5 KB)
 title bar window buttons and the profile actions menu
 - top-level consts/vars: pmOpen, WI, wi, wState
 
-### 08-theme.js  (11.0 KB)
+### 08-theme.js  (11.1 KB)
 light/dark theme and the Appearance (custom colours) dialog
 - functions: thSave, thApply, thSync, thBuild, thSet, cpOpenFree, thParse
 - top-level consts/vars: TH_VARS, TH_KEYS, TH_DEF, TH_PRE, TC, thRgb, thHex, thMix, thLum, thNorm, thEff, thBuilt, THEME
 
-### 09-installs.js  (1.9 KB)
+### 09-installs.js  (2.0 KB)
 game installation selector (Game drop-down)
 - functions: renderInst
 - top-level consts/vars: CHK, iOpen
@@ -65,29 +65,29 @@ config editor core: INI parsing, file list, open / save / restore
 - functions: parseIniEd
 - top-level consts/vars: ED, _ic, ICO, edAnchor, iniText, detectIndent
 
-### 12-jsonc.js  (7.1 KB)
+### 12-jsonc.js  (7.2 KB)
 JC: JSON-with-comments parser and in-place editor
 - top-level consts/vars: JC
 
-### 13-editor-form.js  (22.8 KB)
+### 13-editor-form.js  (22.9 KB)
 config editor Form (INI) and Tree (JSON) rendering, undo history for the editor
 - functions: jLoad, jEdit, chipsRender, iniForm, jsonTree, swUpdate, edText, edBase, edStateNow, edState, edStateSoon, edHistUi, edHistPush, edSetText, edUndo, edRedo, edUndoAll, edRedoAll, edSplClose, edBody, edRight, edList, cfgWalk*, edScan*, edOpen*, edSave*, edRestore*, edClose*, keepOpen
 - top-level consts/vars: JNUM, jStrict, KEYN, vkName, cleanC, isIdList, idTokens, chipHtml, jget
 
-### 14-editor-backups.js  (6.1 KB)
+### 14-editor-backups.js  (6.2 KB)
 config editor backup / delete-backups dialogs, first-scan auto backup
 - functions: cfgList*, bkdOpen*, bkdList, bkdStat, autoBackup*
 - top-level consts/vars: extOfRel, BKD, bkdView, bkAutoRun, scheduleAutoBackup
 
-### 15-editor-events.js  (10.0 KB)
+### 15-editor-events.js  (10.1 KB)
 config editor input, keyboard and click handlers
 
-### 16-editor-find.js  (13.5 KB)
+### 16-editor-find.js  (13.6 KB)
 config editor find, collapse, colour picker
 - functions: edReflow, edTbHtml, edFindOpen, edFindClose, edFindApply, edFindStep, edRawFind, cpRgb, cpHsv, cpBuild, cpApply, cpSync, cpOpen, cpClose
 - top-level consts/vars: edRq, CP, cpHex
 
-### 17-dropdowns.js  (5.3 KB)
+### 17-dropdowns.js  (5.4 KB)
 custom drop-down component (cdd), parent profile suggestions
 - functions: placeMenu, enhanceCdd, cddOpen, cddClose, parOpen, parClose
 - top-level consts/vars: CHEV, CHK2
@@ -106,12 +106,12 @@ PURE install logic: classify(), scanLines(), pickLines() (no DOM)
 - functions: cleanPath, fixName, stripWrap, classify, scanLines, pickLines
 - top-level consts/vars: JUNK, DOC_EXT, DOC_NAME, isDoc, PROG, ARCH_RE, ROOT_RE, ROOTDIR, KEEPDIR, GENERIC, GENERIC2, NUMRE, ORIG, IDERE, FLATFIX, BADCH
 
-### 21-installer.js  (28.0 KB)
+### 21-installer.js  (28.3 KB)
 Install mod dialog: archives, plan, file picker tree, copy, undo install
 - functions: readText*, buildPlan*, uniqueName, route, drawPlan, exclK3, verOf, sameBytes*, markVersions*, pkView, pkRow, pkMulti, pkUi, pkStat, drawPick, pkTreeRow, pkTree, pkFolder, pkRedraw, loadPackage*, clearTmps, openArchive*, take*, undoInstall*
 - top-level consts/vars: pend, PLAN, ARCH, baseInstall, dlg, K3, LBL, pathOf, gfiles, cleanName, VER_EXT, ALT_RE, cmpVer, rankFiles, PKT, pkQ, dr
 
-### 22-scan.js  (18.7 KB)
+### 22-scan.js  (18.9 KB)
 folder scan, modloader.ini / profile reading and writing, Save, restore on start
 - functions: writeFile*, applyLine, parseIniFile, commit*, ingest*, detectPath*, findExes*, scanRoot*, findML*, instFor*, mlMissing, openBaseInstaller, applyBasePlan, mlBtnSync, scanGameOnly*, openStored*, setRoot*, switchInst*, forgetInst*, pick*, profIni, patchIni, filesRaw, files, syncCur*, probeLog*, restore*
 - top-level consts/vars: root, srcText, src, game, logGet, extraLog, written, newP, idb, canWrite, PSEC, ppath, gpath, curInst, exeNote, ML_URL, ESS_URL2, bcText, ppText, _fc, pendTxt, welcome
@@ -121,17 +121,17 @@ Trash: move to / restore from / delete permanently
 - functions: listFiles, refreshMod, trashPut*, trashMod*, trashPath*, trashRestore*, trashDelete*, renderTrash
 - top-level consts/vars: gameDir, TR, trName
 
-### 24-launch.js  (3.3 KB)
+### 24-launch.js  (3.4 KB)
 Launch Game button and launch options
 - functions: doLaunch*, lmStat, lmDraw
 - top-level consts/vars: exePath, canLaunch, lq, LM, lmOpenMenu
 
-### 25-checker.js  (8.6 KB)
+### 25-checker.js  (12.6 KB)
 Version & Essentials checker card
-- functions: peVersion, checkExe*, asiWalk*, runChecks*, renderChecks
-- top-level consts/vars: ESSENTIALS, OLA, F92, ESS_URL, KNOWN_EXE, VC, sha256
+- functions: asiCheck*, peVersion, checkExe*, asiWalk*, runChecks*, renderChecks
+- top-level consts/vars: ESSENTIALS, OLA, F92, ESS_URL, KNOWN_EXE, VC, ASI_URL, ASI_DLLS, asiBody, sha256
 
-### 26-dnd.js  (13.4 KB)
+### 26-dnd.js  (13.5 KB)
 selection, drag & drop, cut / copy / paste of mods, folders and files
 - functions: selCls, normItems, modEl, rowEl, rowItem, selPaint, clipSet, pasteTarget, pasteClip*, leave*, landed, transfer*, setHl, endDrag, dropTarget, canDrop
 - top-level consts/vars: SEL, SELA, CLIP, DRAG, DNDBUSY, selKey, isCut, itAbs, within, itName, itemsLabel, sleep, reduceMo, SECT, _tip, tip, MLWATCH
@@ -139,14 +139,19 @@ selection, drag & drop, cut / copy / paste of mods, folders and files
 ### 27-boot.js  (0.2 KB)
 startup: restore() and first render()
 
+### 28-export.js  (16.7 KB)
+export the mod list as a short .txt (sharing) or a browsable .html (debugging)
+- functions: exportData, exportName, exportDirs, exportTreeHtml, exportReport, exportHtml, exportPrep*, exportRun*, expMenuClose
+- top-level consts/vars: EXPORT_DOCS
+
 (`name*` = async function)
 
 ## CSS (renderer/css), loaded in this order, later files override earlier ones
-- **01-base.css** (30.2 KB): variables, layout, header, mod list, cards, dialogs, editor widgets
-- **02-editor.css** (2.8 KB): config editor layout and controls
+- **01-base.css** (30.5 KB): variables, layout, header, mod list, cards, dialogs, editor widgets
+- **02-editor.css** (2.9 KB): config editor layout and controls
 - **03-panels.css** (3.5 KB): v1.2.3 additions: chevrons, trash rows, checker cards, launch warning
 - **04-appearance.css** (1.3 KB): Appearance dialog
-- **05-lip-design.css** (5.8 KB): raised "lip" look of buttons, switches, sliders, fields
-- **06-header-checker.css** (2.2 KB): v1.2.4: split buttons, checker drop-downs
-- **07-installer.css** (3.5 KB): v1.2.5: smart installer dialog and file picker tree
-- **08-dnd.css** (3.0 KB): v1.2.6: selection, drag & drop highlights, animations
+- **05-lip-design.css** (5.9 KB): raised "lip" look of buttons, switches, sliders, fields
+- **06-header-checker.css** (2.3 KB): v1.2.4: split buttons, checker drop-downs
+- **07-installer.css** (3.6 KB): v1.2.5: smart installer dialog and file picker tree
+- **08-dnd.css** (4.7 KB): v1.2.6: selection, drag & drop highlights, animations
