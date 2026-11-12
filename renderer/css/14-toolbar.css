@@ -1,0 +1,54 @@
+/* SA Mod Manager - 14-toolbar.css: header layout cleanup and the Tools menu (loaded last, so it overrides earlier files) */
+.hr{gap:8px 18px}
+.hr>.hg{display:flex;align-items:center;gap:8px;min-width:0}
+/* Undo / Redo: icon only (the tooltip still says what they do) */
+header #undo,header #redo{width:34px;padding:0}
+header #undo span,header #redo span{display:none}
+/* Tools drop-down */
+#toolsb{gap:7px}
+#toolsb svg:last-child{opacity:.7}
+.ddm.tm{min-width:284px;max-height:calc(100vh - 130px);padding:6px}
+.tm .tmh{padding:9px 10px 3px;font-size:12px;font-weight:600;color:var(--mut)}
+.tm .tmh:first-child{padding-top:3px}
+header .tm .tmi{display:flex;align-items:center;width:100%;height:auto;padding:8px 10px;gap:9px;justify-content:flex-start;text-align:left;border:0;border-radius:8px;background:none;box-shadow:none!important;transform:none!important;font:inherit;font-weight:400;color:var(--tx)}
+header .tm .tmi:hover{background:var(--panel2)}
+header .tm .tmi:disabled{opacity:.45}
+.tm .tmi svg{flex:none;color:var(--mut)}
+.tm .tmi:hover svg{color:var(--acc)}
+.tm .tmi small{margin-left:auto;padding-left:14px;color:var(--mut);font-size:12px;white-space:nowrap}
+.tm .tmi .cb{margin-left:auto}
+header .tm .tmi.dng,header .tm .tmi.dng svg{color:var(--bad)}
+/* Restore mod installs dialog: Restore / Delete explained as a two-column list */
+.ibhelp{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:baseline;margin-bottom:14px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);line-height:1.45}
+.ibhelp b{color:var(--tx);font-weight:600}
+/* Game folder explorer: view switch */
+.rscope{display:flex;align-items:center;gap:8px;margin:8px 0 6px}
+.rscope .split>.btn+.btn{border-top-left-radius:0;border-bottom-left-radius:0;margin-left:-1px}
+.rscope .split>.btn.on{border-color:var(--acc);color:var(--acc);background:var(--accbg);position:relative;z-index:1}
+
+/* SAMM-PATCH icon hover: the header Rescan icon lights up in the accent colour, like the Game folder panel buttons */
+#rescan:not(:disabled):hover,#rescan:not(:disabled):focus-visible,
+#rescan:not(:disabled):hover svg,#rescan:not(:disabled):focus-visible svg{color:var(--acc)}
+
+/* SAMM-PATCH2 header icon hover: icons turn accent on hover, like the Game folder panel buttons (14-toolbar.css is the last stylesheet, so this wins) */
+#pmb:not(:disabled):hover svg:first-of-type,#pmb:not(:disabled):focus-visible svg:first-of-type,
+#wikib:not(:disabled):hover svg:first-of-type,#wikib:not(:disabled):focus-visible svg:first-of-type,
+#scan:not(:disabled):hover svg:first-of-type,#scan:not(:disabled):focus-visible svg:first-of-type,
+#edbtn:not(:disabled):hover svg:first-of-type,#edbtn:not(:disabled):focus-visible svg:first-of-type,
+#rootb:not(:disabled):hover svg:first-of-type,#rootb:not(:disabled):focus-visible svg:first-of-type,
+#toolsb:not(:disabled):hover svg:first-of-type,#toolsb:not(:disabled):focus-visible svg:first-of-type{color:var(--acc)}
+/* keep the icon lit while its menu is open */
+#pmb[aria-expanded="true"] svg:first-of-type,
+#toolsb[aria-expanded="true"] svg:first-of-type{color:var(--acc)}
+
+/* SAMM-PATCH3 header text hover: the whole button (label + icon) turns accent on hover / focus, and Tools stays lit while its menu is open */
+#scan:not(:disabled):hover,#scan:not(:disabled):focus-visible,
+#edbtn:not(:disabled):hover,#edbtn:not(:disabled):focus-visible,
+#rootb:not(:disabled):hover,#rootb:not(:disabled):focus-visible,
+#toolsb:not(:disabled):hover,#toolsb:not(:disabled):focus-visible,
+#toolsb[aria-expanded="true"]{color:var(--acc)}
+
+/* SAMM-PATCH4 log close icon: x icon button, red on hover (same as #edclose / #rootx) */
+#logd .rib{width:30px;height:auto;min-height:30px;min-width:0;padding:0;display:inline-grid;place-items:center;flex:none}
+#logd .rib svg{width:16px;height:16px;flex:none}
+#logd #lx:hover,#logd #lx:focus-visible{color:var(--bad)}

@@ -39,3 +39,20 @@ dialog.bkdlg h2{margin:0}
 input[type=checkbox]:indeterminate{border-color:var(--acc);background:var(--acc) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 6h6' fill='none' stroke='%23061008' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/13px no-repeat}
 :root[data-theme="light"] input[type=checkbox]:indeterminate{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 6h6' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")}
 
+/* ---- icon buttons shared with the game folder panel (43-editor-buttons.js, edTbHtml in 16-editor-find.js) ---- */
+#edd .racts{display:flex;gap:6px;flex:none}
+#edd .rib{width:30px;height:30px;min-width:0;padding:0;display:inline-grid;place-items:center;flex:none}
+#edd .rib svg{width:16px;height:16px;flex:none}
+#edd .rib:hover{color:var(--acc)}
+#edd #edclose:hover{color:var(--bad)}
+#edd .rseg{display:inline-flex;flex:none;isolation:isolate;padding-bottom:2px;margin-bottom:-2px}
+#edd .rseg .rib{position:relative;width:36px;border-radius:0}
+#edd .rseg .rib:first-child{border-radius:8px 0 0 8px}
+#edd .rseg .rib:last-child{border-radius:0 8px 8px 0;margin-left:-1px}
+#edd .rseg .rib:hover,#edd .rseg .rib:focus-visible,#edd .rseg .rib:active{z-index:1}
+
+/* SAMM-PATCH editor search row: search field + Expand / Collapse as one joined control (43-editor-buttons.js) */
+#edd .rtool{display:flex;gap:8px;align-items:stretch}
+#edd .rtool input[type=search]{flex:1;min-width:0;width:auto;margin:0}
+#edd .rtool .rseg .rib{height:auto}
+#edd #edtreebar{position:absolute;width:0;height:0;margin:0;padding:0;overflow:hidden;visibility:hidden;pointer-events:none}

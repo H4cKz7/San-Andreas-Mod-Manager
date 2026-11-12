@@ -61,3 +61,32 @@ dialog::-webkit-scrollbar-button:horizontal:start:decrement,dialog::-webkit-scro
 #rootd .rvroot .eb{opacity:0;flex:none}
 /* ---- Root dialog header: title row, then a right-aligned button row, a short hint and a collapsible tips list ---- */
 #rootd .lh{flex-wrap:wrap}
+
+/* ---- Root panel header v2 (41-root-layout.js): title row with icon buttons, Expand / Collapse joined next to the search ---- */
+#rootd .rhead{display:flex;align-items:flex-start;gap:10px;flex:1 1 100%;min-width:0}
+#rootd .rtit{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+#rootd .rtit h2{margin:0}
+#rootd #rootinfo{color:var(--mut);font-size:12px}
+#rootd .racts{display:flex;gap:6px;flex:none}
+#rootd .rib{width:30px;height:30px;min-width:0;padding:0;display:inline-grid;place-items:center;flex:none}
+#rootd .rib svg{width:16px;height:16px;flex:none}
+#rootd .rib:hover{color:var(--acc)}
+#rootd #rootx:hover{color:var(--bad)}
+#rootd .rtool{align-items:stretch}
+#rootd .rseg{display:inline-flex;flex:none}
+#rootd .rseg .rib{width:36px;height:auto;border-radius:0}
+#rootd .rseg .rib:first-child{border-radius:8px 0 0 8px}
+#rootd .rseg .rib:last-child{border-radius:0 8px 8px 0;margin-left:-1px}
+
+/* ---- rseg border fix: keep the hovered / focused / pressed button above its neighbour so its border is never covered ---- */
+#rootd .rseg .rib{position:relative}
+#rootd .rseg .rib:hover,#rootd .rseg .rib:focus-visible,#rootd .rseg .rib:active{z-index:1}
+#rootd .rseg{isolation:isolate;padding-bottom:2px;margin-bottom:-2px}/* room for the raised "lip" shadow so it is not clipped */
+
+/* ---- scope divider fix: the middle line must not disappear while hovering "Cleo & scripts only" ---- */
+#rootd #rootall,#rootd #rootcs{position:relative;z-index:0}
+#rootd #rootall:hover,#rootd #rootcs:hover{z-index:1}
+#rootd #rootall.on,#rootd #rootcs.on{z-index:2}
+#rootd #rootall::after{content:"";position:absolute;top:0;bottom:0;right:-1px;width:1px;background:var(--line);z-index:3;pointer-events:none}
+#rootd #rootall.on::after{background:var(--acc)}
+#rootd:has(#rootcs.on) #rootall::after{background:var(--acc)}

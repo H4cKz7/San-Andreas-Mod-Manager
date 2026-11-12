@@ -82,7 +82,7 @@ config editor backup / delete-backups dialogs, first-scan auto backup
 ### 15-editor-events.js  (10.1 KB)
 config editor input, keyboard and click handlers
 
-### 16-editor-find.js  (13.6 KB)
+### 16-editor-find.js  (13.7 KB)
 config editor find, collapse, colour picker
 - functions: edReflow, edTbHtml, edFindOpen, edFindClose, edFindApply, edFindStep, edRawFind, cpRgb, cpHsv, cpBuild, cpApply, cpSync, cpOpen, cpClose
 - top-level consts/vars: edRq, CP, cpHex
@@ -106,12 +106,12 @@ PURE install logic: classify(), scanLines(), pickLines() (no DOM)
 - functions: cleanPath, fixName, stripWrap, classify, scanLines, pickLines
 - top-level consts/vars: JUNK, DOC_EXT, DOC_NAME, isDoc, PROG, ARCH_RE, SETUP_EXE, ROOT_RE, ROOTDIR, KEEPDIR, GENERIC, GENERIC2, NUMRE, ORIG, IDERE, FLATFIX, BADCH
 
-### 21-installer.js  (29.5 KB)
+### 21-installer.js  (29.6 KB)
 Install mod dialog: archives, plan, file picker tree, copy, undo install
 - functions: readText*, buildPlan*, uniqueName, route, drawPlan, exclK3, verOf, sameBytes*, markVersions*, pkView, pkRow, pkMulti, pkUi, pkStat, drawPick, pkTreeRow, pkTree, pkFolder, pkRedraw, loadPackage*, clearTmps, openArchive*, take*, undoInstall*
 - top-level consts/vars: pend, PLAN, ARCH, baseInstall, dlg, K3, LBL, pathOf, gfiles, cleanName, VER_EXT, ALT_RE, cmpVer, rankFiles, PKT, pkQ, dr
 
-### 22-scan.js  (19.1 KB)
+### 22-scan.js  (19.0 KB)
 folder scan, modloader.ini / profile reading and writing, Save, restore on start
 - functions: writeFile*, applyLine, parseIniFile, commit*, ingest*, detectPath*, findExes*, scanRoot*, findML*, instFor*, mlMissing, openBaseInstaller, applyBasePlan, mlBtnSync, scanGameOnly*, openStored*, setRoot*, switchInst*, forgetInst*, pick*, profIni, patchIni, filesRaw, files, syncCur*, probeLog*, restore*
 - top-level consts/vars: root, srcText, src, game, logGet, extraLog, written, newP, idb, canWrite, PSEC, ppath, gpath, curInst, exeNote, ML_URL, ESS_URL2, bcText, ppText, _fc, pendTxt, welcome
@@ -126,7 +126,7 @@ Launch Game button and launch options
 - functions: doLaunch*, lmStat, lmDraw
 - top-level consts/vars: exePath, canLaunch, lq, LM, lmOpenMenu
 
-### 25-checker.js  (19.6 KB)
+### 25-checker.js  (19.5 KB)
 Version & Essentials checker card
 - functions: asiCheck*, peVersion, checkExe*, asiWalk*, cwDups, cwCount, cwSecs, runChecks*, renderChecks
 - top-level consts/vars: ESSENTIALS, OLA, F92, ESS_URL, KNOWN_EXE, VC, ASI_URL, ASI_URL_SILENT, DL_URL, dlRow, DLB, ckBody, ASI_DLLS, asiBody, sha256, wIgn, cwMli, LIMACK
@@ -153,7 +153,7 @@ styled tooltips replacing the native title popups
 Update button in the title bar (GitHub releases)
 - top-level consts/vars: UPD
 
-### 31-wiki.js  (25.1 KB)
+### 31-wiki.js  (25.0 KB)
 in-app Wiki reader (GitHub wiki repo, cached on disk so it also opens offline)
 - functions: wkEsc, wkSlug, wkEnc, wkResolve, wkBase, wkMd, wkSnip, wkSearch, wkHl
 - top-level consts/vars: WK
@@ -163,9 +163,9 @@ the config editor reopens the last file, view and scroll position (per installat
 - functions: emCapture, emRestore*, edLaunch*
 - top-level consts/vars: EM
 
-### 33-folder-tools.js  (13.8 KB)
+### 33-folder-tools.js  (17.1 KB)
 Rescan chevron menu (open game folder) and the Root cleo / scripts dialog
-- functions: gameOpenDir, openFolderPlain, rvScan*, rvDraw, rvPaint, rvRowEl, rvAllowed, rvDrop, rvHoverOpen, rvAfter, rvDelete*
+- functions: gameOpenDir, openFolderPlain, rvScan*, rvDraw, rvPaint, rvRowEl, rvAllowed, rvDrop, rvHoverOpen, rvAfter, rvDelete*, rvScopeUi, rvScope
 - top-level consts/vars: rsMenu, RV, rvRootT
 
 ### 34-release-notes.js  (18.7 KB)
@@ -192,19 +192,52 @@ install backups (manifest, Restore install dialog) and auto-delete of old backup
 - functions: ibWriteManifest*, ibMarkRestored, ibShown, ibDraw, ibRestore*, ibCleanup*
 - top-level consts/vars: DAY_MS, DAY_OPTS, IB, ibRm, dayOpts
 
+### 39-gta-set.js  (5.2 KB)
+delete gta_sa.set (the game's settings file) so the game makes a fresh one
+- functions: setWalk*, setPortable*, setLocs*, setRemove*, setPick, setDelete*
+- top-level consts/vars: PORT_RE, PORT_SKIP
+
+### 40-toolbar.js  (1.0 KB)
+the Tools menu in the header (Trash, Restore install, Root scripts, Shortcut, Logs, Export, gta_sa.set)
+- top-level consts/vars: tlOpen
+
+### 41-root-layout.js  (2.1 KB)
+tidies the header of the Root cleo / scripts panel (icon buttons on the title row, Expand / Collapse next to the search)
+
+### 42-readme.js  (13.2 KB)
+readme reader for the installer (read .txt .md .html .rtf .pdf .nfo before installing, as a popup over the installer)
+- functions: rdRank, rdList, rdRowEl, rdDraw, rdReset, rdOpenFile, rdOpen, rdDlg, rdShow*, rdRender*, rdBytes*, rdAbs*, rdClean, rdDecode, rdRtf, rdLink, rdFindImg, rdImgs*, rdHtml*
+- top-level consts/vars: RD, RD_MAX, RD_OPEN_OK, RD_IMG, RD_BOOK, RD_X, CP437, rdName, rdExt, rdBtn
+
+### 43-editor-buttons.js  (2.1 KB)
+config editor Rescan / Close and Expand all / Collapse all use the same icon buttons as the game folder panel
+- top-level consts/vars: RIB
+
+### 44-log-close.js  (0.5 KB)
+Log viewer Close button becomes the same x icon button as the Config editor / Game folder / Wiki
+
+### 45-log-copy.js  (1.4 KB)
+fixes the Log viewer Copy button (require('electron').clipboard is undefined here)
+- functions: logCopyText*
+
+### 46-native-helpers.js  (1.8 KB)
+clipboard, web links and "open file / folder" through the main process, with the old ways as fallback
+- functions: nCopy*, nOpen*, nOpenPath*, nShow
+
 (`name*` = async function)
 
 ## CSS (renderer/css), loaded in this order, later files override earlier ones
 - **01-base.css** (31.0 KB): variables, layout, header, mod list, cards, dialogs, editor widgets
-- **02-editor.css** (2.9 KB): config editor layout and controls
+- **02-editor.css** (4.0 KB): config editor layout and controls
 - **03-panels.css** (4.1 KB): v1.2.3 additions: chevrons, trash rows, checker cards, launch warning
 - **04-appearance.css** (1.3 KB): Appearance dialog
 - **05-lip-design.css** (5.9 KB): raised "lip" look of buttons, switches, sliders, fields
 - **06-header-checker.css** (2.3 KB): v1.2.4: split buttons, checker drop-downs
-- **07-installer.css** (3.6 KB): v1.2.5: smart installer dialog and file picker tree
+- **07-installer.css** (8.1 KB): v1.2.5: smart installer dialog and file picker tree
 - **08-dnd.css** (5.1 KB): v1.2.6: selection, drag & drop highlights, animations
 - **09-layout.css** (0.8 KB): 
 - **10-updater.css** (4.3 KB): update button in the title bar
-- **11-wiki.css** (8.0 KB): in-app Wiki reader (loaded in order by index.html). Uses the app's theme variables, so light/dark/custom colours just work.
-- **12-v128.css** (4.5 KB): scrollbar insets, Rescan chevron menu, Root cleo/scripts dialog
+- **11-wiki.css** (8.7 KB): in-app Wiki reader (loaded in order by index.html). Uses the app's theme variables, so light/dark/custom colours just work.
+- **12-v128.css** (6.3 KB): scrollbar insets, Rescan chevron menu, Root cleo/scripts dialog
 - **13-features.css** (3.0 KB): 
+- **14-toolbar.css** (3.9 KB): header layout cleanup and the Tools menu

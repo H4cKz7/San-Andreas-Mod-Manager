@@ -143,14 +143,14 @@ function renderChecks(){const b=$('#chkbody'),c=$('#chkcnt'),r=VC.res;let h;
 const LIMACK=()=>!!(S.limAck&&S.limAck[S.curInst]);
 $('#chkbody').onclick=e=>{const a=e.target.closest('[data-ign]'),u=e.target.closest('[data-unign]');
  {const k=e.target.closest('[data-ack]');if(k){S.limAck=S.limAck||{};if(k.dataset.ack==='set')S.limAck[S.curInst]=true;else delete S.limAck[S.curInst];save();runChecks();return}}
- if(e.target.closest('[data-open="asi"]')){require('electron').shell.openExternal(ASI_URL);return}
- if(e.target.closest('[data-open="asis"]')){require('electron').shell.openExternal(ASI_URL_SILENT);return}
- {const dl=e.target.closest('[data-dl]');if(dl&&DL_URL[dl.dataset.dl]){require('electron').shell.openExternal(DL_URL[dl.dataset.dl]);return}}
+ if(e.target.closest('[data-open="asi"]')){nOpen(ASI_URL);return}
+ if(e.target.closest('[data-open="asis"]')){nOpen(ASI_URL_SILENT);return}
+ {const dl=e.target.closest('[data-dl]');if(dl&&DL_URL[dl.dataset.dl]){nOpen(DL_URL[dl.dataset.dl]);return}}
  if(a){if(!S.essIgn.includes(a.dataset.ign))S.essIgn.push(a.dataset.ign);save();renderChecks()}
  else if(u){S.essIgn=S.essIgn.filter(x=>x!==u.dataset.unign);save();renderChecks()}};
 $('#chkbody').addEventListener('toggle',e=>{const k=e.target.dataset&&e.target.dataset.k;if(k)VC.o[k]=e.target.open},true);
 $('#chkrun').onclick=async()=>{const b=$('#chkrun');b.disabled=true;VC.ek='';try{await runChecks()}finally{b.disabled=false}toast('Checks updated')};
-$('#chklink').onclick=()=>require('electron').shell.openExternal(ESS_URL);
+$('#chklink').onclick=()=>nOpen(ESS_URL);
 
 /* SAMM-FEATURES: clicks for the two new warnings */
 $('#chkbody').addEventListener('click',async e=>{

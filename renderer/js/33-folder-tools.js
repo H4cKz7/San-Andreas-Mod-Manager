@@ -10,7 +10,7 @@ function openFolderPlain(d){
  if(process.platform==='win32'){
   try{const c=require('child_process').spawn('explorer.exe',['/n,"'+d+'"'],{detached:true,stdio:'ignore',windowsVerbatimArguments:true});c.on('error',()=>{});c.unref();return Promise.resolve('')}
   catch(e){}}
- return require('electron').shell.openPath(d)}
+ return nOpenPath(d)}
 /* ---- Rescan chevron menu ---- */
 const rsMenu=o=>{$('#rescanm').hidden=!o;$('#rescanmore').setAttribute('aria-expanded',String(o))};
 $('#rescanmore').onclick=()=>rsMenu($('#rescanm').hidden);
@@ -24,7 +24,7 @@ $('#rescanm').onclick=async e=>{const it=e.target.closest('[data-r]');if(!it)ret
 /* ---- Root cleo / scripts: a docked panel with a real folder tree of game/cleo and game/scripts (Mod Loader's own folders are skipped).
    Its items use the same {mod, rel, dir} shape as the mod list. Their "mod" is '::' + the top folder name ('::cleo'), which no real
    mod folder can be called (a colon is not allowed in Windows file names). locAbs() / locOf() in 23-trash.js translate it to a path. ---- */
-const RV={files:[],dirs:[],asi:[],q:'',f:'all',open:{'@root':true},busy:false,gd:'',t:0,none:false};
+const RV={files:[],dirs:[],asi:[],other:[],scope:(()=>{try{return localStorage.getItem('samm-rvscope')==='cs'?'cs':'all'}catch(e){return'all'}})(),q:'',f:'all',open:{'@root':true},busy:false,gd:'',t:0,none:false};
 async function rvScan(keep){const gd=gameOpenDir();if(!gd)return;
  const t=++RV.t;RV.busy=true;RV.gd=gd;if(!keep){RV.files=[];RV.dirs=[];RV.asi=[]}rvDraw();
  const files=[],dirs=[];let n=0;
@@ -34,19 +34,21 @@ async function rvScan(keep){const gd=gameOpenDir();if(!gd)return;
    else{let sz=0;try{sz=(await fsN.promises.stat(p)).size}catch(x){}
     files.push({abs:p,rel,size:sz,ext:e.name.indexOf('.')>=0?e.name.split('.').pop().toLowerCase():'',top:ps[0].toLowerCase(),mod:'::'+ps[0],sub:ps.slice(1).join('/'),name:e.name,dirRel:ps.slice(0,-1).join('/')})}
    if(++n%250===0)await new Promise(r=>setTimeout(r))}};
- let tops=[];try{tops=fsN.readdirSync(gd,{withFileTypes:true}).filter(e=>e.isDirectory()&&/^(cleo|scripts)$/i.test(e.name)).map(e=>e.name).sort()}catch(e){}
- for(const tp of tops){dirs.push({rel:tp,top:tp.toLowerCase(),mod:'::'+tp,sub:'',name:tp,parent:'',abs:pathN.join(gd,tp)});await walk(pathN.join(gd,tp),1)}
+ let tops=[];try{tops=fsN.readdirSync(gd,{withFileTypes:true}).filter(e=>e.isDirectory()&&(RV.scope==='all'||/^(cleo|scripts)$/i.test(e.name))).map(e=>e.name).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}))}catch(e){}
+ for(const tp of tops){const ro=/^modloader$/i.test(tp);dirs.push({rel:tp,top:tp.toLowerCase(),mod:'::'+tp,sub:'',name:tp,parent:'',abs:pathN.join(gd,tp),ro});if(!ro)await walk(pathN.join(gd,tp),1)}
  if(t!==RV.t)return;
  files.sort((a,b)=>a.rel.localeCompare(b.rel,undefined,{numeric:true}));
  let asi=[];
  try{asi=fsN.readdirSync(gd,{withFileTypes:true}).filter(e=>e.isFile()&&/\.asi$/i.test(e.name)).map(e=>{const p=pathN.join(gd,e.name);let sz=0;try{sz=fsN.statSync(p).size}catch(x){}return{abs:p,name:e.name,size:sz}}).sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}))}catch(e){}
- RV.none=!tops.length&&!asi.length;RV.asi=asi;RV.files=files;RV.dirs=dirs;RV.busy=false;rvDraw()}
+ let other=[];
+ if(RV.scope==='all')try{other=fsN.readdirSync(gd,{withFileTypes:true}).filter(e=>e.isFile()&&!/\.asi$/i.test(e.name)).map(e=>{const p=pathN.join(gd,e.name);let sz=0;try{sz=fsN.statSync(p).size}catch(x){}return{abs:p,name:e.name,size:sz,ext:e.name.indexOf('.')>=0?e.name.split('.').pop().toLowerCase():''}}).sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}))}catch(e){}
+ RV.none=!tops.length&&!asi.length&&!other.length;RV.asi=asi;RV.other=other;RV.files=files;RV.dirs=dirs;RV.busy=false;rvDraw()}
 function rvDraw(){const box=$('#rootlist');if(!box)return;
- const q=RV.q.trim().toLowerCase(),F=RV.f,all=RV.files,asi=RV.asi||[];
- const nc=all.filter(f=>f.top==='cleo').length,ns=all.filter(f=>f.top==='scripts').length,tot=all.length+asi.length;
- $('#rootinfo').textContent=RV.busy?'Scanning…':tot+' file'+(tot===1?'':'s')+' · asi '+asi.length+' · cleo '+nc+' · scripts '+ns;
- if(RV.busy&&!RV.dirs.length&&!asi.length){box.innerHTML='<div class="stats" style="padding:10px">Scanning…</div>';return}
- if(RV.none){box.innerHTML='<div class="stats" style="padding:10px">There is no cleo or scripts folder, and no .asi plugin, in the game folder.</div>';return}
+ const q=RV.q.trim().toLowerCase(),F=RV.f,all=RV.files,asi=RV.asi||[],oth=RV.scope==='all'?(RV.other||[]):[];
+ const nc=all.filter(f=>f.top==='cleo').length,ns=all.filter(f=>f.top==='scripts').length,tot=all.length+asi.length+oth.length;
+ $('#rootinfo').textContent=RV.busy?'Scanning…':tot+' file'+(tot===1?'':'s')+(RV.scope==='all'?' · '+RV.dirs.length+' folder'+(RV.dirs.length===1?'':'s'):' · asi '+asi.length+' · cleo '+nc+' · scripts '+ns);
+ if(RV.busy&&!RV.dirs.length&&!asi.length&&!oth.length){box.innerHTML='<div class="stats" style="padding:10px">Scanning…</div>';return}
+ if(RV.none){box.innerHTML='<div class="stats" style="padding:10px">'+(RV.scope==='all'?'The game folder is empty.':'There is no cleo or scripts folder, and no .asi plugin, in the game folder.')+'</div>';return}
  const TRB='<button class="btn sm del eb ib" data-del title="Move to Trash" aria-label="Move to Trash">'+TI+'</button>';
  const nodes=new Map();
  RV.dirs.filter(d=>F==='all'||d.top===F).forEach(d=>nodes.set(d.rel,Object.assign({},d,{dirs:[],files:[],n:0})));
@@ -59,21 +61,24 @@ function rvDraw(){const box=$('#rootlist');if(!box)return;
  const attrs=(mod,sub,dir,abs)=>' data-it data-mod="'+esc(mod)+'" data-rel="'+esc(sub)+'" data-dir="'+dir+'" data-abs="'+esc(abs)+'"';
  const html=nd=>{if(q&&!nd.n)return'';
   const open=!!q||RV.open[nd.rel]===true;
-  let h='<div class="rvd'+(open?' open':'')+'" data-d="'+esc(nd.rel)+'"><div class="edg"'+attrs(nd.mod,nd.sub,1,nd.abs)+' data-d="'+esc(nd.rel)+'"'+(nd.sub?' draggable="true"':'')+'>'+CV+FO+'<span class="nm" title="'+esc(nd.rel)+'">'+esc(nd.name)+'</span><small>'+nd.n+'</small>'+(nd.sub?'<button class="btn sm eb" data-show>Show</button>'+TRB:'')+'</div><div class="rvk">';
+  let h='<div class="rvd'+(open?' open':'')+'" data-d="'+esc(nd.rel)+'"><div class="edg"'+attrs(nd.mod,nd.sub,1,nd.abs)+' data-d="'+esc(nd.rel)+'"'+(nd.sub?' draggable="true"':'')+'>'+CV+FO+'<span class="nm" title="'+esc(nd.rel)+'">'+esc(nd.name)+'</span><small'+(nd.ro?' title="Mod Loader’s mods are managed in the mod list">mod list':'>'+nd.n)+'</small>'+(nd.sub?'<button class="btn sm eb" data-show>Show</button>'+TRB:(RV.scope==='all'?'<button class="btn sm eb" data-show>Show</button>':''))+'</div><div class="rvk">';
   nd.dirs.forEach(d=>{h+=html(d)});
-  nd.files.forEach(f=>{if(rows>=3000){capped=true;return}rows++;const cfg=/^(ini|json|jsonc)$/.test(f.ext);
+  nd.files.forEach(f=>{if(rows>=5000){capped=true;return}rows++;const cfg=/^(ini|json|jsonc)$/.test(f.ext);
    h+='<div class="edr"'+attrs(f.mod,f.sub,0,f.abs)+' draggable="true" title="'+esc(f.rel)+'"><span class="ext '+esc(f.ext)+'">'+esc(f.ext||'file')+'</span><span class="nm">'+esc(f.name)+'</span>'+(cfg?'<button class="btn sm eb" data-edit>Edit</button>':'')+'<button class="btn sm eb" data-show>Show</button>'+TRB+'<small>'+fmtSize(f.size)+'</small></div>'});
   return h+'</div></div>'};
  /* .asi plugins in the game root: view only (no drag / trash), they are not cleo or scripts items */
  const asiShow=(F==='all'||F==='root')?asi.filter(a=>!q||a.name.toLowerCase().includes(q)):[];
  const asiRow=a=>'<div class="edr rva"'+attrs('::',a.name,0,a.abs)+' draggable="true" title="'+esc(a.name)+'"><span class="ext asi">asi</span><span class="nm">'+esc(a.name)+'</span><button class="btn sm eb" data-show>Show</button>'+TRB+'<small>'+fmtSize(a.size)+'</small></div>';
- const kids=tops.map(html).join('')+asiShow.map(asiRow).join('');
- const rootN=tops.reduce((s,d)=>s+d.n,0)+asiShow.length;
+ /* other files in the game root (gta_sa.exe, .dll, .txt ...): view only. They have no data-it, so they can't be selected, dragged or trashed */
+ const othShow=(F==='all'||F==='root')?oth.filter(a=>!q||a.name.toLowerCase().includes(q)):[];
+ const othRow=a=>'<div class="edr rvo" data-abs="'+esc(a.abs)+'" title="'+esc(a.name)+'"><span class="ext '+esc(a.ext)+'">'+esc(a.ext||'file')+'</span><span class="nm">'+esc(a.name)+'</span>'+(/^(ini|json|jsonc)$/.test(a.ext)?'<button class="btn sm eb" data-edit>Edit</button>':'')+'<button class="btn sm eb" data-show>Show</button><small>'+fmtSize(a.size)+'</small></div>';
+ const kids=tops.map(html).join('')+[...asiShow.map(a=>[a.name,asiRow(a)]),...othShow.map(a=>[a.name,othRow(a)])].sort((x,y)=>x[0].localeCompare(y[0],undefined,{numeric:true})).map(x=>x[1]).join('');
+ const rootN=tops.reduce((s,d)=>s+d.n,0)+asiShow.length+othShow.length;
  const rootOpen=!!q||RV.open['@root']!==false;
  let h='';
  if(kids)h='<div class="rvd rvtop'+(rootOpen?' open':'')+'" data-d="@root"><div class="edg rvroot" data-abs="'+esc(RV.gd)+'" data-d="@root">'+CV+FO+'<span class="nm" title="'+esc(RV.gd)+'">Game root</span><small>'+rootN+'</small><button class="btn sm eb" data-show>Show</button></div><div class="rvk">'+kids+'</div></div>';
- else h='<div class="stats" style="padding:10px">'+((all.length||asi.length)?'No files match this search or filter.':'Nothing is installed in the root cleo or scripts folders.')+'</div>';
- if(capped)h+='<div class="stats" style="padding:10px">Showing the first 3000 files. Use the search to narrow the list.</div>';
+ else h='<div class="stats" style="padding:10px">'+((all.length||asi.length||oth.length)?'No files match this search or filter.':(RV.scope==='all'?'The game folder is empty.':'Nothing is installed in the root cleo or scripts folders.'))+'</div>';
+ if(capped)h+='<div class="stats" style="padding:10px">Showing the first 5000 files. Use the search to narrow the list.</div>';
  box.innerHTML=h;rvPaint()}
 /* ---- plumbing for 26-dnd.js (selection, drag & drop, clipboard) ---- */
 function rvPaint(){const b=$('#rootlist');if(!b)return;
@@ -81,6 +86,7 @@ function rvPaint(){const b=$('#rootlist');if(!b)return;
 function rvRowEl(it){const b=$('#rootlist');if(!b)return null;return[...b.querySelectorAll('[data-it]')].find(el=>el.dataset.mod===it.mod&&el.dataset.rel===it.rel)||null}
 /* what may go where: cleo / scripts themselves never move, nothing from there becomes a mod, and whole mod folders do not go into cleo / scripts */
 function rvAllowed(it,tgt){const itRoot=it.mod.startsWith('::'),tRoot=!!tgt.mod&&tgt.mod.startsWith('::');
+ if(/^::modloader$/i.test(it.mod)||/^::modloader$/i.test(tgt.mod||''))return false;
  if(tgt.mod==='::'&&!tgt.rel)return!it.dir&&/\.asi$/i.test(it.rel||'');
  if(itRoot&&!it.rel)return false;
  if(!tgt.mod&&itRoot)return false;
@@ -117,6 +123,11 @@ $('#rootexp').onclick=()=>{RV.open={'@root':true};RV.dirs.forEach(d=>{RV.open[d.
 $('#rootcol').onclick=()=>{RV.open={'@root':true};rvDraw()};
 $('#rootq').oninput=e=>{RV.q=e.target.value;rvDraw()};
 $('#rootlist').addEventListener('click',e=>{
+ const vo=e.target.closest('.rvo');
+ if(vo){const b=e.target.closest('button');if(!b)return;
+  if(b.hasAttribute('data-edit')){EM.set({abs:vo.dataset.abs,view:'form',sc:0,ls:0,f:'all',go:{}});$('#edbtn').click()}
+  else if(b.hasAttribute('data-show'))nShow(vo.dataset.abs);
+  return}
  const rg=e.target.closest('.rvroot');
  if(rg){if(e.target.closest('button')){openFolderPlain(RV.gd);return}
   if(RV.q.trim())return;const d=rg.parentElement,on=!d.classList.contains('open');d.classList.toggle('open',on);RV.open['@root']=on;return}
@@ -124,7 +135,7 @@ $('#rootlist').addEventListener('click',e=>{
  const it=rowItem(row);if(!it)return;
  if(btn){const abs=row.dataset.abs;
   if(btn.hasAttribute('data-edit')){EM.set({abs,view:'form',sc:0,ls:0,f:'all',go:{}});$('#edbtn').click()}
-  else if(btn.hasAttribute('data-show'))require('electron').shell.showItemInFolder(abs);
+  else if(btn.hasAttribute('data-show'))nShow(abs);
   else if(btn.hasAttribute('data-del')){const sel=[...SEL.values()].filter(x=>x.mod.startsWith('::')&&x.rel);rvDelete(SEL.has(selKey(it.mod,it.rel))&&sel.length>1?sel:[it])}
   return}
  const k=selKey(it.mod,it.rel);
@@ -141,3 +152,16 @@ document.addEventListener('dragover',e=>{if(!DRAG)return;const l=$('#rootlist');
 document.addEventListener('keydown',e=>{if(e.key!=='Delete'||!$('#rootd').open||document.querySelector('dialog[open]:not(#rootd)'))return;
  const t=e.target;if(t&&(t.isContentEditable||t.tagName==='TEXTAREA'||t.tagName==='SELECT'||(t.tagName==='INPUT'&&!/^(checkbox|range|radio)$/.test(t.type))))return;
  const sel=[...SEL.values()].filter(x=>x.mod.startsWith('::')&&x.rel);if(!sel.length)return;e.preventDefault();rvDelete(sel)});
+/* ---- game folder explorer: scope switch (everything / cleo & scripts only) and Open game folder ---- */
+function rvScopeUi(){const all=RV.scope==='all';
+ $('#roottitle').textContent=all?'Game folder':'Root cleo & scripts';
+ $('#rootnote').textContent=all?'Everything in the game folder. These files load without Mod Loader, so profiles can’t switch them off. Mod Loader’s own folder is managed in the mod list and only shown here for reference.':'The game’s own folders. They load without Mod Loader, so profiles can’t switch them off.';
+ $('#rootall').classList.toggle('on',all);$('#rootcs').classList.toggle('on',!all);
+ $('#rootall').setAttribute('aria-pressed',String(all));$('#rootcs').setAttribute('aria-pressed',String(!all))}
+function rvScope(s){if(RV.scope===s)return;RV.scope=s;try{localStorage.setItem('samm-rvscope',s)}catch(e){}
+ RV.open={'@root':true};rvScopeUi();rvScan()}
+$('#rootall').onclick=()=>rvScope('all');$('#rootcs').onclick=()=>rvScope('cs');
+$('#rootopen').onclick=()=>{const d=gameOpenDir();
+ if(!d||!fsN.existsSync(d))return toast('The game folder was not found');
+ Promise.resolve(openFolderPlain(d)).then(r=>{if(r)notice('Couldn’t open the folder',r)})};
+rvScopeUi();

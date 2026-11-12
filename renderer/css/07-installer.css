@@ -45,3 +45,59 @@ input[type=password]:focus{border-color:var(--acc);box-shadow:0 2px 0 var(--accl
 .pkfi svg{width:14px;height:14px;color:var(--folder,var(--acc))}
 .pkn{color:var(--mut);font:11px Archivo,system-ui,sans-serif;white-space:nowrap}
 
+/* ---- readme reader (42-readme.js): the row in the installer and the popup over it ---- */
+.rdrow{display:flex;align-items:center;gap:12px;margin:10px 0 0;padding:9px 12px;border:1px solid var(--acc);border-radius:10px;background:var(--accbg);box-shadow:0 2px 0 var(--acclip)}
+.rdrow[hidden],.rddlg [hidden]{display:none!important}
+.rdrow .rdi{flex:none;display:inline-grid;color:var(--acc)}
+.rdrow .rdi svg{width:20px;height:20px}
+.rdrow .rdt{flex:1;min-width:0;display:flex;flex-direction:column}
+.rdrow .rdt b{font-size:13px}
+.rdrow .rdt small{color:var(--mut);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rdrow .btn{flex:none}
+.pkr .rdv{flex:none;height:20px;padding:0 8px;font-size:11px}
+dialog.rddlg{width:min(880px,95vw);height:min(82vh,780px);max-height:none;padding:0;overflow:hidden}
+dialog.rddlg[open]{display:flex}
+.rddlg .rdin{flex:1;min-width:0;min-height:0;display:flex;flex-direction:column;gap:10px;padding:16px 18px 18px}
+.rddlg .rdh{display:flex;align-items:center;gap:10px}
+.rddlg .rdh h2{flex:1;min-width:0;margin:0;font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rddlg .rdtools{display:flex;gap:6px;flex:none}
+.rddlg .rdb{min-width:32px;padding:0 8px;display:inline-grid;place-items:center}
+.rddlg .rdb svg{width:14px;height:14px}
+.rddlg .rdtabs{display:flex;gap:6px;overflow-x:auto;flex:none;padding-bottom:4px}
+.rddlg .rdtab{flex:none;max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:5px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);color:var(--mut);font:inherit;font-size:12.5px;cursor:pointer;box-shadow:0 2px 0 var(--lip)}
+.rddlg .rdtab:hover{color:var(--tx)}
+.rddlg .rdtab.on{border-color:var(--acc);background:var(--accbg);color:var(--acc);box-shadow:0 2px 0 var(--acclip)}
+.rdbody{flex:1;min-height:0;overflow:auto;border:1px solid var(--line);border-radius:10px;background:var(--panel);font-size:var(--rdfs,13px);outline:none}
+.rdbody:focus-visible{border-color:var(--acc)}
+.rdbody.frame{overflow:hidden;background:#fff}
+.rd-frame{display:block;width:100%;height:100%;border:0;background:#fff}
+.rdmsg{padding:18px 20px;color:var(--mut);line-height:1.6;overflow-wrap:anywhere}
+.rd-pre{margin:0;padding:14px 16px;font:var(--rdfs,13px)/1.5 "JetBrains Mono",ui-monospace,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--tx)}
+.rdbody.nfo .rd-pre{white-space:pre;overflow-wrap:normal;line-height:1.15;font-family:"Cascadia Mono",Consolas,"Courier New",monospace}
+.rdbody a{color:var(--acc);text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.rd-md{padding:14px 20px 18px;line-height:1.6;color:var(--tx);overflow-wrap:anywhere}
+.rd-md h2,.rd-md h3,.rd-md h4,.rd-md h5,.rd-md h6{margin:1.2em 0 .4em;line-height:1.25}
+.rd-md h2:first-child{margin-top:0}
+.rd-md h2{font-size:1.45em;padding-bottom:.25em;border-bottom:1px solid var(--line)}
+.rd-md h3{font-size:1.2em}
+.rd-md h4,.rd-md h5,.rd-md h6{font-size:1.02em}
+.rd-md p,.rd-md ul,.rd-md ol,.rd-md blockquote,.rd-md pre,.rd-md .wk-tw,.rd-md .wk-co{margin:.6em 0}
+.rd-md ul,.rd-md ol{padding-left:1.5em}
+.rd-md li{margin:.2em 0}
+.rd-md hr{border:0;border-top:1px solid var(--line);margin:1.2em 0}
+.rd-md img{max-width:100%;height:auto;border-radius:6px}
+.rd-md code{font:.92em "JetBrains Mono",ui-monospace,Consolas,monospace;background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:1px 5px}
+.rd-md pre.wk-code{position:relative;overflow:auto;padding:10px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:8px}
+.rd-md pre.wk-code code{background:none;border:0;padding:0;white-space:pre}
+.rd-md .wk-cp{position:absolute;top:6px;right:6px;font-size:11px;padding:2px 8px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--mut);cursor:pointer}
+.rd-md blockquote{padding:2px 14px;border-left:3px solid var(--line);color:var(--mut)}
+.rd-md .wk-co{padding:6px 14px;border-left:3px solid var(--acc);background:var(--accbg);border-radius:6px}
+.rd-md .wk-ct{font-weight:700;margin-bottom:2px}
+.rd-md .wk-tw{overflow-x:auto}
+.rd-md table{border-collapse:collapse}
+.rd-md th,.rd-md td{border:1px solid var(--line);padding:5px 10px;text-align:left}
+.rd-md th{background:var(--panel2)}
+
+/* ---- readme reader fixes: the text is no longer a second framed box inside the reader (generic pre styling is switched off) ---- */
+.rdbody .rd-pre{border:0;border-radius:0;background:none;box-shadow:none;max-height:none;height:auto;min-height:0;overflow:visible;resize:none}
+.rd-md pre.wk-code{max-height:none}

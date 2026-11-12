@@ -104,8 +104,8 @@ async function instFor(main){let found=null;
 
 /* ---- v1.2.7: prepare a clean game when Mod Loader is missing ---- */
 const ML_URL='https://github.com/thelink2012/modloader/releases/latest',ESS_URL2='https://www.mixmods.com.br/2019/06/sa-essentials-pack/';
-$('#mldmll').onclick=()=>require('electron').shell.openExternal(ML_URL);
-$('#mldesl').onclick=()=>require('electron').shell.openExternal(ESS_URL2);
+$('#mldmll').onclick=()=>nOpen(ML_URL);
+$('#mldesl').onclick=()=>nOpen(ESS_URL2);
 function mlMissing(h){return new Promise(res=>{const d=$('#mld');
  $('#mldt').textContent='There is no modloader folder in “'+h.name+'”. Install Mod Loader or the Essentials Pack with the mod installer. A .zip, .rar or .7z archive works, and so does an extracted folder.';
  let done=false;const fin=v=>{if(done)return;done=true;d.close();res(v)};

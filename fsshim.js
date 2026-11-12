@@ -22,9 +22,13 @@ window.__idb=async(m,key,v)=>{const k='samm-h-'+key;
 // Native saving (real file dialogs + real Windows shortcuts) instead of browser downloads
 window.__native={
  userData:ipcRenderer.sendSync('user-data'),
+ docs:ipcRenderer.sendSync('docs-path'),
  win:c=>ipcRenderer.send('win',c),
  setTheme:t=>ipcRenderer.send('theme',t),
  showItem:p=>ipcRenderer.send('show-item',p),
+ copy:t=>ipcRenderer.invoke('clip-write',String(t)),
+ openExternal:u=>ipcRenderer.invoke('open-external',String(u)),
+ openPath:p=>ipcRenderer.invoke('open-path',String(p)),
  launch:(p,a)=>ipcRenderer.invoke('launch-game',p,a),
  gameRunning:n=>ipcRenderer.invoke('game-running',n),
  isMax:()=>ipcRenderer.invoke('win-ismax'),

@@ -145,7 +145,7 @@ function drawPick(first){const box=$('#pickbox');if(!PLAN){box.hidden=true;retur
 // ---- Choose files as a folder tree ----
 function pkTreeRow(f,d){const on=!PLAN.off.has(f.k),bt=f.bin?'<span class="tag warn">program (.exe)</span>':'';
  const tag=(f.c==='doc'?'<span class="tag">readme</span>':f.c==='root'?'<span class="tag warn">GTA folder</span>':'')+(f.same?'<span class="tag">identical copy</span>':'');
- return `<label class="pkr" style="--d:${d}"><span class="pkc"></span><input type="checkbox" data-k="${f.k}"${on?' checked':''}><span class="nm" title="${esc(f.r)}">${esc(f.r.split('/').pop())}</span>${bt}${tag}</label>`}
+ return `<label class="pkr" style="--d:${d}"><span class="pkc"></span><input type="checkbox" data-k="${f.k}"${on?' checked':''}><span class="nm" title="${esc(f.r)}">${esc(f.r.split('/').pop())}</span>${bt}${tag}${f.c==='doc'&&typeof rdBtn==='function'?rdBtn(f):''}</label>`}
 function pkTree(files,room){if(!files.length)return'';
  PLAN.pkx=PLAN.pkx||{};const q=pkQ(),root={d:{},f:[],all:[]};
  files.forEach(f=>{const ps=f.r.split('/');ps.pop();let n=root,p='';
@@ -191,13 +191,13 @@ $('#pkall').onclick=()=>{if(!PLAN)return;const v=pkView();
 $('#pknone').onclick=()=>{if(!PLAN)return;const v=pkView();
  v.plain.forEach(f=>PLAN.off.add(f.k));v.groups.forEach(g=>g.forEach(o=>PLAN.off.add(o.k)));drawPick();drawPlan()};
 async function loadPackage(items,fb){
- pend={items,fb};const bz=$('#ibusy');bz.hidden=false;bz.textContent='Analysing the files…';$('#ok').disabled=true;
+ pend={items,fb};rdReset();const bz=$('#ibusy');bz.hidden=false;bz.textContent='Analysing the files…';$('#ok').disabled=true;
  try{PLAN=await buildPlan(items,fb||(items.length===1?items[0].rel.split(/[\\/]/).pop().replace(/\.[^.]+$/,''):''))}
  catch(e){bz.hidden=true;return notice('Couldn’t analyse the files',e.message)}
  if(PLAN&&PLAN.baseErr){const err=PLAN.baseErr;PLAN=null;pend=null;bz.hidden=true;return notice('Wrong package',err)}
  bz.hidden=true;$('#mname').value=uniqueName(PLAN.name,true);$('#hcb').checked=true;$('#ecb').checked=true;const g=gameDir();
  K3.forEach(([k,id])=>{const el=$('#'+id);el.disabled=!g;el.checked=false});
-$('#destbox').hidden=false;$('#asum').hidden=false;exUi();drawPick(true);drawPlan()}
+$('#destbox').hidden=false;$('#asum').hidden=false;exUi();drawPick(true);drawPlan();rdDraw()}
 function clearTmps(){const t=ARCH.tmps;ARCH={tmps:[]};t.forEach(d=>{try{window.__native.cleanTmp(d)}catch(e){}})}
 async function openArchive(file,depth=0,fb){
  if(!depth)clearTmps();const nm=pathN.basename(file),bz=$('#ibusy');fb=fb||nm.replace(/\.[^.]+$/,'').replace(/_+/g,' ').trim();let pw='',r;
@@ -219,7 +219,7 @@ async function take(files){
  const rp=f=>f.webkitRelativePath||f._p||'';
  if(files.length===1&&ARCH_RE.test(files[0].name)&&!rp(files[0]).includes('/')){const p=pathOf(files[0]);if(p)return openArchive(p)}
  clearTmps();await loadPackage(files.map(f=>({rel:rp(f)||f.name,abs:pathOf(f),file:f})),'')}
-$('#inst').onclick=()=>{const base=baseInstall;clearTmps();pend=null;PLAN=null;baseInstall=base;['#asum','#destbox','#hrow','#erow','#ibusy','#pickbox'].forEach(x=>$(x).hidden=true);
+$('#inst').onclick=()=>{const base=baseInstall;clearTmps();pend=null;PLAN=null;baseInstall=base;['#asum','#destbox','#hrow','#erow','#ibusy','#pickbox'].forEach(x=>$(x).hidden=true);rdReset();
  $('#plist').textContent=base?'Choose a .zip, .rar or .7z archive, or an extracted folder.':(root?'':'Mod Loader is not installed yet. Install it first (Version & Essentials card).');
  const h2=dlg.querySelector('h2');if(h2)h2.textContent=base?(base.kind==='ess'?'Install Essentials Pack':'Install Mod Loader'):'Install mod';
  const nameLab=document.querySelector('label[for="mname"]');if(nameLab)nameLab.style.display='';

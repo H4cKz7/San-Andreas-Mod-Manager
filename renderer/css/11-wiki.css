@@ -99,3 +99,10 @@ mark{background:var(--accbg);color:inherit;border-radius:3px;padding:0 1px;box-s
 .wk-rs{font-size:13px;color:var(--mut);line-height:1.5}
 .wk-note{margin-top:16px;font-size:12px;color:var(--mut)}
 @media (max-width:860px){.wk-side{width:220px}.wk-art{padding:18px 20px 36px}}
+
+/* SAMM-PATCH icon hover: Wiki Rescan (sync) turns accent, Wiki Close turns red, same as the Game folder panel */
+.wk-top [data-act=sync]:not(:disabled):hover,.wk-top [data-act=sync]:not(:disabled):focus-visible,
+.wk-top [data-act=sync]:not(:disabled):hover svg,.wk-top [data-act=sync]:not(:disabled):focus-visible svg{color:var(--acc)}
+.wk-top [data-act=close]:hover,.wk-top [data-act=close]:focus-visible,.wk-top [data-act=x]:hover,.wk-top [data-act=x]:focus-visible,
+.wk-top .btn[aria-label="Close"]:hover,.wk-top .btn[aria-label="Close"]:focus-visible,
+.wk-top [data-act=close]:hover svg,.wk-top [data-act=x]:hover svg,.wk-top .btn[aria-label="Close"]:hover svg{color:var(--bad)}

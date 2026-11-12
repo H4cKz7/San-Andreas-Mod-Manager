@@ -1,4 +1,4 @@
-const{app,BrowserWindow,Menu,dialog,ipcMain,shell,screen}=require('electron');
+const{app,BrowserWindow,Menu,dialog,ipcMain,shell,clipboard,screen}=require('electron');
 const path=require('path'),fs=require('fs');
 const{spawn,execFile}=require('child_process');
 const os=require('os');
@@ -6,10 +6,16 @@ const os=require('os');
 const badArgs=s=>{let q=false;for(const ch of s){if(ch==='"')q=!q;else if(!q&&/[&|<>^]/.test(ch))return true}return false};
 app.setAppUserModelId('com.samm.modmanager');
 ipcMain.on('user-data',e=>{e.returnValue=app.getPath('userData')});
+/* gta_sa.set lives in Documents\GTA San Andreas User Files; Electron asks Windows, so a moved / OneDrive Documents folder works too */
+ipcMain.on('docs-path',e=>{let p='';try{p=app.getPath('documents')}catch(err){}e.returnValue=p});
 ipcMain.on('win',(e,c)=>{const w=BrowserWindow.fromWebContents(e.sender);if(!w)return;if(c==='min')w.minimize();else if(c==='max')w.isMaximized()?w.unmaximize():w.maximize();else if(c==='close')w.close()});
 ipcMain.handle('win-ismax',e=>{const w=BrowserWindow.fromWebContents(e.sender);return !!w&&w.isMaximized()});
 
 ipcMain.on('show-item',(e,p)=>{if(typeof p==='string'&&fs.existsSync(p))shell.showItemInFolder(p)});
+/* SAMM-PATCH6: clipboard, web links and "open with the default program" run here, the page cannot rely on require('electron').clipboard / .shell */
+ipcMain.handle('clip-write',(e,t)=>{if(typeof t!=='string')return false;clipboard.writeText(t);return true});
+ipcMain.handle('open-external',(e,u)=>{if(typeof u!=='string'||!/^https?:\/\//i.test(u))return false;shell.openExternal(u);return true});
+ipcMain.handle('open-path',(e,p)=>typeof p==='string'&&p?shell.openPath(p):'No path given');
 ipcMain.handle('launch-game',(e,exe,args)=>{try{if(typeof exe!=='string'||!fs.existsSync(exe))return'gta_sa.exe was not found';const cwd=path.dirname(exe);const extra=typeof args==='string'&&args.trim()?' '+args.trim().replace(/[\r\n]+/g,' '):'';if(badArgs(extra))return'The launch arguments contain characters that are not allowed.';let c;
   if(process.platform==='win32')c=spawn('cmd.exe',['/d','/s','/c','start "" /D "'+cwd+'" "'+exe+'"'+extra],{cwd,detached:true,stdio:'ignore',windowsHide:true,windowsVerbatimArguments:true});
   else c=spawn(exe,[],{cwd,detached:true,stdio:'ignore'});

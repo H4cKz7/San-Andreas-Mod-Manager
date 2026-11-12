@@ -193,7 +193,7 @@ async function exportRun(kind,shift){
   try{const f=await saveAs(exportName(exportData(),'html'),html,'HTML file');if(f)toast('Saved '+f)}catch(x){toast('Saving failed: '+x.message)}
   return}
  let txt;try{txt=exportReport(kind==='txt-tree')}catch(x){toast('Export failed: '+x.message);return}
- if(shift){try{await navigator.clipboard.writeText(txt);toast('Mod list copied to clipboard')}catch(x){toast('Copy failed: '+x.message)}return}
+ if(shift){try{if(!await nCopy(txt))throw new Error('the clipboard is not available');toast('Mod list copied to clipboard')}catch(x){toast('Copy failed: '+x.message)}return}
  try{const f=await saveAs(exportName(exportData(),'txt'),txt,'Text file');if(f)toast('Saved '+f)}catch(x){toast('Saving failed: '+x.message)}}
 
 function expMenuClose(){$('#expm').hidden=true;$('#expmore').setAttribute('aria-expanded','false')}

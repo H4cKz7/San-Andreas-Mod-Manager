@@ -203,7 +203,7 @@ const WK={
  step(k){const n=this.hi+k;if(n<0||n>=this.hist.length)return;this.hi=n;this.go(this.hist[n],'',true)},
  jump(id){const el=this.d.querySelector('#wk-h-'+CSS.escape(id));if(el)el.scrollIntoView({block:'start',behavior:'smooth'})},
  copy(b){const c=b.parentNode.querySelector('code').textContent;
-  try{require('electron').clipboard.writeText(c)}catch(e){try{navigator.clipboard.writeText(c)}catch(_){}}
+  nCopy(c);
   b.textContent='Copied';clearTimeout(b._t);b._t=setTimeout(()=>{b.textContent='Copy'},1200)},
  async go(path,anchor,keep){const art=this.d.querySelector('#wkart'),main=this.d.querySelector('#wkmain');
   this.d.querySelector('#wkres').hidden=true;art.hidden=false;
