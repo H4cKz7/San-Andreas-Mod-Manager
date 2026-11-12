@@ -3,3 +3,64 @@
 #wupd.has::after{content:"";position:absolute;top:7px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--acc)}
 @media (prefers-reduced-motion:no-preference){#wupd.busy svg{animation:updPulse 1s ease-in-out infinite}}
 @keyframes updPulse{50%{opacity:.35}}
+
+/* release notes: formatted GitHub notes in the update dialog (added by patch-release-notes.js) */
+dialog#askd:has(#asktext.rn){width:min(680px,92vw);max-width:92vw}
+#asktext.rn{white-space:normal;text-align:left;line-height:1.5}
+#asktext.rn .rn-head,#asktext.rn .rn-foot{margin:0 0 10px;white-space:pre-wrap}
+#asktext.rn .rn-foot{margin:12px 0 0;opacity:.85}
+#asktext.rn .rn-sec{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.65;margin:4px 0 6px}
+#asktext.rn .rn-notes{max-height:min(46vh,420px);overflow:auto;padding:10px 12px;border:1px solid rgba(128,128,128,.28);border-radius:8px;background:rgba(128,128,128,.07)}
+.rn-md{font-size:13px;overflow-wrap:anywhere}
+.rn-md>:first-child{margin-top:0}
+.rn-md>:last-child{margin-bottom:0}
+.rn-md p,.rn-md ul,.rn-md ol,.rn-md blockquote,.rn-md pre,.rn-md details,.rn-md dl,.rn-md .rn-tw,.rn-md .rn-alert,.rn-md table{margin:0 0 10px}
+.rn-md h1,.rn-md h2,.rn-md h3,.rn-md h4,.rn-md h5,.rn-md h6{margin:14px 0 6px;line-height:1.3;font-weight:600}
+.rn-md h1{font-size:18px;padding-bottom:4px;border-bottom:1px solid rgba(128,128,128,.28)}
+.rn-md h2{font-size:16px;padding-bottom:3px;border-bottom:1px solid rgba(128,128,128,.2)}
+.rn-md h3{font-size:14.5px}
+.rn-md h4,.rn-md h5,.rn-md h6{font-size:13px}
+.rn-md h6{opacity:.7}
+.rn-md ul,.rn-md ol{padding-left:22px}
+.rn-md li{margin:2px 0}
+.rn-md li>ul,.rn-md li>ol{margin:2px 0}
+.rn-md ul.rn-tasks,.rn-md li.rn-task{list-style:none}
+.rn-md ul.rn-tasks{padding-left:4px}
+.rn-md li.rn-task input{margin:0 6px 0 0;vertical-align:-1px}
+.rn-md a{color:var(--acc);text-decoration:none;cursor:pointer}
+.rn-md a:hover{text-decoration:underline}
+.rn-md code,.rn-md kbd,.rn-md samp{font-family:'JetBrains Mono',Consolas,monospace;font-size:.88em;padding:.1em .4em;border-radius:5px;background:rgba(128,128,128,.2)}
+.rn-md kbd{border:1px solid rgba(128,128,128,.4);border-bottom-width:2px}
+.rn-md a>code{color:inherit}
+.rn-md pre{padding:10px 12px;overflow:auto;border-radius:8px;background:rgba(128,128,128,.16);line-height:1.45}
+.rn-md pre code{padding:0;background:none;font-size:12px;white-space:pre}
+.rn-md .rn-add{display:inline-block;width:100%;background:rgba(63,185,80,.22)}
+.rn-md .rn-del{display:inline-block;width:100%;background:rgba(248,81,73,.22)}
+.rn-md blockquote{padding:2px 12px;border-left:3px solid rgba(128,128,128,.5);opacity:.9}
+.rn-md blockquote>:last-child{margin-bottom:0}
+.rn-md hr{border:0;height:1px;background:rgba(128,128,128,.3);margin:14px 0}
+.rn-md img{max-width:100%;height:auto;border-radius:6px;vertical-align:middle}
+.rn-md .rn-tw{overflow:auto}
+.rn-md table{border-collapse:collapse}
+.rn-md th,.rn-md td{padding:5px 10px;border:1px solid rgba(128,128,128,.3);vertical-align:top}
+.rn-md th{font-weight:600;background:rgba(128,128,128,.12)}
+.rn-md tr:nth-child(even) td{background:rgba(128,128,128,.05)}
+.rn-md details{border:1px solid rgba(128,128,128,.28);border-radius:8px;padding:6px 10px}
+.rn-md summary{cursor:pointer;font-weight:600}
+.rn-md details[open]>summary{margin-bottom:6px}
+.rn-md del{opacity:.7}
+.rn-md mark{background:rgba(210,153,34,.35);color:inherit;border-radius:3px;padding:0 2px}
+.rn-md sup.rn-fn{font-size:.75em;color:var(--acc)}
+.rn-md .rn-fns{font-size:12px;opacity:.85}
+.rn-md .rn-fns hr{margin:10px 0 6px}
+.rn-md .rn-alert{padding:6px 12px;border-left:3px solid #4493f8;border-radius:0 8px 8px 0;background:rgba(68,147,248,.1)}
+.rn-md .rn-alert>:last-child{margin-bottom:0}
+.rn-md .rn-at{font-weight:600;margin-bottom:4px;color:#4493f8}
+.rn-md .rn-alert.tip{border-color:#3fb950;background:rgba(63,185,80,.1)}
+.rn-md .rn-alert.tip .rn-at{color:#3fb950}
+.rn-md .rn-alert.imp{border-color:#ab7df8;background:rgba(171,125,248,.1)}
+.rn-md .rn-alert.imp .rn-at{color:#ab7df8}
+.rn-md .rn-alert.warn{border-color:#d29922;background:rgba(210,153,34,.1)}
+.rn-md .rn-alert.warn .rn-at{color:#d29922}
+.rn-md .rn-alert.bad{border-color:#f85149;background:rgba(248,81,73,.1)}
+.rn-md .rn-alert.bad .rn-at{color:#f85149}

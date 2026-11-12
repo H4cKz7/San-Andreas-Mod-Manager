@@ -37,7 +37,7 @@ save-as helper and the game shortcut (.lnk / .bat) dialog
 - functions: saveAs*, cutArgs, cutUi, cutBuild
 - top-level consts/vars: CUT, cutTarget
 
-### 06-ui.js  (3.5 KB)
+### 06-ui.js  (3.6 KB)
 sidebar panel state, patchList() DOM morphing, ask() dialog, expanding mod rows
 - functions: patchList, pulse, ask, toggleMod, foldDir, bulkFold
 - top-level consts/vars: notice
@@ -126,10 +126,10 @@ Launch Game button and launch options
 - functions: doLaunch*, lmStat, lmDraw
 - top-level consts/vars: exePath, canLaunch, lq, LM, lmOpenMenu
 
-### 25-checker.js  (15.5 KB)
+### 25-checker.js  (19.6 KB)
 Version & Essentials checker card
-- functions: asiCheck*, peVersion, checkExe*, asiWalk*, runChecks*, renderChecks
-- top-level consts/vars: ESSENTIALS, OLA, F92, ESS_URL, KNOWN_EXE, VC, ASI_URL, ASI_URL_SILENT, DL_URL, dlRow, DLB, ckBody, ASI_DLLS, asiBody, sha256, LIMACK
+- functions: asiCheck*, peVersion, checkExe*, asiWalk*, cwDups, cwCount, cwSecs, runChecks*, renderChecks
+- top-level consts/vars: ESSENTIALS, OLA, F92, ESS_URL, KNOWN_EXE, VC, ASI_URL, ASI_URL_SILENT, DL_URL, dlRow, DLB, ckBody, ASI_DLLS, asiBody, sha256, wIgn, cwMli, LIMACK
 
 ### 26-dnd.js  (14.3 KB)
 selection, drag & drop, cut / copy / paste of mods, folders and files
@@ -149,7 +149,7 @@ styled tooltips replacing the native title popups
 - functions: tipOff, tipShow
 - top-level consts/vars: tipEl, tipT, tipFor, tipOpen
 
-### 30-updater.js  (3.1 KB)
+### 30-updater.js  (3.3 KB)
 Update button in the title bar (GitHub releases)
 - top-level consts/vars: UPD
 
@@ -168,6 +168,25 @@ Rescan chevron menu (open game folder) and the Root cleo / scripts dialog
 - functions: gameOpenDir, openFolderPlain, rvScan*, rvDraw, rvPaint, rvRowEl, rvAllowed, rvDrop, rvHoverOpen, rvAfter, rvDelete*
 - top-level consts/vars: rsMenu, RV, rvRootT
 
+### 34-release-notes.js  (18.6 KB)
+GitHub-flavoured markdown for the update dialog (release notes)
+- top-level consts/vars: RN
+
+### 35-bisect.js  (5.5 KB)
+Bisect helper, finds the mod that crashes the game by launching with half of the mods
+- functions: bsLaunch*, bsAsk*, bsEnd*, bisectStart*
+- top-level consts/vars: BS, bsCands, bsArgs, BS_OUT, bsTest
+
+### 36-conflicts.js  (7.9 KB)
+file conflict view, which mods contain the same file and which one wins
+- functions: cfCompute, cfRow, cfDraw, cfBadge, cfLab, cfBtns, cfMenus, cfClose
+- top-level consts/vars: CF, CF_DATA, cfSoon, cfExt, cfFe, cfSaveF
+
+### 37-dropzone.js  (3.0 KB)
+drop an archive or folder anywhere on the window to open the installer
+- functions: dzShow, dzFolder*, dzOpen*
+- top-level consts/vars: DZ, dzFiles, dzBlocked
+
 (`name*` = async function)
 
 ## CSS (renderer/css), loaded in this order, later files override earlier ones
@@ -180,6 +199,7 @@ Rescan chevron menu (open game folder) and the Root cleo / scripts dialog
 - **07-installer.css** (3.6 KB): v1.2.5: smart installer dialog and file picker tree
 - **08-dnd.css** (4.7 KB): v1.2.6: selection, drag & drop highlights, animations
 - **09-layout.css** (0.8 KB): 
-- **10-updater.css** (0.4 KB): update button in the title bar
+- **10-updater.css** (4.3 KB): update button in the title bar
 - **11-wiki.css** (8.0 KB): in-app Wiki reader (loaded in order by index.html). Uses the app's theme variables, so light/dark/custom colours just work.
 - **12-v128.css** (4.5 KB): scrollbar insets, Rescan chevron menu, Root cleo/scripts dialog
+- **13-features.css** (2.3 KB): 

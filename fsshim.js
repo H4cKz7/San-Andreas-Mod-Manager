@@ -26,6 +26,7 @@ window.__native={
  setTheme:t=>ipcRenderer.send('theme',t),
  showItem:p=>ipcRenderer.send('show-item',p),
  launch:(p,a)=>ipcRenderer.invoke('launch-game',p,a),
+ gameRunning:n=>ipcRenderer.invoke('game-running',n),
  isMax:()=>ipcRenderer.invoke('win-ismax'),
  onWinState:cb=>ipcRenderer.on('win-state',(e,m)=>cb(m)),
  saveFile:(name,data)=>ipcRenderer.invoke('save-file',name,data),

@@ -12,7 +12,7 @@ function patchList(mods,hs){const L=$('#list');
  old.forEach(el=>el.remove())}
 function pulse(){document.body.classList.add('anim');clearTimeout(pulse.t);pulse.t=setTimeout(()=>document.body.classList.remove('anim'),750)}
 function ask(o){return new Promise(res=>{const d=$('#askd'),inp=$('#askin');
- $('#asktitle').textContent=o.title||'';$('#asktext').textContent=o.text||'';inp.hidden=!o.input;inp.type=o.password?'password':'text';inp.value=o.value||'';inp.placeholder=o.placeholder||'';
+ $('#asktitle').textContent=o.title||'';{const at=$('#asktext');at.classList.toggle('rn',!!o.html);if(o.html)at.innerHTML=o.html;else at.textContent=o.text||''}inp.hidden=!o.input;inp.type=o.password?'password':'text';inp.value=o.value||'';inp.placeholder=o.placeholder||'';
  $('#askok').textContent=o.ok||'OK';$('#askno').hidden=!!o.info;$('#askok').classList.toggle('del',!!o.danger);
  let done=false;const fin=v=>{if(done)return;done=true;d.close();res(v)};
  $('#askok').onclick=()=>fin(o.input?inp.value:true);$('#askno').onclick=()=>fin(o.input?null:false);

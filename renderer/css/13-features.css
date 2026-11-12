@@ -1,0 +1,33 @@
+/* SAMM-FEATURES: file conflict view, window drop overlay */
+#dropov{position:fixed;inset:0;width:auto;height:auto;max-width:none;max-height:none;margin:0;padding:0;border:0;background:rgba(0,0,0,.55);color:inherit;pointer-events:none}
+#dropov:popover-open{display:grid;place-items:center}
+#dropov>div{border:2px dashed var(--line,#666);border-radius:16px;padding:28px 44px;text-align:center;background:var(--panel2,#1b1f1c)}
+#dropov b{display:block;font-size:18px;margin-bottom:4px}
+#dropov span{font-size:13px;opacity:.75}
+.cfdlg{width:min(820px,94vw)}
+.cfdlg .lh{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.cftool{display:flex;gap:14px;align-items:center;margin:10px 0}
+.cftool input[type=search]{flex:1;min-width:0}
+.cftool label{display:flex;gap:6px;align-items:center;white-space:nowrap}
+.cflist{max-height:min(58vh,520px);overflow:auto;border:1px solid var(--line,#444);border-radius:10px}
+.cfr{padding:8px 10px;border-bottom:1px solid var(--line,#444)}
+.cfr:last-child{border-bottom:0}
+.cfn{display:flex;gap:8px;align-items:center;margin-bottom:4px}
+.cfm{display:flex;gap:8px;align-items:center;padding:2px 0 2px 8px;font-size:12.5px}
+.cfm.lose{opacity:.62}
+.cfp{min-width:30px;text-align:right;font-variant-numeric:tabular-nums;opacity:.8}
+.cfm .nm{flex:0 1 auto;font-weight:600}
+.cfpath{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:.55}
+
+/* SAMM-FEATURES-2: file type drop-downs in the conflict view */
+.cfdd{position:relative}
+.cfdd>.btn{display:flex;gap:4px;align-items:center;white-space:nowrap}
+.cfdd>.btn span{max-width:150px;overflow:hidden;text-overflow:ellipsis;opacity:.85}
+.cfmenu{position:absolute;top:calc(100% + 4px);right:0;z-index:20;min-width:240px;max-height:300px;overflow:auto;background:var(--panel2,#1b1f1c);border:1px solid var(--line,#444);border-radius:10px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.cfmenu[hidden]{display:none}
+.cfpt{display:flex;gap:6px;padding:2px 2px 6px;margin-bottom:4px;border-bottom:1px solid var(--line,#444)}
+.cfo{display:flex;gap:8px;align-items:center;padding:4px 6px;border-radius:6px;cursor:pointer}
+.cfo:hover{background:rgba(127,127,127,.16)}
+.cfe{min-width:46px;font-weight:600}
+.cfk{flex:1;font-size:12px;opacity:.6}
+.cfc{font-size:12px;font-variant-numeric:tabular-nums;opacity:.6}

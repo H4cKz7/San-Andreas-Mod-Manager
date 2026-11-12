@@ -1,6 +1,6 @@
 const{app,BrowserWindow,Menu,dialog,ipcMain,shell,screen}=require('electron');
 const path=require('path'),fs=require('fs');
-const{spawn}=require('child_process');
+const{spawn,execFile}=require('child_process');
 const os=require('os');
 /* launch arguments go through cmd.exe: refuse shell metacharacters outside "quotes" */
 const badArgs=s=>{let q=false;for(const ch of s){if(ch==='"')q=!q;else if(!q&&/[&|<>^]/.test(ch))return true}return false};
@@ -14,6 +14,10 @@ ipcMain.handle('launch-game',(e,exe,args)=>{try{if(typeof exe!=='string'||!fs.ex
   if(process.platform==='win32')c=spawn('cmd.exe',['/d','/s','/c','start "" /D "'+cwd+'" "'+exe+'"'+extra],{cwd,detached:true,stdio:'ignore',windowsHide:true,windowsVerbatimArguments:true});
   else c=spawn(exe,[],{cwd,detached:true,stdio:'ignore'});
   c.on('error',()=>{});c.unref();return true}catch(err){return String(err.message||err)}});
+/* SAMM-FEATURES: is the game still running? (Bisect asks before every launch) */
+ipcMain.handle('game-running',(e,name)=>new Promise(res=>{
+  if(process.platform!=='win32'||typeof name!=='string'||!/^[\w.\- ]+\.exe$/i.test(name))return res(false);
+  execFile('tasklist',['/FI','IMAGENAME eq '+name,'/NH','/FO','CSV'],{windowsHide:true},(err,out)=>res(!err&&String(out).toLowerCase().includes('"'+name.toLowerCase()+'"')))}));
 ipcMain.on('theme',(e,t)=>{const w=BrowserWindow.fromWebContents(e.sender);if(w)w.setBackgroundColor(/^#[0-9a-f]{6}$/i.test(t)?t:t==='light'?'#eef0ec':'#101311')});
 
 ipcMain.handle('pick-folder',async e=>{const w=BrowserWindow.fromWebContents(e.sender);

@@ -74,8 +74,36 @@ async function checkExe(gd){
  VC.ek=key;VC.er=r;return r}
 async function asiWalk(dir,pre,add,depth){let ents;try{ents=await fsN.promises.readdir(dir,{withFileTypes:true})}catch(e){return}
  for(const e of ents){if(e.isDirectory()){if(depth<12)await asiWalk(pathN.join(dir,e.name),pre+e.name+'/',add,depth+1)}else if(/\.asi$/i.test(e.name))add(e.name,pre+e.name)}}
+/* ---- SAMM-FEATURES: sidebar warnings for a missing modloader.ini and duplicate .asi plugins (both can be ignored) ---- */
+/* Ignored warnings are remembered per installation in S.warnIgn[curInst]: 'mlini' and 'dup:<file name in lower case>'. */
+const wIgn=()=>{S.warnIgn=S.warnIgn||{};const k=S.curInst||'default';return S.warnIgn[k]=S.warnIgn[k]||[]};
+const cwMli=()=>{if(!root||!root._path)return null;try{return{missing:!fsN.readdirSync(root._path).some(n=>/^modloader\.ini$/i.test(n))}}catch(e){return null}};
+/* An .asi counts as a duplicate when the same file name sits in two different load places: game folder, scripts, plugins, or modloader.
+   Two mods inside modloader do not count (Mod Loader sorts those out by priority, see the conflict view). Disabled mods are skipped. */
+function cwDups(all){const out=[];
+ for(const[k,locs]of all){const g=new Set(),shown=[];
+  for(const w of locs){let grp;
+   if(w.startsWith('modloader/')){const p=w.split('/'),mod=p[1],rel=p.slice(2).join('/');
+    if(!mod||!swOn(mod)||exOther(mod)||fileIgnored({name:mod},rel))continue;grp='modloader'}
+   else if(w.includes('/')){grp=w.split('/')[0].toLowerCase();if(grp==='cleo')continue}
+   else grp='game folder';
+   g.add(grp);shown.push(w)}
+  if(g.size>1)out.push({key:k,name:shown[0].split('/').pop(),where:shown})}
+ return out.sort((a,b)=>a.name.localeCompare(b.name))}
+function cwCount(r){const g=wIgn();return(r.mli&&r.mli.missing&&!g.includes('mlini')?1:0)+(r.dups||[]).filter(d=>!g.includes('dup:'+d.key)).length}
+function cwSecs(r,sec){const g=wIgn();let h='';
+ if(r.mli){
+  if(!r.mli.missing)h+=sec('modloader.ini','ok','Found','<div class="ckx">In the modloader folder.</div>');
+  else if(g.includes('mlini'))h+=sec('modloader.ini','ok','Ignored','<div class="ckx">This warning is ignored.</div><div style="margin-top:8px"><button class="btn sm" data-wunign="mlini">Show warning again</button></div>');
+  else h+=sec('modloader.ini','warn','Missing','<div class="ckt">modloader.ini not found</div><div class="ckx">There is no modloader.ini in the modloader folder. Profile settings (priorities, ignored mods, the current profile) are saved there. Create it to start from the current settings.</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn sm" data-mkini="1">Create modloader.ini</button><button class="btn sm" data-wign="mlini">Ignore</button></div>')}
+ const d=r.dups||[],live=d.filter(x=>!g.includes('dup:'+x.key)),skip=d.filter(x=>g.includes('dup:'+x.key));
+ const row=(x,btn,cls)=>'<div class="ckr"><i class="ckd '+(cls||'')+'"></i><div class="ckn"><div class="ckt">'+esc(x.name)+'</div><div class="ckm">'+esc(x.where.join(' · '))+'</div></div>'+btn+'</div>';
+ h+=sec('Duplicate plugins',live.length?'warn':'ok',live.length?String(live.length):'None',
+  (live.length?'<div class="ckx" style="margin-bottom:2px">The same plugin file is in more than one place, so it can load twice and crash the game. Keep one copy, or ignore it if you did this on purpose.</div>'+live.map(x=>row(x,'<button class="btn sm" data-wign="dup:'+esc(x.key)+'">Ignore</button>','warn')).join(''):'<div class="ckx">No .asi plugin is installed in more than one place.</div>')
+  +(skip.length?'<details class="ckf" data-k="wign"'+(VC.o.wign?' open':'')+'><summary><span>Ignored</span><span class="pill">'+skip.length+'</span></summary>'+skip.map(x=>row(x,'<button class="btn sm" data-wunign="dup:'+esc(x.key)+'">Restore</button>')).join('')+'</details>':''));
+ return h}
 async function runChecks(){if(!root&&!game){VC.res=null;renderChecks();return}
- const t=++VC.t,gd=gameDir(),idx=new Map(),add=(n,w)=>{const k=n.toLowerCase();if(!idx.has(k))idx.set(k,w)};
+ const t=++VC.t,gd=gameDir(),idx=new Map(),all=new Map(),add=(n,w)=>{const k=n.toLowerCase();if(!idx.has(k))idx.set(k,w);if(/\.asi$/.test(k)){const a=all.get(k)||all.set(k,[]).get(k);if(!a.includes(w))a.push(w)}};
  if(gd){for(const sub of['','scripts','plugins']){try{for(const e of fsN.readdirSync(pathN.join(gd,sub),{withFileTypes:true}))if(e.isFile()&&/\.(asi|cleo)$/i.test(e.name))add(e.name,(sub?sub+'/':'')+e.name)}catch(e){}}
   /* cleo folder: every subfolder, any depth (files of a folder first, then its subfolders) */
   const cw=(rel,d)=>{let ents;try{ents=fsN.readdirSync(pathN.join(gd,rel),{withFileTypes:true})}catch(e){return}
@@ -93,19 +121,19 @@ async function runChecks(){if(!root&&!game){VC.res=null;renderChecks();return}
  else if(o&&f)lim={state:'warn',dl:'<div style="margin-top:8px"><button class="btn sm" data-ack="set">I know what I’m doing</button></div>',title:'Two limit adjusters are installed',detail:'Open and Fastman92 limit adjusters can conflict and crash the game unless they are properly configured to work together. That setup is for advanced users. If you did not set it up on purpose, keep only one.'};
  else if(!o&&!f)lim={state:'warn',dl:DLB.lim,title:'No limit adjuster found',detail:'Install Open Limit Adjuster or Fastman92 Limit Adjuster to avoid crashes with large mod packs.'};
  else lim={state:'ok',title:o?'Open Limit Adjuster':'Fastman Limit Adjuster',detail:o||f};
- VC.res={exe,ml:mlc,asi,lim,ess:ESSENTIALS.map(x=>({...x,where:idx.get(x.file.toLowerCase())||''}))};renderChecks()}
+ VC.res={mli:cwMli(),dups:cwDups(all),exe,ml:mlc,asi,lim,ess:ESSENTIALS.map(x=>({...x,where:idx.get(x.file.toLowerCase())||''}))};renderChecks()}
 function renderChecks(){const b=$('#chkbody'),c=$('#chkcnt'),r=VC.res;let h;
  const LB={ok:'OK',warn:'Review',bad:'Problem'};
  const sec=(t,st,lab,body)=>`<section class="cks"><div class="cksh"><span>${t}</span><span class="pill ${st}">${lab||LB[st]}</span></div>${body}</section>`;
  if(!root&&!game){h='<span class="stats">Scan a GTA folder to run the checks.</span>';c.textContent='';c.className='cnt'}
  else if(!r){h='<span class="stats">Checking…</span>'}
  else{const ign=S.essIgn,miss=r.ess.filter(x=>!x.where&&!ign.includes(x.id)),skip=r.ess.filter(x=>!x.where&&ign.includes(x.id)),have=r.ess.filter(x=>x.where),
-   issues=(r.exe.state==='ok'?0:1)+(r.ml.state==='ok'?0:1)+(r.asi.state==='ok'?0:1)+(r.lim.state==='ok'?0:1)+miss.length;
+   issues=(r.exe.state==='ok'?0:1)+(r.ml.state==='ok'?0:1)+(r.asi.state==='ok'?0:1)+(r.lim.state==='ok'?0:1)+miss.length+cwCount(r);
   c.textContent=issues?issues+' to review':'All good';c.className='cnt '+(issues?'warn':'ok');
   const rowI=(x,btn,d)=>`<div class="ckr"><i class="ckd ${d||''}"></i><div class="ckn"><div class="ckt">${esc(x.name)}</div><div class="ckm">${esc(x.file)}</div></div>${btn||''}</div>`;
   h=sec('gta_sa.exe',r.exe.state,'',`<div class="ckt">${esc(r.exe.title)}</div><div class="ckx">${esc(r.exe.detail)}</div>`+(r.exe.meta?`<details class="ckf" data-k="file"${VC.o.file?' open':''}><summary><span>File details</span></summary><div class="ckm">${esc(r.exe.meta)}</div></details>`:''))
    +sec('ASI loader',r.asi.state,'',asiBody(r.asi))
-   +sec('Mod Loader',r.ml.state,'',ckBody(r.ml))
+   +sec('Mod Loader',r.ml.state,'',ckBody(r.ml))+cwSecs(r,sec)
    +sec('Limit adjuster',r.lim.state,'',ckBody(r.lim))
    +sec('Essentials',miss.length?'warn':'ok',`${have.length} of ${r.ess.length}`,
      (miss.length?`<div class="ckx" style="margin-bottom:2px">Missing:</div>`+miss.map(x=>rowI(x,`<button class="btn sm" data-ign="${x.id}">Ignore</button>`,'warn')).join(''):'<div class="ckx">Nothing missing.</div>')
@@ -124,3 +152,9 @@ $('#chkbody').addEventListener('toggle',e=>{const k=e.target.dataset&&e.target.d
 $('#chkrun').onclick=async()=>{const b=$('#chkrun');b.disabled=true;VC.ek='';try{await runChecks()}finally{b.disabled=false}toast('Checks updated')};
 $('#chklink').onclick=()=>require('electron').shell.openExternal(ESS_URL);
 
+/* SAMM-FEATURES: clicks for the two new warnings */
+$('#chkbody').addEventListener('click',async e=>{
+ const w=e.target.closest('[data-wign]'),u=e.target.closest('[data-wunign]'),mk=e.target.closest('[data-mkini]');
+ if(w){const a=wIgn();if(!a.includes(w.dataset.wign))a.push(w.dataset.wign);save();renderChecks();return}
+ if(u){const a=wIgn(),i=a.indexOf(u.dataset.wunign);if(i>=0)a.splice(i,1);save();renderChecks();return}
+ if(mk){mk.disabled=true;try{await commit(S.main,'modloader.ini created')}finally{runChecks()}}});
