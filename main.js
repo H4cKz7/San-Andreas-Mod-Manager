@@ -102,7 +102,7 @@ app.whenReady().then(()=>{
     icon:path.join(__dirname,'build','icon.png'),backgroundColor:'#101311',frame:false,show:false,
     webPreferences:{nodeIntegration:true,contextIsolation:false,spellcheck:false}};
   if(saved&&typeof saved.x==='number'){winOpts.x=saved.x;winOpts.y=saved.y}
-  const win=new BrowserWindow(winOpts);
+  const win=new BrowserWindow(winOpts);require('./updater').init(win);
   if(saved&&saved.maximized)win.maximize();
   win.once('ready-to-show',()=>{if(saved&&saved.maximized&&!win.isMaximized())win.maximize();win.show()});
   const snap=()=>{if(win.isDestroyed())return;try{const n=win.getNormalBounds();fs.writeFileSync(winStatePath(),JSON.stringify({x:n.x,y:n.y,width:n.width,height:n.height,maximized:win.isMaximized()}))}catch(e){}};

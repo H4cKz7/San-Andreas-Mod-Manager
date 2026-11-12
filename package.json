@@ -1,13 +1,13 @@
-	{
+{
   "name": "sa-mod-manager",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "GTA San Andreas Mod Loader manager",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
     "build": "electron-builder",
-	"installer": "electron-builder --win nsis"
+    "installer": "electron-builder --win nsis"
   },
   "devDependencies": {
     "@electron/packager": "^18.4.4",
@@ -21,6 +21,7 @@
     "afterPack": "afterPack.js",
     "files": [
       "main.js",
+      "updater.js",
       "index.html",
       "renderer/**",
       "fsshim.js",
@@ -41,10 +42,24 @@
     "asarUnpack": [
       "node_modules/7zip-bin/**/*",
       "node_modules/node-unrar-js/**/*"
-    ]
+    ],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "H4cKz7",
+        "repo": "San-Andreas-Mod-Manager"
+      }
+    ],
+    "nsis": {
+      "artifactName": "SA-Mod-Manager-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "SA-Mod-Manager-Portable-${version}.${ext}"
+    }
   },
   "dependencies": {
     "7zip-bin": "^5.2.0",
+    "electron-updater": "^6.3.9",
     "node-unrar-js": "^2.0.2"
   },
   "allowScripts": {

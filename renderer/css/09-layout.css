@@ -1,0 +1,9 @@
+/* v1.2.6 hotfix: fixed title bar + toolbar; only the area below the toolbar scrolls, so the scrollbar starts under the toolbar */
+html,body{height:100%;overflow:hidden}
+body{display:flex;flex-direction:column}
+.titlebar,header{position:relative;top:auto;flex:none}
+main{flex:1 1 auto;min-height:0;width:100%;max-width:none;margin:0;overflow-x:hidden;overflow-y:auto;align-content:start;
+ padding-left:max(22px,calc((100% - 1400px)/2 + 22px));padding-right:max(22px,calc((100% - 1400px)/2 + 22px));container-type:size}
+/* the sidebar sticks to the top of the scrolling area and scrolls on its own if it is taller than the view */
+.side{top:20px!important;max-height:calc(100vh - 170px)!important;max-height:calc(100cqh - 40px)!important}
+@media(max-width:960px){.side{position:static!important;max-height:none!important}}

@@ -126,7 +126,7 @@ Launch Game button and launch options
 - functions: doLaunch*, lmStat, lmDraw
 - top-level consts/vars: exePath, canLaunch, lq, LM, lmOpenMenu
 
-### 25-checker.js  (14.5 KB)
+### 25-checker.js  (14.9 KB)
 Version & Essentials checker card
 - functions: asiCheck*, peVersion, checkExe*, asiWalk*, runChecks*, renderChecks
 - top-level consts/vars: ESSENTIALS, OLA, F92, ESS_URL, KNOWN_EXE, VC, ASI_URL, ASI_URL_SILENT, DL_URL, dlRow, DLB, ckBody, ASI_DLLS, asiBody, sha256
@@ -149,6 +149,10 @@ styled tooltips replacing the native title popups
 - functions: tipOff, tipShow
 - top-level consts/vars: tipEl, tipT, tipFor, tipOpen
 
+### 30-updater.js  (3.1 KB)
+Update button in the title bar (GitHub releases)
+- top-level consts/vars: UPD
+
 (`name*` = async function)
 
 ## CSS (renderer/css), loaded in this order, later files override earlier ones
@@ -160,3 +164,5 @@ styled tooltips replacing the native title popups
 - **06-header-checker.css** (2.3 KB): v1.2.4: split buttons, checker drop-downs
 - **07-installer.css** (3.6 KB): v1.2.5: smart installer dialog and file picker tree
 - **08-dnd.css** (4.7 KB): v1.2.6: selection, drag & drop highlights, animations
+- **09-layout.css** (0.8 KB): 
+- **10-updater.css** (0.4 KB): update button in the title bar

@@ -76,7 +76,11 @@ async function asiWalk(dir,pre,add,depth){let ents;try{ents=await fsN.promises.r
  for(const e of ents){if(e.isDirectory()){if(depth<12)await asiWalk(pathN.join(dir,e.name),pre+e.name+'/',add,depth+1)}else if(/\.asi$/i.test(e.name))add(e.name,pre+e.name)}}
 async function runChecks(){if(!root&&!game){VC.res=null;renderChecks();return}
  const t=++VC.t,gd=gameDir(),idx=new Map(),add=(n,w)=>{const k=n.toLowerCase();if(!idx.has(k))idx.set(k,w)};
- if(gd)for(const sub of['','scripts','plugins','cleo','cleo/cleo_modules']){try{for(const e of fsN.readdirSync(pathN.join(gd,sub),{withFileTypes:true}))if(e.isFile()&&/\.(asi|cleo)$/i.test(e.name))add(e.name,(sub?sub+'/':'')+e.name)}catch(e){}}
+ if(gd){for(const sub of['','scripts','plugins']){try{for(const e of fsN.readdirSync(pathN.join(gd,sub),{withFileTypes:true}))if(e.isFile()&&/\.(asi|cleo)$/i.test(e.name))add(e.name,(sub?sub+'/':'')+e.name)}catch(e){}}
+  /* cleo folder: every subfolder, any depth (files of a folder first, then its subfolders) */
+  const cw=(rel,d)=>{let ents;try{ents=fsN.readdirSync(pathN.join(gd,rel),{withFileTypes:true})}catch(e){return}
+   for(const e of ents)if(e.isFile()&&/\.(asi|cleo)$/i.test(e.name))add(e.name,rel+'/'+e.name);
+   if(d<12)for(const e of ents)if(e.isDirectory())cw(rel+'/'+e.name,d+1)};cw('cleo',0)}
  if(root&&root._path)await asiWalk(root._path,'modloader/',add,0);
  else S.mods.forEach(m=>m.files.forEach(f=>{if(/\.asi$/i.test(f))add(f.split('/').pop(),'modloader/'+m.name+'/'+f)}));
  let exe;try{exe=await checkExe(gd)}catch(e){exe={state:'bad',title:'Couldn’t check gta_sa.exe',detail:e.message}}

@@ -113,7 +113,7 @@ function renderProf(){const p=P();
  if(document.activeElement!==$('#um'))$('#um').value=p.um||'';
  $('#ia').checked=!!E.ia;$('#ea').checked=!!E.ea;
  if(document.activeElement!==$('#plim'))$('#plim').value=S.pl??'';
- $('#plnote').textContent=S.pl!=null?`Mod priorities are capped at ${S.pl}.`:'Default limit: priorities go up to 100.'}
+ $('#plnote').textContent=S.pl!=null?`Mod priorities are currently capped at ${S.pl}.`:'Default limit: priorities go up to 100.'}
 const setLim=()=>{const v=parseInt($('#plim').value,10);if(isNaN(v)||v<1)return toast('Enter a whole number of 1 or more');S.pl=v;render()};
 $('#plset').onclick=setLim;$('#plim').onkeydown=e=>{if(e.key==='Enter')setLim()};
 document.querySelectorAll('.step [data-st]').forEach(b=>b.onclick=e=>{const i=$('#plim'),v=parseInt(i.value||S.pl||100,10)||100;i.value=Math.max(1,v+(+b.dataset.st)*(e.shiftKey?10:1));setLim()});

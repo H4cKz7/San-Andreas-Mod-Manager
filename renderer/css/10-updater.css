@@ -1,0 +1,5 @@
+/* SA Mod Manager - 10-updater.css: update button in the title bar (loaded in order by index.html) */
+#wupd{position:relative}
+#wupd.has::after{content:"";position:absolute;top:7px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--acc)}
+@media (prefers-reduced-motion:no-preference){#wupd.busy svg{animation:updPulse 1s ease-in-out infinite}}
+@keyframes updPulse{50%{opacity:.35}}

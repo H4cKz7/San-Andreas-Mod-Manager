@@ -32,4 +32,10 @@ window.__native={
  saveShortcut:(name,opts)=>ipcRenderer.invoke('save-shortcut',name,opts),
  pickArchive:()=>ipcRenderer.invoke('pick-archive'),
  extract:(file,pw)=>ipcRenderer.invoke('archive-extract',file,pw),
- cleanTmp:d=>ipcRenderer.invoke('archive-clean',d)};
+ cleanTmp:d=>ipcRenderer.invoke('archive-clean',d),
+ updCheck:m=>ipcRenderer.invoke('upd-check',!!m),
+ updState:()=>ipcRenderer.invoke('upd-state'),
+ updDownload:()=>ipcRenderer.invoke('upd-download'),
+ updInstall:()=>ipcRenderer.invoke('upd-install'),
+ updOpen:()=>ipcRenderer.invoke('upd-open'),
+ onUpdate:cb=>ipcRenderer.on('upd-state',(e,s)=>cb(s))};
