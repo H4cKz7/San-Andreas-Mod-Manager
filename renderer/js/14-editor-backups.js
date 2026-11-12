@@ -1,12 +1,14 @@
 /* SA Mod Manager - 14-editor-backups.js: config editor backup / delete-backups dialogs, first-scan auto backup */
 /* Classic script: loaded in order by index.html, shares globals with the other files. */
 /* ===== back up every config / delete backups (a searchable list with select-all) ===== */
+/* files inside <modloader>/bisect (Bisect's temporary folder) are never listed or backed up */
+const bkSkip=abs=>{try{const d=bsTempDir().toLowerCase().replace(/\\/g,'/'),a=String(abs).toLowerCase().replace(/\\/g,'/');return !!d&&(a===d||a.startsWith(d+'/'))}catch(e){return false}};
 const extOfRel=r=>/\.jsonc$/i.test(r)?'jsonc':/\.json$/i.test(r)?'json':'ini';
 const BKD={mode:'make',items:[],sel:new Set(),has:new Set(),q:'',f:'all',busy:false};
 async function cfgList(){
  if(ED.scanning)await new Promise(r=>{const t=setInterval(()=>{if(!ED.scanning){clearInterval(t);r()}},120)});
  else if(ED.inst!==S.curInst||!ED.files.length)await edScan();
- return ED.files}
+ return ED.files.filter(f=>!bkSkip(f.abs))}
 async function bkdOpen(mode){if(BKD.busy||$('#bkd').open)return;
  Object.assign(BKD,{mode,items:[],sel:new Set(),q:'',f:'all'});$('#bkq').value='';document.querySelectorAll('#bkf button').forEach(b=>b.classList.toggle('on',b.dataset.f==='all'));
  const mk=mode==='make';
@@ -48,7 +50,7 @@ $('#bkmake').onclick=()=>bkdOpen('make');$('#bkdel').onclick=()=>bkdOpen('del');
 let bkAutoRun=false;
 const scheduleAutoBackup=()=>setTimeout(autoBackup,2500);
 async function autoBackup(){const id=S.curInst,base=edAnchor();if(bkAutoRun||!root||!id||!base||S.autoBk[id])return;bkAutoRun=true;
- try{const list=await cfgWalk(base,[],()=>new Promise(r=>setTimeout(r,2)));if(S.curInst!==id)return;
+ try{const list=(await cfgWalk(base,[],()=>new Promise(r=>setTimeout(r,2)))).filter(f=>!bkSkip(f.abs));if(S.curInst!==id)return;
   let n=0,i=0;const work=async()=>{while(i<list.length){if(S.curInst!==id)return;const f=list[i++];
    try{if(await BK.firstAsync(f.abs))n++}catch(e){}
    if(i%16===0)await new Promise(r=>setTimeout(r,6))}};

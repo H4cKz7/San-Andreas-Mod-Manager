@@ -37,7 +37,7 @@ save-as helper and the game shortcut (.lnk / .bat) dialog
 - functions: saveAs*, cutArgs, cutUi, cutBuild
 - top-level consts/vars: CUT, cutTarget
 
-### 06-ui.js  (3.6 KB)
+### 06-ui.js  (9.8 KB)
 sidebar panel state, patchList() DOM morphing, ask() dialog, expanding mod rows
 - functions: patchList, pulse, ask, toggleMod, foldDir, bulkFold
 - top-level consts/vars: notice
@@ -74,10 +74,10 @@ config editor Form (INI) and Tree (JSON) rendering, undo history for the editor
 - functions: jLoad, jEdit, chipsRender, iniForm, jsonTree, swUpdate, edText, edBase, edStateNow, edState, edStateSoon, edHistUi, edHistPush, edSetText, edUndo, edRedo, edUndoAll, edRedoAll, edSplClose, edBody, edRight, edList, cfgWalk*, edScan*, edOpen*, edSave*, edRestore*, edClose*, keepOpen
 - top-level consts/vars: JNUM, jStrict, KEYN, vkName, cleanC, isIdList, idTokens, chipHtml, jget, edFold
 
-### 14-editor-backups.js  (6.2 KB)
+### 14-editor-backups.js  (6.5 KB)
 config editor backup / delete-backups dialogs, first-scan auto backup
 - functions: cfgList*, bkdOpen*, bkdList, bkdStat, autoBackup*
-- top-level consts/vars: extOfRel, BKD, bkdView, bkAutoRun, scheduleAutoBackup
+- top-level consts/vars: bkSkip, extOfRel, BKD, bkdView, bkAutoRun, scheduleAutoBackup
 
 ### 15-editor-events.js  (10.1 KB)
 config editor input, keyboard and click handlers
@@ -149,7 +149,7 @@ styled tooltips replacing the native title popups
 - functions: tipOff, tipShow
 - top-level consts/vars: tipEl, tipT, tipFor, tipOpen
 
-### 30-updater.js  (3.3 KB)
+### 30-updater.js  (3.4 KB)
 Update button in the title bar (GitHub releases)
 - top-level consts/vars: UPD
 
@@ -168,14 +168,14 @@ Rescan chevron menu (open game folder) and the Root cleo / scripts dialog
 - functions: gameOpenDir, openFolderPlain, rvScan*, rvDraw, rvPaint, rvRowEl, rvAllowed, rvDrop, rvHoverOpen, rvAfter, rvDelete*
 - top-level consts/vars: rsMenu, RV, rvRootT
 
-### 34-release-notes.js  (18.6 KB)
+### 34-release-notes.js  (18.7 KB)
 GitHub-flavoured markdown for the update dialog (release notes)
 - top-level consts/vars: RN
 
-### 35-bisect.js  (5.5 KB)
+### 35-bisect.js  (14.1 KB)
 Bisect helper, finds the mod that crashes the game by launching with half of the mods
-- functions: bsLaunch*, bsAsk*, bsEnd*, bisectStart*
-- top-level consts/vars: BS, bsCands, bsArgs, BS_OUT, bsTest
+- functions: bsFind, bsBack, bsRestore, bsMoveOut, bsLaunch*, bsAsk*, bsEnd*, bisectStart*
+- top-level consts/vars: BS, bsSaveKeep, bsCands, bsArgs, bsEssFiles, bsIsEss, BS_PL, bsTempDir, bsMv, bsSaveJ, bsPut, BS_OUT, bsTest
 
 ### 36-conflicts.js  (7.9 KB)
 file conflict view, which mods contain the same file and which one wins

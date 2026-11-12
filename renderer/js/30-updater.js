@@ -9,14 +9,14 @@ const UPD={s:{phase:'idle',version:'',pct:0,notes:'',portable:false,current:''},
   b.classList.toggle('has',phase==='available'||phase==='ready');
   b.classList.toggle('busy',phase==='checking'||phase==='downloading');
   if(phase==='available'&&!this.told&&!this.busy){this.told=true;toast('Update v'+version+' is available. Click the update button to install it')}},
- note(n){return String(n||'').split('\n').map(l=>l.replace(/^[-•]\s*/,'').trim()).filter(Boolean).join(' · ').slice(0,400)},
+ note(n){let t=String(n&&typeof n==='object'?(n.note||n.notes||n.body||''):n||'').replace(/\r\n?/g,'\n');if(t.indexOf('\n')<0)t=t.replace(/\\r\\n|\\n/g,'\n');return t.trim().slice(0,1500)},
  report(r){if(!r)return;
   const m={current:'You’re up to date (v'+(r.version||'')+')',dev:'Updates only work in the installed app, not when running from source',
    busy:'An update check or download is already running',error:'Update failed: '+(r.message||'unknown error')}[r.status];
   if(m)toast(m)},
  async offer(s){const n=this.note(s.notes),head='SA Mod Manager v'+s.version+' is available (you have v'+s.current+').',
    foot=s.portable?'You are using the portable version, so the new build has to be downloaded and swapped in by hand.':'It will be downloaded now. You will be asked again before it is installed.';
-  let html='';try{if(typeof RN!=='undefined')html=RN.dialog(head,s.notes,foot)}catch(e){html=''}
+  let html='';try{if(typeof RN!=='undefined')html=RN.dialog(head,s.notes,foot)}catch(e){html='';console.error('Release notes could not be rendered:',e)}
   const ok=await ask(Object.assign({title:'Update available',ok:s.portable?'Open download page':'Download'},html?{html}:{text:head+(n?'\n\n'+n:'')+'\n\n'+foot}));
   if(!ok)return;
   if(s.portable){window.__native.updOpen();return}

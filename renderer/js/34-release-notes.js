@@ -197,7 +197,9 @@ function toText(n){if(n==null)return '';
  if(typeof n==='object')return String(n.note||n.notes||n.body||'');
  return String(n)}
 function looksHtml(t){const md=(t.match(/^\s*([-*+] |\d+[.)] |#{1,6} |\x60\x60\x60|>)/gm)||[]).length,ht=(t.match(/<(li|p|h[1-6]|ul|ol|pre|br)\b/gi)||[]).length;return ht>0&&md===0}
-function render(notes){const t=toText(notes).replace(/\r\n?/g,'\n').trim();if(!t)return '';
+function render(notes){let t=toText(notes).replace(/\r\n?/g,'\n').trim();if(!t)return '';
+ /* notes that were stored or sent with escaped newlines (the two characters \ and n) */
+ if(t.indexOf('\n')<0&&t.indexOf('\\n')>=0)t=t.replace(/\\r\\n|\\n/g,'\n');
  return '<div class="rn-md">'+(looksHtml(t)?sanitize(t):mdToHtml(t))+'</div>'}
 function dialog(head,notes,foot){const body=render(notes);
  return '<p class="rn-head">'+ec(head)+'</p>'+(body?'<div class="rn-sec">What’s new</div><div class="rn-notes">'+body+'</div>':'')+'<p class="rn-foot">'+ec(foot)+'</p>'}
