@@ -149,7 +149,7 @@ styled tooltips replacing the native title popups
 - functions: tipOff, tipShow
 - top-level consts/vars: tipEl, tipT, tipFor, tipOpen
 
-### 30-updater.js  (3.4 KB)
+### 30-updater.js  (4.7 KB)
 Update button in the title bar (GitHub releases)
 - top-level consts/vars: UPD
 

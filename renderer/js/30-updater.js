@@ -14,9 +14,21 @@ const UPD={s:{phase:'idle',version:'',pct:0,notes:'',portable:false,current:''},
   const m={current:'You’re up to date (v'+(r.version||'')+')',dev:'Updates only work in the installed app, not when running from source',
    busy:'An update check or download is already running',error:'Update failed: '+(r.message||'unknown error')}[r.status];
   if(m)toast(m)},
+ /* SAMM-PATCH7: the original markdown of the release, straight from GitHub (the notes handed over by the main process are plain text). '' on any failure. */
+ fullNotes(ver){ver=String(ver||'').replace(/^v/i,'');this._fn=this._fn||{};if(!ver)return Promise.resolve('');if(this._fn[ver]!==undefined)return Promise.resolve(this._fn[ver]);
+  const get=(url,hops)=>new Promise((res,rej)=>{
+   const rq=require('https').get(url,{headers:{'User-Agent':'SAMM-Updater','Accept':'application/vnd.github+json'},timeout:6000},r=>{
+    if(r.statusCode>=300&&r.statusCode<400&&r.headers.location&&(hops||0)<4){r.resume();return res(get(new URL(r.headers.location,url).href,(hops||0)+1))}
+    if(r.statusCode!==200){r.resume();return rej(new Error('HTTP '+r.statusCode))}
+    const b=[];r.on('data',d=>b.push(d));r.on('end',()=>res(Buffer.concat(b).toString('utf8')));r.on('error',rej)});
+   rq.on('timeout',()=>rq.destroy(new Error('Timed out')));rq.on('error',rej)});
+  const base='https://api.github.com/repos/H4cKz7/San-Andreas-Mod-Manager/releases/tags/';
+  return(async()=>{let out='';
+   for(const tag of['v'+ver,ver]){try{const j=JSON.parse(await get(base+encodeURIComponent(tag)));if(j&&typeof j.body==='string'&&j.body.trim()){out=j.body;break}}catch(e){}}
+   this._fn[ver]=out;return out})()},
  async offer(s){const n=this.note(s.notes),head='SA Mod Manager v'+s.version+' is available (you have v'+s.current+').',
    foot=s.portable?'You are using the portable version, so the new build has to be downloaded and swapped in by hand.':'It will be downloaded now. You will be asked again before it is installed.';
-  let html='';try{if(typeof RN!=='undefined')html=RN.dialog(head,s.notes,foot)}catch(e){html='';console.error('Release notes could not be rendered:',e)}
+  let html='';try{if(typeof RN!=='undefined')html=RN.dialog(head,(await this.fullNotes(s.version))||s.notes,foot)}catch(e){html='';console.error('Release notes could not be rendered:',e)}
   const ok=await ask(Object.assign({title:'Update available',ok:s.portable?'Open download page':'Download'},html?{html}:{text:head+(n?'\n\n'+n:'')+'\n\n'+foot}));
   if(!ok)return;
   if(s.portable){window.__native.updOpen();return}
