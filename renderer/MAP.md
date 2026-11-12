@@ -69,10 +69,10 @@ config editor core: INI parsing, file list, open / save / restore
 JC: JSON-with-comments parser and in-place editor
 - top-level consts/vars: JC
 
-### 13-editor-form.js  (22.9 KB)
+### 13-editor-form.js  (24.2 KB)
 config editor Form (INI) and Tree (JSON) rendering, undo history for the editor
 - functions: jLoad, jEdit, chipsRender, iniForm, jsonTree, swUpdate, edText, edBase, edStateNow, edState, edStateSoon, edHistUi, edHistPush, edSetText, edUndo, edRedo, edUndoAll, edRedoAll, edSplClose, edBody, edRight, edList, cfgWalk*, edScan*, edOpen*, edSave*, edRestore*, edClose*, keepOpen
-- top-level consts/vars: JNUM, jStrict, KEYN, vkName, cleanC, isIdList, idTokens, chipHtml, jget
+- top-level consts/vars: JNUM, jStrict, KEYN, vkName, cleanC, isIdList, idTokens, chipHtml, jget, edFold
 
 ### 14-editor-backups.js  (6.2 KB)
 config editor backup / delete-backups dialogs, first-scan auto backup
@@ -116,25 +116,25 @@ folder scan, modloader.ini / profile reading and writing, Save, restore on start
 - functions: writeFile*, applyLine, parseIniFile, commit*, ingest*, detectPath*, findExes*, scanRoot*, findML*, instFor*, mlMissing, openBaseInstaller, applyBasePlan, mlBtnSync, scanGameOnly*, openStored*, setRoot*, switchInst*, forgetInst*, pick*, profIni, patchIni, filesRaw, files, syncCur*, probeLog*, restore*
 - top-level consts/vars: root, srcText, src, game, logGet, extraLog, written, newP, idb, canWrite, PSEC, ppath, gpath, curInst, exeNote, ML_URL, ESS_URL2, bcText, ppText, _fc, pendTxt, welcome
 
-### 23-trash.js  (6.8 KB)
+### 23-trash.js  (7.7 KB)
 Trash: move to / restore from / delete permanently
 - functions: listFiles, refreshMod, trashPut*, trashMod*, trashPath*, trashRestore*, trashDelete*, renderTrash
-- top-level consts/vars: gameDir, TR, trName
+- top-level consts/vars: gameDir, locAbs, locOf, trMod, TR, trName
 
 ### 24-launch.js  (3.4 KB)
 Launch Game button and launch options
 - functions: doLaunch*, lmStat, lmDraw
 - top-level consts/vars: exePath, canLaunch, lq, LM, lmOpenMenu
 
-### 25-checker.js  (14.9 KB)
+### 25-checker.js  (15.5 KB)
 Version & Essentials checker card
 - functions: asiCheck*, peVersion, checkExe*, asiWalk*, runChecks*, renderChecks
-- top-level consts/vars: ESSENTIALS, OLA, F92, ESS_URL, KNOWN_EXE, VC, ASI_URL, ASI_URL_SILENT, DL_URL, dlRow, DLB, ckBody, ASI_DLLS, asiBody, sha256
+- top-level consts/vars: ESSENTIALS, OLA, F92, ESS_URL, KNOWN_EXE, VC, ASI_URL, ASI_URL_SILENT, DL_URL, dlRow, DLB, ckBody, ASI_DLLS, asiBody, sha256, LIMACK
 
-### 26-dnd.js  (13.5 KB)
+### 26-dnd.js  (14.3 KB)
 selection, drag & drop, cut / copy / paste of mods, folders and files
 - functions: selCls, normItems, modEl, rowEl, rowItem, selPaint, clipSet, pasteTarget, pasteClip*, leave*, landed, transfer*, setHl, endDrag, dropTarget, canDrop
-- top-level consts/vars: SEL, SELA, CLIP, DRAG, DNDBUSY, selKey, isCut, itAbs, within, itName, itemsLabel, sleep, reduceMo, SECT, _tip, tip, MLWATCH
+- top-level consts/vars: SEL, SELA, CLIP, DRAG, DNDBUSY, selKey, isCut, itAbs, within, itName, itemsLabel, sleep, reduceMo, SECT, _tip, tip, dndStart, MLWATCH
 
 ### 27-boot.js  (0.2 KB)
 startup: restore() and first render()
@@ -153,6 +153,21 @@ styled tooltips replacing the native title popups
 Update button in the title bar (GitHub releases)
 - top-level consts/vars: UPD
 
+### 31-wiki.js  (25.1 KB)
+in-app Wiki reader (GitHub wiki repo, cached on disk so it also opens offline)
+- functions: wkEsc, wkSlug, wkEnc, wkResolve, wkBase, wkMd, wkSnip, wkSearch, wkHl
+- top-level consts/vars: WK
+
+### 32-editor-memory.js  (2.4 KB)
+the config editor reopens the last file, view and scroll position (per installation)
+- functions: emCapture, emRestore*, edLaunch*
+- top-level consts/vars: EM
+
+### 33-folder-tools.js  (13.8 KB)
+Rescan chevron menu (open game folder) and the Root cleo / scripts dialog
+- functions: gameOpenDir, openFolderPlain, rvScan*, rvDraw, rvPaint, rvRowEl, rvAllowed, rvDrop, rvHoverOpen, rvAfter, rvDelete*
+- top-level consts/vars: rsMenu, RV, rvRootT
+
 (`name*` = async function)
 
 ## CSS (renderer/css), loaded in this order, later files override earlier ones
@@ -166,3 +181,5 @@ Update button in the title bar (GitHub releases)
 - **08-dnd.css** (4.7 KB): v1.2.6: selection, drag & drop highlights, animations
 - **09-layout.css** (0.8 KB): 
 - **10-updater.css** (0.4 KB): update button in the title bar
+- **11-wiki.css** (8.0 KB): in-app Wiki reader (loaded in order by index.html). Uses the app's theme variables, so light/dark/custom colours just work.
+- **12-v128.css** (4.5 KB): scrollbar insets, Rescan chevron menu, Root cleo/scripts dialog

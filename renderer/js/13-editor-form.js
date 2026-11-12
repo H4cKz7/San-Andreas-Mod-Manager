@@ -95,18 +95,32 @@ function edRight(keep){const c=ED.cur,r=$('#edright'),sc0=keep&&$('#edbody')?$('
  if(!c){r.innerHTML='<div class="empty" style="margin:auto;border:0">Pick a file on the left to edit it.<br>Every change is backed up automatically.</div>';return}
  r.innerHTML=`<div class="edh"><div class="edp" title="${esc(c.abs)}">${esc(c.rel)}</div><div class="edt"><div class="seg" id="edview"><button data-v="form" class="${c.view==='form'?'on':''}">${c.kind==='json'?'Tree':'Form'}</button><button data-v="raw" class="${c.view==='raw'?'on':''}">Raw</button></div>${c.kind==='json'&&!c.jc?'<button class="btn sm" id="edfmt">Format</button>':''}<div class="dd" id="edbd"><button class="btn sm" id="edbk">Backups</button><div class="ddm right" id="edbm" hidden></div></div><div class="dd split" id="edundod"><button class="btn sm" id="edundo" disabled title="Undo (Ctrl+Z)">Undo</button><button class="btn sm more" id="edundomore" disabled title="More undo options" aria-label="More undo options" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><div class="ddm" id="edundom" role="menu" hidden><div class="ddi" role="menuitem" data-eall="undo">Undo all<small id="edundoalln"></small></div></div></div><div class="dd split" id="edredod"><button class="btn sm" id="edredo" disabled title="Redo (Ctrl+Y)">Redo</button><button class="btn sm more" id="edredomore" disabled title="More redo options" aria-label="More redo options" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button><div class="ddm right" id="edredom" role="menu" hidden><div class="ddi" role="menuitem" data-eall="redo">Redo all<small id="edredoalln"></small></div></div></div><button class="btn sm" id="edrev">Revert</button><button class="btn sm pri" id="edsave">Save changes</button></div></div>${edTbHtml(c)}${!c.exists?'<div class="edn">This file no longer exists. Restore a backup to bring it back.</div>':''}${c.err?`<div class="edn bad">${esc(c.err)}</div>`:''}<div class="edbody" id="edbody"></div>`;
  edBody();edState();if(keep){const b=$('#edbody');if(b)b.scrollTop=sc0}}
-function edList(){const box=$('#edlist');$('#edbkbar').hidden=ED.tab!=='bk';
+function edList(){const box=$('#edlist');$('#edbkbar').hidden=ED.tab!=='bk';$('#edtreebar').hidden=ED.tab==='bk';
  if(ED.tab==='bk'){const q=ED.q.trim().toLowerCase(),all=BK.all(),a=all.filter(x=>(ED.filter==='all'||extOfRel(x.rel)===ED.filter)&&(!q||x.rel.toLowerCase().includes(q)));
   box.innerHTML=a.length?a.map(x=>`<div class="edr ${ED.cur&&ED.cur.abs===x.abs?'sel':''}" data-abs="${esc(x.abs)}" style="padding-left:10px" title="${esc(x.rel)}"><span class="ext ${extOfRel(x.rel)}">${extOfRel(x.rel)}</span><span class="nm">${esc(x.rel)}</span>${x.missing?'<small style="color:var(--bad)">deleted</small>':''}<small>${x.count}</small></div>`).join(''):`<div class="stats" style="padding:10px">${all.length?'No backups match this search or filter.':'No backups yet. One is saved automatically before a config changes. Use “Back up configs…” above to save one for your files now.'}</div>`;return}
  const q=ED.q.trim().toLowerCase(),fl=ED.files.filter(f=>(ED.filter==='all'||f.ext===ED.filter)&&(!q||f.rel.toLowerCase().includes(q)));
  if(ED.scanning&&!fl.length){box.innerHTML='<div class="stats" style="padding:10px">Scanning…</div>';return}
  if(!fl.length){box.innerHTML='<div class="stats" style="padding:10px">No config files found</div>';return}
- const groups=new Map();fl.forEach(f=>{const i=f.rel.lastIndexOf('/'),d=i<0?'':f.rel.slice(0,i);if(!groups.has(d))groups.set(d,[]);groups.get(d).push(f)});
- const cur=ED.cur&&ED.cur.abs;let h='',shown=0;
- for(const[d,arr]of groups){const open=!!q||ED.open[d]||arr.some(f=>f.abs===cur);
-  h+=`<div class="edg ${open?'open':''}" data-d="${esc(d)}">${CV}<span class="nm" title="${esc(d)}">${esc(d||'Game folder')}</span><small>${arr.length}</small></div>`;
-  if(open&&shown<700)arr.forEach(f=>{shown++;h+=`<div class="edr ${f.abs===cur?'sel':''}" data-abs="${esc(f.abs)}" title="${esc(f.rel)}"><span class="ext ${f.ext}">${f.ext}</span><span class="nm">${esc(f.rel.split('/').pop())}</span>${BK.has(f.abs)?'<i class="bkd" title="Has backups"></i>':''}<small>${fmtSize(f.size)}</small></div>`})}
- box.innerHTML=h}
+ box.classList.add('rt');
+ const mk=()=>({dirs:new Map(),files:[],n:0}),rootN=mk();
+ fl.forEach(f=>{let nd=rootN,p='';const ps=f.rel.split('/');ps.pop();
+  for(const s of ps){p=p?p+'/'+s:s;let c=nd.dirs.get(s);if(!c){c=mk();c.name=s;c.path=p;nd.dirs.set(s,c)}nd=c}
+  nd.files.push(f)});
+ const cnt=nd=>{nd.n=nd.files.length;nd.dirs.forEach(c=>{nd.n+=cnt(c)});return nd.n};cnt(rootN);
+ const cur=ED.cur&&ED.cur.abs,curRel=(ED.cur&&ED.cur.rel)||'';let shown=0;
+ const fileRow=f=>{if(shown>=700)return'';shown++;
+  return '<div class="edr '+(f.abs===cur?'sel':'')+'" data-abs="'+esc(f.abs)+'" title="'+esc(f.rel)+'"><span class="ext '+f.ext+'">'+f.ext+'</span><span class="nm">'+esc(f.rel.split('/').pop())+'</span>'+(BK.has(f.abs)?'<i class="bkd" title="Has backups"></i>':'')+'<small>'+fmtSize(f.size)+'</small></div>'};
+ /* a folder that only holds one sub-folder is merged into it ("a/b/c") so deep paths take one row, not three */
+ const node=nd=>{let label=nd.name,c=nd;
+  while(!c.files.length&&c.dirs.size===1){c=c.dirs.values().next().value;label+='/'+c.name}
+  const open=!!q||(c.path in ED.open?!!ED.open[c.path]:!!curRel&&curRel.startsWith(c.path+'/'));
+  let s='<div class="rvd'+(open?' open':'')+'"><div class="edg'+(open?' open':'')+'" data-d="'+esc(c.path)+'">'+CV+FO+'<span class="nm" title="'+esc(c.path)+'">'+esc(label)+'</span><small>'+c.n+'</small></div><div class="rvk">';
+  if(open){c.dirs.forEach(d=>{s+=node(d)});c.files.forEach(f=>{s+=fileRow(f)})}
+  return s+'</div></div>'};
+ const rootOpen=!!q||ED.open['/']!==false;
+ let h='<div class="rvd'+(rootOpen?' open':'')+'"><div class="edg rvroot'+(rootOpen?' open':'')+'" data-d="/">'+CV+FO+'<span class="nm" title="Game folder">Game folder</span><small>'+rootN.n+'</small></div><div class="rvk">';
+ if(rootOpen){rootN.dirs.forEach(d=>{h+=node(d)});rootN.files.forEach(f=>{h+=fileRow(f)})}
+ box.innerHTML=h+'</div></div>'}
 async function cfgWalk(base,out,tick){const skip=new Set(['.git','node_modules','$recycle.bin','system volume information']);let n=0;
  const walk=async(dir,depth)=>{let ents;try{ents=await fsN.promises.readdir(dir,{withFileTypes:true})}catch(e){return}
   for(const e of ents){const p=pathN.join(dir,e.name);
@@ -140,10 +154,10 @@ async function edRestore(id){const c=ED.cur;if(!c)return;
  const r=root&&root._path;if(r&&c.abs.toLowerCase().startsWith(r.toLowerCase()))ED.touchedML=true;
  await edOpen(c.abs,true);toast('Restored')}
 async function edClose(){const c=ED.cur;if(c&&c.dirty&&!await ask({title:'Discard unsaved changes?',text:c.rel,ok:'Discard',danger:true}))return;
- ED.cur=null;$('#edd').close();
+ emCapture();ED.cur=null;$('#edd').close();
  if(ED.touchedML){ED.touchedML=false;const pend=files().filter(([p,t])=>written[p]!==t).length;if(pend)toast('Saved. Rescan to load the changes into the main view.');else{try{await scanRoot()}catch(e){}}}}
 function keepOpen(fn){const op=[...$('#edbody').querySelectorAll('details.jn[open]')].map(d=>d.dataset.path);fn();$('#edbody').querySelectorAll('details.jn').forEach(d=>{if(op.includes(d.dataset.path))d.open=true})}
-$('#edbtn').onclick=()=>{if(!root&&!game)return toast('Scan a GTA folder first');$('#edd').showModal();ED.tab='files';document.querySelectorAll('#edtabs button').forEach(b=>b.classList.toggle('on',b.dataset.t==='files'));if(ED.inst!==S.curInst||!ED.files.length)edScan();else edList();edRight()};
+$('#edbtn').onclick=()=>{if(!root&&!game)return toast('Scan a GTA folder first');$('#edd').showModal();ED.tab='files';document.querySelectorAll('#edtabs button').forEach(b=>b.classList.toggle('on',b.dataset.t==='files'));edLaunch()};
 $('#edclose').onclick=edClose;$('#edrescan').onclick=edScan;
 $('#edd').addEventListener('cancel',e=>{e.preventDefault();edClose()});
 $('#edd').addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
@@ -153,5 +167,7 @@ $('#edd').addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const
 $('#edq').oninput=e=>{ED.q=e.target.value;edList()};
 $('#edtabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;ED.tab=b.dataset.t;document.querySelectorAll('#edtabs button').forEach(x=>x.classList.toggle('on',x===b));edList()};
 $('#edf').onclick=e=>{const b=e.target.closest('button');if(!b)return;ED.filter=b.dataset.f;document.querySelectorAll('#edf button').forEach(x=>x.classList.toggle('on',x===b));edList()};
+const edFold=open=>{const o={'/':true};ED.files.forEach(f=>{const ps=f.rel.split('/');ps.pop();let p='';ps.forEach(s=>{p=p?p+'/'+s:s;o[p]=open})});ED.open=o;edList()};
+$('#edtexp').onclick=()=>edFold(true);$('#edtcol').onclick=()=>edFold(false);
 $('#edlist').onclick=e=>{const g=e.target.closest('.edg');if(g){ED.open[g.dataset.d]=!g.classList.contains('open');edList();return}
  const r=e.target.closest('.edr');if(r)edOpen(r.dataset.abs)};

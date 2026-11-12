@@ -1,0 +1,63 @@
+/* SA Mod Manager - 12-v128.css: scrollbar insets, Rescan chevron menu, Root cleo/scripts dialog (loaded in order by index.html) */
+/* ---- scrollbars: the standard scrollbar-* properties in 01-base.css make Chromium ignore the ::-webkit-scrollbar rules,
+   so they are reset here. The invisible end buttons keep the thumb away from rounded corners and window edges. ---- */
+*{scrollbar-width:auto;scrollbar-color:auto}
+::-webkit-scrollbar-button:vertical:start:decrement,::-webkit-scrollbar-button:vertical:end:increment{display:block;width:12px;height:8px;background:transparent}
+::-webkit-scrollbar-button:horizontal:start:decrement,::-webkit-scrollbar-button:horizontal:end:increment{display:block;width:8px;height:12px;background:transparent}
+::-webkit-scrollbar-button:vertical:start:increment,::-webkit-scrollbar-button:vertical:end:decrement,::-webkit-scrollbar-button:horizontal:start:increment,::-webkit-scrollbar-button:horizontal:end:decrement{display:none}
+dialog::-webkit-scrollbar-button:vertical:start:decrement,dialog::-webkit-scrollbar-button:vertical:end:increment{height:14px}
+dialog::-webkit-scrollbar-button:horizontal:start:decrement,dialog::-webkit-scrollbar-button:horizontal:end:increment{width:14px}
+::-webkit-scrollbar-corner,::-webkit-resizer{background:transparent}
+
+/* ---- Rescan split button + game folder menu ---- */
+#rescanm{min-width:200px}
+.ddi>svg.mi{flex:none;color:var(--mut)}
+.ddi:hover>svg.mi{color:var(--acc)}
+
+/* ---- Root cleo / scripts dialog ---- */
+#rootd .rtool{display:flex;gap:8px;align-items:center}
+#rootd .rtool input[type=search]{flex:1;min-width:0}
+#rootd .edr .eb{opacity:0;flex:none}
+#rootd .edr:hover .eb,#rootd .edr:focus-within .eb{opacity:1}
+#rootd .edr .dir{color:var(--mut);font-size:11.5px;max-width:34%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ---- Root cleo / scripts: docked panel (not modal, so items can be dragged to and from the mod list) ---- */
+#rootd.rdock{position:fixed;top:calc(var(--hh,130px) + 8px);right:14px;bottom:14px;left:auto;margin:0;width:min(430px,46vw);height:auto;max-height:none;z-index:8;padding:14px;overflow:hidden}
+#rootd.rdock[open]{display:flex;flex-direction:column;gap:8px}
+#rootd .lh{gap:6px 8px}
+#rootd .lh h2{font-size:16px}
+#rootd .ed-list{flex:1;min-height:0;overflow:auto;margin:0}
+#rootd .rvd.open>.rvk{display:block}
+#rootd .rvd.open>.edg svg.cv{transform:rotate(90deg)}
+#rootd .edg,#rootd .edr{user-select:none}
+#rootd .edg .eb,#rootd .edr .eb{opacity:0;flex:none}
+#rootd .edg:hover .eb,#rootd .edr:hover .eb,#rootd .edg:focus-within .eb,#rootd .edr:focus-within .eb{opacity:1}
+#rootd .edg.sel,#rootd .edr.sel{background:var(--accbg);color:var(--acc)}
+#rootd .edg.cutm,#rootd .edr.cutm{opacity:.45}
+.edg.dropok,.edr.dropok{outline:2px dashed var(--acc);outline-offset:-2px;background-color:var(--accbg)}
+.edg.dropbad,.edr.dropbad{outline:2px dashed var(--bad);outline-offset:-2px}
+@media (prefers-reduced-motion:no-preference){
+ #rootd .edr.leaving,#rootd .edg.leaving{opacity:0;transform:translateX(-10px);pointer-events:none;transition:opacity .16s ease,transform .18s ease}
+ #rootd .edr.landed,#rootd .edg.landed{animation:landed .95s cubic-bezier(.2,.7,.2,1)}
+}
+
+/* rt-patch */
+/* ---- nested trees (Root cleo / scripts and the config editor): compact indent, guide lines, folder + trash icons ---- */
+.rt{overflow-x:hidden}
+.rt .rvk{display:none;margin-left:9px;border-left:1px solid var(--line)}
+.rt .rvd.open>.rvk{display:block}
+.rt .rvd.open>.edg svg.cv,.rt .rvroot.open svg.cv{transform:rotate(90deg)}
+.rt .edg,.rt .edr{gap:6px;padding-right:8px}
+.rt .edr{padding-left:8px;padding-top:4px;padding-bottom:4px}
+.rt svg{flex:none}
+.rt svg.fo{width:14px;height:14px;color:var(--folder,var(--acc));filter:drop-shadow(0 2px 0 color-mix(in srgb,var(--folder,var(--acc)) 55%,#000))}
+.rt small{flex:none}
+.rt .rvroot{font-weight:600;color:var(--tx)}
+.rt .ib{width:24px;height:22px;min-width:0;padding:0;border:1px solid var(--line);background:var(--panel);color:var(--mut);border-radius:6px;display:inline-grid;place-items:center;cursor:pointer}
+.rt .ib svg{width:14px;height:14px}
+.rt .ib:hover{border-color:var(--bad);color:var(--bad)}
+#rootd .rva .eb{opacity:0}
+#rootd .rva:hover .eb,#rootd .rva:focus-within .eb,#rootd .rvroot:hover .eb,#rootd .rvroot:focus-within .eb{opacity:1}
+#rootd .rvroot .eb{opacity:0;flex:none}
+/* ---- Root dialog header: title row, then a right-aligned button row, a short hint and a collapsible tips list ---- */
+#rootd .lh{flex-wrap:wrap}

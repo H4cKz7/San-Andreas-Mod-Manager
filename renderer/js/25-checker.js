@@ -89,7 +89,8 @@ async function runChecks(){if(!root&&!game){VC.res=null;renderChecks();return}
  if(t!==VC.t)return;
  const mlw=idx.get('modloader.asi'),mlc=mlw?{state:'ok',title:'modloader.asi found',detail:mlw==='modloader.asi'?'In the game folder.':'In '+mlw.replace(/\/[^/]*$/,'')+'.'}:{state:'bad',dl:DLB.ml,title:'modloader.asi not found',detail:'Mod Loader’s plugin has to be in the game folder (or scripts / plugins) for the mods in modloader to load.'};
  const o=idx.get(OLA.toLowerCase()),f=idx.get(F92.toLowerCase());let lim;
- if(o&&f)lim={state:'warn',title:'Two limit adjusters are installed',detail:'Open and Fastman92 limit adjusters can conflict and crash the game unless they are properly configured to work together. That setup is for advanced users. If you did not set it up on purpose, keep only one.'};
+ if(o&&f&&LIMACK())lim={state:'ok',dl:'<div style="margin-top:8px"><button class="btn sm" data-ack="clear">Show warning again</button></div>',title:'Two limit adjusters (warning dismissed)',detail:'You chose to keep both. They can still conflict unless they are configured to work together.'};
+ else if(o&&f)lim={state:'warn',dl:'<div style="margin-top:8px"><button class="btn sm" data-ack="set">I know what I’m doing</button></div>',title:'Two limit adjusters are installed',detail:'Open and Fastman92 limit adjusters can conflict and crash the game unless they are properly configured to work together. That setup is for advanced users. If you did not set it up on purpose, keep only one.'};
  else if(!o&&!f)lim={state:'warn',dl:DLB.lim,title:'No limit adjuster found',detail:'Install Open Limit Adjuster or Fastman92 Limit Adjuster to avoid crashes with large mod packs.'};
  else lim={state:'ok',title:o?'Open Limit Adjuster':'Fastman Limit Adjuster',detail:o||f};
  VC.res={exe,ml:mlc,asi,lim,ess:ESSENTIALS.map(x=>({...x,where:idx.get(x.file.toLowerCase())||''}))};renderChecks()}
@@ -111,7 +112,9 @@ function renderChecks(){const b=$('#chkbody'),c=$('#chkcnt'),r=VC.res;let h;
      +(skip.length?`<details class="ckf" data-k="ign"${VC.o.ign?' open':''}><summary><span>Ignored</span><span class="pill">${skip.length}</span></summary>${skip.map(x=>rowI(x,`<button class="btn sm" data-unign="${x.id}">Restore</button>`)).join('')}</details>`:'')
      +(have.length?`<details class="ckf" data-k="found"${VC.o.found?' open':''}><summary><span>Found</span><span class="pill ok">${have.length}</span></summary>${have.map(x=>`<div class="ckr"><i class="ckd ok"></i><div class="ckn"><div class="ckt">${esc(x.name)}</div><div class="ckm">${esc(x.where)}</div></div></div>`).join('')}</details>`:''))}
  if(b._h!==h){b.innerHTML=h;b._h=h}}
+const LIMACK=()=>!!(S.limAck&&S.limAck[S.curInst]);
 $('#chkbody').onclick=e=>{const a=e.target.closest('[data-ign]'),u=e.target.closest('[data-unign]');
+ {const k=e.target.closest('[data-ack]');if(k){S.limAck=S.limAck||{};if(k.dataset.ack==='set')S.limAck[S.curInst]=true;else delete S.limAck[S.curInst];save();runChecks();return}}
  if(e.target.closest('[data-open="asi"]')){require('electron').shell.openExternal(ASI_URL);return}
  if(e.target.closest('[data-open="asis"]')){require('electron').shell.openExternal(ASI_URL_SILENT);return}
  {const dl=e.target.closest('[data-dl]');if(dl&&DL_URL[dl.dataset.dl]){require('electron').shell.openExternal(DL_URL[dl.dataset.dl]);return}}
