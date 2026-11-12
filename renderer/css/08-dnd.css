@@ -68,3 +68,16 @@
 }
 /* ignored mod folder chips in the "Ignored files" card */
 .chip svg.fo{flex:none;color:var(--folder,var(--acc))}
+
+/* SAMM-HEADER-BUTTON-LAYOUT */
+@media(max-width:1560px){
+ header>.hr>.hg:not(:last-child){gap:4px}
+ header>.hr>.hg:not(:last-child)+.hg:not(:last-child){padding-left:0;border-left:0}
+ header>.hr>.hg:not(:last-child) .btn:not(.more){padding-left:7px;padding-right:7px}
+ header>.hr>.hg:not(:last-child) .btn.more{width:22px;padding:0}
+}
+
+/* SAMM-HEADER-UNDO-RIGHT */
+@media(max-width:1560px){
+ header>.hr>.hg:nth-child(3){margin-left:auto}
+}

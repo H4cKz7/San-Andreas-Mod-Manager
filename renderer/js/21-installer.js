@@ -26,7 +26,7 @@ async function buildPlan(items,fb){
  if(!P.ess&&(hand.length||ide.length)){strip=new Set([...hand,...ide].map(x=>x.doc));
   gen={name:'handling and vehicles.txt',text:[...hand.map(x=>x.line),...ide.map(x=>x.line)].join('\r\n')+'\r\n',hand,ide}}
  const progs=P.skip.filter(x=>x.why==='program'),arcs=P.skip.filter(x=>x.why==='archive');
- if(progs.length)warns.push(`Not installed: ${progs.slice(0,3).map(base).join(', ')}${progs.length>3?'…':''}. Programs and installers are never run or copied.`);
+ if(progs.length)warns.push(`Not installed: ${progs.slice(0,3).map(base).join(', ')}${progs.length>3?'…':''}. Installers and scripts (setup or uninstall .exe, .bat, .msi …) are never run or copied.`);
  if(P.files.some(f=>f.exe))warns.push('This package replaces gta_sa.exe in your game folder (e.g. Essentials Pack). The original is backed up first, and “Undo install” restores it.');
  if(arcs.length)warns.push(`There is another archive inside (${arcs.slice(0,2).map(base).join(', ')}). It wasn’t opened. Extract it first if the mod needs it.`);
  const tops=[...new Set(P.files.filter(f=>f.c==='ml'&&f.r.includes('/')).map(f=>f.r.split('/')[0]))],opt=tops.filter(t=>/opt|alt|variant|version|choose|select|^\d+[\s._)-]|type|style|colou?r/i.test(t));
@@ -37,8 +37,8 @@ async function buildPlan(items,fb){
   if(/limit adjuster|fastman|open limit/i.test(req)&&!have(/limit\s*adjuster.*\.asi$/))warns.push('The readme mentions a limit adjuster, but none was found in your game folder.')}
  const plan={...P,warns,gen,strip};if(baseInstall){const err=applyBasePlan(plan,baseInstall.kind);if(err)plan.baseErr=err}await markVersions(plan);return plan}
 const cleanName=()=>$('#mname').value.trim().replace(/[\\/:*?"<>|]/g,'');
-function uniqueName(n){n=n.replace(/[\\/:*?"<>|]/g,'').trim()||'New mod';const has=x=>S.mods.some(m=>m.name.toLowerCase()===x.toLowerCase());
- if(!has(n))return n;let i=2;while(has(`${n} (${i})`))i++;return `${n} (${i})`}
+function uniqueName(n,keep){n=n.replace(/[\\/:*?"<>|]/g,'').trim()||'New mod';const has=x=>S.mods.some(m=>m.name.toLowerCase()===x.toLowerCase());
+ if(keep||!has(n))return n;let i=2;while(has(`${n} (${i})`))i++;return `${n} (${i})`}
 /* final placement = detected placement + the three checkboxes */
 function route(){
  const T={};K3.forEach(([k,id])=>T[k]=$('#'+id).checked&&!$('#'+id).disabled);
@@ -63,6 +63,8 @@ function drawPlan(){if(!PLAN)return;const R=route(),g=gameDir(),nm=cleanName();
  const tgt=R.left[0]==='ml'?'modloader':LBL[R.left[0]];
  if(R.left[0]!=='ml')wl.push(`Everything (except what only works in the GTA folder) will be copied into the ${tgt} instead of modloader.`);
  const nI=mlF.length+R.root.length+R.scripts.length+R.cleo.length;if(!nI)wl.push('No installable files were found in this package.');
+ const bins=[...R.ml,...R.root,...R.scripts,...R.cleo].filter(x=>x.bin);
+ if(bins.length)wl.push('This mod installs '+(bins.length===1?'a program':bins.length+' programs')+' ('+bins.slice(0,3).map(x=>x.r.split('/').pop()).join(', ')+(bins.length>3?'…':'')+'). SA Mod Manager never runs it, but the mod may start it while you play. Only keep it if you trust where this download came from. You can untick it under “Choose files”.');
  const ty=typesOf({files:PLAN.files.map(x=>x.r)});
  $('#asum').innerHTML=`<div class="ir"><b>Detected</b><span>${esc(ty.length?ty.join(', '):s(PLAN.files.length))}</span></div>`+rows.join('')+wl.map(w=>`<div class="wn">⚠ ${esc(w)}</div>`).join('');
  K3.forEach(([k,id])=>{const el=$('#'+id),lab=el.closest('.dopt'),n=PLAN.files.filter(x=>x.c===k);
@@ -117,7 +119,7 @@ function pkView(){const q=pkQ(),hit=f=>!q||f.r.toLowerCase().includes(q);
  return{groups:PLAN.groups.filter(g=>g.some(hit)),
   plain:PLAN.files.filter(f=>f.grp===undefined&&hit(f)).sort((a,b)=>a.r.localeCompare(b.r,undefined,{numeric:true,sensitivity:'base'}))}}
 function pkRow(f){const on=!PLAN.off.has(f.k),g=f.grp!==undefined?PLAN.groups[f.grp]:null;
- const tag=(f.c==='doc'?'<span class="tag">readme</span>':f.c==='root'?'<span class="tag warn">GTA folder</span>':'')+(g&&g[0]===f?'<span class="tag st">suggested</span>':'')+(f.same?'<span class="tag">identical copy</span>':'');
+ const tag=(f.c==='doc'?'<span class="tag">readme</span>':f.c==='root'?'<span class="tag warn">GTA folder</span>':'')+(f.bin?'<span class="tag warn">program (.exe)</span>':'')+(g&&g[0]===f?'<span class="tag st">suggested</span>':'')+(f.same?'<span class="tag">identical copy</span>':'');
  return `<label class="pkr"><input type="checkbox" data-k="${f.k}"${on?' checked':''}><span class="nm" title="${esc(f.r)}">${esc(f.r)}</span>${tag}</label>`}
 // groups where more than one version is ticked, as a warning text for the install summary
 function pkMulti(){if(!PLAN||!PLAN.groups)return[];
@@ -141,9 +143,9 @@ function drawPick(first){const box=$('#pickbox');if(!PLAN){box.hidden=true;retur
  if(!h)h='<div class="stats" style="padding:8px 10px">No files match</div>';
  $('#pklist').innerHTML=h;$('#pklist').querySelectorAll('input[data-st="2"]').forEach(i=>i.indeterminate=true);pkStat()}
 // ---- Choose files as a folder tree ----
-function pkTreeRow(f,d){const on=!PLAN.off.has(f.k);
+function pkTreeRow(f,d){const on=!PLAN.off.has(f.k),bt=f.bin?'<span class="tag warn">program (.exe)</span>':'';
  const tag=(f.c==='doc'?'<span class="tag">readme</span>':f.c==='root'?'<span class="tag warn">GTA folder</span>':'')+(f.same?'<span class="tag">identical copy</span>':'');
- return `<label class="pkr" style="--d:${d}"><span class="pkc"></span><input type="checkbox" data-k="${f.k}"${on?' checked':''}><span class="nm" title="${esc(f.r)}">${esc(f.r.split('/').pop())}</span>${tag}</label>`}
+ return `<label class="pkr" style="--d:${d}"><span class="pkc"></span><input type="checkbox" data-k="${f.k}"${on?' checked':''}><span class="nm" title="${esc(f.r)}">${esc(f.r.split('/').pop())}</span>${bt}${tag}</label>`}
 function pkTree(files,room){if(!files.length)return'';
  PLAN.pkx=PLAN.pkx||{};const q=pkQ(),root={d:{},f:[],all:[]};
  files.forEach(f=>{const ps=f.r.split('/');ps.pop();let n=root,p='';
@@ -193,7 +195,7 @@ async function loadPackage(items,fb){
  try{PLAN=await buildPlan(items,fb||(items.length===1?items[0].rel.split(/[\\/]/).pop().replace(/\.[^.]+$/,''):''))}
  catch(e){bz.hidden=true;return notice('Couldn’t analyse the files',e.message)}
  if(PLAN&&PLAN.baseErr){const err=PLAN.baseErr;PLAN=null;pend=null;bz.hidden=true;return notice('Wrong package',err)}
- bz.hidden=true;$('#mname').value=uniqueName(PLAN.name);$('#hcb').checked=true;$('#ecb').checked=true;const g=gameDir();
+ bz.hidden=true;$('#mname').value=uniqueName(PLAN.name,true);$('#hcb').checked=true;$('#ecb').checked=true;const g=gameDir();
  K3.forEach(([k,id])=>{const el=$('#'+id);el.disabled=!g;el.checked=false});
 $('#destbox').hidden=false;$('#asum').hidden=false;exUi();drawPick(true);drawPlan()}
 function clearTmps(){const t=ARCH.tmps;ARCH={tmps:[]};t.forEach(d=>{try{window.__native.cleanTmp(d)}catch(e){}})}
@@ -246,12 +248,16 @@ async function undoInstall(J,quiet){
  for(const r of J.replaced){try{await fsN.promises.copyFile(r.bk,r.abs)}catch(e){}}
  if(J.mlTop)refreshMod(J.mlTop);undoReset();render();runChecks();if(!quiet)toast('Install undone')}
 $('#ok').onclick=async()=>{if(!pend||!PLAN||(!root&&!baseInstall))return;
- const R=route(),n=cleanName(),mlF=R.ml.filter(x=>x.c!=='doc'),g=gameDir();
+ /*OVERWRITE-MOD*/let n=cleanName(),ow=false;const R=route(),mlF=R.ml.filter(x=>x.c!=='doc'),g=gameDir();
  const nest=$('#inex').checked&&mlF.length>0,dest=nest?$('#exsel').value:'',parts=dest.split('/'),tm=nest?S.mods.find(m=>m.name===parts[0]):null,sub=parts.slice(1).join('/'),rel=(sub?sub+'/':'')+n;
  if(mlF.length){
   if(!n)return toast('Give the mod a name');
-  if(nest){if(!tm)return toast('Pick an existing mod folder');if(tm.files.some(f=>f.startsWith(rel+'/')))return toast(`“${n}” already exists inside ${dest}`)}
-  else if(S.mods.some(m=>m.name.toLowerCase()===n.toLowerCase()))return toast('A mod with that name already exists. Pick another name')}
+  let clash=false,exMod=null;
+  if(nest){if(!tm)return toast('Pick an existing mod folder');clash=tm.files.some(f=>f.startsWith(rel+'/'))}
+  else{exMod=S.mods.find(m=>m.name.toLowerCase()===n.toLowerCase());clash=!!exMod}
+  if(clash){
+   if(!await ask({title:`Overwrite “${exMod?exMod.name:n}”?`,text:`${nest?`“${n}” already exists inside ${dest}.`:`A mod folder named “${exMod.name}” already exists.`} Files from this package replace files with the same name, other files in the folder are kept. Replaced files are backed up first and “Undo install” puts them back.`,ok:'Overwrite'}))return;
+   ow=true;if(exMod)n=exMod.name}}
  if((R.root.length||R.scripts.length||R.cleo.length)&&!g)return toast('The GTA folder is unknown. Scan the folder that contains gta_sa.exe');
  const mlRoot=root&&root._path,mlBase=nest?parts[0]+'/'+rel:n,ops=[];
  const add=(x,base,stop)=>{const dst=pathN.join(base,...x.to.split('/'));if(pathN.relative(base,dst).startsWith('..'))return;ops.push({x,dst,stop})};
@@ -259,7 +265,8 @@ $('#ok').onclick=async()=>{if(!pend||!PLAN||(!root&&!baseInstall))return;
  R.root.forEach(x=>add(x,g,g));
  R.scripts.forEach(x=>add(x,pathN.join(g,'scripts'),pathN.join(g,'scripts')));
  R.cleo.forEach(x=>add(x,pathN.join(g,'cleo'),pathN.join(g,'cleo')));
- const exist=ops.filter(o=>fsN.existsSync(o.dst));
+ const mlDirP=mlRoot&&mlF.length?pathN.join(mlRoot,...mlBase.split('/')):null,inMl=o=>mlDirP&&!pathN.relative(mlDirP,o.dst).startsWith('..');
+ const exist=ops.filter(o=>fsN.existsSync(o.dst)&&!(ow&&inMl(o)));
  if(exist.length&&!await ask({title:`Replace ${exist.length} existing file${exist.length===1?'':'s'}?`,text:`${exist.slice(0,6).map(o=>pathN.basename(o.dst)).join(', ')}${exist.length>6?'…':''} already exist${exist.length===1?'s':''} in your game folders. The originals are backed up first, and “Undo install” puts them back.`,ok:'Replace'}))return;
  const J={name:mlF.length?n:PLAN.name,created:[],replaced:[],mlTop:mlF.length?(nest?parts[0]:n):'',stamp:Date.now().toString(36)},bdir=pathN.join(window.__native.userData,'install-backups',S.curInst||'default',J.stamp);
  const b=$('#ok');b.disabled=true;b.textContent='Copying…';let done=0;
@@ -272,7 +279,7 @@ $('#ok').onclick=async()=>{if(!pend||!PLAN||(!root&&!baseInstall))return;
    if(++done%25===0){b.textContent=`Copying… ${done}/${ops.length}`;await new Promise(r=>setTimeout(r))}}
   }
  catch(e){await undoInstall(J,true);b.textContent='Install';drawPlan();return notice('Copy failed',e.message+'. Everything that was copied has been removed again.')}
- b.textContent='Install';const bh=baseInstall&&baseInstall.h;dlg.close();
+ try{await ibWriteManifest(J,bdir)}catch(e){}b.textContent='Install';const bh=baseInstall&&baseInstall.h;dlg.close();
  if(bh){try{await fsN.promises.mkdir(pathN.join(bh._path,'modloader'),{recursive:true})}catch(e){}}
  if(PLAN&&PLAN.ess&&root){try{scanRoot()}catch(e){}}
  if(J.mlTop){refreshMod(J.mlTop);if(nest){const m=S.mods.find(x=>x.name===J.mlTop);if(m){m._o=true;m._x=m._x||{};rel.split('/').reduce((a,x)=>{const c=a?a+'/'+x:x;m._x[c]=true;return c},'')}}}
@@ -282,4 +289,4 @@ $('#ok').onclick=async()=>{if(!pend||!PLAN||(!root&&!baseInstall))return;
  K3.forEach(([k,,l])=>{if(R[k].length)sm.push(`${R[k].length} file${R[k].length===1?'':'s'} in the ${l}`)});
  if(J.replaced.length)sm.push(`${J.replaced.length} existing file${J.replaced.length===1?'':'s'} replaced (backed up)`);
  const rs=await ask({title:`Installed “${J.name}”`,text:sm.join('\n'),ok:'Done',info:true,alt:'Undo install'});
- if(rs==='alt')await undoInstall(J);else if(bh)await setRoot(bh)};
+ if(rs==='alt'){await undoInstall(J);ibMarkRestored(bdir)}else if(bh)await setRoot(bh)};

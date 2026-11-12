@@ -7,6 +7,8 @@ const DOC_EXT=/\.(rtf|pdf|html?|docx?|url|nfo|diz|md|website)$/i;
 const DOC_NAME=/^(read[ _.-]?me|leia[ _.-]?me|lisez[ _.-]?moi|install(ation)?|instructions?|how[ _-]?to|changelog|change[ _-]?log|credits?|licen[cs]e|manual|notes?|info|help|terms|permissions?|usage|tutorial)/i;
 const isDoc=p=>{const n=p.split('/').pop();return DOC_EXT.test(n)||(/\.txt$/i.test(n)&&DOC_NAME.test(n))};
 const PROG=/\.(exe|bat|cmd|msi|com|scr|vbs|ps1|lnk)$/i,ARCH_RE=/\.(zip|rar|7z|001|tar|gz|tgz|bz2|xz)$/i;
+/* setup / uninstall / redistributable programs are still never copied. Every other .exe is installed (Soundize, Proper Streaming ...) */
+const SETUP_EXE=/^(setup|install(er)?|unins\w*|uninstall\w*|vc_?redist[\w.-]*|dxsetup|dxwebsetup|dotnet[\w.-]*|netfx[\w.-]*|directx[\w.-]*|oalinst)\.exe$|[ _.-](setup|installer)([ _.-][^\\/]*)?\.exe$/i;
 /* files that only work in the GTA folder itself (ASI loaders, graphics wrappers, CLEO, ENB ...) */
 const ROOT_RE=/^(d3d8|d3d9|dxgi|dinput8|ddraw|dsound|opengl32|vorbisfile|vorbishooked|ogg|eax|binkw32|reshade|dxvk)\.(dll|ini)$|^(cleo|modloader)\.asi$|^cleo\.ini$|^\$?fastman92|^enb\w*\.(ini|dll|fx)$/i;
 const ROOTDIR=/^(enbseries|reshade-shaders)$/i;
@@ -43,7 +45,7 @@ function classify(items,fb){
  const out=[],skip=[];
  L.forEach(f=>{const s=f.r.split('/'),b=s[s.length-1],top=s[0],deep=s.length>1;let c='ml',d=f.r;
   if(/^gta[_-]?sa\.exe$/i.test(b)){f.c='root';f.d=b;f.exe=true;out.push(f);return}
-  if(PROG.test(b)){skip.push({...f,c:'skip',why:'program'});return}
+  const isExe=/\.exe$/i.test(b)&&!SETUP_EXE.test(b);if(isExe)f.bin=true;if(PROG.test(b)&&!isExe){skip.push({...f,c:'skip',why:'program'});return}
   if(ARCH_RE.test(b)){skip.push({...f,c:'skip',why:'archive'});return}
   if(deep&&ROOTDIR.test(top)){c='root'}
   else if(isDoc(f.r))c='doc';

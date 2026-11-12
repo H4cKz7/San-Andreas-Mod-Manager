@@ -101,12 +101,12 @@ undo / redo of unsaved profile changes (header buttons)
 install into an existing mod folder option
 - functions: fillEx, exUi
 
-### 20-installer-pure.js  (6.7 KB)
+### 20-installer-pure.js  (7.1 KB)
 PURE install logic: classify(), scanLines(), pickLines() (no DOM)
 - functions: cleanPath, fixName, stripWrap, classify, scanLines, pickLines
-- top-level consts/vars: JUNK, DOC_EXT, DOC_NAME, isDoc, PROG, ARCH_RE, ROOT_RE, ROOTDIR, KEEPDIR, GENERIC, GENERIC2, NUMRE, ORIG, IDERE, FLATFIX, BADCH
+- top-level consts/vars: JUNK, DOC_EXT, DOC_NAME, isDoc, PROG, ARCH_RE, SETUP_EXE, ROOT_RE, ROOTDIR, KEEPDIR, GENERIC, GENERIC2, NUMRE, ORIG, IDERE, FLATFIX, BADCH
 
-### 21-installer.js  (28.3 KB)
+### 21-installer.js  (29.5 KB)
 Install mod dialog: archives, plan, file picker tree, copy, undo install
 - functions: readText*, buildPlan*, uniqueName, route, drawPlan, exclK3, verOf, sameBytes*, markVersions*, pkView, pkRow, pkMulti, pkUi, pkStat, drawPick, pkTreeRow, pkTree, pkFolder, pkRedraw, loadPackage*, clearTmps, openArchive*, take*, undoInstall*
 - top-level consts/vars: pend, PLAN, ARCH, baseInstall, dlg, K3, LBL, pathOf, gfiles, cleanName, VER_EXT, ALT_RE, cmpVer, rankFiles, PKT, pkQ, dr
@@ -187,6 +187,11 @@ drop an archive or folder anywhere on the window to open the installer
 - functions: dzShow, dzFolder*, dzOpen*
 - top-level consts/vars: DZ, dzFiles, dzBlocked
 
+### 38-install-backups.js  (7.5 KB)
+install backups (manifest, Restore install dialog) and auto-delete of old backups
+- functions: ibWriteManifest*, ibMarkRestored, ibShown, ibDraw, ibRestore*, ibCleanup*
+- top-level consts/vars: DAY_MS, DAY_OPTS, IB, ibRm, dayOpts
+
 (`name*` = async function)
 
 ## CSS (renderer/css), loaded in this order, later files override earlier ones
@@ -197,9 +202,9 @@ drop an archive or folder anywhere on the window to open the installer
 - **05-lip-design.css** (5.9 KB): raised "lip" look of buttons, switches, sliders, fields
 - **06-header-checker.css** (2.3 KB): v1.2.4: split buttons, checker drop-downs
 - **07-installer.css** (3.6 KB): v1.2.5: smart installer dialog and file picker tree
-- **08-dnd.css** (4.7 KB): v1.2.6: selection, drag & drop highlights, animations
+- **08-dnd.css** (5.1 KB): v1.2.6: selection, drag & drop highlights, animations
 - **09-layout.css** (0.8 KB): 
 - **10-updater.css** (4.3 KB): update button in the title bar
 - **11-wiki.css** (8.0 KB): in-app Wiki reader (loaded in order by index.html). Uses the app's theme variables, so light/dark/custom colours just work.
 - **12-v128.css** (4.5 KB): scrollbar insets, Rescan chevron menu, Root cleo/scripts dialog
-- **13-features.css** (2.3 KB): 
+- **13-features.css** (3.0 KB): 
