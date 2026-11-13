@@ -1,4 +1,4 @@
-/* SA Mod Manager - 40-toolbar.js: the Tools menu in the header (Trash, Restore install, Root scripts, Shortcut, Logs, Export, gta_sa.set) */
+/* SA Mod Manager - 40-toolbar.js: the Tools menu in the header (Restore install, Check updates, Mod info, Export, Shortcut, Logs, gta_sa.set). Trash is its own header button (#trb) next to it */
 /* Classic script: loaded in order by index.html, shares globals with the other files. */
 /* The buttons inside the menu are the original buttons, so their handlers (23-trash, 33-folder-tools, ...) keep working unchanged. */
 const tlOpen=o=>{const m=$('#toolsm'),b=$('#toolsb');

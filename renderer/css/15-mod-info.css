@@ -1,0 +1,213 @@
+/* SA Mod Manager - 15-mod-info.css: per-mod source, version, notes and tags (47-mod-info.js) */
+/* clickable chips in the mod rows and the Info dialog, same pill look as the other .tag chips */
+.tag.mi{cursor:pointer;transition:border-color .15s,color .15s}
+.tag.mi:hover,.tag.mi:focus-visible{border-color:var(--acc);color:var(--acc)}
+.tag.upd{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 45%,transparent)}
+.tag.upd.mi:hover,.tag.upd.mi:focus-visible{border-color:var(--warn);color:var(--warn)}
+/* Info dialog */
+.midlg .add{align-items:center}
+.midlg textarea{display:block;width:100%;min-height:96px;max-height:260px;resize:vertical;background:var(--panel2);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font:inherit;line-height:1.45}
+.midlg textarea:focus{border-color:var(--acc)}
+/* same raised "lip" as the other fields (05-lip-design.css) */
+.midlg textarea{box-shadow:0 2px 0 var(--lip)}
+.midlg textarea:focus{box-shadow:0 2px 0 var(--acclip)}
+.tag.upd{box-shadow:0 2px 0 var(--warnlip)}
+/* Install dialog: the source / version fields belong to the mod name, so they hide with it (Mod Loader / Essentials installs) */
+#mname[style*="display: none"]+#mirow{display:none}
+#mirow .add{margin-bottom:0}
+#miver{flex:0 0 110px}
+
+/* SAMM-NESTED-INFO: info line under the mod name (version, tags, note). Plain text, not pills, so it does not look like the file-type tags. */
+.mi-line{display:flex;flex-wrap:wrap;align-items:center;gap:3px 14px;margin-top:6px;min-width:0;font-size:12px;line-height:1.3;color:var(--mut)}
+.mi-line>*{min-width:0}
+.mi-ver{font-weight:600;color:var(--tx);opacity:.85;font-variant-numeric:tabular-nums}
+.mi-c{cursor:pointer;transition:color .15s,opacity .15s}
+.mi-c:hover{color:var(--acc)}
+.mi-tg{color:var(--acc);opacity:.8}
+.mi-tg:hover{opacity:1}
+.mi-note{display:inline-flex;align-items:center;gap:5px;max-width:min(340px,100%)}
+.mi-note svg{flex:none;width:12px;height:12px}
+.mi-note span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-style:italic}
+.mi-up{color:var(--warn);font-weight:600}
+.mi-up:hover{color:var(--warn);text-decoration:underline}
+.mi-sum{opacity:.85}
+/* the same info on a mod folder row inside a group (file tree) */
+.tr .mi-line.mi-in{flex:0 1 auto;flex-wrap:nowrap;overflow:hidden;margin:0 0 0 12px;gap:0 10px;white-space:nowrap}
+
+/* SAMM-NESTED-INFO-3: info strip under the mod name. One slim box, segments divided by thin lines, even spacing. */
+.mi-line{display:flex;flex-wrap:nowrap;align-items:stretch;gap:0;width:fit-content;max-width:100%;min-width:0;margin-top:9px;padding:0;overflow:hidden;
+ font-size:12px;line-height:1.4;color:var(--mut);background:color-mix(in srgb,var(--tx) 4%,transparent);border:1px solid color-mix(in srgb,var(--line) 85%,transparent);border-left:3px solid color-mix(in srgb,var(--acc) 65%,transparent);border-radius:4px 8px 8px 4px}
+.mi-line>*{min-width:0}
+.mi-seg{display:flex;align-items:center;flex:none;padding:5px 12px;white-space:nowrap}
+.mi-seg+.mi-seg{border-left:1px solid color-mix(in srgb,var(--line) 85%,transparent)}
+.mi-s-tg{flex:0 1 auto;flex-wrap:wrap;gap:1px 10px;white-space:normal}
+.mi-s-note{flex:0 1 auto}
+.mi-s-up{background:color-mix(in srgb,var(--warn) 14%,transparent)}
+.mi-ver{font-family:'JetBrains Mono',ui-monospace,Consolas,monospace;font-size:11.5px;font-weight:500;letter-spacing:.01em;color:var(--tx);opacity:1}
+.mi-tg{display:inline-flex;align-items:baseline;gap:1px;font-weight:500;color:var(--acc);opacity:.9}
+.mi-tg:hover{opacity:1;text-decoration:underline;text-underline-offset:2px}
+.mi-h{opacity:.5;font-weight:400}
+.mi-note{display:inline-flex;align-items:center;gap:6px;min-width:0;max-width:300px}
+.mi-note svg{flex:none;width:12px;height:12px;opacity:.75}
+.mi-note span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-style:italic;color:var(--mut)}
+.mi-note:hover span,.mi-note:hover svg{color:var(--acc);opacity:1}
+.mi-up{font-weight:600}
+.mi-sum{opacity:1}
+/* a group row that only says how many mods inside it have info: plain text, no box */
+.mi-line:has(.mi-s-sum:only-child){background:none;border:0;border-radius:0;overflow:visible}
+.mi-line:has(.mi-s-sum:only-child) .mi-seg{padding:0}
+/* mod folder rows inside a group (file tree): no box, same segments and dividers */
+.tr .mi-line.mi-in{flex:0 1 auto;width:auto;margin:0 0 0 12px;overflow:hidden;background:none;border:0;border-radius:0}
+.tr .mi-line.mi-in .mi-seg{padding:0 10px}
+.tr .mi-line.mi-in .mi-seg:first-child{padding-left:0}
+.tr .mi-line.mi-in .mi-s-tg{flex-wrap:nowrap;white-space:nowrap}
+
+/* SAMM-NESTED-INFO-4: info on mod folder rows inside a group (file tree). Compact strip, never wider than about half the row. */
+.tr .mi-line.mi-in{display:flex;flex-wrap:nowrap;align-items:stretch;flex:0 1 auto;width:auto;min-width:0;max-width:min(58%,520px);margin:0 0 0 12px;padding:0;overflow:hidden;white-space:nowrap;
+ font-size:11.5px;line-height:1.3;color:var(--mut);background:color-mix(in srgb,var(--tx) 4%,transparent);border:1px solid color-mix(in srgb,var(--line) 85%,transparent);border-left:2px solid color-mix(in srgb,var(--acc) 65%,transparent);border-radius:3px 6px 6px 3px}
+.tr .mi-line.mi-in .mi-seg{padding:1px 9px;min-width:0}
+.tr .mi-line.mi-in .mi-seg:first-child{padding-left:9px}
+.tr .mi-line.mi-in .mi-s-tg{display:block;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tr .mi-line.mi-in .mi-tg{margin-right:8px}
+.tr .mi-line.mi-in .mi-tg:last-child{margin-right:0}
+.tr .mi-line.mi-in .mi-s-note{flex:0 1 auto;overflow:hidden}
+.tr .mi-line.mi-in .mi-note{max-width:200px}
+.tr .mi-line.mi-in .mi-note svg{width:11px;height:11px}
+.tr .mi-line.mi-in .mi-ver{font-size:11px}
+/* the Info button of a folder that has saved info */
+.tr button.mi-has{color:var(--acc);border-color:color-mix(in srgb,var(--acc) 55%,transparent)}
+.tr button.mi-has:hover{border-color:var(--acc)}
+
+/* SAMM-NESTED-INFO-5: many tags / long notes. Tags give way first, the note keeps a readable minimum. */
+.mi-sub{margin-top:6px;font-size:12px;line-height:1.4;color:var(--mut)}
+.mi-tg{display:inline-block;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:bottom}
+.mi-more{display:inline-block;padding:0 7px;border-radius:9px;background:color-mix(in srgb,var(--tx) 9%,transparent);color:var(--mut);font-size:11px;font-weight:500;line-height:1.55;white-space:nowrap}
+.mi-more:hover{color:var(--acc)}
+.mi-s-ver{flex:none}
+.mi-s-tg{flex:0 0 auto;flex-wrap:nowrap;align-items:center;gap:0 10px;white-space:nowrap}
+.mi-s-note{flex:0 1 auto;min-width:120px;max-width:280px;overflow:hidden}
+.mi-note{max-width:100%;min-width:0}
+/* folder rows inside a group: tags are never cut in the middle, the note is what gets shortened */
+.tr .mi-line.mi-in .mi-s-ver{flex:none}
+.tr .mi-line.mi-in .mi-s-tg{display:flex;flex:0 0 auto;flex-wrap:nowrap;gap:0 8px;overflow:visible;text-overflow:clip}
+.tr .mi-line.mi-in .mi-tg{max-width:90px;margin-right:0}
+.tr .mi-line.mi-in .mi-s-note{flex:1 1 0;min-width:64px;max-width:none;overflow:hidden}
+.tr .mi-line.mi-in .mi-note{max-width:100%}
+
+/* SAMM-NESTED-INFO-6: long tags shrink (each ends with an ellipsis) so the note keeps its own space inside the strip. */
+.mi-s-tg{flex:0 1 auto;min-width:56px;overflow:hidden}
+.mi-s-tg .mi-tg{flex:0 1 auto;min-width:2.4em}
+.mi-s-tg .mi-more{flex:none}
+.mi-s-note{min-width:110px;max-width:190px}
+.mi-s-note .mi-note{display:flex;width:100%}
+/* folder rows inside a group */
+.tr .mi-line.mi-in .mi-s-tg{flex:0 1 auto;min-width:40px;overflow:hidden}
+.tr .mi-line.mi-in .mi-tg{flex:0 1 auto;min-width:2.4em;max-width:90px}
+.tr .mi-line.mi-in .mi-s-note{flex:1 1 0;min-width:64px;max-width:none}
+
+/* SAMM-NESTED-INFO-7: popup that lists the tags hidden behind the "+N" chip (47-mod-info.js) */
+.mi-pop{position:fixed;z-index:3000;display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 12px;max-width:min(380px,calc(100vw - 16px));padding:9px 12px;
+ border-radius:8px;background:var(--panel2);color:var(--tx);border:1px solid var(--line);box-shadow:0 6px 22px rgba(0,0,0,.35);font-size:12.5px;line-height:1.4;pointer-events:none}
+.mi-pop[hidden]{display:none}
+.mi-pop-h{flex:0 0 100%;color:var(--mut)}
+.mi-pop-t{color:var(--acc);font-weight:500;word-break:break-word}
+.mi-pop-f{flex:0 0 100%;margin-top:3px;color:var(--mut);font-size:11.5px}
+
+/* SAMM-NESTED-INFO-8: the "+N" popup fades / slides in and out, can be entered with the mouse, and its tags are clickable */
+.mi-more{transition:color .15s,background-color .15s}
+.mi-more:hover{background:color-mix(in srgb,var(--acc) 18%,transparent)}
+.mi-pop{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-5px) scale(.97);transform-origin:top center;
+ transition:opacity .15s ease,transform .15s ease,visibility 0s linear .15s}
+.mi-pop.up{transform:translateY(5px) scale(.97);transform-origin:bottom center}
+.mi-pop.show{opacity:1;visibility:visible;pointer-events:auto;transform:none;transition-delay:0s}
+/* invisible strip that covers the gap between the chip and the popup, so the mouse can cross it */
+.mi-pop::before{content:'';position:absolute;left:0;right:0;top:-12px;height:12px}
+.mi-pop.up::before{top:auto;bottom:-12px}
+.mi-pop-t{cursor:pointer;margin:0 -4px;padding:0 4px;border-radius:4px;transition:background-color .12s}
+.mi-pop-t:hover{background:color-mix(in srgb,var(--acc) 16%,transparent)}
+.mi-pop-t:active{background:color-mix(in srgb,var(--acc) 28%,transparent)}
+@media (prefers-reduced-motion:reduce){.mi-pop,.mi-more,.mi-pop-t{transition:none}}
+
+/* SAMM-NESTED-INFO-9: popup tag highlight is evenly padded and centered (negative margin = padding, so layout does not shift) */
+.mi-pop-t{display:inline-flex;align-items:center;gap:0;line-height:1.3;padding:3px 7px;margin:-3px -7px;box-sizing:content-box}
+.mi-pop-t .mi-h{display:inline-block;line-height:inherit}
+
+/* SAMM-NESTED-INFO-10: no re-rasterising of the popup text at the end of the animation */
+.mi-pop{will-change:opacity,transform;backface-visibility:hidden;-webkit-font-smoothing:antialiased}
+.mi-pop.show{transform:translateY(0) scale(1)}
+/* SAMM-INSTALL-INFO: tags and notes in the Install dialog (same look as the Info dialog) */
+#mirow #michips:empty{display:none}
+#mirow #michips{margin-top:8px}
+#minotes{display:block;width:100%;min-height:72px;max-height:200px;resize:vertical;background:var(--panel2);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font:inherit;line-height:1.45;box-shadow:0 2px 0 var(--lip)}
+#minotes:focus{border-color:var(--acc);box-shadow:0 2px 0 var(--acclip);outline:none}
+
+/* SAMM-NAME-INFO: one quiet line beside the name: version pill, #tags, note icon. No box, no dividers, never wraps. */
+.nrow{display:flex;flex-wrap:nowrap;align-items:center;gap:0 14px;min-width:0}
+.nrow .name{flex:0 1 auto;min-width:60px}
+.nrow .mi-line{flex:0 0 auto;display:flex;flex-wrap:nowrap;align-items:center;gap:0 10px;width:auto;max-width:100%;margin:0;padding:0;overflow:visible;background:none;border:0;border-radius:0;font-size:12px;line-height:1.4}
+.nrow .mi-seg,.nrow .mi-seg+.mi-seg{padding:0;border:0;background:none;min-width:0;max-width:none;flex:0 0 auto}
+.nrow .mi-s-tg{gap:0 8px}
+.nrow .mi-ver{padding:1px 8px;border-radius:999px;background:color-mix(in srgb,var(--tx) 8%,transparent);font-size:11px;font-weight:500;color:var(--mut)}
+.nrow .mi-tg{color:var(--acc);opacity:.8;max-width:96px}
+.nrow .mi-tg:hover{opacity:1}
+.nrow .mi-note{display:inline-flex;width:auto;max-width:none;opacity:.55}
+.nrow .mi-note:hover{opacity:1}
+.nrow .mi-note span{display:none}
+.nrow .mi-note svg{width:14px;height:14px;opacity:1}
+
+/* SAMM-SUBFOLDER-INFO: same look as the main rows (see SAMM-NAME-INFO): version pill, #tags, note icon. No box, no dividers. */
+.tr .mi-line.mi-in{display:flex;flex-wrap:nowrap;align-items:center;gap:0 10px;flex:0 1 auto;width:auto;min-width:0;max-width:60%;margin:0 0 0 14px;padding:0;overflow:hidden;white-space:nowrap;background:none;border:0;border-radius:0;font-size:11.5px;line-height:1.4}
+.tr .mi-line.mi-in .mi-seg,.tr .mi-line.mi-in .mi-seg+.mi-seg,.tr .mi-line.mi-in .mi-seg:first-child{padding:0;border:0;background:none;min-width:0;max-width:none;flex:0 0 auto}
+.tr .mi-line.mi-in .mi-s-tg{display:flex;flex:0 0 auto;gap:0 8px;min-width:0;overflow:visible}
+.tr .mi-line.mi-in .mi-ver{padding:1px 7px;border-radius:999px;background:color-mix(in srgb,var(--tx) 8%,transparent);font-size:10.5px;font-weight:500;color:var(--mut)}
+.tr .mi-line.mi-in .mi-tg{color:var(--acc);opacity:.8;max-width:90px;margin:0}
+.tr .mi-line.mi-in .mi-tg:hover{opacity:1}
+.tr .mi-line.mi-in .mi-s-note,.tr .mi-line.mi-in .mi-s-note .mi-note{flex:0 0 auto;min-width:0;max-width:none}
+.tr .mi-line.mi-in .mi-note,.tr .mi-line.mi-in .mi-s-note .mi-note{display:inline-flex;width:auto;opacity:.55}
+.tr .mi-line.mi-in .mi-note:hover{opacity:1}
+.tr .mi-line.mi-in .mi-note span{display:none}
+.tr .mi-line.mi-in .mi-note svg{width:13px;height:13px;opacity:1}
+
+/* SAMM-SUB-COUNT: "N mods with info" sits on the name line as quiet text (same family as the version / tags / note) */
+.nrow .mi-sub{flex:0 1 auto;min-width:0;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11.5px;line-height:1.4;color:var(--mut);opacity:.75}
+
+/* SAMM-INFO-FIX */
+/* the info drops under the name when it does not fit; the name only gets an ellipsis if it is alone too long */
+.nrow{flex-wrap:wrap;gap:3px 14px}
+.nrow .name{min-width:0;max-width:100%}
+.nrow .mi-line{flex:0 1 auto;overflow:hidden}
+.nrow .mi-sub{flex:0 0 auto;overflow:visible}
+/* long versions are cut with an ellipsis (the tooltip shows the whole version) */
+.nrow .mi-ver{display:block;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tr .mi-line.mi-in .mi-ver{display:block;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* SAMM-RENAME: pencil button, shown while the row is hovered (or focused with the keyboard) */
+#list .rnbtn{flex:none;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;padding:0;margin:0 0 0 -6px;border:0;border-radius:6px;background:none;box-shadow:none;transform:none;color:var(--mut);cursor:pointer;opacity:0;transition:opacity .15s,color .15s,background-color .15s}
+#list .rnbtn svg{width:13px;height:13px}
+#list .tr .rnbtn{margin:0 0 0 4px}
+#list .row:hover .rnbtn,#list .tr:hover>.rnbtn,#list .rnbtn:focus-visible{opacity:.7}
+#list .rnbtn:hover{opacity:1;color:var(--acc);background:color-mix(in srgb,var(--acc) 14%,transparent)}
+
+/* SAMM-INFO-DIALOG: fixed header and footer, scrolling middle */
+dialog.midlg[open]{display:flex;flex-direction:column;max-height:min(820px,92vh);overflow:hidden}
+.midlg .midbody{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;padding:2px 10px 4px 2px;margin:0 -10px 0 -2px}
+.midlg .midfoot{flex:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+
+/* SAMM-RENAME-SUB: folder-row rename button = the trash icon button's look, accent on hover */
+#list .rnsub svg{width:14px;height:14px;display:block}
+.tr button.rnsub:hover,.tr button.rnsub:focus-visible{color:var(--acc);border-color:var(--acc)}
+
+/* SAMM-IGNORE-HOVER: Ignore / Unignore on folder rows */
+.tr button[data-a="idir"]:hover,.tr button[data-a="idir"]:focus-visible{color:var(--acc);border-color:var(--acc)}
+
+/* SAMM-INFO-DIALOG-FIX: room around the scrolling area so focus rings and the raised field edges are not clipped */
+.midlg .midbody{padding:8px 14px 8px 8px;margin:0 -14px 0 -8px}
+
+/* SAMM-RENAME-ICON-FIX */
+/* A fixed-size box with the pencil centred in it. The box can no longer stretch when the row
+   has mod info, and the SVG is a block (not an inline element on the text baseline), so it
+   stays exactly in the middle. Nudge with --rn-nudge (negative = up) if you want, e.g. -1px. */
+.rnbtn,.tr button.rnsub{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;flex:none;width:24px;height:24px;padding:0;line-height:0;vertical-align:middle}
+.nrow .rnbtn{align-self:center}
+.rnbtn svg,.tr button.rnsub svg{display:block;flex:none;width:14px;height:14px;margin:0;padding:0;position:static;transform:translateY(var(--rn-nudge,0px))}
+/* /SAMM-RENAME-ICON-FIX */

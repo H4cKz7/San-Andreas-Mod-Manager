@@ -9,15 +9,31 @@ const RELEASES='https://github.com/'+OWNER+'/'+REPO+'/releases/latest';
 const YML='https://github.com/'+OWNER+'/'+REPO+'/releases/latest/download/latest.yml';
 const portable=!!process.env.PORTABLE_EXECUTABLE_FILE;
 let win=null,au=null,busy=false;
-const st={phase:'idle',version:'',pct:0,notes:'',url:RELEASES};
-const pub=()=>({phase:st.phase,version:st.version,pct:st.pct,notes:st.notes,portable,current:app.getVersion()});
-const push=()=>{if(win&&!win.isDestroyed())win.webContents.send('upd-state',pub())};
+const st={phase:'idle',version:'',pct:0,notes:'',md:'',url:RELEASES};
+const pub=()=>({phase:st.phase,version:st.version,pct:st.pct,notes:st.notes,md:st.md,portable,current:app.getVersion()});
+const push=()=>{if(win&&!win.isDestroyed())win.webContents.send('upd-state',Object.assign(pub(),{md:''}))};
 const to=(phase,extra)=>{st.phase=phase;if(extra)Object.assign(st,extra);push()};
 
 const nums=v=>String(v||'').replace(/^v/i,'').split(/[-+]/)[0].split('.').map(n=>parseInt(n,10)||0);
 const newer=(a,b)=>{const x=nums(a),y=nums(b);for(let i=0;i<3;i++){const d=(x[i]||0)-(y[i]||0);if(d)return d>0}return false};
 const plain=n=>{if(Array.isArray(n))n=n.map(x=>(x&&x.note)||'').join('\n\n');
   return String(n||'').replace(/<[^>]+>/g,'').replace(/\r/g,'').replace(/[#*\x60]/g,'').replace(/\n{3,}/g,'\n\n').trim().slice(0,700)};
+/* SAMM-PATCH8: original markdown of a release (GitHub API). '' on any failure; only successes are cached. */
+const mdCache={};
+async function releaseMd(ver){
+  ver=String(ver||'').replace(/^v/i,'');if(!ver)return'';
+  if(mdCache[ver])return mdCache[ver];
+  const base='https://api.github.com/repos/'+OWNER+'/'+REPO+'/releases/tags/';
+  for(const tag of['v'+ver,ver]){
+    const ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),5000);
+    try{
+      const r=await net.fetch(base+encodeURIComponent(tag),{headers:{'User-Agent':'SA-Mod-Manager','Accept':'application/vnd.github+json'},signal:ctl.signal});
+      if(!r.ok)continue;
+      const j=await r.json();
+      if(j&&typeof j.body==='string'&&j.body.trim()){mdCache[ver]=j.body;return j.body}
+    }catch(e){}
+    finally{clearTimeout(t)}}
+  return''}
 const errText=e=>{const m=String((e&&e.message)||e||'Unknown error').split('\n')[0];
   if(/\b404\b|Cannot find/i.test(m))return'No release was found on GitHub yet.';
   if(/\b(403|429)\b/.test(m))return'GitHub is limiting requests right now. Try again later.';
@@ -52,7 +68,8 @@ async function check(){
     to('checking');
     const r=await lookup();
     if(!newer(r.version,app.getVersion())){to('idle');return{status:'current',version:app.getVersion()}}
-    to('available',{version:r.version,notes:r.notes,url:r.url});
+    const md=await releaseMd(r.version);
+    to('available',{version:r.version,notes:r.notes,md,url:r.url});
     return Object.assign({status:'available'},pub())}
   catch(e){to('idle');return{status:'error',message:errText(e)}}
   finally{busy=false}}

@@ -101,3 +101,39 @@ dialog.rddlg[open]{display:flex}
 /* ---- readme reader fixes: the text is no longer a second framed box inside the reader (generic pre styling is switched off) ---- */
 .rdbody .rd-pre{border:0;border-radius:0;background:none;box-shadow:none;max-height:none;height:auto;min-height:0;overflow:visible;resize:none}
 .rd-md pre.wk-code{max-height:none}
+/* SAMM-DROP-IN-INSTALLER: the Install dialog while a file is dragged over the window */
+dialog.instdlg.dzhov{outline:2px dashed var(--acc);outline-offset:-8px}
+
+/* ---- SAMM-MULTI-INSTALL: queue bar (49-multi-install.js) ---- */
+#qbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:10px 0 0;padding:9px 12px;border:1px solid var(--acc);border-radius:10px;background:var(--accbg);box-shadow:0 2px 0 var(--acclip)}
+#qbar[hidden]{display:none}
+#qbar .qt{flex:1;min-width:0;display:flex;flex-direction:column}
+#qbar .qt b{font-size:13px}
+#qbar .qt small{color:var(--mut);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#qbar .btn{flex:none}
+#qbar .qprog{order:3;flex:1 0 100%;height:6px;border-radius:99px;background:var(--panel2);border:1px solid var(--line);overflow:hidden}
+#qbar .qprog i{display:block;height:100%;width:0;background:var(--acc);transition:width .25s ease}
+/* Install all: only the title and the bar are shown while the mods go in one after another */
+dialog.instdlg.qauto>*:not(h2):not(#qbar){display:none!important}
+/* Review each: the drop zone is hidden, the queue decides which package is open */
+dialog.instdlg.qrev>.drop{display:none}
+
+/* ---- SAMM-MULTI-STACK: the batch list (50-multi-stage.js) ---- */
+#qstage{margin:10px 0 0;border:1px solid var(--acc);border-radius:10px;background:var(--accbg);padding:8px 12px;box-shadow:0 2px 0 var(--acclip)}
+#qstage[hidden]{display:none}
+#qstage .qsh{display:flex;align-items:center;gap:8px}
+#qstage .qsh b{flex:1;min-width:0;font-size:13px}
+#qstage .qsl{max-height:180px;overflow:auto;margin-top:6px}
+#qstage .qsr{display:flex;align-items:center;gap:8px;padding:3px 0}
+#qstage .qsr .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}
+#qstage .qsb{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
+dialog.instdlg.qrev>#qstage{display:none}
+
+/* ---- SAMM-FIXED-FOOTER: Cancel / Install stay put, only the content between the title and the buttons scrolls (same layout as the Appearance dialog) ---- */
+dialog.instdlg{overflow:hidden}
+dialog.instdlg[open]{display:flex;flex-direction:column}
+dialog.instdlg>h2,dialog.instdlg>#qbar{flex:none}
+#instbody{flex:1 1 auto;min-height:0;overflow:auto;padding-right:6px;margin-right:-6px}
+#instbar{flex:none;display:flex;gap:8px;justify-content:flex-end;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+/* the multi-install bits live inside #instbody now */
+dialog.instdlg.qrev #drop,dialog.instdlg.qrev #qstage{display:none}

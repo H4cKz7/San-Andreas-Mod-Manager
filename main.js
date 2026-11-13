@@ -5,6 +5,15 @@ const os=require('os');
 /* launch arguments go through cmd.exe: refuse shell metacharacters outside "quotes" */
 const badArgs=s=>{let q=false;for(const ch of s){if(ch==='"')q=!q;else if(!q&&/[&|<>^]/.test(ch))return true}return false};
 app.setAppUserModelId('com.samm.modmanager');
+/* SAMM-SINGLE-INSTANCE: only one copy may run (two copies write the same config / localStorage / window-state files).
+   A second launch quits straight away and the first window is brought to the front with a short message. */
+const gotLock=app.requestSingleInstanceLock();
+let mainWin=null;
+if(!gotLock)app.quit();
+else app.on('second-instance',()=>{
+  const w=mainWin;if(!w||w.isDestroyed())return;
+  if(w.isMinimized())w.restore();if(!w.isVisible())w.show();w.focus();
+  w.webContents.executeJavaScript("typeof toast==='function'&&toast('SA Mod Manager is already running')").catch(()=>{})});
 ipcMain.on('user-data',e=>{e.returnValue=app.getPath('userData')});
 /* gta_sa.set lives in Documents\GTA San Andreas User Files; Electron asks Windows, so a moved / OneDrive Documents folder works too */
 ipcMain.on('docs-path',e=>{let p='';try{p=app.getPath('documents')}catch(err){}e.returnValue=p});
@@ -24,6 +33,22 @@ ipcMain.handle('launch-game',(e,exe,args)=>{try{if(typeof exe!=='string'||!fs.ex
 ipcMain.handle('game-running',(e,name)=>new Promise(res=>{
   if(process.platform!=='win32'||typeof name!=='string'||!/^[\w.\- ]+\.exe$/i.test(name))return res(false);
   execFile('tasklist',['/FI','IMAGENAME eq '+name,'/NH','/FO','CSV'],{windowsHide:true},(err,out)=>res(!err&&String(out).toLowerCase().includes('"'+name.toLowerCase()+'"')))}));
+/* SAMM-MODINFO: newest release (or, without releases, newest tag) of a GitHub repository, for the update check on mods */
+ipcMain.handle('mod-latest',async(e,owner,repo)=>{
+  if(typeof owner!=='string'||typeof repo!=='string'||!/^[\w.-]+$/.test(owner)||!/^[\w.-]+$/.test(repo))return{error:'That is not a valid GitHub repository.'};
+  const{net}=require('electron'),base='https://api.github.com/repos/'+owner+'/'+repo,H={'User-Agent':'SA-Mod-Manager','Accept':'application/vnd.github+json'};
+  const limit=r=>r.status===403||r.status===429?{error:'GitHub is limiting requests right now. Try again later.',limited:true}:null;
+  const get=async u=>{const c=new AbortController(),t=setTimeout(()=>c.abort(),8000);try{return await net.fetch(u,{headers:H,signal:c.signal})}finally{clearTimeout(t)}};
+  try{
+    let r=await get(base+'/releases/latest');
+    if(r.ok){const j=await r.json();if(j&&j.tag_name)return{ok:true,tag:String(j.tag_name).slice(0,60),url:/^https:\/\/github\.com\//.test(j.html_url||'')?j.html_url:'https://github.com/'+owner+'/'+repo+'/releases'}}
+    if(limit(r))return limit(r);
+    if(!r.ok&&r.status!==404)return{error:'GitHub answered '+r.status+'.'};
+    r=await get(base+'/tags?per_page=1');
+    if(r.ok){const j=await r.json();if(Array.isArray(j)&&j[0]&&j[0].name)return{ok:true,tag:String(j[0].name).slice(0,60),url:'https://github.com/'+owner+'/'+repo+'/tags'}}
+    if(limit(r))return limit(r);
+    return{error:r.ok||r.status===404?'No releases or tags were found for this repository.':'GitHub answered '+r.status+'.'}}
+  catch(err){return{error:String(err&&err.name)==='AbortError'?'GitHub did not answer in time.':'Couldn’t reach GitHub. Check your internet connection.'}}});
 ipcMain.on('theme',(e,t)=>{const w=BrowserWindow.fromWebContents(e.sender);if(w)w.setBackgroundColor(/^#[0-9a-f]{6}$/i.test(t)?t:t==='light'?'#eef0ec':'#101311')});
 
 ipcMain.handle('pick-folder',async e=>{const w=BrowserWindow.fromWebContents(e.sender);
@@ -71,6 +96,10 @@ async function extractRar(file,dest,pw){
 ipcMain.handle('pick-archive',async()=>{
   const r=await dialog.showOpenDialog({title:'Choose a mod archive',properties:['openFile'],filters:[{name:'Archives',extensions:['zip','rar','7z','001']},{name:'All files',extensions:['*']}]});
   return r.canceled?null:r.filePaths[0]});
+/* SAMM-MULTI-INSTALL: several archives at once */
+ipcMain.handle('pick-archives',async()=>{
+  const r=await dialog.showOpenDialog({title:'Choose mod archives',properties:['openFile','multiSelections'],filters:[{name:'Archives',extensions:['zip','rar','7z','001']},{name:'All files',extensions:['*']}]});
+  return r.canceled?null:r.filePaths});
 ipcMain.handle('archive-extract',async(e,file,pw)=>{
   if(typeof file!=='string'||!fs.existsSync(file))return{error:'The archive was not found.'};
   const dest=fs.mkdtempSync(path.join(os.tmpdir(),'samm-'));TMPS.add(dest);
@@ -106,13 +135,14 @@ function readWinState(){
     return vis?Object.assign(box,{maximized}):{width,height,maximized}}
   catch(e){return null}}
 app.whenReady().then(()=>{
+  if(!gotLock)return;
   Menu.setApplicationMenu(null);
   const saved=readWinState();
   const winOpts={width:saved?saved.width:1320,height:saved?saved.height:860,minWidth:760,minHeight:520,title:'SA Mod Manager',
     icon:path.join(__dirname,'build','icon.png'),backgroundColor:'#101311',frame:false,show:false,
     webPreferences:{nodeIntegration:true,contextIsolation:false,spellcheck:false}};
   if(saved&&typeof saved.x==='number'){winOpts.x=saved.x;winOpts.y=saved.y}
-  const win=new BrowserWindow(winOpts);require('./updater').init(win);
+  const win=mainWin=new BrowserWindow(winOpts);require('./updater').init(win);
   if(saved&&saved.maximized)win.maximize();
   win.once('ready-to-show',()=>{if(saved&&saved.maximized&&!win.isMaximized())win.maximize();win.show()});
   const snap=()=>{if(win.isDestroyed())return;try{const n=win.getNormalBounds();fs.writeFileSync(winStatePath(),JSON.stringify({x:n.x,y:n.y,width:n.width,height:n.height,maximized:win.isMaximized()}))}catch(e){}};

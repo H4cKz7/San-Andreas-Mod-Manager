@@ -52,3 +52,32 @@ header .tm .tmi.dng,header .tm .tmi.dng svg{color:var(--bad)}
 #logd .rib{width:30px;height:auto;min-height:30px;min-width:0;padding:0;display:inline-grid;place-items:center;flex:none}
 #logd .rib svg{width:16px;height:16px;flex:none}
 #logd #lx:hover,#logd #lx:focus-visible{color:var(--bad)}
+
+/* SAMM-PATCH5 Trash header button: icon button next to Tools, with a count badge (#trbc is filled by renderTrash in 23-trash.js) */
+#trb{position:relative;overflow:visible}
+#trb .cb{position:absolute;top:-5px;right:-5px;min-width:16px;height:16px;padding:0 4px;box-sizing:border-box;border-radius:8px;background:var(--acc);color:#fff;font-size:10px;font-weight:700;line-height:16px;text-align:center;pointer-events:none}
+#trb:not(:disabled):hover svg,#trb:not(:disabled):focus-visible svg{color:var(--acc)}
+
+/* SAMM-PATCH6 Trash dialog: x icon button (red on hover, same as the Log viewer) and Empty Trash with icon + text in the title row */
+#trd .rib{width:30px;height:auto;min-height:30px;min-width:0;padding:0;display:inline-grid;place-items:center;flex:none}
+#trd .rib svg{width:16px;height:16px;flex:none}
+#trd #trdx:hover,#trd #trdx:focus-visible{color:var(--bad)}
+#trd #trdempty{display:inline-flex;align-items:center;gap:6px;flex:none}
+#trd #trdempty svg{width:14px;height:14px;flex:none}
+
+/* SAMM-PATCH7 Trash dialog polish: one height / radius / font for Restore all, Empty Trash and the x; calmer spacing and empty state */
+#trd .lh{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+#trd .lh .btn:not(.rib){height:auto;min-height:30px;padding:0 12px;font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:6px;flex:none}
+#trd .lh .btn:not(.rib) svg{width:14px;height:14px;flex:none}
+#trd #trdrestore:not(:disabled):hover,#trd #trdrestore:not(:disabled):focus-visible{color:var(--acc)}
+#trd>.stats{margin-bottom:14px!important;line-height:1.45}
+#trd #trdlist>.stats{display:block;padding:26px 0 18px;text-align:center}
+
+/* SAMM-MI-MENU: "Mod info >" row of the Tools menu and its side flyout (placed by 48-mod-info-menu.js) */
+#toolsd>.tmsub{position:absolute;right:auto;bottom:auto;margin:0;min-width:236px;max-height:none;overflow:visible}
+.tmsub[hidden]{display:none}
+#mimenub .chv{margin-left:auto;width:12px;height:12px}
+#mimenub[aria-expanded="true"]{background:var(--panel2)}
+#mimenub[aria-expanded="true"] svg{color:var(--acc)}
+.tmsub .tmi:disabled small{opacity:.7}
+.tmsub #miclr{margin-top:4px}

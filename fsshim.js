@@ -43,4 +43,5 @@ window.__native={
  updDownload:()=>ipcRenderer.invoke('upd-download'),
  updInstall:()=>ipcRenderer.invoke('upd-install'),
  updOpen:()=>ipcRenderer.invoke('upd-open'),
- onUpdate:cb=>ipcRenderer.on('upd-state',(e,s)=>cb(s))};
+ onUpdate:cb=>ipcRenderer.on('upd-state',(e,s)=>cb(s)),
+ modLatest:(o,r)=>ipcRenderer.invoke('mod-latest',String(o),String(r))};

@@ -17,10 +17,10 @@ global state S, profiles and inheritance, glob matching, small helpers
 - functions: setPr, rawParents, reach, inheritedFrom, flag, eff, mw
 - top-level consts/vars: $, esc, TYPES, typesOf, blobs, S, fx, P, parentsOf, hier, E, hit, swOn, exOther, inh, _st, saveNow, save, SAVEHOLD, toast, prio, pat2re, fileIgnored
 
-### 02-modlist.js  (20.1 KB)
+### 02-modlist.js  (21.0 KB)
 icons, file tree, render() of the mod list, list events, profile / Folder.Config sidebar UI
 - functions: treeBody, tree, status, render, curFile, ini, slideSw, morph, renderProf
-- top-level consts/vars: FO, FI, CV, TI, dirsOf, PVsel, PVlast, tog, _qt, ddb, ddm, hl, hlSet, ddOpen, curLabel, setLim, addPar, setUm, addIn, addIg
+- top-level consts/vars: FO, FI, CV, TI, dirsOf, RNI, PVsel, PVlast, tog, _qt, ddb, ddm, hl, hlSet, ddOpen, curLabel, setLim, addPar, setUm, addIn, addIg
 
 ### 03-logs.js  (8.5 KB)
 log viewer dialog (modloader.log parsing and display)
@@ -106,9 +106,9 @@ PURE install logic: classify(), scanLines(), pickLines() (no DOM)
 - functions: cleanPath, fixName, stripWrap, classify, scanLines, pickLines
 - top-level consts/vars: JUNK, DOC_EXT, DOC_NAME, isDoc, PROG, ARCH_RE, SETUP_EXE, ROOT_RE, ROOTDIR, KEEPDIR, GENERIC, GENERIC2, NUMRE, ORIG, IDERE, FLATFIX, BADCH
 
-### 21-installer.js  (29.6 KB)
+### 21-installer.js  (30.8 KB)
 Install mod dialog: archives, plan, file picker tree, copy, undo install
-- functions: readText*, buildPlan*, uniqueName, route, drawPlan, exclK3, verOf, sameBytes*, markVersions*, pkView, pkRow, pkMulti, pkUi, pkStat, drawPick, pkTreeRow, pkTree, pkFolder, pkRedraw, loadPackage*, clearTmps, openArchive*, take*, undoInstall*
+- functions: readText*, buildPlan*, uniqueName, route, drawPlan, exclK3, verOf, sameBytes*, markVersions*, pkView, pkRow, pkMulti, pkUi, pkStat, drawPick, pkTreeRow, pkTree, pkFolder, pkRedraw, loadPackage*, clearTmps, openArchive*, take*, undoInstall*, runInstall*
 - top-level consts/vars: pend, PLAN, ARCH, baseInstall, dlg, K3, LBL, pathOf, gfiles, cleanName, VER_EXT, ALT_RE, cmpVer, rankFiles, PKT, pkQ, dr
 
 ### 22-scan.js  (19.0 KB)
@@ -116,9 +116,9 @@ folder scan, modloader.ini / profile reading and writing, Save, restore on start
 - functions: writeFile*, applyLine, parseIniFile, commit*, ingest*, detectPath*, findExes*, scanRoot*, findML*, instFor*, mlMissing, openBaseInstaller, applyBasePlan, mlBtnSync, scanGameOnly*, openStored*, setRoot*, switchInst*, forgetInst*, pick*, profIni, patchIni, filesRaw, files, syncCur*, probeLog*, restore*
 - top-level consts/vars: root, srcText, src, game, logGet, extraLog, written, newP, idb, canWrite, PSEC, ppath, gpath, curInst, exeNote, ML_URL, ESS_URL2, bcText, ppText, _fc, pendTxt, welcome
 
-### 23-trash.js  (7.7 KB)
+### 23-trash.js  (8.4 KB)
 Trash: move to / restore from / delete permanently
-- functions: listFiles, refreshMod, trashPut*, trashMod*, trashPath*, trashRestore*, trashDelete*, renderTrash
+- functions: listFiles, refreshMod, trashPut*, trashMod*, trashPath*, trashRestore*, trashDelete*, renderTrash, trashRestoreAll*
 - top-level consts/vars: gameDir, locAbs, locOf, trMod, TR, trName
 
 ### 24-launch.js  (3.4 KB)
@@ -131,7 +131,7 @@ Version & Essentials checker card
 - functions: asiCheck*, peVersion, checkExe*, asiWalk*, cwDups, cwCount, cwSecs, runChecks*, renderChecks
 - top-level consts/vars: ESSENTIALS, OLA, F92, ESS_URL, KNOWN_EXE, VC, ASI_URL, ASI_URL_SILENT, DL_URL, dlRow, DLB, ckBody, ASI_DLLS, asiBody, sha256, wIgn, cwMli, LIMACK
 
-### 26-dnd.js  (14.3 KB)
+### 26-dnd.js  (15.4 KB)
 selection, drag & drop, cut / copy / paste of mods, folders and files
 - functions: selCls, normItems, modEl, rowEl, rowItem, selPaint, clipSet, pasteTarget, pasteClip*, leave*, landed, transfer*, setHl, endDrag, dropTarget, canDrop
 - top-level consts/vars: SEL, SELA, CLIP, DRAG, DNDBUSY, selKey, isCut, itAbs, within, itName, itemsLabel, sleep, reduceMo, SECT, _tip, tip, dndStart, MLWATCH
@@ -139,7 +139,7 @@ selection, drag & drop, cut / copy / paste of mods, folders and files
 ### 27-boot.js  (0.2 KB)
 startup: restore() and first render()
 
-### 28-export.js  (16.7 KB)
+### 28-export.js  (17.3 KB)
 export the mod list as a short .txt (sharing) or a browsable .html (debugging)
 - functions: exportData, exportName, exportDirs, exportTreeHtml, exportReport, exportHtml, exportPrep*, exportRun*, expMenuClose
 - top-level consts/vars: EXPORT_DOCS
@@ -149,7 +149,7 @@ styled tooltips replacing the native title popups
 - functions: tipOff, tipShow
 - top-level consts/vars: tipEl, tipT, tipFor, tipOpen
 
-### 30-updater.js  (4.7 KB)
+### 30-updater.js  (3.4 KB)
 Update button in the title bar (GitHub releases)
 - top-level consts/vars: UPD
 
@@ -182,9 +182,9 @@ file conflict view, which mods contain the same file and which one wins
 - functions: cfCompute, cfRow, cfDraw, cfBadge, cfLab, cfBtns, cfMenus, cfClose
 - top-level consts/vars: CF, CF_DATA, cfSoon, cfExt, cfFe, cfSaveF
 
-### 37-dropzone.js  (3.0 KB)
+### 37-dropzone.js  (3.4 KB)
 drop an archive or folder anywhere on the window to open the installer
-- functions: dzShow, dzFolder*, dzOpen*
+- functions: dzHov, dzShow, dzFolder*, dzOpen*
 - top-level consts/vars: DZ, dzFiles, dzBlocked
 
 ### 38-install-backups.js  (7.5 KB)
@@ -198,7 +198,7 @@ delete gta_sa.set (the game's settings file) so the game makes a fresh one
 - top-level consts/vars: PORT_RE, PORT_SKIP
 
 ### 40-toolbar.js  (1.0 KB)
-the Tools menu in the header (Trash, Restore install, Root scripts, Shortcut, Logs, Export, gta_sa.set)
+the Tools menu in the header (Restore install, Check updates, Mod info, Export, Shortcut, Logs, gta_sa.set). Trash is its own header button (#trb) next to it
 - top-level consts/vars: tlOpen
 
 ### 41-root-layout.js  (2.1 KB)
@@ -224,6 +224,33 @@ fixes the Log viewer Copy button (require('electron').clipboard is undefined her
 clipboard, web links and "open file / folder" through the main process, with the old ways as fallback
 - functions: nCopy*, nOpen*, nOpenPath*, nShow
 
+### 47-mod-info.js  (28.7 KB)
+per-mod source page, version, notes and tags, update check for GitHub sources, import / export
+- functions: miChips, miLine, miSub, miMeta, miMatch, miTagFilter, midDraw, miOpen, miAddTag, miSave, miLookup*, miCheck*, miExport*, miImport, miiDraw, miiAdd, miiReset, miPrefill, miInstalled, miForget, miText, miHtml, miHtmlOne, miCopied, miNodes, miKind, miIsGroup, miSubKey, miAlive, miSubRow, miGrpUi, miGrpSave, miMoved, miSubKeys, miTextSub, miPopHide, miPopLater, miPopShow
+- top-level consts/vars: MI_GH, miV, miNum, miNewer, miUrl, miTags, miClean, MI, miUpd, miAllTags, MI_NOTE, MID, MIT, miMergeNotes, MI_STRUCT, miKeyOk, miPop, miPopT, miPopW
+
+### 48-mod-info-menu.js  (3.6 KB)
+"Mod info >" flyout of the Tools menu (Export / Import / Clear all mod info)
+- functions: miClearAll*
+
+### 49-multi-install.js  (10.8 KB)
+install several mods at once (install all automatically, or review each one)
+- functions: qLabel, qUi, qReset, qBar, qUnique, qPicks, qPick*, qGo, qExtract*, qSource*, queueStart*, qOne*, qRunAuto*, qStop, qNext*, qInstalled, qSkip, qFinish*, qSummary*
+- top-level consts/vars: QS, qName, qShort
+
+### 50-multi-stage.js  (3.4 KB)
+keep adding archives and folders to the Install dialog, then install them together
+- functions: qLoaded, qStageClear, qStageDraw, qStageSet, qStaging, qFolderOf, qStageGo
+- top-level consts/vars: qMerge
+
+### 51-rename.js  (4.9 KB)
+rename mod folders (and folders inside them) from the mod list. Pencil button on hover, or F2.
+- functions: rnCheck, rnRefs, renameItem*
+- top-level consts/vars: RN_BAD, RN_RES
+
+### 52-zoom.js  (4.0 KB)
+browser-style zoom control (- 100% +) in the title bar, left of the Appearance button. Ctrl + / Ctrl - / Ctrl 0 work too.
+
 (`name*` = async function)
 
 ## CSS (renderer/css), loaded in this order, later files override earlier ones
@@ -233,11 +260,13 @@ clipboard, web links and "open file / folder" through the main process, with the
 - **04-appearance.css** (1.3 KB): Appearance dialog
 - **05-lip-design.css** (5.9 KB): raised "lip" look of buttons, switches, sliders, fields
 - **06-header-checker.css** (2.3 KB): v1.2.4: split buttons, checker drop-downs
-- **07-installer.css** (8.1 KB): v1.2.5: smart installer dialog and file picker tree
+- **07-installer.css** (10.6 KB): v1.2.5: smart installer dialog and file picker tree
 - **08-dnd.css** (5.1 KB): v1.2.6: selection, drag & drop highlights, animations
-- **09-layout.css** (0.8 KB): 
+- **09-layout.css** (1.0 KB): v1.2.6 hotfix: fixed title bar and toolbar, only the area below them scrolls, sticky sidebar
 - **10-updater.css** (4.3 KB): update button in the title bar
 - **11-wiki.css** (8.7 KB): in-app Wiki reader (loaded in order by index.html). Uses the app's theme variables, so light/dark/custom colours just work.
 - **12-v128.css** (6.3 KB): scrollbar insets, Rescan chevron menu, Root cleo/scripts dialog
-- **13-features.css** (3.0 KB): 
-- **14-toolbar.css** (3.9 KB): header layout cleanup and the Tools menu
+- **13-features.css** (3.2 KB): file conflict view, window drop overlay, install backups dialog layout
+- **14-toolbar.css** (6.0 KB): header layout cleanup and the Tools menu
+- **15-mod-info.css** (16.1 KB): per-mod source, version, notes and tags (47-mod-info.js)
+- **16-theme-zoom.css** (2.4 KB): theme-coloured text selection and the title bar zoom control (52-zoom.js)

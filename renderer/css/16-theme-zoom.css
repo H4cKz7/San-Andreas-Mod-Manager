@@ -1,0 +1,33 @@
+/* SA Mod Manager - 16-theme-zoom.css: theme-coloured text selection and the title bar zoom control (52-zoom.js) */
+/* Highlights follow the theme accent (--acc, which the Appearance dialog and light/dark both set) instead of the Windows system colour. */
+:root{accent-color:var(--acc);caret-color:var(--acc)}
+::selection,input::selection,textarea::selection{background:color-mix(in srgb,var(--acc) 38%,transparent);color:inherit}
+:root[data-theme="light"] ::selection,:root[data-theme="light"] input::selection,:root[data-theme="light"] textarea::selection{background:color-mix(in srgb,var(--acc) 30%,transparent)}
+
+/* Zoom control in the title bar: - 100% +   (sits inside .wc, left of the Appearance button) */
+.zm{display:flex;align-items:center;align-self:center;flex:none;height:28px;margin-right:6px;border-radius:8px;overflow:hidden;-webkit-app-region:no-drag;user-select:none}
+.zm button{border:0;background:transparent;color:var(--tx);height:100%;padding:0;margin:0;cursor:default;display:flex;align-items:center;justify-content:center;border-radius:0;transition:background-color .12s,color .12s}
+.zm .zb{width:30px}
+.zm .zb svg{display:block;width:14px;height:14px;opacity:.85}
+.zm .zv{min-width:50px;padding:0 4px;font:600 12px "JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;color:var(--mut)}
+.zm button:hover:not(:disabled){background:var(--panel2);color:var(--tx)}
+.zm .zb:hover:not(:disabled) svg{opacity:1;color:var(--acc)}
+.zm .zv:hover:not(:disabled){color:var(--acc)}
+.zm button:active:not(:disabled){background:var(--line)}
+.zm button:disabled{opacity:.35}
+
+/* Layout safety at any zoom.
+   01-base.css only lets the header wrap below 1560px wide. Zoomed out (80% and lower) the window is wider than that in CSS px,
+   the header stayed on one line and its buttons were squeezed on top of each other. Let it wrap at every width instead. */
+header{flex-wrap:wrap!important}
+header .hl:not(.ddi),header .hr{flex-wrap:wrap!important}
+header .hg{flex-wrap:wrap}
+/* Title bar: the window buttons (and the zoom control) never shrink or get pushed off screen; the text gives way first. */
+.titlebar{overflow:hidden}
+.titlebar .wc{flex:none}
+.tb-ic,.tb-t,.tb-v{flex:none}
+.tb-s{flex:1 1 auto;min-width:0}
+@media(max-width:1000px){.tb-s{display:none}}
+@media(max-width:720px){.tb-t,.tb-v{display:none}}
+@media(max-width:560px){#wtheme,#wupd{display:none}}
+@media(max-width:400px){#wpal,.tb-ic{display:none}}

@@ -4,20 +4,22 @@
    inside the list (26-dnd.js) is not affected. The installer's own drop zone (#drop) keeps handling drops on itself. */
 var DZ={n:0,el:null};
 const dzFiles=e=>!!(e.dataTransfer&&[...(e.dataTransfer.types||[])].includes('Files'));
-const dzBlocked=()=>!!DRAG||!!document.querySelector('dialog[open]:not(#dlg):not(#rootd)');
+const dzBlocked=()=>!!DRAG||!!document.querySelector('dialog[open]:not(#dlg):not(#rootd)')||(dlg.open&&($('#ok').textContent==='Copying…'||QS.on))/* SAMM-MULTI-INSTALL */;
+/* SAMM-DROP-IN-INSTALLER: with the installer open, the dialog itself is the drop target (no big overlay) */
+function dzHov(on){const d=$('#drop');if(d)d.classList.toggle('hov',on);dlg.classList.toggle('dzhov',on)}
 function dzShow(on){
  if(!DZ.el){const d=document.createElement('div');d.id='dropov';d.setAttribute('popover','manual');
-  d.innerHTML='<div><b>Drop to install</b><span>An archive (.zip, .rar, .7z) or a mod folder</span></div>';document.body.appendChild(d);DZ.el=d}
+  d.innerHTML='<div><b>Drop to install</b><span>One or more archives (.zip, .rar, .7z) or mod folders</span></div>';document.body.appendChild(d);DZ.el=d}
  try{if(on&&!DZ.el.matches(':popover-open'))DZ.el.showPopover();else if(!on&&DZ.el.matches(':popover-open'))DZ.el.hidePopover()}catch(x){}}
-addEventListener('dragenter',e=>{if(!dzFiles(e)||dzBlocked())return;DZ.n++;dzShow(true)});
+addEventListener('dragenter',e=>{if(!dzFiles(e)||dzBlocked())return;DZ.n++;if(dlg.open)dzHov(true);else dzShow(true)});
 addEventListener('dragleave',e=>{if(!dzFiles(e))return;DZ.n=Math.max(0,DZ.n-1);
- if(!DZ.n||e.clientX<=0||e.clientY<=0||e.clientX>=innerWidth||e.clientY>=innerHeight){DZ.n=0;dzShow(false)}});
-addEventListener('dragover',e=>{if(!dzFiles(e))return;e.preventDefault();e.dataTransfer.dropEffect=dzBlocked()?'none':'copy'});
-addEventListener('drop',e=>{if(!dzFiles(e))return;e.preventDefault();DZ.n=0;dzShow(false);
+ if(!DZ.n||e.clientX<=0||e.clientY<=0||e.clientX>=innerWidth||e.clientY>=innerHeight){DZ.n=0;dzShow(false);dzHov(false)}});
+addEventListener('dragover',e=>{if(!dzFiles(e))return;e.preventDefault();e.dataTransfer.dropEffect=dzBlocked()?'none':'copy';if(dlg.open&&!dzBlocked())dzHov(true)});
+addEventListener('drop',e=>{if(!dzFiles(e))return;e.preventDefault();DZ.n=0;dzShow(false);dzHov(false);
  if(e.target.closest&&e.target.closest('#drop'))return;
  if(dzBlocked())return;
  dzOpen([...e.dataTransfer.files])});
-addEventListener('dragend',()=>{DZ.n=0;dzShow(false)});
+addEventListener('dragend',()=>{DZ.n=0;dzShow(false);dzHov(false)});
 async function dzFolder(p){const nm=pathN.basename(p);let items;
  try{items=listFiles(p).map(r=>String(r).replace(/\\/g,'/')).filter(r=>!JUNK.test(r)).map(r=>({rel:nm+'/'+r,abs:pathN.join(p,...r.split('/'))}))}
  catch(e){return notice('Couldn’t read the folder',e.message)}
@@ -32,6 +34,5 @@ async function dzOpen(fl){
  const dirs=all.filter(x=>isD(x.p)),arcs=all.filter(x=>!dirs.includes(x)&&ARCH_RE.test(x.f.name)),loose=all.filter(x=>!dirs.includes(x)&&!arcs.includes(x));
  const one=arcs[0]||dirs[0];
  if(!dlg.open)$('#inst').click();
- if(one){if(all.length>1)toast('One package at a time. Opened “'+pathN.basename(one.p)+'”');
-  return arcs.includes(one)?openArchive(one.p):dzFolder(one.p)}
+ if(one)return qGo(all.filter(x=>arcs.includes(x)||dirs.includes(x)).map(x=>({p:x.p,kind:dirs.includes(x)?'dir':'arc'}))); /* SAMM-MULTI-INSTALL: one package = old behaviour, several = queue */
  clearTmps();await loadPackage(loose.map(x=>({rel:x.f.name,abs:x.p,file:x.f})),'')}

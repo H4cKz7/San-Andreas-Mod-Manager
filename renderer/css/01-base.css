@@ -59,7 +59,7 @@ main{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;padding:20p
 .pr input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 30%,transparent)}
 .pr input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 30%,transparent)}
 .pr output{width:26px;text-align:right;font-variant-numeric:tabular-nums;color:var(--mut)}
-.star{background:none;border:1px solid var(--line);border-radius:8px;width:32px;height:30px;cursor:pointer;color:var(--mut);padding:0;display:inline-flex;align-items:center;justify-content:center}.star svg{display:block}
+.star{background:var(--panel2);border:1px solid var(--line);border-radius:8px;width:32px;height:30px;cursor:pointer;color:var(--mut);padding:0;display:inline-flex;align-items:center;justify-content:center}.star svg{display:block}
 .star.on{color:var(--warn);border-color:var(--warn);background:var(--panel2)}.star.on svg path{fill:currentColor}
 .files{display:grid;grid-template-rows:0fr;background:var(--panel2);border-top:1px solid transparent}
 .files>.fi{overflow:hidden;min-height:0;padding:0 14px}

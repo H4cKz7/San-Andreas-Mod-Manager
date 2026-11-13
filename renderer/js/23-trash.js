@@ -49,8 +49,10 @@ async function trashRestore(id){const it=TR.list().find(x=>x.id===id);if(!it||(!
  TR.save(TR.list().filter(x=>x.id!==id));
  if(!it.mod.startsWith('::'))refreshMod(it.rel?it.mod:pathN.basename(dest));else if(typeof rvAfter==='function')rvAfter([]);render();runChecks();
  toast(renamed?`Restored as “${renamed}”`:replaced?'Restored. The file it replaced is now in the Trash':'Restored')}
-async function trashDelete(ids){for(const id of ids)await fsN.promises.rm(pathN.join(TR.dir(),id),{recursive:true,force:true});TR.save(TR.list().filter(x=>!ids.includes(x.id)));render()}
-function renderTrash(){const l=TR.list();$('#trcnt').textContent=l.length;$('#trempty').disabled=!l.length;$('#trdempty').disabled=!l.length;{const bc=$('#trbc');bc.textContent=l.length;bc.hidden=!l.length}
+async function trashDelete(ids){const gone=TR.list().filter(x=>ids.includes(x.id)&&(!x.rel||x.dir)&&!x.mod.startsWith('::')).map(x=>x.rel?x.mod+'/'+x.rel:x.mod); /* SAMM-NESTED-INFO */
+ for(const id of ids)await fsN.promises.rm(pathN.join(TR.dir(),id),{recursive:true,force:true});TR.save(TR.list().filter(x=>!ids.includes(x.id)));
+ if(typeof miForget==='function')miForget(gone);render()}
+function renderTrash(){const l=TR.list();$('#trcnt').textContent=l.length;$('#trempty').disabled=!l.length;$('#trdempty').disabled=!l.length;$('#trdrestore').disabled=!l.length;{const bc=$('#trbc');bc.textContent=l.length;bc.hidden=!l.length}
  const h=l.length?l.map(it=>`<div class="trr"><div class="trn"><div class="nm" title="${esc((trMod(it.mod)||'game root')+(it.rel?'/'+it.rel:''))}">${esc(trName(it))}</div><small>${it.rel?'from '+esc(trMod(it.mod)||'game root')+' · ':'mod · '}${it.dir?it.n+' file'+(it.n===1?'':'s')+' · ':''}${esc(new Date(it.at).toLocaleDateString())}</small></div><button class="btn sm" data-r="${it.id}">Restore</button><button class="btn sm del" data-d="${it.id}">Delete</button></div>`).join(''):'<span class="stats">The Trash is empty</span>';
  for(const b of[$('#trlist'),$('#trdlist')])if(b._h!==h){b.innerHTML=h;b._h=h}}
 $('#trlist').onclick=async e=>{const r=e.target.closest('[data-r]'),d=e.target.closest('[data-d]');
@@ -61,3 +63,10 @@ $('#trempty').onclick=async()=>{const l=TR.list();if(!l.length)return;
  if(await ask({title:`Empty the Trash (${l.length} item${l.length===1?'':'s'})?`,text:'Everything in it is deleted permanently.',ok:'Empty Trash',danger:true}))try{await trashDelete(l.map(x=>x.id));toast('Trash emptied')}catch(err){notice('Couldn’t empty the Trash',err.message)}};
 $('#trdlist').onclick=e=>$('#trlist').onclick(e);$('#trdempty').onclick=()=>$('#trempty').onclick();
 $('#trb').onclick=()=>{renderTrash();$('#trd').showModal()};$('#trdx').onclick=()=>$('#trd').close();
+/* Restore all: newest first, so a trashed mod folder returns before files that were trashed from it earlier */
+async function trashRestoreAll(){const ids=TR.list().map(x=>x.id);if(!ids.length)return;
+ $('#trdrestore').disabled=true;
+ try{for(const id of ids)await trashRestore(id)}finally{renderTrash()}
+ const n=ids.filter(id=>!TR.list().some(x=>x.id===id)).length;
+ toast(n===ids.length?`Restored ${n} item${n===1?'':'s'}`:n?`Restored ${n} of ${ids.length} items`:'Nothing was restored')}
+$('#trdrestore').onclick=trashRestoreAll;

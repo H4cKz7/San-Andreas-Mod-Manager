@@ -86,7 +86,7 @@ function drawPlan(){if(!PLAN)return;const R=route(),g=gameDir(),nm=cleanName();
  const tg={ml:'',root:'[GTA] ',scripts:'[scripts] ',cleo:'[CLEO] '},lines=[];
  ['ml','root','scripts','cleo'].forEach(k=>R[k].forEach(x=>lines.push(tg[k]+x.to)));
  $('#plist').innerHTML=lines.slice(0,80).map(esc).join('<br>')+(lines.length>80?`<br>…and ${lines.length-80} more`:'');
- $('#ok').disabled=!((root||baseInstall)&&nI>0&&(!mlF.length||nm));$('#ok').textContent='Install';exclK3()}
+ $('#ok').disabled=!((root||baseInstall)&&nI>0&&(!mlF.length||nm));$('#ok').textContent=typeof qLabel==='function'?qLabel():'Install';exclK3()}
 /* only one of GTA root / scripts / CLEO can be ticked: the other two are greyed out */
 function exclK3(){const g=gameDir(),on=K3.find(([k,id])=>$('#'+id).checked);
  K3.forEach(([k,id])=>{const el=$('#'+id),lab=el.closest('.dopt'),off=!g||(!!on&&on[1]!==id);el.disabled=off;lab.classList.toggle('dis',off)})}
@@ -195,9 +195,9 @@ async function loadPackage(items,fb){
  try{PLAN=await buildPlan(items,fb||(items.length===1?items[0].rel.split(/[\\/]/).pop().replace(/\.[^.]+$/,''):''))}
  catch(e){bz.hidden=true;return notice('Couldn’t analyse the files',e.message)}
  if(PLAN&&PLAN.baseErr){const err=PLAN.baseErr;PLAN=null;pend=null;bz.hidden=true;return notice('Wrong package',err)}
- bz.hidden=true;$('#mname').value=uniqueName(PLAN.name,true);$('#hcb').checked=true;$('#ecb').checked=true;const g=gameDir();
+ bz.hidden=true;$('#mname').value=uniqueName(PLAN.name,true);if(typeof miPrefill==='function')miPrefill(fb||PLAN.name);$('#hcb').checked=true;$('#ecb').checked=true;const g=gameDir();
  K3.forEach(([k,id])=>{const el=$('#'+id);el.disabled=!g;el.checked=false});
-$('#destbox').hidden=false;$('#asum').hidden=false;exUi();drawPick(true);drawPlan();rdDraw()}
+$('#destbox').hidden=false;$('#asum').hidden=false;exUi();drawPick(true);drawPlan();rdDraw();if(typeof qLoaded==='function')qLoaded()}/* SAMM-MULTI-STACK */
 function clearTmps(){const t=ARCH.tmps;ARCH={tmps:[]};t.forEach(d=>{try{window.__native.cleanTmp(d)}catch(e){}})}
 async function openArchive(file,depth=0,fb){
  if(!depth)clearTmps();const nm=pathN.basename(file),bz=$('#ibusy');fb=fb||nm.replace(/\.[^.]+$/,'').replace(/_+/g,' ').trim();let pw='',r;
@@ -219,23 +219,25 @@ async function take(files){
  const rp=f=>f.webkitRelativePath||f._p||'';
  if(files.length===1&&ARCH_RE.test(files[0].name)&&!rp(files[0]).includes('/')){const p=pathOf(files[0]);if(p)return openArchive(p)}
  clearTmps();await loadPackage(files.map(f=>({rel:rp(f)||f.name,abs:pathOf(f),file:f})),'')}
-$('#inst').onclick=()=>{const base=baseInstall;clearTmps();pend=null;PLAN=null;baseInstall=base;['#asum','#destbox','#hrow','#erow','#ibusy','#pickbox'].forEach(x=>$(x).hidden=true);rdReset();
+$('#inst').onclick=()=>{const base=baseInstall;clearTmps();pend=null;PLAN=null;baseInstall=base;if(typeof qReset==='function')qReset();['#asum','#destbox','#hrow','#erow','#ibusy','#pickbox'].forEach(x=>$(x).hidden=true);rdReset();
  $('#plist').textContent=base?'Choose a .zip, .rar or .7z archive, or an extracted folder.':(root?'':'Mod Loader is not installed yet. Install it first (Version & Essentials card).');
  const h2=dlg.querySelector('h2');if(h2)h2.textContent=base?(base.kind==='ess'?'Install Essentials Pack':'Install Mod Loader'):'Install mod';
  const nameLab=document.querySelector('label[for="mname"]');if(nameLab)nameLab.style.display='';
  $('#mname').style.display='';
  const nestLab=$('#inex').closest('label');if(nestLab)nestLab.hidden=!!base;
- $('#mname').value='';$('#ok').disabled=true;$('#inex').checked=false;$('#exq').value='';K3.forEach(([,id])=>$('#'+id).checked=false);exUi();dlg.showModal()};
+ if(typeof miPrefill==='function')miPrefill('');$('#mname').value='';$('#ok').disabled=true;$('#inex').checked=false;$('#exq').value='';K3.forEach(([,id])=>$('#'+id).checked=false);exUi();dlg.showModal()};
 $('#cx').onclick=()=>dlg.close();dlg.addEventListener('close',()=>{clearTmps();baseInstall=null;const h2=dlg.querySelector('h2');if(h2)h2.textContent='Install mod';const nameLab=document.querySelector('label[for="mname"]');if(nameLab)nameLab.style.display='';const mname=$('#mname');if(mname)mname.style.display='';const nestLab=$('#inex')&&$('#inex').closest('label');if(nestLab)nestLab.hidden=false});
 $('#pf').onclick=()=>$('#ff').click();
-$('#pa').onclick=async()=>{const p=await window.__native.pickArchive();if(p)openArchive(p)};
-$('#ff').onchange=e=>{const f=[...e.target.files];e.target.value='';take(f)};
+$('#pa').onclick=async()=>{const ps=await qPick();if(ps&&ps.length)qGo(ps.map(p=>({p,kind:'arc'})))};
+$('#ff').onchange=e=>{const f=[...e.target.files];e.target.value='';/* SAMM-MULTI-STACK: a picked folder goes through the same path as a dropped one */
+ {const d=!baseInstall&&typeof qFolderOf==='function'?qFolderOf(f):null;if(d)return qGo([{p:d,kind:'dir'}])}take(f)};
 ['#mname'].forEach(x=>$(x).addEventListener('input',drawPlan));
 ['#inex','#exsel'].forEach(x=>$(x).addEventListener('change',drawPlan));
 $('#destbox').addEventListener('change',drawPlan);$('#hrow').addEventListener('change',drawPlan);$('#erow').addEventListener('change',drawPlan);
 const dr=$('#drop');
 dr.ondragover=e=>{e.preventDefault();dr.classList.add('hov')};dr.ondragleave=()=>dr.classList.remove('hov');
-dr.ondrop=async e=>{e.preventDefault();dr.classList.remove('hov');
+dr.ondrop=async e=>{e.preventDefault();dr.classList.remove('hov');if(QS.on)return;
+ {const pk=!baseInstall?qPicks([...e.dataTransfer.files]):[];if(pk.length)return qGo(pk)}/* SAMM-MULTI-STACK: archives and folders always go through qGo */
  const arch=[...e.dataTransfer.files].find(f=>ARCH_RE.test(f.name));
  if(arch){const p=pathOf(arch);if(p)return openArchive(p)}
  const walk=async(en,pre)=>{if(en.isFile)return[await new Promise(r=>en.file(f=>{f._p=pre+f.name;r(f)}))];
@@ -247,7 +249,8 @@ async function undoInstall(J,quiet){
   while(d.toLowerCase()!==st&&d.toLowerCase().startsWith(st)){try{fsN.rmdirSync(d)}catch(e){break}d=pathN.dirname(d)}}catch(e){}}
  for(const r of J.replaced){try{await fsN.promises.copyFile(r.bk,r.abs)}catch(e){}}
  if(J.mlTop)refreshMod(J.mlTop);undoReset();render();runChecks();if(!quiet)toast('Install undone')}
-$('#ok').onclick=async()=>{if(!pend||!PLAN||(!root&&!baseInstall))return;
+/*SAMM-MULTI-INSTALL: runInstall(auto). auto = true: no questions (49-multi-install.js), failures come back as {err}; a finished install returns {J,bdir} while a queue is running*/
+async function runInstall(auto){if(!pend||!PLAN||(!root&&!baseInstall))return;
  /*OVERWRITE-MOD*/let n=cleanName(),ow=false;const R=route(),mlF=R.ml.filter(x=>x.c!=='doc'),g=gameDir();
  const nest=$('#inex').checked&&mlF.length>0,dest=nest?$('#exsel').value:'',parts=dest.split('/'),tm=nest?S.mods.find(m=>m.name===parts[0]):null,sub=parts.slice(1).join('/'),rel=(sub?sub+'/':'')+n;
  if(mlF.length){
@@ -256,9 +259,9 @@ $('#ok').onclick=async()=>{if(!pend||!PLAN||(!root&&!baseInstall))return;
   if(nest){if(!tm)return toast('Pick an existing mod folder');clash=tm.files.some(f=>f.startsWith(rel+'/'))}
   else{exMod=S.mods.find(m=>m.name.toLowerCase()===n.toLowerCase());clash=!!exMod}
   if(clash){
-   if(!await ask({title:`Overwrite “${exMod?exMod.name:n}”?`,text:`${nest?`“${n}” already exists inside ${dest}.`:`A mod folder named “${exMod.name}” already exists.`} Files from this package replace files with the same name, other files in the folder are kept. Replaced files are backed up first and “Undo install” puts them back.`,ok:'Overwrite'}))return;
+   if(auto)return{err:'A mod with this name already exists'};if(!await ask({title:`Overwrite “${exMod?exMod.name:n}”?`,text:`${nest?`“${n}” already exists inside ${dest}.`:`A mod folder named “${exMod.name}” already exists.`} Files from this package replace files with the same name, other files in the folder are kept. Replaced files are backed up first and “Undo install” puts them back.`,ok:'Overwrite'}))return;
    ow=true;if(exMod)n=exMod.name}}
- if((R.root.length||R.scripts.length||R.cleo.length)&&!g)return toast('The GTA folder is unknown. Scan the folder that contains gta_sa.exe');
+ if((R.root.length||R.scripts.length||R.cleo.length)&&!g)return auto?{err:'The GTA folder is unknown'}:toast('The GTA folder is unknown. Scan the folder that contains gta_sa.exe');
  const mlRoot=root&&root._path,mlBase=nest?parts[0]+'/'+rel:n,ops=[];
  const add=(x,base,stop)=>{const dst=pathN.join(base,...x.to.split('/'));if(pathN.relative(base,dst).startsWith('..'))return;ops.push({x,dst,stop})};
  if(mlRoot){const mlDir=pathN.join(mlRoot,...mlBase.split('/'));R.ml.forEach(x=>add(x,mlDir,mlRoot))}
@@ -267,7 +270,7 @@ $('#ok').onclick=async()=>{if(!pend||!PLAN||(!root&&!baseInstall))return;
  R.cleo.forEach(x=>add(x,pathN.join(g,'cleo'),pathN.join(g,'cleo')));
  const mlDirP=mlRoot&&mlF.length?pathN.join(mlRoot,...mlBase.split('/')):null,inMl=o=>mlDirP&&!pathN.relative(mlDirP,o.dst).startsWith('..');
  const exist=ops.filter(o=>fsN.existsSync(o.dst)&&!(ow&&inMl(o)));
- if(exist.length&&!await ask({title:`Replace ${exist.length} existing file${exist.length===1?'':'s'}?`,text:`${exist.slice(0,6).map(o=>pathN.basename(o.dst)).join(', ')}${exist.length>6?'…':''} already exist${exist.length===1?'s':''} in your game folders. The originals are backed up first, and “Undo install” puts them back.`,ok:'Replace'}))return;
+ if(exist.length&&!auto&&!await ask({title:`Replace ${exist.length} existing file${exist.length===1?'':'s'}?`,text:`${exist.slice(0,6).map(o=>pathN.basename(o.dst)).join(', ')}${exist.length>6?'…':''} already exist${exist.length===1?'s':''} in your game folders. The originals are backed up first, and “Undo install” puts them back.`,ok:'Replace'}))return;
  const J={name:mlF.length?n:PLAN.name,created:[],replaced:[],mlTop:mlF.length?(nest?parts[0]:n):'',stamp:Date.now().toString(36)},bdir=pathN.join(window.__native.userData,'install-backups',S.curInst||'default',J.stamp);
  const b=$('#ok');b.disabled=true;b.textContent='Copying…';let done=0;
  try{
@@ -278,15 +281,17 @@ $('#ok').onclick=async()=>{if(!pend||!PLAN||(!root&&!baseInstall))return;
    if(o.x.abs)await fsN.promises.copyFile(o.x.abs,o.dst);else if(o.x.file)await fsN.promises.writeFile(o.dst,Buffer.from(await o.x.file.arrayBuffer()));else if(o.x.text!=null)await fsN.promises.writeFile(o.dst,o.x.text);
    if(++done%25===0){b.textContent=`Copying… ${done}/${ops.length}`;await new Promise(r=>setTimeout(r))}}
   }
- catch(e){await undoInstall(J,true);b.textContent='Install';drawPlan();return notice('Copy failed',e.message+'. Everything that was copied has been removed again.')}
- try{await ibWriteManifest(J,bdir)}catch(e){}b.textContent='Install';const bh=baseInstall&&baseInstall.h;dlg.close();
+ catch(e){await undoInstall(J,true);b.textContent='Install';drawPlan();return auto?{err:'Copy failed: '+e.message}:notice('Copy failed',e.message+'. Everything that was copied has been removed again.')}
+ try{await ibWriteManifest(J,bdir)}catch(e){}b.textContent='Install';const bh=baseInstall&&baseInstall.h;if(!(auto||QS.on))dlg.close();
  if(bh){try{await fsN.promises.mkdir(pathN.join(bh._path,'modloader'),{recursive:true})}catch(e){}}
  if(PLAN&&PLAN.ess&&root){try{scanRoot()}catch(e){}}
  if(J.mlTop){refreshMod(J.mlTop);if(nest){const m=S.mods.find(x=>x.name===J.mlTop);if(m){m._o=true;m._x=m._x||{};rel.split('/').reduce((a,x)=>{const c=a?a+'/'+x:x;m._x[c]=true;return c},'')}}}
- undoReset();render();runChecks();
+ if(typeof miInstalled==='function')miInstalled(nest?dest+'/'+n:J.mlTop,false); /* SAMM-NESTED-INFO-2: installed into an existing folder, the info is saved under its path */
+ undoReset();render();if(!auto)runChecks();
  const sm=[];if(mlF.length)sm.push(`${mlF.length} file${mlF.length===1?'':'s'} in modloader/${mlBase}`);
  if(R.ml.some(x=>x.c==='gen'))sm.push('Vehicle lines saved to “'+PLAN.gen.name+'” (readme not installed)');
  K3.forEach(([k,,l])=>{if(R[k].length)sm.push(`${R[k].length} file${R[k].length===1?'':'s'} in the ${l}`)});
  if(J.replaced.length)sm.push(`${J.replaced.length} existing file${J.replaced.length===1?'':'s'} replaced (backed up)`);
- const rs=await ask({title:`Installed “${J.name}”`,text:sm.join('\n'),ok:'Done',info:true,alt:'Undo install'});
- if(rs==='alt'){await undoInstall(J);ibMarkRestored(bdir)}else if(bh)await setRoot(bh)};
+ if(auto||QS.on)return{J,bdir,nf:ops.length};const rs=await ask({title:`Installed “${J.name}”`,text:sm.join('\n'),ok:'Done',info:true,alt:'Undo install'});
+ if(rs==='alt'){await undoInstall(J);ibMarkRestored(bdir)}else if(bh)await setRoot(bh)}
+$('#ok').onclick=async()=>{const r=await runInstall(false);if(QS.on&&!QS.auto&&r&&r.J)qInstalled(r)};

@@ -1,3 +1,4 @@
+/* SA Mod Manager - 09-layout.css: v1.2.6 hotfix: fixed title bar and toolbar, only the area below them scrolls, sticky sidebar (loaded in order by index.html) */
 /* v1.2.6 hotfix: fixed title bar + toolbar; only the area below the toolbar scrolls, so the scrollbar starts under the toolbar */
 html,body{height:100%;overflow:hidden}
 body{display:flex;flex-direction:column}

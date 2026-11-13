@@ -25,14 +25,24 @@ const SECT=document.querySelector('main>section');
 
 /* --- selection: click, Ctrl+click, Shift+click --- */
 $('#list').addEventListener('click',e=>{
- if(e.target.closest('button,input,label,output,.fh'))return;
+ if(e.target.closest('button,input,label,output,.fh,.tag.mi,.mi-c'))return;
  const it=rowItem(e.target);if(!it)return;const k=selKey(it.mod,it.rel);
  if(e.ctrlKey||e.metaKey){e.stopPropagation();e.preventDefault();SEL.has(k)?SEL.delete(k):SEL.set(k,it);SELA=it;selPaint();return}
  if(e.shiftKey&&SELA){const rows=[...document.querySelectorAll('#list .mod, #list .tr:not(.root)')].filter(x=>x.offsetParent!==null),
    a=rows.indexOf(rowEl(SELA)),b=rows.indexOf(e.target.closest('.tr:not(.root)')||e.target.closest('.mod'));
   if(a>=0&&b>=0){e.stopPropagation();e.preventDefault();SEL.clear();rows.slice(Math.min(a,b),Math.max(a,b)+1).forEach(r=>{const x=rowItem(r);if(x)SEL.set(selKey(x.mod,x.rel),x)});selPaint();return}}
  SEL.clear();SEL.set(k,it);SELA=it;selPaint()},true);
-SECT.addEventListener('click',e=>{if(e.target.closest('.mod,.bar,button,input,.stats'))return;if(SEL.size){SEL.clear();SELA=null;selPaint()}});
+/* SAMM-SELECT-CLEAR: clicking an empty place (side panel, margins, gaps, header, title bar) clears the mod selection */
+document.addEventListener('click',e=>{
+ if(!SEL.size||e.button!==0||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
+ const t=e.target;
+ /* the click already removed or re-rendered what was clicked: we can't tell where it was, so leave the selection alone */
+ if(!t||!t.closest||!t.isConnected)return;
+ /* clicks on mods, controls, menus, dialogs and toasts keep the selection (the Game folder dialog has its own) */
+ if(t.closest('.mod,dialog,.ddm,.dd,.cdd,.cpop,.toast,#tipbox,.dtip,button,input,select,textarea,label,a,summary,output,[role=button],[role=menuitem],[contenteditable]'))return;
+ /* finishing a text selection (e.g. in the .ini preview) is not an "empty click" */
+ try{const s=window.getSelection();if(s&&!s.isCollapsed&&String(s).trim())return}catch(x){}
+ SEL.clear();SELA=null;selPaint()});
 
 /* --- Ctrl+C / Ctrl+X / Ctrl+V, Esc --- */
 function clipSet(cut){const items=normItems([...SEL.values()]);if(!items.length)return;CLIP={items,cut};selPaint();
@@ -95,6 +105,7 @@ async function transfer(items,tgt,copy){
   }catch(x){failed++;err=x.message}}
   document.querySelectorAll('#list .leaving').forEach(el=>{el.classList.remove('leaving');el.style.maxHeight=''});
   touched.forEach(nm=>{if(nm&&!nm.startsWith('.')&&!nm.startsWith('::'))refreshMod(nm)});
+  if(typeof miMoved==='function')out.forEach(o=>{if(!o.isDir||!o.it.mod||o.it.mod.startsWith('::'))return;const lc=locOf(o.final);if(lc&&lc.mod&&!lc.mod.startsWith('::'))miMoved(o.it.mod+(o.it.rel?'/'+o.it.rel:''),lc.mod+(lc.rel?'/'+lc.rel:''),copy)}); /* SAMM-NESTED-INFO: mod info follows moved / copied folders */
   const res=[];
   out.forEach(o=>{const lc=locOf(o.final),mn=lc.mod,rel=lc.rel,parts=[mn,...(rel?rel.split('/'):[])],m=S.mods.find(x=>x.name===mn);
    if(m){m._o=true;m._x=m._x||{};parts.slice(1,-1).reduce((a,x)=>{const c=a?a+'/'+x:x;m._x[c]=true;return c},'')}

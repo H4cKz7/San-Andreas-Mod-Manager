@@ -89,7 +89,7 @@ function exportReport(tree){
  if(d.act.length){
   L.push(lpad('#',3)+'  '+pad('Mod',nw)+'  '+lpad('Prio',4)+'  '+lpad('Files',5));
   L.push(thin);
-  d.act.forEach((x,i)=>{L.push(lpad(i+1,3)+'  '+pad(x.m.name,nw)+'  '+lpad(x.pr,4)+'  '+lpad(x.m.files.length,5)+(x.ex?'  [exclusive]':''));if(tree)exportDirs(x.m).forEach(l=>L.push('       '+l))})
+  d.act.forEach((x,i)=>{L.push(lpad(i+1,3)+'  '+pad(x.m.name,nw)+'  '+lpad(x.pr,4)+'  '+lpad(x.m.files.length,5)+(x.ex?'  [exclusive]':''));if(typeof miText==='function')miText(x.m.name).forEach(l=>L.push('       '+l));if(typeof miTextSub==='function')miTextSub(x.m.name).forEach(l=>L.push('       '+l)); /* SAMM-NESTED-INFO-2 */if(tree)exportDirs(x.m).forEach(l=>L.push('       '+l))})
  }else L.push('(none)');
  head('Inactive mods ('+d.off.length+')');
  if(d.off.length)wrap(d.off.map(x=>x.m.name),'  ');else L.push('(none)');
@@ -112,7 +112,9 @@ function exportHtml(){
    +(x.ex?'<span class="tag">exclusive</span>':'')
    +(x.ty?'<span class="tg">'+h(x.ty)+'</span>':'')
    +(x.on?'':'<span class="tg">'+h(x.st)+'</span>')
+   +(typeof miHtml==='function'?miHtml(x.m.name,h).sum:'')
    +'<span class="pr" title="priority">P'+h(x.pr)+'</span><span class="ct" title="files">'+x.m.files.length+'</span></summary>'
+   +(typeof miHtml==='function'?miHtml(x.m.name,h).body:'')
    +(x.m.files.length?exportTreeHtml(x.m,h,ig):'<p class="none">No files</p>')
    +'</details>'};
  const bad=[];
@@ -138,6 +140,7 @@ function exportHtml(){
  '.cf{padding:6px 0;border-bottom:1px dashed var(--bd);font-size:13px}.cf code{background:var(--code);padding:1px 5px;border-radius:4px;word-break:break-all}.cf small{display:block;color:var(--mut)}.cf b{color:var(--ok)}',
  '.sf{margin:0;padding:0 0 0 18px;list-style:none}.dl{margin:0}.dir>summary{padding:2px 0}.dir>summary .n{font-weight:500}.fl li.hit{color:var(--ac);font-weight:600}',
  '.empty{color:var(--mut);padding:8px 0}',
+ '.mi{padding:6px 12px 8px 30px;border-top:1px solid var(--bd);font-size:13px;word-break:break-word}.mi>div{padding:1px 0}.mi>div>span{color:var(--mut);display:inline-block;min-width:58px}.mi a{color:var(--ac)}.mi pre{margin:2px 0 0;white-space:pre-wrap;font:inherit}',
  '</style></head><body><main>',
  '<h1>SA Mod Manager - Mod List</h1><p class="sub">Generated '+h(d.stamp)+'</p>');
  if(bad.length)L.push('<div class="card alert"><b>'+bad.length+' problem'+(bad.length>1?'s':'')+' found</b><ul>'+bad.map(b=>'<li>'+h(b)+'</li>').join('')+'</ul></div>');

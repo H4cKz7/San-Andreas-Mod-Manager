@@ -1,3 +1,4 @@
+/* SA Mod Manager - 13-features.css: file conflict view, window drop overlay, install backups dialog layout (loaded in order by index.html) */
 /* SAMM-FEATURES: file conflict view, window drop overlay */
 #dropov{position:fixed;inset:0;width:auto;height:auto;max-width:none;max-height:none;margin:0;padding:0;border:0;background:rgba(0,0,0,.55);color:inherit;pointer-events:none}
 #dropov:popover-open{display:grid;place-items:center}
