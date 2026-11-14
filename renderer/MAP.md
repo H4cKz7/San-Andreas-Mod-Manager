@@ -12,7 +12,7 @@ To change something: find the file below, open **only that file**, edit, done.
 functions needed while the other files are still loading
 - functions: cddLabel, bcDef, cddOptions, cddInit
 
-### 01-state.js  (5.8 KB)
+### 01-state.js  (6.1 KB)
 global state S, profiles and inheritance, glob matching, small helpers
 - functions: setPr, rawParents, reach, inheritedFrom, flag, eff, mw
 - top-level consts/vars: $, esc, TYPES, typesOf, blobs, S, fx, P, parentsOf, hier, E, hit, swOn, exOther, inh, _st, saveNow, save, SAVEHOLD, toast, prio, pat2re, fileIgnored
@@ -279,5 +279,5 @@ asks before the app closes while profile, Modloader or plugin changes are not sa
 - **14-toolbar.css** (9.6 KB): header layout cleanup, the Tools menu, config editor toolbar rows, joined-button hover lines and header Undo / Redo hover
 - **15-mod-info.css** (16.1 KB): per-mod source, version, notes and tags (47-mod-info.js)
 - **16-theme-zoom.css** (2.4 KB): theme-coloured text selection and the title bar zoom control (52-zoom.js)
-- **17-card-buttons.css** (3.8 KB): accent hover on sidebar card, config editor and dialog buttons, Modloader settings Refresh key fits the card, Plugins card fields get the Max log size focus look
+- **17-card-buttons.css** (4.1 KB): accent hover on sidebar card, config editor and dialog buttons, Modloader settings Refresh key fits the card, Plugins card fields get the Max log size focus look
 - **18-dropdown-menus.css** (1.8 KB): Game, Profile and Sort by drop-downs (and the other drop-down lists) follow the Tools menu's hover look and animation, custom drop-downs (.cdd) like the Refresh key get the accent text on hover too

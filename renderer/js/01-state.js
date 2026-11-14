@@ -10,7 +10,9 @@ try{const s=localStorage.getItem('samm');if(s)S=JSON.parse(s)}catch(e){}
 const fx=n=>{const p=S.profiles[n];p.pr=p.pr||{};['im','ex','ig','inc','par','cx'].forEach(k=>p[k]=p[k]||[]);if(Array.isArray(p.um))p.um=p.um.join(', ');p.um=p.um||'';if(p.ia===undefined)p.ia=null;if(p.ea===undefined)p.ea=null;return p};
 const P=()=>fx(S.active);
 S.main=S.main||'modloader.ini';S.topSecs=S.topSecs||[];S.mods=S.mods||[];S.exes=S.exes||[];S.exe=S.exe||'';S.gpathAuto=S.gpathAuto||'';S.gpathUser=S.gpathUser||'';S.gname=S.gname||'';S.installs=S.installs||[];S.sort=S.sort||'name';S.curInst=S.curInst||'';S.bcFrom=S.bcFrom||'none';S.bc=S.bc||bcDef();S.bcRaw=S.bcRaw||'';S.panels=S.panels||{};S.bcx=S.bcx||[];S.bcTop=S.bcTop||[];S.pp=S.pp||{};S.ppTop=S.ppTop||[];S.plugins=S.plugins||[];S.fcl=S.fcl||[];S.cur=S.cur||'Default';if(S.pl===undefined)S.pl=null;S.autoBk=S.autoBk||{};S.essIgn=S.essIgn||[];
-function setPr(p,name,v){for(const k of Object.keys(p.pr))if(k.toLowerCase()===name.toLowerCase())delete p.pr[k];if(v!==50)p.pr[name]=v}
+function setPr(p,name,v){const lo=name.toLowerCase(),ks=Object.keys(p.pr).filter(k=>k.toLowerCase()===lo);
+ if(ks.length===1?+p.pr[ks[0]]===+v:v===50)return; /* SAMM-PATCH-PRIORITY-UNCHANGED: unchanged, so the list and its key order stay as they are (re-adding the key would move it to the end and make the profile look modified) */
+ for(const k of ks)delete p.pr[k];if(v!==50)p.pr[name]=v}
 function rawParents(n){const out=[];for(const a of fx(n).par){const l=a.toLowerCase();if(l==='$none')return[];
  let r=null;if(l==='$current')r=S.cur===n?null:S.cur;else r=Object.keys(S.profiles).find(k=>k.toLowerCase()===l)||null;
  if(r&&r!==n&&!out.includes(r))out.push(r)}return out}

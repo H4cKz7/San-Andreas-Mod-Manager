@@ -39,3 +39,6 @@ dialog .btn:not(.pri):not(.del):not(.rib):not(:disabled):is(:hover,:focus-visibl
 /* SAMM-PATCH-STAR-HOVER-2: the Exclusive star on a mod card turns accent on hover / focus while it is off (an active star keeps its own colour); the fade comes from 05-lip-design.css */
 .star:not(.on):not(:disabled):is(:hover,:focus-visible){color:var(--acc);border-color:var(--acc)}
 /* SAMM-PATCH-TRANSITION-FIX: the extra transition lines of the Expand / Collapse and Info hover patches were removed or completed, so the normal button animations stay intact */
+
+/* SAMM-PATCH-MOD-CARD-HOVER: plain buttons inside a mod card in the list (Info, ...): text turns accent on hover / focus, like the other buttons (the border already did; Remove stays red, Primary and disabled buttons keep their look) */
+.mod .btn:not(.pri):not(.del):not(:disabled):is(:hover,:focus-visible){color:var(--acc)}
