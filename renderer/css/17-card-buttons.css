@@ -30,11 +30,12 @@ dialog .btn:not(.pri):not(.del):not(.rib):not(:disabled):is(:hover,:focus-visibl
 /* SAMM-PATCH-INFO-HOVER-BORDER: subfolder rows: the border of Info / Ignore turns accent on hover / focus together with the text */
 .tr.dir>button:not(.trash):not(:disabled):is(:hover,:focus-visible){border-color:var(--acc)!important}
 @media (prefers-reduced-motion:no-preference){
- .tr.dir>button:not(.trash){transition:border-color .15s ease,color .15s ease}
+ .tr.dir>button:not(.trash){transition:background-color .15s ease,color .15s ease,border-color .15s ease}
 }
 
 /* SAMM-PATCH-EXPAND-COLLAPSE-HOVER: Expand all / Collapse all above the file tree of an opened mod: text and icon turn accent on hover / focus */
 .fh>.btn:not(.pri):not(.del):not(:disabled):is(:hover,:focus-visible){color:var(--acc)!important}
-@media (prefers-reduced-motion:no-preference){
- .fh>.btn{transition:border-color .15s ease,color .15s ease}
-}
+
+/* SAMM-PATCH-STAR-HOVER-2: the Exclusive star on a mod card turns accent on hover / focus while it is off (an active star keeps its own colour); the fade comes from 05-lip-design.css */
+.star:not(.on):not(:disabled):is(:hover,:focus-visible){color:var(--acc);border-color:var(--acc)}
+/* SAMM-PATCH-TRANSITION-FIX: the extra transition lines of the Expand / Collapse and Info hover patches were removed or completed, so the normal button animations stay intact */
