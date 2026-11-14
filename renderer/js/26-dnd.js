@@ -120,9 +120,13 @@ async function transfer(items,tgt,copy){
 
 /* --- dragging --- */
 let _tip=null;
-const tip=(txt,x,y)=>{if(!_tip){_tip=document.createElement('div');_tip.className='dtip';document.body.appendChild(_tip)}
- if(txt==null){_tip.hidden=true;return}_tip.hidden=false;_tip.textContent=txt;
- const w=_tip.offsetWidth;_tip.style.left=Math.max(6,Math.min(innerWidth-w-8,x+16))+'px';_tip.style.top=Math.min(innerHeight-34,y+18)+'px'};
+/* SAMM-PATCH-DND-CONFLICTS-ASI: the drag tooltip only touches the DOM when its text changes and is moved with transform inside one requestAnimationFrame (the old code forced a layout on every dragover) */
+const tip=(txt,x,y)=>{if(!_tip){_tip=document.createElement('div');_tip.className='dtip';_tip._t=null;_tip._w=0;_tip._x=0;_tip._y=0;_tip._r=0;_tip.style.transform='translate(-999px,-999px)';document.body.appendChild(_tip)}
+ if(txt==null){_tip._t=null;if(!_tip.hidden)_tip.hidden=true;return}
+ if(_tip.hidden)_tip.hidden=false;
+ if(_tip._t!==txt){_tip._t=txt;_tip.textContent=txt;_tip._w=_tip.offsetWidth}
+ _tip._x=x;_tip._y=y;
+ if(!_tip._r)_tip._r=requestAnimationFrame(()=>{_tip._r=0;if(_tip.hidden)return;_tip.style.transform='translate('+Math.max(6,Math.min(innerWidth-_tip._w-8,_tip._x+16))+'px,'+Math.min(innerHeight-34,_tip._y+18)+'px)'})};
 function setHl(el,cls){const D=DRAG;if(!D)return;if(D.hl===el&&D.hc===cls)return;
  if(D.hl)D.hl.classList.remove('dropok','dropbad','dropzone');D.hl=el;D.hc=cls;if(el&&cls)el.classList.add(cls)}
 function endDrag(){if(DRAG){clearTimeout(DRAG.tm);setHl(null,'')}DRAG=null;tip(null);document.querySelectorAll('.dghost').forEach(x=>x.remove())}
@@ -139,22 +143,30 @@ function canDrop(items,tgt,copy){const dd=locAbs(tgt.mod,tgt.rel);
 const dndStart=e=>{const el=e.target.closest&&e.target.closest('[draggable="true"]');if(!el||DNDBUSY){return}
  const it=rowItem(el);if(!it)return;const k=selKey(it.mod,it.rel);
  if(!SEL.has(k)){SEL.clear();SEL.set(k,it);SELA=it;selPaint()}
- const items=normItems([...SEL.values()]);DRAG={items,hl:null,hc:'',tk:null,tm:0};
+ const items=normItems([...SEL.values()]);DRAG={items,hl:null,hc:'',tk:null,tm:0,hb:document.querySelector('header').getBoundingClientRect().bottom,ce:null,cc:false,ct:null,ok:false,sp:0,st:0,raf:0};
  e.dataTransfer.effectAllowed='copyMove';e.dataTransfer.setData('application/x-samm-items',JSON.stringify(items.map(i=>[i.mod,i.rel])));
  const g=document.createElement('div');g.className='dghost';g.textContent=itemsLabel(items);document.body.appendChild(g);try{e.dataTransfer.setDragImage(g,14,14)}catch(x){}
  setTimeout(()=>g.remove(),0)};
 $('#list').addEventListener('dragstart',dndStart);$('#rootlist').addEventListener('dragstart',dndStart);
-document.addEventListener('dragover',e=>{if(!DRAG||!e.target.closest||!e.target.closest('main>section,#rootd'))return;
- const hb=document.querySelector('header').getBoundingClientRect().bottom;
- if(e.target.closest('#rootd')){}else if(e.clientY<hb+46)window.scrollBy(0,-16);else if(e.clientY>innerHeight-56)window.scrollBy(0,16);
- const tg=dropTarget(e),copy=e.ctrlKey||e.metaKey;
- if(tg&&canDrop(DRAG.items,tg,copy)){e.preventDefault();e.dataTransfer.dropEffect=copy?'copy':'move';
-  setHl(tg.el,tg.zone?'dropzone':'dropok');tip((copy?'Copy ':'Move ')+itemsLabel(DRAG.items)+' to “'+tg.name+'”',e.clientX,e.clientY);
+/* SAMM-PATCH-DND-CONFLICTS-ASI: edge auto-scroll runs on requestAnimationFrame instead of scrolling on every dragover event */
+function dndScroll(){const D=DRAG;if(!D||D.raf)return;
+ const step=()=>{const D=DRAG;if(!D||!D.sp||performance.now()-D.st>600){if(D)D.raf=0;return}
+  window.scrollBy(0,D.sp);D.raf=requestAnimationFrame(step)};
+ D.raf=requestAnimationFrame(step)}
+/* dragover fires many times a second: when the pointer is still over the same element (and Ctrl is unchanged) the drop target and canDrop() result are reused */
+document.addEventListener('dragover',e=>{const D=DRAG;if(!D)return;const T=e.target;if(!T||!T.closest||!T.closest('main>section,#rootd'))return;
+ const inRoot=!!T.closest('#rootd');
+ if(inRoot)D.sp=0;else{D.sp=e.clientY<D.hb+46?-6:e.clientY>innerHeight-56?6:0;D.st=performance.now();if(D.sp)dndScroll()}
+ const copy=e.ctrlKey||e.metaKey;let tg,ok;
+ if(!inRoot&&D.ce===T&&D.cc===copy){tg=D.ct;ok=D.ok}
+ else{tg=dropTarget(e);ok=!!(tg&&canDrop(D.items,tg,copy));if(!inRoot){D.ce=T;D.cc=copy;D.ct=tg;D.ok=ok}}
+ if(ok){e.preventDefault();e.dataTransfer.dropEffect=copy?'copy':'move';
+  setHl(tg.el,tg.zone?'dropzone':'dropok');tip((copy?'Copy ':'Move ')+itemsLabel(D.items)+' to “'+tg.name+'”',e.clientX,e.clientY);
   const key=tg.mod+'\u0001'+tg.rel;
-  if(DRAG.tk!==key){DRAG.tk=key;clearTimeout(DRAG.tm);
-   if(tg.rv)DRAG.tm=setTimeout(()=>{if(DRAG&&DRAG.tk===key)rvHoverOpen(tg)},650);else if(tg.m)DRAG.tm=setTimeout(()=>{if(!DRAG||DRAG.tk!==key)return; /* hovering a closed folder opens it, like a file manager */
+  if(D.tk!==key){D.tk=key;clearTimeout(D.tm);
+   if(tg.rv)D.tm=setTimeout(()=>{if(DRAG&&DRAG.tk===key)rvHoverOpen(tg)},650);else if(tg.m)D.tm=setTimeout(()=>{if(!DRAG||DRAG.tk!==key)return; /* hovering a closed folder opens it, like a file manager */
     if(!tg.rel){if(!tg.m._o)toggleMod(tg.el,tg.m)}else if(!tg.el.classList.contains('open'))foldDir(tg.m,tg.el)},650)}}
- else{clearTimeout(DRAG.tm);DRAG.tk=null;setHl(tg&&!tg.zone?tg.el:null,'dropbad');tip(null)}});
+ else{clearTimeout(D.tm);D.tk=null;setHl(tg&&!tg.zone?tg.el:null,'dropbad');tip(null)}});
 document.addEventListener('dragleave',e=>{if(DRAG&&!(e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest('main>section,#rootd'))){clearTimeout(DRAG.tm);DRAG.tk=null;setHl(null,'');tip(null)}});
 document.addEventListener('drop',async e=>{if(!DRAG||!e.target.closest||!e.target.closest('main>section,#rootd'))return;e.preventDefault();
  const tg=dropTarget(e),copy=e.ctrlKey||e.metaKey,items=DRAG.items;endDrag();

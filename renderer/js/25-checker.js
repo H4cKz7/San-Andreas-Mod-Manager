@@ -78,17 +78,18 @@ async function asiWalk(dir,pre,add,depth){let ents;try{ents=await fsN.promises.r
 /* Ignored warnings are remembered per installation in S.warnIgn[curInst]: 'mlini' and 'dup:<file name in lower case>'. */
 const wIgn=()=>{S.warnIgn=S.warnIgn||{};const k=S.curInst||'default';return S.warnIgn[k]=S.warnIgn[k]||[]};
 const cwMli=()=>{if(!root||!root._path)return null;try{return{missing:!fsN.readdirSync(root._path).some(n=>/^modloader\.ini$/i.test(n))}}catch(e){return null}};
-/* An .asi counts as a duplicate when the same file name sits in two different load places: game folder, scripts, plugins, or modloader.
-   Two mods inside modloader do not count (Mod Loader sorts those out by priority, see the conflict view). Disabled mods are skipped. */
-function cwDups(all){const out=[];
- for(const[k,locs]of all){const g=new Set(),shown=[];
-  for(const w of locs){let grp;
+/* SAMM-PATCH-DUPLICATE-PLUGINS: an .asi counts as a duplicate when the same file name exists in two different places, anywhere it can load from:
+   the game folder, scripts, plugins, other game sub-folders (not cleo), loose in the modloader folder, in two different mods inside modloader,
+   or twice inside the same mod (different folders). Mods that are off, excluded, at priority 0, or files matched by "Ignored files" are skipped.
+   Each warning can still be ignored with its Ignore button. */
+function cwDups(all){const out=[];E=eff();
+ for(const[k,locs]of all){const shown=[];
+  for(const w of locs){
    if(w.startsWith('modloader/')){const p=w.split('/'),mod=p[1],rel=p.slice(2).join('/');
-    if(!mod||!swOn(mod)||exOther(mod)||fileIgnored({name:mod},rel))continue;grp='modloader'}
-   else if(w.includes('/')){grp=w.split('/')[0].toLowerCase();if(grp==='cleo')continue}
-   else grp='game folder';
-   g.add(grp);shown.push(w)}
-  if(g.size>1)out.push({key:k,name:shown[0].split('/').pop(),where:shown})}
+    if(p.length>2&&(mod[0]==='.'||!swOn(mod)||exOther(mod)||prio(mod)<=0||fileIgnored({name:mod},rel)))continue}
+   else if(w.includes('/')&&w.split('/')[0].toLowerCase()==='cleo')continue;
+   shown.push(w)}
+  if(shown.length>1)out.push({key:k,name:shown[0].split('/').pop(),where:shown})}
  return out.sort((a,b)=>a.name.localeCompare(b.name))}
 function cwCount(r){const g=wIgn();return(r.mli&&r.mli.missing&&!g.includes('mlini')?1:0)+(r.dups||[]).filter(d=>!g.includes('dup:'+d.key)).length}
 function cwSecs(r,sec){const g=wIgn();let h='';
@@ -97,7 +98,7 @@ function cwSecs(r,sec){const g=wIgn();let h='';
   else if(g.includes('mlini'))h+=sec('modloader.ini','ok','Ignored','<div class="ckx">This warning is ignored.</div><div style="margin-top:8px"><button class="btn sm" data-wunign="mlini">Show warning again</button></div>');
   else h+=sec('modloader.ini','warn','Missing','<div class="ckt">modloader.ini not found</div><div class="ckx">There is no modloader.ini in the modloader folder. Profile settings (priorities, ignored mods, the current profile) are saved there. Create it to start from the current settings.</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn sm" data-mkini="1">Create modloader.ini</button><button class="btn sm" data-wign="mlini">Ignore</button></div>')}
  const d=r.dups||[],live=d.filter(x=>!g.includes('dup:'+x.key)),skip=d.filter(x=>g.includes('dup:'+x.key));
- const row=(x,btn,cls)=>'<div class="ckr"><i class="ckd '+(cls||'')+'"></i><div class="ckn"><div class="ckt">'+esc(x.name)+'</div><div class="ckm">'+esc(x.where.join(' · '))+'</div></div>'+btn+'</div>';
+ const row=(x,btn,cls)=>/*SAMM-PATCH-DUP-ALIGN*/'<div class="ckr ckrp"><i class="ckd '+(cls||'')+'"></i><div class="ckn"><div class="ckt">'+esc(x.name)+'</div><div class="ckm ckw">'+/*SAMM-PATCH-DUP-PATHS*/x.where.map(w=>'<div>'+esc(w).replace(/\//g,'/<wbr>')+'</div>').join('')+'</div></div>'+btn+'</div>';
  h+=sec('Duplicate plugins',live.length?'warn':'ok',live.length?String(live.length):'None',
   (live.length?'<div class="ckx" style="margin-bottom:2px">The same plugin file is in more than one place, so it can load twice and crash the game. Keep one copy, or ignore it if you did this on purpose.</div>'+live.map(x=>row(x,'<button class="btn sm" data-wign="dup:'+esc(x.key)+'">Ignore</button>','warn')).join(''):'<div class="ckx">No .asi plugin is installed in more than one place.</div>')
   +(skip.length?'<details class="ckf" data-k="wign"'+(VC.o.wign?' open':'')+'><summary><span>Ignored</span><span class="pill">'+skip.length+'</span></summary>'+skip.map(x=>row(x,'<button class="btn sm" data-wunign="dup:'+esc(x.key)+'">Restore</button>')).join('')+'</details>':''));

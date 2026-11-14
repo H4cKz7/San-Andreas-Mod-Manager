@@ -1,0 +1,11 @@
+/* SA Mod Manager - 19-dropdown-menus.css: Game, Profile and Sort by drop-downs (and the other drop-down lists) follow the Tools menu's hover look and animation (loaded last, so it overrides earlier files) */
+
+/* ---- list items: text turns accent on hover / keyboard highlight, like the Tools menu items (danger items stay red) ---- */
+.ddm .ddi:not(.danger):is(:hover,.hl){color:var(--acc)}
+@media (prefers-reduced-motion:no-preference){
+ .ddm .ddi{transition:background-color .15s ease,color .15s ease}
+}
+
+/* ---- the Game, Profile and Sort by buttons: text turns accent on hover / focus / while open, like the Tools button ---- */
+.pf .ddb:is(:hover,:focus-visible),.pf .ddb[aria-expanded=true],
+#sortsel>.ddb:is(:hover,:focus-visible),#sortsel>.ddb[aria-expanded=true]{color:var(--acc)}

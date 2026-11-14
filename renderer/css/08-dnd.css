@@ -81,3 +81,6 @@
 @media(max-width:1560px){
  header>.hr>.hg:nth-child(3){margin-left:auto}
 }
+
+/* SAMM-PATCH-DND-CONFLICTS-ASI: the drag tooltip is moved with transform (26-dnd.js), so it needs a fixed origin */
+.dtip{left:0;top:0;will-change:transform}

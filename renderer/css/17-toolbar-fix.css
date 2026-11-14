@@ -1,0 +1,35 @@
+/* SA Mod Manager - 17-toolbar-fix.css: config editor toolbar rows (search row, top row with Delete) and an instant centre line on joined buttons (loaded last, so it overrides earlier files) */
+
+/* ---- config editor search row (edTbHtml in 16-editor-find.js): every button is 36 x 30 like Expand all / Collapse all ---- */
+#edd .edtb{display:flex;align-items:stretch;gap:8px;flex-wrap:nowrap}
+#edd .edtb>.btn,
+#edd .edtb .edfind .btn,
+#edd .edtb .rseg .rib{box-sizing:border-box;width:36px;min-width:36px;height:auto;min-height:30px;padding:0;display:inline-grid;place-items:center;flex:none}
+#edd .edtb .btn svg{width:16px;height:16px;flex:none;display:block}
+#edd .edtb #edfx:hover,#edd .edtb #edfx:focus-visible{color:var(--bad)}
+/* Search / Previous / Next icons turn accent on hover like Expand all / Collapse all (the x stays red) */
+#edd .edtb .btn:not(#edfx):not(:disabled):is(:hover,:focus-visible){color:var(--acc)}
+/* the search field takes all the free width; the match counter sits inside it at the right */
+#edd .edtb .edfind:not([hidden]){display:flex;position:relative;flex:1 1 auto;align-items:stretch;justify-content:flex-start;gap:8px;min-width:230px;max-width:none;margin:0}
+#edd .edtb .edfind[hidden]{display:none}
+#edd .edtb .edfind input[type=search]{flex:1 1 0;min-width:0;width:auto;max-width:none;height:auto;min-height:30px;margin:0;padding-right:86px}
+#edd .edtb .edfind .stats{position:absolute;top:50%;right:calc(3 * 36px + 3 * 8px + 10px);transform:translateY(-50%);min-width:0;margin:0;pointer-events:none;font-size:12px;white-space:nowrap}
+#edd .edtb .rseg{margin-left:0}
+
+/* ---- config editor top row (edRight in 13-editor-form.js): every button is as tall as the Form / Raw switch ---- */
+#edd .edt{align-items:stretch}
+#edd .edt>.btn,#edd .edt>.dd{align-self:stretch}
+#edd .edt>.dd{display:flex}
+#edd .edt .btn{height:auto;--d:3px;font-size:inherit}
+#edd .edt .btn:not(.more):not(#eddel){padding-left:12px;padding-right:12px}
+/* Delete: square icon button at the far right, red on hover (.btn.del) */
+#edd .edt #eddel{width:auto;min-width:34px;aspect-ratio:1/1;padding:0}
+#edd .edt #eddel svg{width:16px;height:16px;flex:none;display:block}
+
+/* ---- joined buttons: the border eases in and out like the icon colour, and the shared centre line stays lit while the hover moves between neighbours ---- */
+/* (the border colour keeps the normal .15 s ease from 05-lip-design.css; the line between two buttons is both buttons' border, so it follows the hover on either side) */
+/* only the shared edge of the neighbour is coloured, so just the hovered button lights up */
+.rseg .rib:is(:hover,:focus-visible,:active)+.rib,
+.split>.btn:is(:hover,:focus-visible,:active)+.btn{border-left-color:var(--acc)}
+.rseg .rib:has(+.rib:is(:hover,:focus-visible,:active)),
+.split>.btn:has(+.btn:is(:hover,:focus-visible,:active)){border-right-color:var(--acc)}

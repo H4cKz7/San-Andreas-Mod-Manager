@@ -46,7 +46,7 @@ sidebar panel state, patchList() DOM morphing, ask() dialog, expanding mod rows
 title bar window buttons and the profile actions menu
 - top-level consts/vars: pmOpen, WI, wi, wState
 
-### 08-theme.js  (11.1 KB)
+### 08-theme.js  (11.9 KB)
 light/dark theme and the Appearance (custom colours) dialog
 - functions: thSave, thApply, thSync, thBuild, thSet, cpOpenFree, thParse
 - top-level consts/vars: TH_VARS, TH_KEYS, TH_DEF, TH_PRE, TC, thRgb, thHex, thMix, thLum, thNorm, thEff, thBuilt, THEME
@@ -69,7 +69,7 @@ config editor core: INI parsing, file list, open / save / restore
 JC: JSON-with-comments parser and in-place editor
 - top-level consts/vars: JC
 
-### 13-editor-form.js  (24.2 KB)
+### 13-editor-form.js  (24.6 KB)
 config editor Form (INI) and Tree (JSON) rendering, undo history for the editor
 - functions: jLoad, jEdit, chipsRender, iniForm, jsonTree, swUpdate, edText, edBase, edStateNow, edState, edStateSoon, edHistUi, edHistPush, edSetText, edUndo, edRedo, edUndoAll, edRedoAll, edSplClose, edBody, edRight, edList, cfgWalk*, edScan*, edOpen*, edSave*, edRestore*, edClose*, keepOpen
 - top-level consts/vars: JNUM, jStrict, KEYN, vkName, cleanC, isIdList, idTokens, chipHtml, jget, edFold
@@ -116,24 +116,24 @@ folder scan, modloader.ini / profile reading and writing, Save, restore on start
 - functions: writeFile*, applyLine, parseIniFile, commit*, ingest*, detectPath*, findExes*, scanRoot*, findML*, instFor*, mlMissing, openBaseInstaller, applyBasePlan, mlBtnSync, scanGameOnly*, openStored*, setRoot*, switchInst*, forgetInst*, pick*, profIni, patchIni, filesRaw, files, syncCur*, probeLog*, restore*
 - top-level consts/vars: root, srcText, src, game, logGet, extraLog, written, newP, idb, canWrite, PSEC, ppath, gpath, curInst, exeNote, ML_URL, ESS_URL2, bcText, ppText, _fc, pendTxt, welcome
 
-### 23-trash.js  (8.4 KB)
+### 23-trash.js  (8.3 KB)
 Trash: move to / restore from / delete permanently
 - functions: listFiles, refreshMod, trashPut*, trashMod*, trashPath*, trashRestore*, trashDelete*, renderTrash, trashRestoreAll*
-- top-level consts/vars: gameDir, locAbs, locOf, trMod, TR, trName
+- top-level consts/vars: gameDir, locAbs, locOf, trMod, TR, trName, trClick, trEmpty
 
 ### 24-launch.js  (3.4 KB)
 Launch Game button and launch options
 - functions: doLaunch*, lmStat, lmDraw
 - top-level consts/vars: exePath, canLaunch, lq, LM, lmOpenMenu
 
-### 25-checker.js  (19.5 KB)
+### 25-checker.js  (19.8 KB)
 Version & Essentials checker card
 - functions: asiCheck*, peVersion, checkExe*, asiWalk*, cwDups, cwCount, cwSecs, runChecks*, renderChecks
 - top-level consts/vars: ESSENTIALS, OLA, F92, ESS_URL, KNOWN_EXE, VC, ASI_URL, ASI_URL_SILENT, DL_URL, dlRow, DLB, ckBody, ASI_DLLS, asiBody, sha256, wIgn, cwMli, LIMACK
 
-### 26-dnd.js  (15.4 KB)
+### 26-dnd.js  (16.6 KB)
 selection, drag & drop, cut / copy / paste of mods, folders and files
-- functions: selCls, normItems, modEl, rowEl, rowItem, selPaint, clipSet, pasteTarget, pasteClip*, leave*, landed, transfer*, setHl, endDrag, dropTarget, canDrop
+- functions: selCls, normItems, modEl, rowEl, rowItem, selPaint, clipSet, pasteTarget, pasteClip*, leave*, landed, transfer*, setHl, endDrag, dropTarget, canDrop, dndScroll
 - top-level consts/vars: SEL, SELA, CLIP, DRAG, DNDBUSY, selKey, isCut, itAbs, within, itName, itemsLabel, sleep, reduceMo, SECT, _tip, tip, dndStart, MLWATCH
 
 ### 27-boot.js  (0.2 KB)
@@ -144,7 +144,7 @@ export the mod list as a short .txt (sharing) or a browsable .html (debugging)
 - functions: exportData, exportName, exportDirs, exportTreeHtml, exportReport, exportHtml, exportPrep*, exportRun*, expMenuClose
 - top-level consts/vars: EXPORT_DOCS
 
-### 29-tooltips.js  (2.2 KB)
+### 29-tooltips.js  (2.3 KB)
 styled tooltips replacing the native title popups
 - functions: tipOff, tipShow
 - top-level consts/vars: tipEl, tipT, tipFor, tipOpen
@@ -177,10 +177,10 @@ Bisect helper, finds the mod that crashes the game by launching with half of the
 - functions: bsFind, bsBack, bsRestore, bsMoveOut, bsLaunch*, bsAsk*, bsEnd*, bisectStart*
 - top-level consts/vars: BS, bsSaveKeep, bsCands, bsArgs, bsEssFiles, bsIsEss, BS_PL, bsTempDir, bsMv, bsSaveJ, bsPut, BS_OUT, bsTest
 
-### 36-conflicts.js  (7.9 KB)
+### 36-conflicts.js  (10.5 KB)
 file conflict view, which mods contain the same file and which one wins
-- functions: cfCompute, cfRow, cfDraw, cfBadge, cfLab, cfBtns, cfMenus, cfClose
-- top-level consts/vars: CF, CF_DATA, cfSoon, cfExt, cfFe, cfSaveF
+- functions: cfLoose, cfCompute, cfRow, cfDraw, cfBadge, cfLab, cfBtns, cfMenus, cfClose
+- top-level consts/vars: CF, CF_DATA, CF_LOOSE, cfSoon, cfExt, cfFe, cfSaveF
 
 ### 37-dropzone.js  (3.4 KB)
 drop an archive or folder anywhere on the window to open the installer
@@ -251,22 +251,29 @@ rename mod folders (and folders inside them) from the mod list. Pencil button on
 ### 52-zoom.js  (4.0 KB)
 browser-style zoom control (- 100% +) in the title bar, left of the Appearance button. Ctrl + / Ctrl - / Ctrl 0 work too.
 
+### 53-editor-delete.js  (1.7 KB)
+config editor Delete button: moves the open config file to the Trash
+- functions: edDelete*
+
 (`name*` = async function)
 
 ## CSS (renderer/css), loaded in this order, later files override earlier ones
-- **01-base.css** (31.0 KB): variables, layout, header, mod list, cards, dialogs, editor widgets
+- **01-base.css** (31.2 KB): variables, layout, header, mod list, cards, dialogs, editor widgets
 - **02-editor.css** (4.0 KB): config editor layout and controls
 - **03-panels.css** (4.1 KB): v1.2.3 additions: chevrons, trash rows, checker cards, launch warning
 - **04-appearance.css** (1.3 KB): Appearance dialog
 - **05-lip-design.css** (5.9 KB): raised "lip" look of buttons, switches, sliders, fields
 - **06-header-checker.css** (2.3 KB): v1.2.4: split buttons, checker drop-downs
 - **07-installer.css** (10.6 KB): v1.2.5: smart installer dialog and file picker tree
-- **08-dnd.css** (5.1 KB): v1.2.6: selection, drag & drop highlights, animations
+- **08-dnd.css** (5.3 KB): v1.2.6: selection, drag & drop highlights, animations
 - **09-layout.css** (1.0 KB): v1.2.6 hotfix: fixed title bar and toolbar, only the area below them scrolls, sticky sidebar
 - **10-updater.css** (4.3 KB): update button in the title bar
 - **11-wiki.css** (8.7 KB): in-app Wiki reader (loaded in order by index.html). Uses the app's theme variables, so light/dark/custom colours just work.
 - **12-v128.css** (6.3 KB): scrollbar insets, Rescan chevron menu, Root cleo/scripts dialog
-- **13-features.css** (3.2 KB): file conflict view, window drop overlay, install backups dialog layout
-- **14-toolbar.css** (6.0 KB): header layout cleanup and the Tools menu
+- **13-features.css** (4.3 KB): file conflict view, window drop overlay, install backups dialog layout
+- **14-toolbar.css** (6.7 KB): header layout cleanup and the Tools menu
 - **15-mod-info.css** (16.1 KB): per-mod source, version, notes and tags (47-mod-info.js)
 - **16-theme-zoom.css** (2.4 KB): theme-coloured text selection and the title bar zoom control (52-zoom.js)
+- **17-toolbar-fix.css** (2.8 KB): config editor toolbar rows (search row, top row with Delete) and an instant centre line on joined buttons
+- **18-card-buttons.css** (1.5 KB): accent hover on sidebar card and config editor buttons, Modloader settings Refresh key fits the card
+- **19-dropdown-menus.css** (0.8 KB): Game, Profile and Sort by drop-downs (and the other drop-down lists) follow the Tools menu's hover look and animation

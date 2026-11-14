@@ -43,6 +43,7 @@ $('#edright').addEventListener('click',async e=>{const t=e.target,c=ED.cur;if(!c
   const eol=cur.includes('\r\n')?'\r\n':'\n',out=JSON.stringify(JSON.parse(cur),null,c.indent||2).replace(/\n/g,eol)+(c.nl?eol:'');
   if(c.view==='raw')c.text=out;else jLoad(c,out);edBody();edState();toast('Formatted')}catch(x){toast('Not valid JSON: '+x.message)}return}
  if(bt&&bt.id==='edsave'){edSave();return}
+ if(bt&&bt.id==='eddel'){edDelete();return}
  if(bt&&(bt.id==='edundomore'||bt.id==='edredomore')){const m=$(bt.id==='edundomore'?'#edundom':'#edredom'),o=m.hidden;edSplClose();m.hidden=!o;bt.setAttribute('aria-expanded',String(o));return}
  const eall=t.closest('[data-eall]');if(eall){edSplClose();eall.dataset.eall==='undo'?edUndoAll():edRedoAll();return}
  if(bt&&bt.id==='edundo'){edUndo();return}

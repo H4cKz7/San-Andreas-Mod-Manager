@@ -11,11 +11,15 @@ const TH_VARS=[
  ['Status',[['warn','Warning','Warnings and the star'],['bad','Danger','Errors and delete actions']]],
  ['Icons',[['folder','Folder icons','Folders in a mod’s file list'],['fileic','File icons','Files in a mod’s file list']]]];
 const TH_KEYS=TH_VARS.flatMap(g=>g[1].map(r=>r[0]));
-const TH_DEF={dark:{bg:'#101311',panel:'#181c19',panel2:'#1e231f',line:'#2a312b',tx:'#e6eae4',mut:'#8b948a',acc:'#4cc468',accbg:'#18301e',warn:'#e8963f',bad:'#e5695c',ink:'#07120a',folder:'#4cc468',fileic:'#8b948a'},
- light:{bg:'#eef0ec',panel:'#ffffff',panel2:'#f5f6f3',line:'#dcdfd8',tx:'#1b1f1a',mut:'#6b7268',acc:'#2f9e44',accbg:'#e1f3e4',warn:'#d9822b',bad:'#c94a3d',ink:'#ffffff',folder:'#2f9e44',fileic:'#6b7268'}};
+/* SAMM-PATCH-LIGHT-THEME: default light = light twin of the Icon-match dark theme; the old green light theme is the "Classic" light preset */
+/* SAMM-PATCH-THEME-CSS: the default dark theme is the Icon-match colours (also set in 01-base.css); the old green default is the "Classic" preset below */
+const TH_DEF={dark:{bg:'#0d0e11',panel:'#14161b',panel2:'#1c1f26',line:'#2c303b',tx:'#cfd3dc',mut:'#9ea5b4',acc:'#f5bc42',accbg:'#332711',warn:'#d97736',bad:'#cf4848',ink:'#060708',folder:'#f5bc42',fileic:'#9ea5b4'},
+ light:{bg:'#eceef2',panel:'#ffffff',panel2:'#f4f5f8',line:'#d8dce5',tx:'#16181d',mut:'#5c6475',acc:'#dd9a14',accbg:'#fbebc8',warn:'#c9651f',bad:'#c94a3d',ink:'#1a1203',folder:'#dd9a14',fileic:'#5c6475'}};
 const TH_PRE=[
  {name:'Default',base:'dark',vars:{}},
  {name:'Default',base:'light',vars:{}},
+ {name:'Classic',base:'dark',vars:{bg:'#101311',panel:'#181c19',panel2:'#1e231f',line:'#2a312b',tx:'#e6eae4',mut:'#8b948a',acc:'#4cc468',accbg:'#18301e',warn:'#e8963f',bad:'#e5695c',ink:'#07120a',folder:'#4cc468',fileic:'#8b948a'}},
+ {name:'Classic',base:'light',vars:{bg:'#eef0ec',panel:'#ffffff',panel2:'#f5f6f3',line:'#dcdfd8',tx:'#1b1f1a',mut:'#6b7268',acc:'#2f9e44',accbg:'#e1f3e4',warn:'#d9822b',bad:'#c94a3d',ink:'#ffffff',folder:'#2f9e44',fileic:'#6b7268'}},
  {name:'Midnight',base:'dark',vars:{bg:'#0d1117',panel:'#151b23',panel2:'#1c2430',line:'#2b3544',tx:'#e6edf3',mut:'#8b98a9',acc:'#58a6ff',accbg:'#14283f',warn:'#e8a33f',bad:'#f0716a',ink:'#06121f'}},
  {name:'Amethyst',base:'dark',vars:{bg:'#14111a',panel:'#1c1824',panel2:'#241f2e',line:'#342d42',tx:'#ece8f3',mut:'#9a92a8',acc:'#b18cff',accbg:'#2a2040',warn:'#e8a33f',bad:'#ef6b7b',ink:'#140a26'}},
  {name:'Crimson',base:'dark',vars:{bg:'#140f10',panel:'#1d1516',panel2:'#261b1d',line:'#3a2a2c',tx:'#f0e8e8',mut:'#a08f90',acc:'#ff5c64',accbg:'#3a1a1d',warn:'#e8b53f',bad:'#ff8f6b',ink:'#200608'}},

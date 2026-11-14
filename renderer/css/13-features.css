@@ -26,7 +26,10 @@
 .cfdd>.btn span{max-width:150px;overflow:hidden;text-overflow:ellipsis;opacity:.85}
 .cfmenu{position:absolute;top:calc(100% + 4px);right:0;z-index:20;min-width:240px;max-height:300px;overflow:auto;background:var(--panel2,#1b1f1c);border:1px solid var(--line,#444);border-radius:10px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
 .cfmenu[hidden]{display:none}
-.cfpt{display:flex;gap:6px;padding:2px 2px 6px;margin-bottom:4px;border-bottom:1px solid var(--line,#444)}
+.cfmenu{padding-top:0}
+.cfpt{position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 -6px 4px;padding:8px 8px 6px 12px;background:var(--panel2,#1b1f1c);border-bottom:1px solid var(--line,#444)}
+.cfpl{font-size:12px;font-weight:600;opacity:.7}
+/* SAMM-PATCH-DUPLICATE-PLUGINS: Clear uses the normal .btn.sm look again (see .cfpt above for its placement) */
 .cfo{display:flex;gap:8px;align-items:center;padding:4px 6px;border-radius:6px;cursor:pointer}
 .cfo:hover{background:rgba(127,127,127,.16)}
 .cfe{min-width:46px;font-weight:600}
@@ -45,3 +48,18 @@
 .ibq{width:100%;margin-bottom:10px}
 .ibsetrow{margin-top:12px}
 .ibbtns{display:flex;gap:8px;justify-content:space-between;margin-top:14px}
+
+/* SAMM-PATCH-DND-CONFLICTS-ASI / SAMM-PATCH-DUPLICATE-PLUGINS: the .asi warning box was removed from the File conflicts card */
+
+/* SAMM-PATCH-DUP-PATHS: Duplicate plugins rows, one location per line, wrapping at the slashes */
+.ckr .ckn{min-width:0;flex:1 1 auto}
+.ckm.ckw{display:flex;flex-direction:column;gap:3px;white-space:normal}
+.ckm.ckw>div{overflow-wrap:anywhere;line-height:1.35}
+.ckm.ckw>div+div{border-top:1px dashed var(--line,#444);padding-top:3px}
+
+/* SAMM-PATCH-DUP-ALIGN: dot and button sit on the title line (the first line is 26px tall; if the dot or button looks 1-2px off, tune the two margin-top values) */
+.ckr.ckrp{align-items:flex-start}
+.ckr.ckrp .ckt{min-height:26px;display:flex;align-items:center}
+.ckr.ckrp>.ckd{align-self:flex-start;margin-top:8px}
+.ckr.ckrp>.btn{align-self:flex-start;margin-top:2px}
+.ckr.ckrp .ckw{margin-top:-3px}

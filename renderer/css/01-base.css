@@ -1,6 +1,7 @@
 /* SA Mod Manager - 01-base.css: variables, layout, header, mod list, cards, dialogs, editor widgets (loaded in order by index.html) */
-:root{color-scheme:dark;--bg:#101311;--panel:#181c19;--panel2:#1e231f;--line:#2a312b;--tx:#e6eae4;--mut:#8b948a;--acc:#4cc468;--accbg:#18301e;--warn:#e8963f;--bad:#e5695c;--ink:#07120a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-:root[data-theme="light"]{color-scheme:light;--bg:#eef0ec;--panel:#fff;--panel2:#f5f6f3;--line:#dcdfd8;--tx:#1b1f1a;--mut:#6b7268;--acc:#2f9e44;--accbg:#e1f3e4;--warn:#d9822b;--bad:#c94a3d;--ink:#fff}
+/* SAMM-PATCH-THEME-CSS: default dark theme = Icon-match colours (the old green one is the "Classic" preset in 08-theme.js, keep both in sync with TH_DEF) */
+:root{color-scheme:dark;--bg:#0d0e11;--panel:#14161b;--panel2:#1c1f26;--line:#2c303b;--tx:#cfd3dc;--mut:#9ea5b4;--acc:#f5bc42;--accbg:#332711;--warn:#d97736;--bad:#cf4848;--ink:#060708;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="light"]{color-scheme:light;--bg:#eceef2;--panel:#ffffff;--panel2:#f4f5f8;--line:#d8dce5;--tx:#16181d;--mut:#5c6475;--acc:#dd9a14;--accbg:#fbebc8;--warn:#c9651f;--bad:#c94a3d;--ink:#1a1203}/* SAMM-PATCH-LIGHT-THEME */
 /* dark is the default; the toggle in the title bar switches to light and the choice is remembered */
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
@@ -142,7 +143,7 @@ dialog.wide[open]{display:flex;flex-direction:column;gap:10px}
 input[type=checkbox]{appearance:none;-webkit-appearance:none;position:relative;flex:none;width:18px;height:18px;margin:0;border:1.5px solid var(--line);border-radius:6px;background:var(--panel2);cursor:pointer;transition:background .12s,border-color .12s}
 input[type=checkbox]:hover{border-color:var(--acc)}
 input[type=checkbox]:checked{border-color:var(--acc);background:var(--acc) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.5 5 9l4.5-5' fill='none' stroke='%23061008' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/13px no-repeat}
-:root[data-theme="light"] input[type=checkbox]:checked{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.5 5 9l4.5-5' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+:root[data-theme="light"] input[type=checkbox]:checked{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.5 5 9l4.5-5' fill='none' stroke='%231a1203' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
 
 #plim{flex:1;min-width:0;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 10px;outline:none}
 .cb{font-size:11px;font-weight:600;padding:0 7px;border-radius:99px;background:var(--accbg);color:var(--acc)}

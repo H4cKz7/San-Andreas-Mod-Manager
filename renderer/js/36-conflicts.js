@@ -4,26 +4,50 @@
    Winner = highest priority under the active profile (prio(), which includes the PriorityLimit). Equal priorities are shown as a tie. */
 var CF={res:null,tm:0};
 const CF_DATA=/\.(ide|ipl|dat|cfg)$/i;
+/* SAMM-PATCH-DND-CONFLICTS-ASI: refined scan.
+   - the same file name twice INSIDE one mod (e.g. xyz/xyz.asi and xyz.asi, or two sub-folders) is now a conflict (it used to be skipped)
+   - loose files lying directly in the modloader folder are compared with the files in the mods
+   - .asi conflicts are flagged (r.asi), the sidebar warns about them */
+const CF_LOOSE='(modloader folder)';
+function cfLoose(){const out=[];
+ try{if(!root||!root._path)return out;
+  for(const d of fsN.readdirSync(root._path,{withFileTypes:true})){const n=d.name;
+   if(!d.isFile()||n[0]==='.'||/^modloader\.(ini|log)$/i.test(n)||/\.(log|bak|tmp)$/i.test(n)||JUNK.test(n)||isDoc(n))continue;out.push(n)}}catch(x){}
+ return out}
 function cfCompute(){
  E=eff();const by=new Map();let zero=0;
  for(const m of S.mods){
   if(!swOn(m.name)||exOther(m.name))continue;
   const pr=prio(m.name);if(pr<=0){zero++;continue}
-  const seen=new Set();
   for(const f of m.files){
    if(JUNK.test(f)||isDoc(f)||fileIgnored(m,f))continue;
-   const b=f.split('/').pop().toLowerCase();if(seen.has(b))continue;seen.add(b);
+   const b=f.split('/').pop().toLowerCase();
    let a=by.get(b);if(!a)by.set(b,a=[]);a.push({mod:m.name,rel:f,pr})}}
+ for(const n of cfLoose()){const a=by.get(n.toLowerCase());if(a)a.push({mod:CF_LOOSE,rel:n,pr:null,loose:true})}
  const rows=[];
- for(const[b,a]of by){if(a.length<2)continue;
-  a.sort((x,y)=>y.pr-x.pr||x.mod.localeCompare(y.mod,undefined,{numeric:true,sensitivity:'base'}));
-  rows.push({key:b,name:a[0].rel.split('/').pop(),list:a,tie:a.filter(x=>x.pr===a[0].pr).length>1,data:CF_DATA.test(b)})}
+ for(const[b,a]of by){
+  const cnt=new Map();a.forEach(x=>cnt.set(x.mod,(cnt.get(x.mod)||0)+1));
+  const self=a.some(x=>cnt.get(x.mod)>1);
+  if(cnt.size<2&&!self)continue;
+  a.forEach(x=>{x.same=cnt.get(x.mod)>1});
+  a.sort((x,y)=>(y.loose?1:0)-(x.loose?1:0)||(y.pr||0)-(x.pr||0)||x.mod.localeCompare(y.mod,undefined,{numeric:true,sensitivity:'base'})||x.rel.localeCompare(y.rel));
+  const mods=a.filter(x=>!x.loose),top=mods[0];
+  rows.push({key:b,name:top.rel.split('/').pop(),list:a,
+   tie:new Set(mods.filter(x=>x.pr===top.pr).map(x=>x.mod)).size>1,
+   self,loose:a.some(x=>x.loose),asi:/\.asi$/.test(b),data:CF_DATA.test(b)})}
  rows.sort((x,y)=>x.name.localeCompare(y.name,undefined,{numeric:true,sensitivity:'base'}));
  return{rows,zero}}
-function cfRow(r){const w=r.list[0];
- return '<div class="cfr"><div class="cfn"><b>'+esc(r.name)+'</b>'+(r.tie?'<span class="tag warn">same priority</span>':'')+'</div>'
-  +r.list.map(x=>{const t=x.pr===w.pr?(r.tie?'<span class="tag warn">tie</span>':'<span class="tag st">wins</span>'):'<span class="tag">overridden</span>';
-   return '<div class="cfm'+(x.pr===w.pr?'':' lose')+'"><span class="cfp" title="Priority">'+x.pr+'</span><span class="nm">'+esc(x.mod)+'</span><span class="cfpath" title="'+esc(x.rel)+'">'+esc(x.rel)+'</span>'+t+'</div>'}).join('')+'</div>'}
+function cfRow(r){const mods=r.list.filter(x=>!x.loose),w=mods[0];
+ const tagOf=x=>{
+  if(x.loose)return '<span class="tag warn" title="This file lies directly in the modloader folder">loose in modloader</span>';
+  if(x.same)return '<span class="tag warn" title="The same file name exists more than once inside this mod">twice in this mod</span>';
+  if(r.loose&&mods.length===1)return '';
+  return x.pr===w.pr?(r.tie?'<span class="tag warn">tie</span>':'<span class="tag st">wins</span>'):'<span class="tag">overridden</span>'};
+ return '<div class="cfr"><div class="cfn"><b>'+esc(r.name)+'</b>'
+  
+  +(r.tie?'<span class="tag warn">same priority</span>':'')+'</div>'
+  +r.list.map(x=>{const lose=!x.loose&&!x.same&&!(r.loose&&mods.length===1)&&x.pr!==w.pr;
+   return '<div class="cfm'+(lose?' lose':'')+'"><span class="cfp" title="Priority">'+(x.loose?'–':x.pr)+'</span><span class="nm">'+esc(x.mod)+'</span><span class="cfpath" title="'+esc(x.rel)+'">'+esc(x.rel)+'</span>'+tagOf(x)+'</div>'}).join('')+'</div>'}
 function cfDraw(){const R=CF.res||(CF.res=cfCompute()),q=$('#cfq').value.trim().toLowerCase(),ties=$('#cfties').checked,cap=400;cfBtns();
  const rows=R.rows.filter(r=>(!ties||r.tie)&&(!CF.sh.size||CF.sh.has(cfExt(r.key)))&&!CF.hd.has(cfExt(r.key))&&(!q||r.key.includes(q)||r.list.some(x=>x.mod.toLowerCase().includes(q)||x.rel.toLowerCase().includes(q))));
  const t=R.rows.filter(r=>r.tie).length;
@@ -31,13 +55,15 @@ function cfDraw(){const R=CF.res||(CF.res=cfCompute()),q=$('#cfq').value.trim().
  $('#cflist').innerHTML=rows.slice(0,cap).map(cfRow).join('')+(rows.length>cap?'<div class="stats" style="padding:8px 10px">…and '+(rows.length-cap)+' more. Search to narrow the list.</div>':'')
   ||'<div class="stats" style="padding:10px">'+(R.rows.length?'No files match.':'No conflicts. Every file name comes from one mod only.')+'</div>';
  $('#cfnote2').textContent='Only mods that are on and have a priority above 0 are compared'+(R.zero?' ('+R.zero+' left out at priority 0)':'')+'. Files matched by “Ignored files” are left out. Data files (.ide, .ipl, .dat, .cfg) may be merged by Mod Loader instead of replaced.'}
+/* SAMM-PATCH-DUPLICATE-PLUGINS: the .asi warning lives in Version & Essentials > Duplicate plugins (25-checker.js), not in this card */
 function cfBadge(){const R=CF.res=cfCompute(),n=R.rows.length,t=R.rows.filter(r=>r.tie).length,c=$('#cfcnt'),nt=$('#cfnote'),b=$('#cfopen');
  if(c){c.textContent=n?String(n):'';c.className='cnt'+(t?' warn':'')}
  if(nt)nt.textContent=!S.mods.length?'Scan a GTA folder to see conflicts.':n?n+' file name'+(n===1?'':'s')+' appear in more than one mod'+(t?', '+t+' with equal priority':'')+'.':'No file name appears in more than one mod.';
  if(b)b.disabled=!S.mods.length;
  if($('#cfd').open){cfMenus();cfDraw()}}
-const cfSoon=()=>{clearTimeout(CF.tm);CF.tm=setTimeout(cfBadge,500)};
-document.body.insertAdjacentHTML('beforeend','<dialog id="cfd" class="cfdlg"><div class="lh"><h2>File conflicts</h2><span class="stats" id="cfinfo"></span><span style="flex:1"></span><button class="btn sm" id="cfx">Close</button></div>'
+/* the scan can be slow with many mods, so it waits for an idle moment after each render() */
+const cfSoon=()=>{clearTimeout(CF.tm);CF.tm=setTimeout(()=>{if(window.requestIdleCallback)requestIdleCallback(cfBadge,{timeout:2000});else cfBadge()},500)};
+document.body.insertAdjacentHTML('beforeend','<dialog id="cfd" class="cfdlg"><div class="lh"><h2>File conflicts</h2><span class="stats" id="cfinfo"></span><span style="flex:1"></span>'+/*SAMM-PATCH-CF-CLOSE*/'<button class="btn rib" id="cfx" title="Close" aria-label="Close"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.7 3.7l8.6 8.6M12.3 3.7l-8.6 8.6"/></svg></button></div>'
  +'<div class="stats">Mods that contain a file with the same name. Under the current profile the mod with the higher priority wins. Change priorities on the mod list.</div>'
  +'<div class="cftool"><input type="search" id="cfq" placeholder="Search files or mods"><label class="stats"><input type="checkbox" id="cfties">Only same priority</label><div class="cfdd"><button class="btn sm" data-cfm="cfshp" aria-haspopup="true" aria-expanded="false">Show: <span id="cfsht">All types</span> ▾</button><div class="cfmenu" id="cfshp" data-k="sh" hidden></div></div><div class="cfdd"><button class="btn sm" data-cfm="cfhdp" aria-haspopup="true" aria-expanded="false">Hide: <span id="cfhdt">Nothing</span> ▾</button><div class="cfmenu" id="cfhdp" data-k="hd" hidden></div></div></div>'
  +'<div class="cflist" id="cflist"></div><div class="stats" id="cfnote2" style="margin-top:8px"></div></dialog>');
@@ -52,13 +78,16 @@ S.cfFil=S.cfFil||{sh:[],hd:[]};CF.sh=new Set(S.cfFil.sh||[]);CF.hd=new Set(S.cfF
 const cfSaveF=()=>{S.cfFil={sh:[...CF.sh],hd:[...CF.hd]};save()};
 function cfLab(set,none){const a=[...set].sort();return a.length?(a.length<=2?a.map(cfFe).join(', '):cfFe(a[0])+', '+cfFe(a[1])+' +'+(a.length-2)):none}
 function cfBtns(){const a=$('#cfsht'),b=$('#cfhdt');if(a)a.textContent=cfLab(CF.sh,'All types');if(b)b.textContent=cfLab(CF.hd,'Nothing')}
+/* Each menu only lists file types that have at least one conflict AND can still show up under the other list:
+   Show lists no type that is hidden, Hide lists only types that Show still allows. Types you already ticked stay listed so you can untick them. */
 function cfMenus(){const R=CF.res||(CF.res=cfCompute()),cnt=new Map();
  R.rows.forEach(r=>{const e=cfExt(r.key);cnt.set(e,(cnt.get(e)||0)+1)});
- ['ide','ipl','dat','cfg',...CF.sh,...CF.hd].forEach(e=>{if(!cnt.has(e))cnt.set(e,0)});
- const exts=[...cnt].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
- [['sh','#cfshp'],['hd','#cfhdp']].forEach(([k,sel])=>{const el=$(sel);if(!el)return;const set=CF[k],top=el.scrollTop;
-  el.innerHTML='<div class="cfpt"><button class="btn sm" data-cfq="clear">Clear</button>'+'</div>'
-   +(exts.length?exts.map(([e,n])=>'<label class="cfo"><input type="checkbox" data-e="'+esc(e)+'"'+(set.has(e)?' checked':'')+'><span class="cfe">'+esc(cfFe(e))+'</span><span class="cfk">'+esc(TYPES[e]||'')+'</span><span class="cfc">'+n+'</span></label>').join(''):'<div class="stats" style="padding:6px">No conflicts to filter.</div>');
+ [...CF.sh,...CF.hd].forEach(e=>{if(!cnt.has(e))cnt.set(e,0)});
+ const all=[...cnt].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
+ [['sh','#cfshp','Show only these types'],['hd','#cfhdp','Hide these types']].forEach(([k,sel,lab])=>{const el=$(sel);if(!el)return;const set=CF[k],top=el.scrollTop;
+  const exts=all.filter(([e,n])=>set.has(e)||(n>0&&(k==='sh'?!CF.hd.has(e):(!CF.sh.size||CF.sh.has(e)))));
+  el.innerHTML='<div class="cfpt"><span class="cfpl">'+lab+'</span><button type="button" class="btn sm" data-cfq="clear"'+(set.size?'':' disabled')+'>Clear</button></div>'
+   +(exts.length?exts.map(([e,n])=>'<label class="cfo"><input type="checkbox" data-e="'+esc(e)+'"'+(set.has(e)?' checked':'')+'><span class="cfe">'+esc(cfFe(e))+'</span><span class="cfk">'+esc(TYPES[e]||'')+'</span><span class="cfc">'+n+'</span></label>').join(''):'<div class="stats" style="padding:6px">No conflicting file types to list.</div>');
   el.scrollTop=top});
  cfBtns()}
 function cfClose(){['#cfshp','#cfhdp'].forEach(s=>{const p=$(s);if(p)p.hidden=true});document.querySelectorAll('#cfd [data-cfm]').forEach(b=>b.setAttribute('aria-expanded','false'))}

@@ -24,9 +24,12 @@
 <link rel="stylesheet" href="renderer/css/14-toolbar.css">
 <link rel="stylesheet" href="renderer/css/15-mod-info.css">
 <link rel="stylesheet" href="renderer/css/16-theme-zoom.css">
+<link rel="stylesheet" href="renderer/css/17-toolbar-fix.css">
+<link rel="stylesheet" href="renderer/css/18-card-buttons.css">
+<link rel="stylesheet" href="renderer/css/19-dropdown-menus.css">
 </head>
 <body>
-<div class="titlebar"><img class="tb-ic" src="build/icon.png" alt=""><span class="tb-t">San Andreas Mod Manager</span><span class="tb-v">v1.3.3</span><span class="tb-s" id="tbs"></span><div class="wc"><button class="wb" id="wpal" title="Appearance" aria-label="Appearance"></button><button class="wb" id="wtheme" title="Switch to light mode" aria-label="Switch to light mode"></button><button class="wb" id="wupd" title="Check for updates" aria-label="Check for updates"></button><button class="wb" id="wmin" aria-label="Minimize" title="Minimize"></button><button class="wb" id="wmax" aria-label="Maximize" title="Maximize"></button><button class="wb close" id="wclose" aria-label="Close" title="Close"></button></div></div>
+<div class="titlebar"><img class="tb-ic" src="build/icon.png" alt=""><span class="tb-t">San Andreas Mod Manager</span><span class="tb-v">v1.3.4</span><span class="tb-s" id="tbs"></span><div class="wc"><button class="wb" id="wpal" title="Appearance" aria-label="Appearance"></button><button class="wb" id="wtheme" title="Switch to light mode" aria-label="Switch to light mode"></button><button class="wb" id="wupd" title="Check for updates" aria-label="Check for updates"></button><button class="wb" id="wmin" aria-label="Minimize" title="Minimize"></button><button class="wb" id="wmax" aria-label="Maximize" title="Maximize"></button><button class="wb close" id="wclose" aria-label="Close" title="Close"></button></div></div>
 <header>
   <div class="hl">
     <div class="pf"><span>Game</span><div class="dd" id="idd"><button class="ddb" id="iddb" aria-haspopup="listbox" aria-expanded="false"><span id="iddt"></span><svg viewBox="0 0 12 12" width="12" height="12"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="ddm" id="iddm" role="listbox" hidden></div></div></div>
@@ -72,8 +75,6 @@
       <div class="add"><input type="text" id="ipat" placeholder="*.asi or sub/**"><button class="btn sm" id="iadd">Add</button></div>
       <div class="chips" id="chips"></div></details>
     <details class="card fold" id="pn-conflicts"><summary><span>File conflicts</span><span class="cnt" id="cfcnt"></span></summary><p>Mods that contain a file with the same name. The one with the higher priority wins under the current profile.</p><div class="stats" id="cfnote" style="margin-bottom:8px"></div><button class="btn sm" id="cfopen" disabled>Open conflict view</button></details>
-    <details class="card fold" id="pn-trash"><summary><span>Trash</span><span class="cnt" id="trcnt">0</span></summary><p>Removed mods and files wait here until you restore them or delete them for good.</p><div id="trlist"></div>
-      <div style="margin-top:8px"><button class="btn sm del" id="trempty" disabled>Empty Trash</button></div></details>
     <details class="card fold" id="pn-modloader-settings"><summary><span>Modloader settings</span></summary><p id="bcsrc"></p>
       <label class="stats" style="display:flex;gap:8px;align-items:center;margin-bottom:6px"><input type="checkbox" data-bc="EnableMenu">Enable menu</label>
       <label class="stats" style="display:flex;gap:8px;align-items:center;margin-bottom:6px"><input type="checkbox" data-bc="EnablePlugins">Enable plugins</label>
@@ -294,5 +295,6 @@
 <script src="renderer/js/50-multi-stage.js"></script>
 <script src="renderer/js/51-rename.js"></script>
 <script src="renderer/js/52-zoom.js"></script>
+<script src="renderer/js/53-editor-delete.js"></script>
 </body>
 </html>

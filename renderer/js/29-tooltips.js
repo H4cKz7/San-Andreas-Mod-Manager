@@ -20,7 +20,7 @@ function tipShow(el){if(tipFor!==el||!el.isConnected)return;const txt=el.dataset
 document.addEventListener('mouseover',e=>{const el=e.target.closest?e.target.closest('[title],[data-tipt]'):null;
  if(el===tipFor)return;const was=tipOpen();tipOff();if(!el)return;
  if(el.hasAttribute('title')){const v=el.getAttribute('title');if(!v.trim())return;el.dataset.tipt=v;el.removeAttribute('title')}
- tipFor=el;if(was)tipShow(el);else tipT=setTimeout(()=>tipShow(el),450)});
+ tipFor=el;/*SAMM-PATCH-TIP-DELAY: always wait, even when another tooltip was just open*/tipT=setTimeout(()=>tipShow(el),450)});
 document.addEventListener('mousedown',tipOff,true);
 document.addEventListener('keydown',tipOff,true);
 document.documentElement.addEventListener('mouseleave',tipOff);

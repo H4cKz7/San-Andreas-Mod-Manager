@@ -81,3 +81,12 @@ header .tm .tmi.dng,header .tm .tmi.dng svg{color:var(--bad)}
 #mimenub[aria-expanded="true"] svg{color:var(--acc)}
 .tmsub .tmi:disabled small{opacity:.7}
 .tmsub #miclr{margin-top:4px}
+
+/* SAMM-PATCH-TOOLS-X: File conflicts dialog X button, same size and hover colour as #trdx / #lx (change var(--bad) to var(--acc) here for an accent-coloured X) */
+#cfd .rib{width:30px;height:auto;min-height:30px;min-width:0;padding:0;display:inline-grid;place-items:center;flex:none}
+#cfd .rib svg{width:16px;height:16px;flex:none}
+#cfd #cfx:hover,#cfd #cfx:focus-visible{color:var(--bad)}
+/* Tools menu: item text turns accent on hover / focus, like the icons (danger items keep their red) */
+header .tm .tmi:not(:disabled):not(.dng):hover,
+header .tm .tmi:not(:disabled):not(.dng):focus-visible,
+header .tm .tmi[aria-expanded="true"]:not(.dng){color:var(--acc)}
