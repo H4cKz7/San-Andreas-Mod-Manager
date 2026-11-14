@@ -7,7 +7,7 @@
 * **Mod Loader Integration:** Works seamlessly alongside Mod Loader.
 * **Automatic Backups:** Automatically saves original and previous versions of edited config files so you can easily roll back changes.
 
-## Getting Started
+## Getting Started (For Developers)
 ### Prerequisites
 * [Node.js](https://nodejs.org/) installed on your system.
 

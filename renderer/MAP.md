@@ -131,10 +131,10 @@ Version & Essentials checker card
 - functions: asiCheck*, peVersion, checkExe*, asiWalk*, cwDups, cwCount, cwSecs, runChecks*, renderChecks
 - top-level consts/vars: ESSENTIALS, OLA, F92, ESS_URL, KNOWN_EXE, VC, ASI_URL, ASI_URL_SILENT, DL_URL, dlRow, DLB, ckBody, ASI_DLLS, asiBody, sha256, wIgn, cwMli, LIMACK
 
-### 26-dnd.js  (17.3 KB)
+### 26-dnd.js  (17.6 KB)
 selection, drag & drop, cut / copy / paste of mods, folders and files
 - functions: selCls, normItems, modEl, rowEl, rowItem, selPaint, clipSet, pasteTarget, pasteClip*, leave*, landed, transfer*, setHl, endDrag, dropTarget, canDrop, dndBox, dndScroll
-- top-level consts/vars: SEL, SELA, CLIP, DRAG, DNDBUSY, selKey, isCut, itAbs, within, itName, itemsLabel, sleep, reduceMo, SECT, _tip, tip, dndStart, MLWATCH
+- top-level consts/vars: SEL, SELA, CLIP, DRAG, DNDBUSY, selKey, isCut, itAbs, within, itName, itemsLabel, sleep, reduceMo, SECT, _tip, tip, dndStart, dndSide, MLWATCH
 
 ### 27-boot.js  (0.2 KB)
 startup: restore() and first render()
@@ -279,5 +279,5 @@ asks before the app closes while profile, Modloader or plugin changes are not sa
 - **14-toolbar.css** (9.6 KB): header layout cleanup, the Tools menu, config editor toolbar rows, joined-button hover lines and header Undo / Redo hover
 - **15-mod-info.css** (16.1 KB): per-mod source, version, notes and tags (47-mod-info.js)
 - **16-theme-zoom.css** (2.4 KB): theme-coloured text selection and the title bar zoom control (52-zoom.js)
-- **17-card-buttons.css** (2.2 KB): accent hover on sidebar card, config editor and dialog buttons, Modloader settings Refresh key fits the card, Plugins card fields get the Max log size focus look
-- **18-dropdown-menus.css** (1.1 KB): Game, Profile and Sort by drop-downs (and the other drop-down lists) follow the Tools menu's hover look and animation, custom drop-downs (.cdd) like the Refresh key get the accent text on hover too
+- **17-card-buttons.css** (3.4 KB): accent hover on sidebar card, config editor and dialog buttons, Modloader settings Refresh key fits the card, Plugins card fields get the Max log size focus look
+- **18-dropdown-menus.css** (1.8 KB): Game, Profile and Sort by drop-downs (and the other drop-down lists) follow the Tools menu's hover look and animation, custom drop-downs (.cdd) like the Refresh key get the accent text on hover too

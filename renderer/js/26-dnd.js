@@ -155,8 +155,10 @@ function dndScroll(){const D=DRAG;if(!D||D.raf)return;
  const step=()=>{const D=DRAG;if(!D||!D.sp||performance.now()-D.st>600){if(D)D.raf=0;return}
   dndBox().scrollBy(0,D.sp);D.raf=requestAnimationFrame(step)};
  D.raf=requestAnimationFrame(step)}
+/* SAMM-PATCH-DND-SIDE-DROP: the margin of <main> beside the list (and the gap before the sidebar) counts as part of the list area, so a folder can be dropped there to move it out to the modloader folder */
+const dndSide = T => T === document.querySelector('main');
 /* dragover fires many times a second: when the pointer is still over the same element (and Ctrl is unchanged) the drop target and canDrop() result are reused */
-document.addEventListener('dragover',e=>{const D=DRAG;if(!D)return;const T=e.target;if(!T||!T.closest||!T.closest('main>section,#rootd'))return;
+document.addEventListener('dragover',e=>{const D=DRAG;if(!D)return;const T=e.target;if(!T||!T.closest||!(T.closest('main>section,#rootd')||dndSide(T)))return;
  const inRoot=!!T.closest('#rootd');
  if(inRoot)D.sp=0;else{D.sp=(()=>{const r=dndBox().getBoundingClientRect();return e.clientY<Math.max(D.hb,r.top)+46?-6:e.clientY>Math.min(innerHeight,r.bottom)-56?6:0})();D.st=performance.now();if(D.sp)dndScroll()}
  const copy=e.ctrlKey||e.metaKey;let tg,ok;
@@ -169,8 +171,8 @@ document.addEventListener('dragover',e=>{const D=DRAG;if(!D)return;const T=e.tar
    if(tg.rv)D.tm=setTimeout(()=>{if(DRAG&&DRAG.tk===key)rvHoverOpen(tg)},650);else if(tg.m)D.tm=setTimeout(()=>{if(!DRAG||DRAG.tk!==key)return; /* hovering a closed folder opens it, like a file manager */
     if(!tg.rel){if(!tg.m._o)toggleMod(tg.el,tg.m)}else if(!tg.el.classList.contains('open'))foldDir(tg.m,tg.el)},650)}}
  else{clearTimeout(D.tm);D.tk=null;setHl(tg&&!tg.zone?tg.el:null,'dropbad');tip(null)}});
-document.addEventListener('dragleave',e=>{if(DRAG&&!(e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest('main>section,#rootd'))){clearTimeout(DRAG.tm);DRAG.tk=null;setHl(null,'');tip(null)}});
-document.addEventListener('drop',async e=>{if(!DRAG||!e.target.closest||!e.target.closest('main>section,#rootd'))return;e.preventDefault();
+document.addEventListener('dragleave',e=>{if(DRAG&&!(e.relatedTarget&&e.relatedTarget.closest&&(e.relatedTarget.closest('main>section,#rootd')||dndSide(e.relatedTarget)))){clearTimeout(DRAG.tm);DRAG.tk=null;setHl(null,'');tip(null)}});
+document.addEventListener('drop',async e=>{if(!DRAG||!e.target.closest||!(e.target.closest('main>section,#rootd')||dndSide(e.target)))return;e.preventDefault();
  const tg=dropTarget(e),copy=e.ctrlKey||e.metaKey,items=DRAG.items;endDrag();
  if(tg&&canDrop(items,tg,copy))await transfer(items,tg,copy)});
 document.addEventListener('dragend',endDrag);

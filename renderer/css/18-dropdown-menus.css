@@ -12,3 +12,11 @@
 
 /* ---- custom drop-down buttons (.cdd: Modloader settings Refresh key, Appearance preset, ...): text turns accent on hover / focus / while open, same as above ---- */
 .cdd>.ddb:not(:disabled):is(:hover,:focus-visible),.cdd>.ddb[aria-expanded=true]{color:var(--acc)}
+
+/* SAMM-PATCH-BUTTONS-AND-ARROWS: the arrow of the Game, Profile, Sort by and custom drop-downs turns accent with the text (hover / focus / list open) */
+.pf .ddb:is(:hover,:focus-visible) svg,.pf .ddb[aria-expanded=true] svg,
+#sortsel>.ddb:is(:hover,:focus-visible) svg,#sortsel>.ddb[aria-expanded=true] svg,
+.cdd>.ddb:not(:disabled):is(:hover,:focus-visible) svg,.cdd>.ddb[aria-expanded=true] svg{color:var(--acc)!important}
+.pf .ddb:is(:hover,:focus-visible) svg path,.pf .ddb[aria-expanded=true] svg path,
+#sortsel>.ddb:is(:hover,:focus-visible) svg path,#sortsel>.ddb[aria-expanded=true] svg path,
+.cdd>.ddb:not(:disabled):is(:hover,:focus-visible) svg path,.cdd>.ddb[aria-expanded=true] svg path{stroke:var(--acc)!important}

@@ -21,3 +21,20 @@ dialog .btn:not(.pri):not(.del):not(.rib):not(:disabled):is(:hover,:focus-visibl
 
 /* ---- Plugins card: the priority fields get the same accent border on click / focus as the Max log size field above (their inline border blocked it) ---- */
 #plugs input[data-pl]:focus,#plugs input[data-pl]:focus-visible{border-color:var(--acc)!important;box-shadow:0 2px 0 var(--acclip)}
+
+/* SAMM-PATCH-BUTTONS-AND-ARROWS: subfolder rows (the folders inside a mod): Info, Ignore, trash and rename are one height, and Info / Ignore light up on hover like the other buttons */
+.tr.dir>button{box-sizing:border-box;height:24px!important;min-height:24px!important;display:inline-flex;align-items:center;justify-content:center;line-height:1}
+.tr.dir>button.trash{width:24px!important;min-width:24px!important;padding:0!important}
+.tr.dir>button:not(.trash):not(:disabled):is(:hover,:focus-visible){color:var(--acc)!important}
+
+/* SAMM-PATCH-INFO-HOVER-BORDER: subfolder rows: the border of Info / Ignore turns accent on hover / focus together with the text */
+.tr.dir>button:not(.trash):not(:disabled):is(:hover,:focus-visible){border-color:var(--acc)!important}
+@media (prefers-reduced-motion:no-preference){
+ .tr.dir>button:not(.trash){transition:border-color .15s ease,color .15s ease}
+}
+
+/* SAMM-PATCH-EXPAND-COLLAPSE-HOVER: Expand all / Collapse all above the file tree of an opened mod: text and icon turn accent on hover / focus */
+.fh>.btn:not(.pri):not(.del):not(:disabled):is(:hover,:focus-visible){color:var(--acc)!important}
+@media (prefers-reduced-motion:no-preference){
+ .fh>.btn{transition:border-color .15s ease,color .15s ease}
+}
