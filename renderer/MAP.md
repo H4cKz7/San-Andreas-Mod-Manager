@@ -17,7 +17,7 @@ global state S, profiles and inheritance, glob matching, small helpers
 - functions: setPr, rawParents, reach, inheritedFrom, flag, eff, mw
 - top-level consts/vars: $, esc, TYPES, typesOf, blobs, S, fx, P, parentsOf, hier, E, hit, swOn, exOther, inh, _st, saveNow, save, SAVEHOLD, toast, prio, pat2re, fileIgnored
 
-### 02-modlist.js  (21.0 KB)
+### 02-modlist.js  (21.3 KB)
 icons, file tree, render() of the mod list, list events, profile / Folder.Config sidebar UI
 - functions: treeBody, tree, status, render, curFile, ini, slideSw, morph, renderProf
 - top-level consts/vars: FO, FI, CV, TI, dirsOf, RNI, PVsel, PVlast, tog, _qt, ddb, ddm, hl, hlSet, ddOpen, curLabel, setLim, addPar, setUm, addIn, addIg
@@ -92,10 +92,10 @@ custom drop-down component (cdd), parent profile suggestions
 - functions: placeMenu, enhanceCdd, cddOpen, cddClose, parOpen, parClose
 - top-level consts/vars: CHEV, CHK2
 
-### 18-undo.js  (2.6 KB)
+### 18-undo.js  (14.1 KB)
 undo / redo of unsaved profile changes (header buttons)
-- functions: undoTrack, undoReset, undoApply, doUndo, doRedo, doUndoAll, doRedoAll
-- top-level consts/vars: UNDO, snapState, SPL, splClose
+- functions: undoTrack, undoReset, undoApply, doUndo, doRedo, doUndoAll, doRedoAll, fsHistPush, fsHistRemap, fsHistTidy, fsHistTrashBack*, fsHistToTrash*, fsHistCheck, fsHistRun*, fsHistStep*, fsHistAll*, fsHistToast, fsProfRefs, fsProfApply, fsRenameBook, fsHistRename*
+- top-level consts/vars: UNDO, snapState, SPL, splClose, fsRootKey, fsMiKey, FSHBUSY
 
 ### 19-install-into.js  (1.2 KB)
 install into an existing mod folder option
@@ -116,9 +116,9 @@ folder scan, modloader.ini / profile reading and writing, Save, restore on start
 - functions: writeFile*, applyLine, parseIniFile, commit*, ingest*, detectPath*, findExes*, scanRoot*, findML*, instFor*, mlMissing, openBaseInstaller, applyBasePlan, mlBtnSync, scanGameOnly*, openStored*, setRoot*, switchInst*, forgetInst*, pick*, profIni, patchIni, filesRaw, files, syncCur*, probeLog*, restore*
 - top-level consts/vars: root, srcText, src, game, logGet, extraLog, written, newP, idb, canWrite, PSEC, ppath, gpath, curInst, exeNote, ML_URL, ESS_URL2, bcText, ppText, _fc, pendTxt, welcome
 
-### 23-trash.js  (8.3 KB)
+### 23-trash.js  (8.9 KB)
 Trash: move to / restore from / delete permanently
-- functions: listFiles, refreshMod, trashPut*, trashMod*, trashPath*, trashRestore*, trashDelete*, renderTrash, trashRestoreAll*
+- functions: listFiles, diskDirsOf, refreshMod, trashPut*, trashMod*, trashPath*, trashRestore*, trashDelete*, renderTrash, trashRestoreAll*
 - top-level consts/vars: gameDir, locAbs, locOf, trMod, TR, trName, trClick, trEmpty
 
 ### 24-launch.js  (3.4 KB)
@@ -131,7 +131,7 @@ Version & Essentials checker card
 - functions: asiCheck*, peVersion, checkExe*, asiWalk*, cwDups, cwCount, cwSecs, runChecks*, renderChecks
 - top-level consts/vars: ESSENTIALS, OLA, F92, ESS_URL, KNOWN_EXE, VC, ASI_URL, ASI_URL_SILENT, DL_URL, dlRow, DLB, ckBody, ASI_DLLS, asiBody, sha256, wIgn, cwMli, LIMACK
 
-### 26-dnd.js  (17.0 KB)
+### 26-dnd.js  (17.3 KB)
 selection, drag & drop, cut / copy / paste of mods, folders and files
 - functions: selCls, normItems, modEl, rowEl, rowItem, selPaint, clipSet, pasteTarget, pasteClip*, leave*, landed, transfer*, setHl, endDrag, dropTarget, canDrop, dndBox, dndScroll
 - top-level consts/vars: SEL, SELA, CLIP, DRAG, DNDBUSY, selKey, isCut, itAbs, within, itName, itemsLabel, sleep, reduceMo, SECT, _tip, tip, dndStart, MLWATCH
@@ -243,7 +243,7 @@ keep adding archives and folders to the Install dialog, then install them togeth
 - functions: qLoaded, qStageClear, qStageDraw, qStageSet, qStaging, qFolderOf, qStageGo
 - top-level consts/vars: qMerge
 
-### 51-rename.js  (4.9 KB)
+### 51-rename.js  (5.5 KB)
 rename mod folders (and folders inside them) from the mod list. Pencil button on hover, or F2.
 - functions: rnCheck, rnRefs, renameItem*
 - top-level consts/vars: RN_BAD, RN_RES
@@ -271,7 +271,7 @@ asks before the app closes while profile, Modloader or plugin changes are not sa
 - **06-header-checker.css** (2.3 KB): v1.2.4: split buttons, checker drop-downs
 - **07-installer.css** (10.6 KB): v1.2.5: smart installer dialog and file picker tree
 - **08-dnd.css** (5.3 KB): v1.2.6: selection, drag & drop highlights, animations
-- **09-layout.css** (2.6 KB): v1.2.6 hotfix: fixed title bar and toolbar, the mod list and the sidebar each scroll on their own
+- **09-layout.css** (3.1 KB): v1.2.6 hotfix: fixed title bar and toolbar, the mod list and the sidebar each scroll on their own
 - **10-updater.css** (4.3 KB): update button in the title bar
 - **11-wiki.css** (8.7 KB): in-app Wiki reader (loaded in order by index.html). Uses the app's theme variables, so light/dark/custom colours just work.
 - **12-scrollbars-folder-tools.css** (6.3 KB): scrollbar insets, Rescan chevron menu, Root cleo/scripts dialog

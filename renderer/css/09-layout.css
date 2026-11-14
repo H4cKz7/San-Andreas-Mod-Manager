@@ -9,10 +9,11 @@ main{flex:1 1 auto;min-height:0;width:100%;max-width:none;margin:0;overflow:hidd
  display:grid;grid-template-columns:minmax(0,1fr) 368px;grid-template-rows:minmax(0,1fr);gap:0 14px;align-content:stretch;
  padding:0 max(22px,calc((100% - 1400px)/2 + 22px))}
 /* left column: fixed search bar + status line, then the scrolling list */
-main>section{min-width:0;min-height:0;display:flex;flex-direction:column;overflow:hidden;padding:20px 0 0}
-main>section>.bar,main>section>#src{flex:none}
-main>section>#list{flex:1 1 auto;min-height:0;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;padding:6px 6px 34px 8px;margin-left:-8px}
-#list.dropzone{outline-offset:-3px}
+main>section{min-width:0;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);overflow:hidden;padding:20px 0 0 8px;margin-left:-8px}
+main>section>#list{flex:1 1 auto;min-height:0;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;padding:6px 6px 34px 0}
+/* SAMM-PATCH-DROPZONE-FRAME: drop-target frame. Not an outline on the scroll box (that cut through the scrollbar); an overlay beside it. */
+#list.dropzone{outline:none}
+main>section:has(>#list.dropzone)::after{content:"";grid-row:3;grid-column:1;z-index:2;pointer-events:none;box-sizing:border-box;margin:0 14px 36px -6px;border:2px dashed var(--acc);border-radius:12px}
 /* the last card has no bottom margin, so the end of the list mirrors its start (6px top = 6px bottom) and the scrollbar ends where it starts */
 main>section>#list>:last-child{margin-bottom:0}
 /* right column: the cards fill the column height and scroll with their own scrollbar (8px air between the cards and the scrollbar, 6px above the first and below the last card); the extra bottom space is padding, so cards scroll to the window edge while the scrollbar stops earlier */
@@ -22,8 +23,9 @@ main>section>#list::-webkit-scrollbar-button:vertical:end:increment,.side::-webk
 /* narrow window: one column again, the whole area scrolls */
 @media(max-width:960px){
  main{display:block;overflow-x:hidden;overflow-y:auto;padding-top:20px;padding-bottom:20px}
- main>section{display:block;overflow:visible;padding:0}
+ main>section{display:block;overflow:visible;padding:0;margin:0}
  main>section>#list{overflow:visible;padding:0;margin:0}
- #list.dropzone{outline-offset:6px}
+ #list.dropzone{outline:2px dashed var(--acc);outline-offset:6px}
+ main>section:has(>#list.dropzone)::after{display:none}
  .side{overflow:visible;padding:0;margin:16px 0 0}
 }

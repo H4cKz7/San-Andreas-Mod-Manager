@@ -88,18 +88,18 @@ async function transfer(items,tgt,copy){
   if(cf.length){const ch=await ask({title:cf.length===1?'“'+cf[0].name+'” already exists':cf.length+' items already exist',text:'Replace them with the ones you are '+(copy?'copying':'moving')+' into “'+tName+'”? The existing ones go to the Trash, not away for good. Or keep both.',ok:'Replace',alt:'Keep both'});
    if(!ch)return false;mode=ch==='alt'?'both':'replace'}
   if(!copy)await leave(jobs.map(j=>j.it));
-  const used=new Set(),touched=new Set(),out=[];let failed=0,err='';
+  const used=new Set(),touched=new Set(),out=[],hist=[]/* SAMM-PATCH-UNDO-FILES */;let failed=0,err='';
   const topOf=p=>{const l=locOf(p);return l?l.mod:''};
   const uniq=(dst,isDir)=>{const dir=pathN.dirname(dst),ext=isDir?'':pathN.extname(dst),b=pathN.basename(dst,ext);let k=1,c;
    do{c=pathN.join(dir,b+' (copy'+(k>1?' '+k:'')+')'+ext);k++}while(fsN.existsSync(c)||used.has(c.toLowerCase()));return c};
   for(const j of jobs){try{
-   let dst=j.dst;const same=dst.toLowerCase()===j.src.toLowerCase();
+   let repId=null;let dst=j.dst;const same=dst.toLowerCase()===j.src.toLowerCase();
    if(used.has(dst.toLowerCase())||(fsN.existsSync(dst)&&(mode==='both'||same)))dst=uniq(dst,j.isDir);
    else if(fsN.existsSync(dst)){const lc=locOf(dst),isD=fsN.statSync(dst).isDirectory();
-    await trashPut(lc.mod,lc.rel,isD,isD?listFiles(dst).length:1)}
+    repId=(await trashPut(lc.mod,lc.rel,isD,isD?listFiles(dst).length:1)).id}
    used.add(dst.toLowerCase());
    if(copy)await fsN.promises.cp(j.src,dst,{recursive:true});else await TR.move(j.src,dst);
-   touched.add(topOf(j.src));touched.add(topOf(dst));out.push({...j,final:dst});
+   touched.add(topOf(j.src));touched.add(topOf(dst));out.push({...j,final:dst});hist.push({src:j.src,dst,isDir:j.isDir,rep:repId,cp:null,u:false});
    if(!copy&&!j.it.mod.startsWith('::')){const mr=pathN.join(base,topOf(j.src));let d=pathN.dirname(j.src); /* empty folders are invisible in the list, so tidy them up */
     while(d.toLowerCase()!==mr.toLowerCase()&&within(d,mr)){try{fsN.rmdirSync(d)}catch(x){break}d=pathN.dirname(d)}}
   }catch(x){failed++;err=x.message}}
@@ -111,8 +111,8 @@ async function transfer(items,tgt,copy){
    if(m){m._o=true;m._x=m._x||{};parts.slice(1,-1).reduce((a,x)=>{const c=a?a+'/'+x:x;m._x[c]=true;return c},'')}
    res.push({mod:mn,rel,dir:o.isDir})});
   SEL.clear();res.forEach(r=>{if(r.rel||S.mods.some(m=>m.name===r.mod))SEL.set(selKey(r.mod,r.rel),r)});SELA=res.length?res[res.length-1]:null;
-  render();runChecks();landed(res);if(typeof rvAfter==='function')rvAfter(res);
-  if(out.length)toast((copy?'Copied ':'Moved ')+itemsLabel(out.map(o=>o.it))+' to “'+tName+'”'+(failed?', '+failed+' failed':''));
+  const fsHe=(out.length&&hist.length&&typeof fsHistPush==='function')?fsHistPush({copy,label:(copy?'Copied ':'Moved ')+itemsLabel(out.map(o=>o.it))+' to “'+tName+'”',jobs:hist}):null;render();runChecks();landed(res);if(typeof rvAfter==='function')rvAfter(res);
+  if(out.length)toast((copy?'Copied ':'Moved ')+itemsLabel(out.map(o=>o.it))+' to “'+tName+'”'+(failed?', '+failed+' failed':''),fsHe?()=>fsHistToast(fsHe):undefined);
   if(failed&&!out.length)notice('Couldn’t '+(copy?'copy':'move')+' the items',err);
   return out.length>0}
  catch(e){notice('Something went wrong',e.message);return false}

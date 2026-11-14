@@ -36,9 +36,9 @@ async function renameItem(mod,rel){
   try{await fsN.promises.rename(abs,pathN.join(parent,nn))}
   catch(e){return notice('Couldn’t rename it',(/^(EBUSY|EPERM|EACCES)$/.test(e.code)?'Windows says the folder is in use. Close the game, Explorer windows or any program that has it open, then try again.\n\n':'')+e.message)}
   const nrel=top?'':(rel.includes('/')?rel.slice(0,rel.lastIndexOf('/')+1):'')+nn,newMod=top?nn:mod,m=S.mods.find(x=>x.name===mod),inRel=r=>!top&&r&&(r===rel||r.startsWith(rel+'/'));
-  let ref=0;const tl=TR.list();let trCh=false;
+  if(typeof fsHistRemap==='function')fsHistRemap(abs,pathN.join(parent,nn));/* SAMM-PATCH-UNDO-FILES */let ref=0;let fsPB=null,fsPA=null;const tl=TR.list();let trCh=false;
   if(top){
-   ref=rnRefs(old,nn);
+   fsPB=typeof fsProfRefs==='function'?fsProfRefs():null;ref=rnRefs(old,nn);fsPA=typeof fsProfRefs==='function'?fsProfRefs():null;
    if(typeof miMoved==='function')miMoved(old,nn,false);
    if(m){m.name=nn;S.mods.sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}))}
    if(blobs.has(old)){blobs.set(nn,blobs.get(old));blobs.delete(old)}
@@ -53,9 +53,10 @@ async function renameItem(mod,rel){
   if(trCh)TR.save(tl);
   const it={mod:newMod,rel:nrel,dir:true};
   SEL.clear();SEL.set(selKey(it.mod,it.rel),it);SELA=it;
-  try{undoReset()}catch(e){} /* the header Undo history refers to the old name, so it starts again */
+  try{UNDO.last=snapState()}catch(e){} /* SAMM-PATCH-UNDO-RENAME-KEEP: the history is kept; only the current-state marker moves past the profile entries the rename changed */
+  const fsHe=typeof fsHistPush==='function'?fsHistPush({kind:'rename',copy:false,label:'Renamed “'+old+'” to “'+nn+'”',jobs:[{src:abs,dst:pathN.join(parent,nn),isDir:true,rep:null,cp:null,u:false}],prof:fsPB&&fsPA?{before:fsPB,after:fsPA}:null}):null; /* SAMM-PATCH-UNDO-RENAME-2 */
   render();runChecks();landed([it]);
-  toast('Renamed to “'+nn+'”'+(ref?'. Profile entries updated: press Save changes':''))}
+  toast('Renamed to “'+nn+'”'+(ref?'. Profile entries updated':''),fsHe?()=>fsHistToast(fsHe):undefined)}
  catch(e){notice('Something went wrong',e.message)}
  finally{DNDBUSY=false}}
 /* pencil button (hover a row) */

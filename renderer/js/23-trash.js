@@ -8,10 +8,12 @@ const locOf=p=>{const sub=(b,pre)=>{if(!b)return null;const r=pathN.relative(b,p
 const trMod=m=>m.startsWith('::')?m.slice(2):m;
 function listFiles(abs,pre=''){let out=[],ents;try{ents=fsN.readdirSync(abs,{withFileTypes:true})}catch(e){return out}
  for(const e of ents){if(e.isDirectory())out=out.concat(listFiles(pathN.join(abs,e.name),pre+e.name+'/'));else out.push(pre+e.name)}return out}
+/* SAMM-PATCH-EMPTY-FOLDERS: all folders of a mod, read from disk (so empty ones can be shown); cached as m._dirs, reset by refreshMod / trashPath / expanding the mod */
+function diskDirsOf(m){if(m._dirs===undefined){const out=[],walk=(abs,pre)=>{let es;try{es=fsN.readdirSync(abs,{withFileTypes:true})}catch(e){return}for(const e of es)if(e.isDirectory()){const r=pre+e.name;out.push(r);walk(pathN.join(abs,e.name),r+'/')}};try{walk(locAbs(m.name,''),'')}catch(e){}m._dirs=out}return m._dirs}
 function refreshMod(name){const abs=pathN.join(root._path,name),i=S.mods.findIndex(m=>m.name===name);
  if(!fsN.existsSync(abs)){if(i>=0)S.mods.splice(i,1);return}
  const files=listFiles(abs).sort();
- if(i>=0)S.mods[i].files=files;else{S.mods.push({name,files});S.mods.sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}))}}
+ if(i>=0){S.mods[i].files=files;S.mods[i]._dirs=void 0}else{S.mods.push({name,files});S.mods.sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true}))}}
 /* ---- Trash: items are moved (not copied) into the app's data folder and can be restored or deleted for good ---- */
 const TR={_k:null,_v:[],
  dir(){return pathN.join(window.__native.userData,'trash',S.curInst||'default')},
@@ -33,7 +35,7 @@ async function trashPath(m,rel,isDir){
  if(!root)return toast('Scan your modloader folder first');
  const n=isDir?m.files.filter(f=>f.startsWith(rel+'/')).length:1,nm=rel.split('/').pop();
  if(!await ask({title:`Move “${nm}” to the Trash?`,text:(isDir?`The folder and its ${n} file${n===1?'':'s'}`:'The file')+` will be moved out of “${m.name}”. You can restore it from the Trash.`,ok:'Move to Trash',danger:true}))return;
- try{const it=await trashPut(m.name,rel,isDir,n);m.files=m.files.filter(f=>isDir?!f.startsWith(rel+'/'):f!==rel);render();runChecks();toast('Moved to the Trash',()=>trashRestore(it.id))}
+ try{const it=await trashPut(m.name,rel,isDir,n);m.files=m.files.filter(f=>isDir?!f.startsWith(rel+'/'):f!==rel);m._dirs=void 0;render();runChecks();toast('Moved to the Trash',()=>trashRestore(it.id))}
  catch(e){notice('Couldn’t move it to the Trash',e.message)}}
 async function trashRestore(id){const it=TR.list().find(x=>x.id===id);if(!it||(!root&&!it.mod.startsWith('::')))return;
  const from=pathN.join(TR.dir(),id,'payload');
