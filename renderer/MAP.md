@@ -37,7 +37,7 @@ save-as helper and the game shortcut (.lnk / .bat) dialog
 - functions: saveAs*, cutArgs, cutUi, cutBuild
 - top-level consts/vars: CUT, cutTarget
 
-### 06-ui.js  (9.8 KB)
+### 06-ui.js  (9.9 KB)
 sidebar panel state, patchList() DOM morphing, ask() dialog, expanding mod rows
 - functions: patchList, pulse, ask, toggleMod, foldDir, bulkFold
 - top-level consts/vars: notice
@@ -131,9 +131,9 @@ Version & Essentials checker card
 - functions: asiCheck*, peVersion, checkExe*, asiWalk*, cwDups, cwCount, cwSecs, runChecks*, renderChecks
 - top-level consts/vars: ESSENTIALS, OLA, F92, ESS_URL, KNOWN_EXE, VC, ASI_URL, ASI_URL_SILENT, DL_URL, dlRow, DLB, ckBody, ASI_DLLS, asiBody, sha256, wIgn, cwMli, LIMACK
 
-### 26-dnd.js  (16.6 KB)
+### 26-dnd.js  (17.0 KB)
 selection, drag & drop, cut / copy / paste of mods, folders and files
-- functions: selCls, normItems, modEl, rowEl, rowItem, selPaint, clipSet, pasteTarget, pasteClip*, leave*, landed, transfer*, setHl, endDrag, dropTarget, canDrop, dndScroll
+- functions: selCls, normItems, modEl, rowEl, rowItem, selPaint, clipSet, pasteTarget, pasteClip*, leave*, landed, transfer*, setHl, endDrag, dropTarget, canDrop, dndBox, dndScroll
 - top-level consts/vars: SEL, SELA, CLIP, DRAG, DNDBUSY, selKey, isCut, itAbs, within, itName, itemsLabel, sleep, reduceMo, SECT, _tip, tip, dndStart, MLWATCH
 
 ### 27-boot.js  (0.2 KB)
@@ -255,10 +255,15 @@ browser-style zoom control (- 100% +) in the title bar, left of the Appearance b
 config editor Delete button: moves the open config file to the Trash
 - functions: edDelete*
 
+### 54-exit-guard.js  (5.0 KB)
+asks before the app closes while profile, Modloader or plugin changes are not saved
+- functions: exitSave*
+- top-level consts/vars: exitLeft, exitItems, exitPending
+
 (`name*` = async function)
 
 ## CSS (renderer/css), loaded in this order, later files override earlier ones
-- **01-base.css** (31.2 KB): variables, layout, header, mod list, cards, dialogs, editor widgets
+- **01-base.css** (30.8 KB): variables, layout, header, mod list, cards, dialogs, editor widgets
 - **02-editor.css** (4.0 KB): config editor layout and controls
 - **03-panels.css** (4.1 KB): v1.2.3 additions: chevrons, trash rows, checker cards, launch warning
 - **04-appearance.css** (1.3 KB): Appearance dialog
@@ -266,14 +271,13 @@ config editor Delete button: moves the open config file to the Trash
 - **06-header-checker.css** (2.3 KB): v1.2.4: split buttons, checker drop-downs
 - **07-installer.css** (10.6 KB): v1.2.5: smart installer dialog and file picker tree
 - **08-dnd.css** (5.3 KB): v1.2.6: selection, drag & drop highlights, animations
-- **09-layout.css** (1.0 KB): v1.2.6 hotfix: fixed title bar and toolbar, only the area below them scrolls, sticky sidebar
+- **09-layout.css** (2.6 KB): v1.2.6 hotfix: fixed title bar and toolbar, the mod list and the sidebar each scroll on their own
 - **10-updater.css** (4.3 KB): update button in the title bar
 - **11-wiki.css** (8.7 KB): in-app Wiki reader (loaded in order by index.html). Uses the app's theme variables, so light/dark/custom colours just work.
-- **12-v128.css** (6.3 KB): scrollbar insets, Rescan chevron menu, Root cleo/scripts dialog
+- **12-scrollbars-folder-tools.css** (6.3 KB): scrollbar insets, Rescan chevron menu, Root cleo/scripts dialog
 - **13-features.css** (4.3 KB): file conflict view, window drop overlay, install backups dialog layout
-- **14-toolbar.css** (6.7 KB): header layout cleanup and the Tools menu
+- **14-toolbar.css** (9.6 KB): header layout cleanup, the Tools menu, config editor toolbar rows, joined-button hover lines and header Undo / Redo hover
 - **15-mod-info.css** (16.1 KB): per-mod source, version, notes and tags (47-mod-info.js)
 - **16-theme-zoom.css** (2.4 KB): theme-coloured text selection and the title bar zoom control (52-zoom.js)
-- **17-toolbar-fix.css** (2.8 KB): config editor toolbar rows (search row, top row with Delete) and an instant centre line on joined buttons
-- **18-card-buttons.css** (1.5 KB): accent hover on sidebar card and config editor buttons, Modloader settings Refresh key fits the card
-- **19-dropdown-menus.css** (0.8 KB): Game, Profile and Sort by drop-downs (and the other drop-down lists) follow the Tools menu's hover look and animation
+- **17-card-buttons.css** (2.2 KB): accent hover on sidebar card, config editor and dialog buttons, Modloader settings Refresh key fits the card, Plugins card fields get the Max log size focus look
+- **18-dropdown-menus.css** (1.1 KB): Game, Profile and Sort by drop-downs (and the other drop-down lists) follow the Tools menu's hover look and animation, custom drop-downs (.cdd) like the Refresh key get the accent text on hover too

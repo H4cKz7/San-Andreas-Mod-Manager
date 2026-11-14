@@ -26,7 +26,7 @@ const UPD={s:{phase:'idle',version:'',pct:0,notes:'',portable:false,current:''},
  async install(s){
   const ok=await ask({title:'Ready to install',ok:'Restart and install',
    text:'SA Mod Manager v'+s.version+' has been downloaded. The app will close, install the update and start again. Unsaved profile changes will be lost.\n\nCancel if you need to save first, then click the update button again. Otherwise it is installed automatically when you close the app.'});
-  if(ok)window.__native.updInstall()},
+  if(ok){if(window.__native.allowClose)window.__native.allowClose();window.__native.updInstall()}},
  async click(){const s=this.s;
   if(s.phase==='downloading')return toast('Downloading update… '+s.pct+'%');
   if(this.busy)return;this.busy=true;

@@ -20,7 +20,7 @@ function rnRefs(old,nn){let n=0;const lo=old.toLowerCase(),ln=nn.toLowerCase();
    if(ch){p[a]=out;n++}})});
  return n}
 async function renameItem(mod,rel){
- if(DNDBUSY)return;if(!root)return toast('Scan your modloader folder first');
+ if(DNDBUSY)return;if(!root)return toast('Add your GTA installation first');
  if(!mod||mod.startsWith('::'))return toast('Only mod folders can be renamed here');
  const top=!rel,old=top?mod:rel.split('/').pop(),abs=locAbs(mod,rel),parent=pathN.dirname(abs);
  if(!fsN.existsSync(abs))return toast('That folder no longer exists');

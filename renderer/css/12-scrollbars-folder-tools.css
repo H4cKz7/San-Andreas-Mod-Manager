@@ -1,4 +1,4 @@
-/* SA Mod Manager - 12-v128.css: scrollbar insets, Rescan chevron menu, Root cleo/scripts dialog (loaded in order by index.html) */
+/* SA Mod Manager - 12-scrollbars-folder-tools.css: scrollbar insets, Rescan chevron menu, Root cleo/scripts dialog (loaded in order by index.html) */
 /* ---- scrollbars: the standard scrollbar-* properties in 01-base.css make Chromium ignore the ::-webkit-scrollbar rules,
    so they are reset here. The invisible end buttons keep the thumb away from rounded corners and window edges. ---- */
 *{scrollbar-width:auto;scrollbar-color:auto}

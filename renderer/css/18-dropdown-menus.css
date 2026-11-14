@@ -1,4 +1,4 @@
-/* SA Mod Manager - 19-dropdown-menus.css: Game, Profile and Sort by drop-downs (and the other drop-down lists) follow the Tools menu's hover look and animation (loaded last, so it overrides earlier files) */
+/* SA Mod Manager - 18-dropdown-menus.css: Game, Profile and Sort by drop-downs (and the other drop-down lists) follow the Tools menu's hover look and animation, custom drop-downs (.cdd) like the Refresh key get the accent text on hover too (loaded last, so it overrides earlier files) */
 
 /* ---- list items: text turns accent on hover / keyboard highlight, like the Tools menu items (danger items stay red) ---- */
 .ddm .ddi:not(.danger):is(:hover,.hl){color:var(--acc)}
@@ -9,3 +9,6 @@
 /* ---- the Game, Profile and Sort by buttons: text turns accent on hover / focus / while open, like the Tools button ---- */
 .pf .ddb:is(:hover,:focus-visible),.pf .ddb[aria-expanded=true],
 #sortsel>.ddb:is(:hover,:focus-visible),#sortsel>.ddb[aria-expanded=true]{color:var(--acc)}
+
+/* ---- custom drop-down buttons (.cdd: Modloader settings Refresh key, Appearance preset, ...): text turns accent on hover / focus / while open, same as above ---- */
+.cdd>.ddb:not(:disabled):is(:hover,:focus-visible),.cdd>.ddb[aria-expanded=true]{color:var(--acc)}

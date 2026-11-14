@@ -3,7 +3,7 @@
 document.querySelectorAll('.side details').forEach(d=>{if(d.id in S.panels)d.open=S.panels[d.id];d.addEventListener('toggle',()=>{S.panels[d.id]=d.open;save()})});
 new ResizeObserver(()=>document.documentElement.style.setProperty('--hh',(document.querySelector('header').offsetHeight+40)+'px')).observe(document.querySelector('header'));
 function patchList(mods,hs){const L=$('#list');
- if(!mods.length){L.innerHTML='<div class="empty">No mods to show. Scan your GTA folder to list the mods you already have, or install a new one.</div>';return}
+ if(!mods.length){L.innerHTML='<div class="empty">No mods to show. Add your GTA installation from the Game menu to list the mods you already have, or install a new one.</div>';return}
  if(L.firstElementChild&&L.firstElementChild._k===undefined)L.innerHTML='';
  const old=new Map();[...L.children].forEach(el=>{if(el._k!==undefined)old.set(el._k,el)});const t=document.createElement('template');
  mods.forEach((m,i)=>{const h=hs[i];let el=old.get(m.name);old.delete(m.name);

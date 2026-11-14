@@ -123,6 +123,34 @@ ipcMain.handle('save-shortcut',async(e,name,opts)=>{
   return shell.writeShortcutLink(p,'create',opts)?p:false;
 });
 
+/* SAMM-EXIT-GUARD: every close (X button, Alt+F4, taskbar) is first offered to the page, which asks when changes are unsaved.
+   close-ack = the page is alive (so a broken page can never trap the window), close-reply = may the window close now.
+   quitting (before-quit) and close-force (the updater's restart) always pass. */
+let quitting = false, closeOK = false, forceUntil = 0, closeAsked = false, closeT = null;
+app.on('before-quit', () => { quitting = true });
+const mayClose = () => quitting || closeOK || Date.now() < forceUntil;
+const askClose = w => {
+  if (closeAsked || w.isDestroyed()) return;
+  const wc = w.webContents;
+  if (wc.isLoading() || (typeof wc.isCrashed === 'function' && wc.isCrashed())) { closeOK = true; return w.close() }
+  closeAsked = true;
+  clearTimeout(closeT);
+  closeT = setTimeout(() => { closeAsked = false; closeOK = true; if (!w.isDestroyed()) w.close() }, 2000);
+  wc.send('close-request');
+};
+ipcMain.on('close-ack', (e, show) => {
+  clearTimeout(closeT);
+  const w = BrowserWindow.fromWebContents(e.sender);
+  if (show && w && !w.isDestroyed()) { if (w.isMinimized()) w.restore(); w.show(); w.focus() }
+});
+ipcMain.on('close-reply', (e, ok) => {
+  clearTimeout(closeT); closeAsked = false;
+  if (!ok) return;
+  closeOK = true;
+  const w = BrowserWindow.fromWebContents(e.sender);
+  if (w && !w.isDestroyed()) w.close();
+});
+ipcMain.on('close-force', () => { forceUntil = Date.now() + 20000 });
 function winStatePath(){return path.join(app.getPath('userData'),'window-state.json')}
 function readWinState(){
   try{
@@ -149,7 +177,7 @@ app.whenReady().then(()=>{
   let snapT=null;const snapSoon=()=>{clearTimeout(snapT);snapT=setTimeout(snap,300)};
   win.on('maximize',()=>{snap();win.webContents.send('win-state',true)});
   win.on('unmaximize',()=>{snap();win.webContents.send('win-state',false)});
-  win.on('resize',snapSoon);win.on('move',snapSoon);win.on('close',snap);
+  win.on('resize',snapSoon);win.on('move',snapSoon);win.on('close',e=>{snap();if(mayClose())return;e.preventDefault();askClose(win)});
   win.loadFile(path.join(__dirname,'index.html'));
   win.webContents.setWindowOpenHandler(({url})=>{if(/^https?:\/\//i.test(url))shell.openExternal(url);return{action:'deny'}});
   win.webContents.on('will-navigate',e=>e.preventDefault());

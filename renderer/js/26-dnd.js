@@ -149,14 +149,16 @@ const dndStart=e=>{const el=e.target.closest&&e.target.closest('[draggable="true
  setTimeout(()=>g.remove(),0)};
 $('#list').addEventListener('dragstart',dndStart);$('#rootlist').addEventListener('dragstart',dndStart);
 /* SAMM-PATCH-DND-CONFLICTS-ASI: edge auto-scroll runs on requestAnimationFrame instead of scrolling on every dragover event */
+/* SAMM-PATCH-SCROLL-NEXT-TO-LIST: the scrolling element is #list (or <main> in the one-column layout) */
+function dndBox(){const L=document.getElementById('list');return getComputedStyle(L).overflowY==='auto'?L:SECT.parentElement}
 function dndScroll(){const D=DRAG;if(!D||D.raf)return;
  const step=()=>{const D=DRAG;if(!D||!D.sp||performance.now()-D.st>600){if(D)D.raf=0;return}
-  window.scrollBy(0,D.sp);D.raf=requestAnimationFrame(step)};
+  dndBox().scrollBy(0,D.sp);D.raf=requestAnimationFrame(step)};
  D.raf=requestAnimationFrame(step)}
 /* dragover fires many times a second: when the pointer is still over the same element (and Ctrl is unchanged) the drop target and canDrop() result are reused */
 document.addEventListener('dragover',e=>{const D=DRAG;if(!D)return;const T=e.target;if(!T||!T.closest||!T.closest('main>section,#rootd'))return;
  const inRoot=!!T.closest('#rootd');
- if(inRoot)D.sp=0;else{D.sp=e.clientY<D.hb+46?-6:e.clientY>innerHeight-56?6:0;D.st=performance.now();if(D.sp)dndScroll()}
+ if(inRoot)D.sp=0;else{D.sp=(()=>{const r=dndBox().getBoundingClientRect();return e.clientY<Math.max(D.hb,r.top)+46?-6:e.clientY>Math.min(innerHeight,r.bottom)-56?6:0})();D.st=performance.now();if(D.sp)dndScroll()}
  const copy=e.ctrlKey||e.metaKey;let tg,ok;
  if(!inRoot&&D.ce===T&&D.cc===copy){tg=D.ct;ok=D.ok}
  else{tg=dropTarget(e);ok=!!(tg&&canDrop(D.items,tg,copy));if(!inRoot){D.ce=T;D.cc=copy;D.ct=tg;D.ok=ok}}

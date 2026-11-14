@@ -163,16 +163,15 @@ async function setRoot(h,opts){opts=opts||{};
  await scanRoot()}
 async function switchInst(id){if(id===S.curInst&&(root||game))return;let o=null;try{o=await idb('get',id)}catch(e){}
  const nm=(S.installs.find(i=>i.id===id)||{}).name||'that folder';
- if(!o)return notice('Folder not found','Couldn’t find “'+nm+'” anymore. Scan it again to link it back.');
+ if(!o)return notice('Folder not found','Couldn’t find “'+nm+'” anymore. Add it again from the Game menu to link it back.');
  S.curInst=id;root=o.root||null;game=o.game||null;extraLog=null;
  try{await openStored()}
- catch(e){notice('Folder not found','Couldn’t open “'+nm+'”. Scan it again to link it back.')}}
+ catch(e){notice('Folder not found','Couldn’t open “'+nm+'”. Add it again from the Game menu to link it back.')}}
 async function forgetInst(id){S.installs=S.installs.filter(i=>i.id!==id);try{await idb('del',id)}catch(e){}
  if(S.curInst===id){S.curInst='';const nx=S.installs[0];
   if(nx)await switchInst(nx.id);else{root=null;game=null;S.mods=[];S.exes=[];logGet=null;srcText='No folder scanned yet';render();welcome()}}
  else render()}
 async function pick(){try{await setRoot(await showDirectoryPicker())}catch(e){if(e.name!=='AbortError')notice('Couldn’t open that folder',e.message)}}
-$('#scan').onclick=pick;
 $('#rescan').onclick=async()=>{try{await openStored()}catch(e){notice('Couldn’t read the folder',e.message)}};
 function profIni(n){const p=fx(n),h=x=>`[Profiles.${n}.${x}]`,lim=S.pl!=null?S.pl:100;
  const cf=[...p.cx];if(p.ia!=null)cf.push('IgnoreAllMods = '+p.ia);if(p.ea!=null)cf.push('ExcludeAllMods = '+p.ea);

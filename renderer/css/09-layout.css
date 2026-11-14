@@ -1,10 +1,29 @@
-/* SA Mod Manager - 09-layout.css: v1.2.6 hotfix: fixed title bar and toolbar, only the area below them scrolls, sticky sidebar (loaded in order by index.html) */
+/* SA Mod Manager - 09-layout.css: v1.2.6 hotfix: fixed title bar and toolbar, the mod list and the sidebar each scroll on their own (loaded in order by index.html) */
 /* v1.2.6 hotfix: fixed title bar + toolbar; only the area below the toolbar scrolls, so the scrollbar starts under the toolbar */
 html,body{height:100%;overflow:hidden}
 body{display:flex;flex-direction:column}
 .titlebar,header{position:relative;top:auto;flex:none}
-main{flex:1 1 auto;min-height:0;width:100%;max-width:none;margin:0;overflow-x:hidden;overflow-y:auto;align-content:start;
- padding-left:max(22px,calc((100% - 1400px)/2 + 22px));padding-right:max(22px,calc((100% - 1400px)/2 + 22px));container-type:size}
-/* the sidebar sticks to the top of the scrolling area and scrolls on its own if it is taller than the view */
-.side{top:20px!important;max-height:calc(100vh - 170px)!important;max-height:calc(100cqh - 40px)!important}
-@media(max-width:960px){.side{position:static!important;max-height:none!important}}
+/* SAMM-PATCH-SCROLL-NEXT-TO-LIST: the search bar and status line stay put, only the mod list scrolls (its scrollbar starts under them, right beside the list).
+   The sidebar scrolls on its own and always fits the free height. */
+main{flex:1 1 auto;min-height:0;width:100%;max-width:none;margin:0;overflow:hidden;
+ display:grid;grid-template-columns:minmax(0,1fr) 368px;grid-template-rows:minmax(0,1fr);gap:0 14px;align-content:stretch;
+ padding:0 max(22px,calc((100% - 1400px)/2 + 22px))}
+/* left column: fixed search bar + status line, then the scrolling list */
+main>section{min-width:0;min-height:0;display:flex;flex-direction:column;overflow:hidden;padding:20px 0 0}
+main>section>.bar,main>section>#src{flex:none}
+main>section>#list{flex:1 1 auto;min-height:0;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;padding:6px 6px 34px 8px;margin-left:-8px}
+#list.dropzone{outline-offset:-3px}
+/* the last card has no bottom margin, so the end of the list mirrors its start (6px top = 6px bottom) and the scrollbar ends where it starts */
+main>section>#list>:last-child{margin-bottom:0}
+/* right column: the cards fill the column height and scroll with their own scrollbar (8px air between the cards and the scrollbar, 6px above the first and below the last card); the extra bottom space is padding, so cards scroll to the window edge while the scrollbar stops earlier */
+.side{position:static!important;top:auto!important;align-self:stretch;height:auto;min-height:0;max-height:none!important;overflow-x:hidden;overflow-y:auto;margin:20px 0 0;padding:6px 8px 34px 0}
+/* the scrollbar track ends 36px above the window edge (a taller invisible end stop than the 8px default from the scrollbar rules) */
+main>section>#list::-webkit-scrollbar-button:vertical:end:increment,.side::-webkit-scrollbar-button:vertical:end:increment{height:36px}
+/* narrow window: one column again, the whole area scrolls */
+@media(max-width:960px){
+ main{display:block;overflow-x:hidden;overflow-y:auto;padding-top:20px;padding-bottom:20px}
+ main>section{display:block;overflow:visible;padding:0}
+ main>section>#list{overflow:visible;padding:0;margin:0}
+ #list.dropzone{outline-offset:6px}
+ .side{overflow:visible;padding:0;margin:16px 0 0}
+}

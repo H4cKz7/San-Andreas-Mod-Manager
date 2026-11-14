@@ -31,8 +31,6 @@ header .btn.icon{width:34px;padding:0}
 .btn.del:hover{border-color:var(--bad);color:var(--bad)}
 select,input[type=text],input[type=search]{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 10px;outline:none}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-main{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;padding:20px 22px;max-width:1400px;margin:0 auto}
-@media(max-width:960px){main{grid-template-columns:1fr}}
 .bar{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
 .bar input{flex:1;min-width:160px}
 .stats{color:var(--mut);font-size:13px}
@@ -70,8 +68,7 @@ main{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;padding:20p
 .f.ign span{text-decoration:line-through;color:var(--mut)}
 .f span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .f button{border:1px solid var(--line);background:var(--panel);border-radius:6px;font-size:11px;padding:1px 8px;cursor:pointer}
-.side{display:flex;flex-direction:column;gap:16px;align-self:start;position:sticky;top:76px;max-height:calc(100vh - 92px);overflow-y:auto;overscroll-behavior:contain;padding-right:4px;scrollbar-gutter:stable}
-@media(max-width:960px){.side{position:static;max-height:none;overflow:visible;padding-right:0}}
+.side{display:flex;flex-direction:column;gap:16px;overscroll-behavior:contain;scrollbar-gutter:stable}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
 .card h3{margin:0 0 4px;font-size:15px}
 .card p{margin:0 0 10px;color:var(--mut);font-size:12.5px}
@@ -177,7 +174,6 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 .ddi .x{margin-left:6px;border:0;background:none;color:var(--mut);cursor:pointer;opacity:0;font-size:16px;line-height:1;padding:0 2px}
 .ddi:hover .x{opacity:1}.ddi .x:hover{color:var(--bad)}
 .ddsep{height:1px;background:var(--line);margin:6px 4px}.ddi.add{color:var(--acc);font-weight:600}
-.side{top:calc(var(--hh,62px) + 14px)!important;max-height:calc(100vh - var(--hh,62px) - 28px)!important}
 @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}

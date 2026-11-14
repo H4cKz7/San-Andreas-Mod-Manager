@@ -1,4 +1,4 @@
-/* SA Mod Manager - 18-card-buttons.css: accent hover on sidebar card and config editor buttons, Modloader settings Refresh key fits the card (loaded last, so it overrides earlier files) */
+/* SA Mod Manager - 17-card-buttons.css: accent hover on sidebar card, config editor and dialog buttons, Modloader settings Refresh key fits the card, Plugins card fields get the Max log size focus look (loaded last, so it overrides earlier files) */
 
 /* ---- sidebar cards: button text and icon turn accent on hover / focus, like the header buttons (Primary and Delete buttons keep their colours) ---- */
 .side .card .btn:not(.pri):not(.del):not(:disabled):is(:hover,:focus-visible){color:var(--acc)}
@@ -14,3 +14,10 @@
 /* Max log size field: same look as the other inputs (its inline style blocked the accent border on focus) and as tall as the drop-down below it */
 #pn-modloader-settings #bcmls{box-sizing:border-box;height:36px;padding:0 10px;border-radius:8px}
 #pn-modloader-settings #bcmls:focus,#pn-modloader-settings #bcmls:focus-visible{border-color:var(--acc)!important;box-shadow:0 2px 0 var(--acclip)}
+
+/* ---- dialogs (Cancel of the updater and every Ask dialog, Appearance: Import / Export / Close, ...): plain buttons turn accent on hover / focus too.
+   Primary and Delete buttons keep their colours, icon-only .rib buttons (the red x) keep their own hover rules ---- */
+dialog .btn:not(.pri):not(.del):not(.rib):not(:disabled):is(:hover,:focus-visible){color:var(--acc)}
+
+/* ---- Plugins card: the priority fields get the same accent border on click / focus as the Max log size field above (their inline border blocked it) ---- */
+#plugs input[data-pl]:focus,#plugs input[data-pl]:focus-visible{border-color:var(--acc)!important;box-shadow:0 2px 0 var(--acclip)}

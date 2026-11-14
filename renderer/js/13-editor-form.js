@@ -157,7 +157,7 @@ async function edClose(){const c=ED.cur;if(c&&c.dirty&&!await ask({title:'Discar
  emCapture();ED.cur=null;$('#edd').close();
  if(ED.touchedML){ED.touchedML=false;const pend=files().filter(([p,t])=>written[p]!==t).length;if(pend)toast('Saved. Rescan to load the changes into the main view.');else{try{await scanRoot()}catch(e){}}}}
 function keepOpen(fn){const op=[...$('#edbody').querySelectorAll('details.jn[open]')].map(d=>d.dataset.path);fn();$('#edbody').querySelectorAll('details.jn').forEach(d=>{if(op.includes(d.dataset.path))d.open=true})}
-$('#edbtn').onclick=()=>{if(!root&&!game)return toast('Scan a GTA folder first');$('#edd').showModal();ED.tab='files';document.querySelectorAll('#edtabs button').forEach(b=>b.classList.toggle('on',b.dataset.t==='files'));edLaunch()};
+$('#edbtn').onclick=()=>{if(!root&&!game)return toast('Add a GTA installation first');$('#edd').showModal();ED.tab='files';document.querySelectorAll('#edtabs button').forEach(b=>b.classList.toggle('on',b.dataset.t==='files'));edLaunch()};
 $('#edclose').onclick=edClose;$('#edrescan').onclick=edScan;
 $('#edd').addEventListener('cancel',e=>{e.preventDefault();edClose()});
 $('#edd').addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
