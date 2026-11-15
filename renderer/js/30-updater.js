@@ -5,7 +5,7 @@ WI.upd='<path d="M8 2.4v7.3M4.9 6.9L8 10l3.1-3.1M3 13.2h10"/>';
 const UPD={s:{phase:'idle',version:'',pct:0,notes:'',portable:false,current:''},busy:false,told:false,
  ui(s){if(s)this.s=s;const{phase,version,pct}=this.s,b=$('#wupd');
   const t={available:'Update available: v'+version,downloading:'Downloading update… '+pct+'%',ready:'Update v'+version+' is ready to install',checking:'Checking for updates…'}[phase]||'Check for updates';
-  b.title=t;b.setAttribute('aria-label',t);
+  /*SAMM-PATCH-UPD-TIP2*/if(b.dataset.tipt!==t){b.dataset.tipt=t;if(typeof tipFor!=='undefined'&&tipFor===b&&tipOpen())tipShow(b)}b.removeAttribute('title');if(b.getAttribute('aria-label')!==t)b.setAttribute('aria-label',t);
   b.classList.toggle('has',phase==='available'||phase==='ready');
   b.classList.toggle('busy',phase==='checking'||phase==='downloading');
   if(phase==='available'&&!this.told&&!this.busy){this.told=true;toast('Update v'+version+' is available. Click the update button to install it')}},
@@ -40,4 +40,5 @@ const UPD={s:{phase:'idle',version:'',pct:0,notes:'',portable:false,current:''},
   this.busy=false}};
 $('#wupd').innerHTML=wi(WI.upd);
 $('#wupd').onclick=()=>UPD.click();
+/*SAMM-PATCH-UPD-TIP2: the button never keeps a title (29-tooltips.js hands it back on click, which made Windows show its own tooltip)*/{const wb=$('#wupd'),park=()=>{const v=wb.getAttribute('title');if(v!=null){if(v.trim())wb.dataset.tipt=v;wb.removeAttribute('title')}};park();new MutationObserver(park).observe(wb,{attributes:true,attributeFilter:['title']})}
 if(window.__native.onUpdate){window.__native.onUpdate(s=>UPD.ui(s));window.__native.updState().then(s=>UPD.ui(s)).catch(()=>{})}
